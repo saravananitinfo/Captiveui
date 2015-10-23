@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.tenant.Tenant',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.tenant.Tenant'],
+	model:'CaptivePortal.model.tenant.Tenant',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_TENANTS,
+		type:'ajax',
+		reader:{
+			type:'json',
+			rootProperty:'data'
+		}
+	}
+});

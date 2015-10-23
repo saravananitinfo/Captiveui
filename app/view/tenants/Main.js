@@ -1,0 +1,11 @@
+Ext.define('CaptivePortal.view.tenants.Main',{
+	extend:'Ext.container.Container',
+	requires:['CaptivePortal.view.tenants.TenantList'],
+	alias:'widget.tenantsmain',
+	height:'100%',
+	width:'100%',
+	layout:'card',
+	items:[{
+		xtype:'tenantlist'
+	}]
+})

@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.role.Role',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.role.Role'],
+	model:'CaptivePortal.model.role.Role',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_ROLES,
+		type:'ajax',
+		reader:{
+			type:'json',
+			rootProperty:'data'
+		}
+	}
+});

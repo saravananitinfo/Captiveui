@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.site.Site',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.site.Site'],
+	model:'CaptivePortal.model.site.Site',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_TENANTS,
+		type:'ajax',
+		reader:{
+			type:'json',
+			root:'data'
+		}
+	}
+});

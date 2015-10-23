@@ -1,0 +1,11 @@
+Ext.define('CaptivePortal.view.roles.Main',{
+	extend:'Ext.container.Container',
+	requires:['CaptivePortal.view.roles.RoleList'],
+	alias:'widget.rolemain',
+	layout:'card',
+	height:'100%',
+	width:'100%',
+	items:[{
+		xtype:'rolelist'
+	}]
+})

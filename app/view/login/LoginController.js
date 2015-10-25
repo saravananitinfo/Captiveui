@@ -2,6 +2,8 @@
 Ext.define('CaptivePortal.view.login.LoginController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.login',
+    requires: ['CaptivePortal.view.home.Home', 'CaptivePortal.view.home.Body', 'CaptivePortal.view.home.Navigation', 'CaptivePortal.view.home.Heading',
+        'CaptivePortal.view.users.TenantList'],
     routes: {
         'forgotpassword/:id': 'onShowForgotPassword'
     },
@@ -10,7 +12,15 @@ Ext.define('CaptivePortal.view.login.LoginController', {
             '*': {
                 showLogin: 'onShowLogin'
             }
+        },
+        component: {
+            'button#btn_login': {
+                click: 'login'
+            }
         }
+    },
+    test: function () {
+        alert('calling')
     },
     onShowForgotPassword: function (id) {
         if (Ext.getCmp('viewport')) {
@@ -36,8 +46,8 @@ Ext.define('CaptivePortal.view.login.LoginController', {
             labelComp.getEl().dom.addEventListener('click', this.createForget_password_view.bind(ctrl));
         }
     },
-    render: function (form) {
-        var btn = form.down('button');
+    onFormRender: function (form) {
+        var btn = this.getView().lookupReference('btn_login');
         var nav = new Ext.util.KeyNav({
             target: form.getEl(),
             enter: function (e) {
@@ -47,11 +57,19 @@ Ext.define('CaptivePortal.view.login.LoginController', {
         });
     },
     loginForSuperAdmin: function (userObj) {
-        var viewObj = Ext.create('CaptivePortal.view.home.Home', userObj);
-        Ext.create('Ext.container.Viewport', {
-            layout: 'fit',
-            items: [viewObj]
+        var homepanel = Ext.create('CaptivePortal.view.home.Home', {
+            layout: 'vbox',
+            user: {
+                langDesc: userObj.langDesc,
+                userName: userObj.userName
+            }
         });
+        var navpanel = Ext.create('CaptivePortal.view.home.Navigation');
+        CaptivePortal.util.Utility.createMenusForUserBasedOnPermisson(navpanel);
+        var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
+        var bodypanel = Ext.create('CaptivePortal.view.home.Body');
+        homepanel.add(navpanel, headingpanel, bodypanel);
+        Ext.getCmp('viewport').add(homepanel);
     },
     login: function (btn) {
         var formObj = btn.up('form'), form = formObj.getForm();
@@ -70,7 +88,7 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                     var userObj = Ext.decode(response.responseText);
                     var userName = "", profileId = "", cookieObj = {}, userInitialObj = {};
                     if (userObj.data && userObj.data.user) {
-                        if (userObj.data.user.user_role && userObj.data.user.user_role == 'super_admin') {
+                        if (userObj.data.user.user_role && userObj.data.user.user_role === 'super_admin') {
                             userName = "";
                             if (userObj.data.user.access_permission_list && userObj.data.user.access_permission_list.length) {
                                 var len = userObj.data.user.access_permission_list.length;
@@ -79,27 +97,82 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                     accessPermissionList.push({module: perm['access_for'], read: perm['read'], write: perm['write']});
                                 }
                             }
-                            cookieObj = {remember: rememberMe, email: userObj.data.user.email, token: userObj.data.user.auth_token, username: userName, language: 'English'};
-                            userInitialObj = {
-                                user: {
-                                    langDesc: cookieObj.language,
-                                    userName: cookieObj.username
-                                }
-                            };
+                            var data = userObj.data.user;
+                            cookieObj = {remember: rememberMe, email: data.email, token: data.auth_token, username: data.email, language: 'English', role: data.user_role};
+                            CaptivePortal.app.setUserName(data.email);
+                            CaptivePortal.app.setUserRole(data.user_role);
+                            CaptivePortal.app.setAccessPermissionList(data.access_permission_list);
+                            CaptivePortal.app.setToken(data.auth_token);
+
+                            var userInitialObj = {
+                                langDesc: cookieObj.language,
+                                userName: cookieObj.username
+                            }
                             CaptivePortal.util.Utility.setValuesForCookies(cookieObj);
                             this.loginForSuperAdmin(userInitialObj);
                         } else {
-                            var profiles = userObj.data.user.profiles;
+                            console.log('userObj For Users');
+                            console.log(userObj);
                             userName = (profiles && profiles.length && profiles[0].name) ? profiles[0].name : "";
                             profileId = (profiles && profiles.length && profiles[0].id) ? profiles[0].id : "";
-                            cookieObj = {remember: rememberMe, email: userObj.data.user.email, token: userObj.data.user.auth_token, username: userName, language: 'English', profileId: profileId};
+                            cookieObj = {role: 'user', remember: rememberMe, email: userObj.data.user.email, token: userObj.data.user.auth_token, username: userName, language: 'English', profileId: profileId};
                             CaptivePortal.util.Utility.setValuesForCookies(cookieObj);
-                            CaptivePortal.util.Utility.doLoginForLoggedUser();
+                            var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
+                            if (!homepanel) {
+                                homepanel = Ext.create('CaptivePortal.view.home.Home', {
+                                    layout: 'vbox',
+                                    user: {
+                                        langDesc: cookieObj.language,
+                                        userName: cookieObj.username
+                                    }
+                                });
+                            }
+                            var profiles = userObj.data.user.profiles;
+                            if (profiles.length > 1) {
+                                homepanel.add({
+                                    xtype: 'home_appheader',
+                                    margin: '40 0 0 0',
+                                    padding: '40',
+                                    listeners: {
+                                        afterrender: function (container) {
+                                            container.down('label').setText('Choose a Tenant')
+                                        }
+                                    }
+                                }, {
+                                    xtype: 'user_tenantlist',
+                                    padding: '40',
+                                    listeners: {
+                                        afterrender: function (panel) {
+                                            var grid = panel.down('gridpanel');
+                                            grid.getStore().removeAll();
+                                            grid.getStore().setData(userObj.data.user.profiles)
+                                        }
+                                    }
+                                });
+                                if (Ext.getCmp('viewport')) {
+                                    Ext.getCmp('viewport').removeAll();
+                                    Ext.getCmp('viewport').add(homepanel);
+                                }
+
+                            } else {
+                                CaptivePortal.util.Utility.doLoginForLoggedUser();
+                                homepanel.add({
+                                    xtype: 'home_navigation'
+                                }, {
+                                    xtype: 'home_appheader'
+                                }, {
+                                    xtype: 'appbody'
+                                });
+                                if (Ext.getCmp('viewport')) {
+                                    Ext.getCmp('viewport').removeAll();
+                                    Ext.getCmp('viewport').add(homepanel);
+                                }
+                            }
                         }
                     }
-                    console.log(Ext.ComponentQuery.query('panel#login')[0])
                     var loginpanel = Ext.ComponentQuery.query('panel#login')[0];
-                    loginpanel.destroy();
+                    if (loginpanel)
+                        loginpanel.destroy();
                 } else {
                     if (resObj.error) {
                         errLab.show();
@@ -114,3 +187,5 @@ Ext.define('CaptivePortal.view.login.LoginController', {
     }
 
 });
+
+//# sourceURL=http://localhost:8383/CaptivePortal/app/view/login/LoginController.js

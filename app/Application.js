@@ -11,7 +11,9 @@ Ext.define('CaptivePortal.Application', {
     stores: [
         'CaptivePortal.store.user.User',
         'CaptivePortal.store.tenant.Tenant',
-        'CaptivePortal.store.role.Role'
+        'CaptivePortal.store.role.Role',       
+        'CaptivePortal.store.user.TenantList',
+        'ProfileMenuList'
     ],   
     
     launch: function () {

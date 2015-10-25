@@ -85,7 +85,8 @@ Ext.define('CaptivePortal.view.login.Login', {
                                                 margin: '0 0 0 190',
                                                 xtype: 'button',
                                                 text: 'Login',
-                                                handler: 'login'
+                                                reference:'btn_login',
+                                                itemId: 'btn_login'
                                             }
                                         ]
                                     }, {
@@ -102,7 +103,7 @@ Ext.define('CaptivePortal.view.login.Login', {
                                             }]
                                     }],
                                 listeners: {
-                                    render: 'render'
+                                    render: 'onFormRender'
                                 }
                             }]
                     }]

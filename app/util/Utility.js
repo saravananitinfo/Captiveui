@@ -28,7 +28,7 @@ Ext.define('CaptivePortal.util.Utility', {
         var bodyHeight = Ext.getBody().getHeight();
         var remHeight = bodyHeight - (t1 + t2 + overallPadding + paddingUpToHeading);
         return remHeight;
-   },
+    },
     setValuesForCookies: function (obj) {
         var currentTime = new Date();
         var expires = new Date(currentTime.getTime() + (7 * 24 * 60 * 60 * 1000));
@@ -36,6 +36,7 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.util.Cookies.set('CAP_SESSION', Ext.encode(obj), expires);
     },
     doLoginForLoggedUser: function () {
+        var me = this;
         var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
         if (cookieVal) {
             var cookieObj = Ext.decode(cookieVal);
@@ -45,26 +46,153 @@ Ext.define('CaptivePortal.util.Utility', {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     var cookieObj = Ext.decode(Ext.util.Cookies.get('CAP_SESSION'));
-                    if (resObj.data.profile) {
-                        var token = cookieObj.token;
-                        var cookieObj = {remember: true, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
-                        this.setValuesForCookies(cookieObj);
-                    }
-                    var viewObj = Ext.create('CaptivePortal.view.home.Home', {
+                    var homepanel = Ext.create('CaptivePortal.view.home.Home', {
+                        layout: 'vbox',
                         user: {
                             langDesc: cookieObj.language,
                             userName: cookieObj.username
                         }
                     });
-                    Ext.create('Ext.container.Viewport', {
-                        layout: 'fit',
-                        items: [viewObj]
-                    });
+                    debugger
+                    if (resObj.data.profile) {
+                        var token = cookieObj.token;
+                        var cookieObj = {remember: cookieObj.remember, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
+                        this.setValuesForCookies(cookieObj);
+                    } else if (resObj.data.user_details.user_role === "super_admin") {
+                        var cookieObj = {remember: cookieObj.remember, email: resObj.data.user_details.email, token: token, username: resObj.data.user_details.email, language: 'English', userId: resObj.data.user_details.user_id};
+                        console.log("Super Admin");
+                        console.log(resObj);
+                        resObj = resObj.data.user_details;
+                        CaptivePortal.app.setUserName(resObj.email);
+                        CaptivePortal.app.setUserRole(resObj.user_role);
+                        CaptivePortal.app.setAccessPermissionList(resObj.access_permission_list);
+                        var navpanel = Ext.create('CaptivePortal.view.home.Navigation');
+                        me.createMenusForUserBasedOnPermisson(navpanel);
+                        var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
+                        var bodypanel = Ext.create('CaptivePortal.view.home.Body');
+                        homepanel.add(navpanel, headingpanel, bodypanel);
+                        Ext.getCmp('viewport').add(homepanel);
+                    }
                 }
             }.bind(this), function (response) {
             }.bind(this), 'GET');
 
         }
+    },
+    doProfileLogin: function (profileId) {
+        var me = this;
+        var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
+        CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+            var resObj = Ext.decode(response.responseText);
+            if (resObj.success) {
+                console.log('profile login');
+                console.log(resObj);
+                var cookieObj = Ext.decode(Ext.util.Cookies.get('CAP_SESSION'));
+                if (resObj.data.profile) {
+                    var token = cookieObj.token;
+                    var cookieObj = {remember: cookieObj.remember, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
+                    this.setValuesForCookies(cookieObj);
+                }
+
+                var profile = resObj.data.profile;
+                CaptivePortal.app.setUserName(profile.name);
+                CaptivePortal.app.setUserRole(profile.user_role);
+                CaptivePortal.app.setAccessPermissionList(profile.access_permission_list);
+                CaptivePortal.app.setUserPermittedList(profile.permitted_roles);
+                CaptivePortal.app.setUserAuthorisedIPs(profile.authorized_ips);
+                CaptivePortal.app.setUserProfileID(profile.id);
+                CaptivePortal.app.setUserTenantID(profile.tenant.id);
+                CaptivePortal.app.setUserTenantName(profile.tenant.name);
+
+                Ext.getCmp('viewport').removeAll();
+                var navpanel = Ext.create('CaptivePortal.view.home.Navigation');
+                me.createMenusForUserBasedOnPermisson(navpanel);
+                var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
+                var bodypanel = Ext.create('CaptivePortal.view.home.Body');
+
+                var homepanel = Ext.create('CaptivePortal.view.home.Home', {
+                    layout: 'vbox',
+                    user: {
+                        langDesc: cookieObj.language,
+                        userName: cookieObj.username
+                    }
+                });
+
+                homepanel.add(navpanel, headingpanel, bodypanel);
+                Ext.getCmp('viewport').add(homepanel);
+
+            }
+        }.bind(this), function (response) {
+        }.bind(this), 'GET');
+    },
+    createMenusForUserBasedOnPermisson: function (navpanel) {
+        var store = Ext.StoreManager.lookup('ProfileMenuList');
+        console.log('Permisson List');
+        var menu;
+        console.log(CaptivePortal.app.getAccessPermissionList());
+        Ext.Array.each(store.data.items, function (rec, index) {
+            menu = Ext.widget('menu');
+            Ext.Array.each(rec.data.menuitem, function (menuitem, index) {
+                if (rec.data.name === "Configuration" && index === 2) {
+                    menu.add({
+                        text: menuitem.name,
+                        itemname: menuitem.itemname,
+                        listeners: {
+                            click: 'onMenuClick'
+                        },
+                        height: 35
+                    })
+                } else if (rec.data.name === "Configuration" && index === 3) {
+                    menu.add({
+                        text: menuitem.name,
+                        listeners: {
+                            click: 'onMenuClick'
+                        },
+                        itemname: menuitem.itemname,
+                        height: 35
+                    })
+                }
+                Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
+                    if (menuitem.itemname === permission.access_for) {
+                        if (permission.read || permission.write) {
+                            menu.add({
+                                text: menuitem.name,
+                                listeners: {
+                                    click: 'onMenuClick'
+                                },
+                                itemname: menuitem.itemname,
+                                height: 35
+                            })
+                        }
+                    }
+                });
+            });
+            console.log(rec)
+            if (rec.data.id == 1)
+                navpanel.add({
+                    text: rec.data.name,
+                    iconCls: 'fa fa-bookmark-o',
+                    menu: menu
+                });
+            else if (rec.data.id == 2)
+                navpanel.add({
+                    text: rec.data.name,
+                    iconCls: 'fa fa-cog',
+                    menu: menu
+                });
+            else if (rec.data.id == 3)
+                navpanel.add({
+                    text: rec.data.name,
+                    iconCls: 'fa fa-paper-plane-o',
+                    menu: menu
+                });
+            else if (rec.data.id == 4)
+                navpanel.add({
+                    text: rec.data.name,
+                    iconCls: 'fa fa-user',
+                    menu: menu
+                });
+        })
     },
     doLogin: function (scope, userObj) {
         CaptivePortal.util.Utility.changeView('CaptivePortal.view.home.Home', scope, userObj);
@@ -74,6 +202,7 @@ Ext.define('CaptivePortal.util.Utility', {
         var viewport = currentView.up('viewport');
         viewport.removeAll();
         if (customObj) {
+            doAjax
             viewport.add(Ext.create(viewName, customObj));
         } else {
             viewport.add(Ext.create(viewName));

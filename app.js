@@ -13,7 +13,18 @@ Ext.application({
     // customize this file, doing so below this section reduces the likelihood
     // of merge conflicts when upgrading to new versions of Sencha Cmd.
     //-------------------------------------------------------------------------
-    requires: ['CaptivePortal.view.Viewport', 'CaptivePortal.util.Utility', 'CaptivePortal.Config'],
+    requires: ['CaptivePortal.view.Viewport', 'CaptivePortal.util.Utility', 'CaptivePortal.Config', 'CaptivePortal.view.users.TenantList'],
+    config: {       
+        userRole:'',
+        accessPermissionList:[],
+        userName:'',      
+        token:'',
+        userPermittedList:[],
+        userAuthorisedIPs:[],
+        userProfileID:'',
+        userTenantID :'',
+        userTenantName:''
+    },
     launch: function () {
         var vp = Ext.create('CaptivePortal.view.Viewport');
         var validateSignIn = function () {
@@ -21,11 +32,9 @@ Ext.application({
             var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
             if (cookieVal) {
                 var cookieObj = Ext.decode(cookieVal);
-                if (cookieObj.remember && cookieObj.email) {
-                    //token
+                if (cookieObj.remember && cookieObj.email) {                    
                     CaptivePortal.util.Utility.doLoginForLoggedUser();
                     return;
-
                 } else {
                     view = Ext.create('CaptivePortal.view.login.Login');
                 }
@@ -33,7 +42,7 @@ Ext.application({
                 view = Ext.create('CaptivePortal.view.login.Login');
             }
             return view;
-        };       
+        };
         vp.add(validateSignIn());
     }
 });

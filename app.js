@@ -23,7 +23,8 @@ Ext.application({
         userAuthorisedIPs:[],
         userProfileID:'',
         userTenantID :'',
-        userTenantName:''
+        userTenantName:'',
+        tempUserObj:''
     },
     launch: function () {
         var vp = Ext.create('CaptivePortal.view.Viewport');

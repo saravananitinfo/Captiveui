@@ -30,7 +30,8 @@ Ext.define('CaptivePortal.view.home.HomeController', {
 
         }
     },
-    getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {       
+    getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) { 
+         Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(record.id);
     },
     createUsers: function () {

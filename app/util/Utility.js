@@ -2,38 +2,38 @@ Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
     //BASE_URL:'http://ec2-54-159-24-52.compute-1.amazonaws.com:8080/',
     BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
-    replaceCommonContainer: function (viewName, controlObj, viewInitParam) {
-        var currentView = controlObj.getView();
-        var viewport = currentView.up('viewport');
-        var container_replace = viewport.down('#container_replace');
-        container_replace.removeAll();
-        if (viewInitParam) {
-            container_replace.add(Ext.create(viewName, viewInitParam));
-        } else {
-            container_replace.add(Ext.create(viewName));
-        }
-
-    },
-    setHeightForCommonContainer: function () {
-        var reqHeight = this.getCommonContainerHeight();
-        var container = Ext.ComponentQuery.query('[topPanel=true]')[0];
-        container.setHeight(reqHeight + 10);
-        container.body.setStyle({'overflow-x': 'hidden'});
-    },
-    getCommonContainerHeight: function () {
-        var t1 = Ext.ComponentQuery.query('[priToolbar=true]')[0].getHeight();
-        var t2 = Ext.ComponentQuery.query('[secToolbar=true]')[0].getHeight();
-        var overallPadding = 20 + 20;
-        var paddingUpToHeading = 10 + 20 + 5 + 60;
-        var bodyHeight = Ext.getBody().getHeight();
-        var remHeight = bodyHeight - (t1 + t2 + overallPadding + paddingUpToHeading);
-        return remHeight;
-    },
     setValuesForCookies: function (obj) {
         var currentTime = new Date();
         var expires = new Date(currentTime.getTime() + (7 * 24 * 60 * 60 * 1000));
         Ext.util.Cookies.clear('CAP_SESSION');
         Ext.util.Cookies.set('CAP_SESSION', Ext.encode(obj), expires);
+        this.addHeader();
+    },
+    setSuperAdminSession: function (obj, remember) {
+        var cookieObj = {
+            remember: remember,
+            email: obj.email,
+            token: obj.auth_token,
+            username: obj.email,
+            language: 'English',
+            role: obj.user_role
+        };
+        this.setValuesForCookies(cookieObj)
+    },
+    setNormalUserSession: function (obj, profileId) {
+        console.log(obj)
+        var cookieObj = {
+            role: 'user',
+            remember: obj.remember,
+            email: obj.data.email,
+            token: obj.data.auth_token,
+            username: obj.data.email,
+            language: 'English',
+            profileId: profileId
+        };
+        console.log('cookieObj');
+        console.log(cookieObj)
+        this.setValuesForCookies(cookieObj)
     },
     doLoginForLoggedUser: function () {
         var me = this;
@@ -53,7 +53,6 @@ Ext.define('CaptivePortal.util.Utility', {
                             userName: cookieObj.username
                         }
                     });
-                    debugger
                     if (resObj.data.profile) {
                         var token = cookieObj.token;
                         var cookieObj = {remember: cookieObj.remember, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
@@ -76,10 +75,11 @@ Ext.define('CaptivePortal.util.Utility', {
                 }
             }.bind(this), function (response) {
             }.bind(this), 'GET');
-
         }
     },
     doProfileLogin: function (profileId) {
+        console.log(CaptivePortal.app.getTempUserObj());
+        this.setNormalUserSession(CaptivePortal.app.getTempUserObj(), profileId);
         var me = this;
         var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
         CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
@@ -87,13 +87,6 @@ Ext.define('CaptivePortal.util.Utility', {
             if (resObj.success) {
                 console.log('profile login');
                 console.log(resObj);
-                var cookieObj = Ext.decode(Ext.util.Cookies.get('CAP_SESSION'));
-                if (resObj.data.profile) {
-                    var token = cookieObj.token;
-                    var cookieObj = {remember: cookieObj.remember, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
-                    this.setValuesForCookies(cookieObj);
-                }
-
                 var profile = resObj.data.profile;
                 CaptivePortal.app.setUserName(profile.name);
                 CaptivePortal.app.setUserRole(profile.user_role);
@@ -113,16 +106,40 @@ Ext.define('CaptivePortal.util.Utility', {
                 var homepanel = Ext.create('CaptivePortal.view.home.Home', {
                     layout: 'vbox',
                     user: {
-                        langDesc: cookieObj.language,
-                        userName: cookieObj.username
+                        langDesc: 'English',
+                        userName: profile.name
                     }
                 });
+                var profile_switch = Ext.ComponentQuery.query('splitbutton#spb_switchprofile')[0];
 
+                var items = [];
+                Ext.Array.each(CaptivePortal.app.getTempUserObj().data.profiles, function (data, index) {
+                    if (profile.tenant.name != data.tenant_name)
+                        items.push({
+                            text: data.tenant_name,
+                            profileid: data.id
+                        })
+                });
+                console.log(items)
+                items.push({
+                    text: 'SignOut'
+                });
+                profile_switch.setText(profile.tenant.name);
+                profile_switch.setMenu({
+                    xtype: 'menu',
+                    itemId: 'menu_profilenavigation',
+                    listeners: {
+                        click: 'onUserProfileSelect'
+                    },
+                    items: items
+                })
+                profile_switch.setVisible(true);
                 homepanel.add(navpanel, headingpanel, bodypanel);
                 Ext.getCmp('viewport').add(homepanel);
-
+                Ext.getCmp('viewport').setLoading(false);
             }
         }.bind(this), function (response) {
+           
         }.bind(this), 'GET');
     },
     createMenusForUserBasedOnPermisson: function (navpanel) {
@@ -133,25 +150,6 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.Array.each(store.data.items, function (rec, index) {
             menu = Ext.widget('menu');
             Ext.Array.each(rec.data.menuitem, function (menuitem, index) {
-                if (rec.data.name === "Configuration" && index === 2) {
-                    menu.add({
-                        text: menuitem.name,
-                        itemname: menuitem.itemname,
-                        listeners: {
-                            click: 'onMenuClick'
-                        },
-                        height: 35
-                    })
-                } else if (rec.data.name === "Configuration" && index === 3) {
-                    menu.add({
-                        text: menuitem.name,
-                        listeners: {
-                            click: 'onMenuClick'
-                        },
-                        itemname: menuitem.itemname,
-                        height: 35
-                    })
-                }
                 Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
                     if (menuitem.itemname === permission.access_for) {
                         if (permission.read || permission.write) {
@@ -218,11 +216,6 @@ Ext.define('CaptivePortal.util.Utility', {
         });
     },
     addHeader: function () {
-        /*Ext.Ajax.setDefaultHeaders({
-         'Accept':'application/json',   
-         'Content-Type':'application/json'
-         }); */
-
         var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
         if (cookieVal) {
             var cookieObj = Ext.decode(cookieVal);
@@ -238,7 +231,6 @@ Ext.define('CaptivePortal.util.Utility', {
                     'u-token': token
                 });
             }
-
         }
     },
     doAjax: function (url, params, successCallback, failureCallback, method, async) {

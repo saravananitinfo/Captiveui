@@ -11,6 +11,7 @@ Ext.define('CaptivePortal.view.users.Main',{
 			itemId:'card_adduser'
 	}]
 	this.callParent(arguments);
+        
 	}
 })
 

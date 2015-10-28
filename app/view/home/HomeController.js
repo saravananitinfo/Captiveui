@@ -8,6 +8,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
             }
         }
     },
+    onUserProfileSelect:function(menu,item){
+        Ext.getCmp('viewport').setLoading(true);
+        CaptivePortal.util.Utility.doProfileLogin(item.profileid);
+        console.log(item)
+    },
     onMenuClick: function (menu) {
         switch (menu.itemname) {
             case "users":
@@ -18,7 +23,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(2);
                 this.getView().lookupReference('lab_heading').setText('Tenants');
                 break;
-            case "roletemplate":
+            case "site_roles":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(3);
                 this.getView().lookupReference('lab_heading').setText('Roles')
                 break;
@@ -26,11 +31,6 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         }
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {       
-        var store = this.getView().lookupReference('grd_profilelist').getStore();
-        debugger
-        var data = store.getData();
-        console.log('Data --->')
-        console.log(data)
         CaptivePortal.util.Utility.doProfileLogin(record.id);
     },
     createUsers: function () {
@@ -63,6 +63,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, function (response) {
             CaptivePortal.util.Utility.changeView('CaptivePortal.view.login.Login', this);
             Ext.util.Cookies.clear('CAP_SESSION');
+            Ext.StoreManager.lookup('CaptivePortal.store.role.Role').removeAll();
         }.bind(this), function (response) {
         }, 'DELETE');
 

@@ -25,7 +25,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                     itemname: 'sites'
                 }, {
                     name: 'Role Template',
-                    itemname: 'roletemplate'
+                    itemname: "site_roles"
                 }, {
                     name: 'Tenants',
                     itemname: 'tenants'

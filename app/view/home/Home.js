@@ -39,20 +39,26 @@ Ext.define('CaptivePortal.view.home.Home', {
                         hidden: userObj.langDesc ? false : true,
                         itemId: 'language'
                     }, {
-                        xtype: 'splitbutton',
-                        //cls: 'button_remove',
-                        iconCls: 'fa fa-user',
-                        padding: '0 20 0 10',
+                        xtype:'splitbutton',
+                        text:'',
+                        hidden:true,
+                        itemId:'spb_switchprofile',
+                        menu:new Ext.menu.Menu({
+                            items:[{
+                                 text:'SignOut'  
+                                }]
+                        })
+                    },{
+                        xtype:'label',
+                        cls:'fa fa-2x fa-user',
+                        style:'color:#1fa1eb'
+                    },{
+                        xtype: 'label',
+                        //cls: 'button_remove',                       
+                        padding: '0 20 0 0',
                         text: userObj.userName,
                         hidden: userObj.userName ? false : true,
-                        itemId: 'user_name',
-                        menu: new Ext.menu.Menu({
-                            items: [{
-                                    text: 'SignOut',
-                                    iconCls: 'fa-sign-out'
-                                }
-                            ]
-                        })
+                        itemId: 'user_name'                       
                     }, {
                         xtype: 'button',
                         cls: 'logout_button',

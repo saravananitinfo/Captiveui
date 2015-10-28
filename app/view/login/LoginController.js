@@ -80,55 +80,45 @@ Ext.define('CaptivePortal.view.login.LoginController', {
             var password = formObj.down('#login-password').getValue();
             var rememberMe = formObj.down('#remember_me').getValue();
             var params = {"user[email]": userName, "user[password]": password};
-
             CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGIN, params, function (response) {
                 var resObj = Ext.decode(response.responseText);
                 var accessPermissionList = [];
                 if (resObj.success) {
-                    var userObj = Ext.decode(response.responseText);
-                    var userName = "", profileId = "", cookieObj = {}, userInitialObj = {};
+                    var userObj = Ext.decode(response.responseText);                   
                     if (userObj.data && userObj.data.user) {
                         if (userObj.data.user.user_role && userObj.data.user.user_role === 'super_admin') {
-                            userName = "";
-                            if (userObj.data.user.access_permission_list && userObj.data.user.access_permission_list.length) {
+                         if (userObj.data.user.access_permission_list && userObj.data.user.access_permission_list.length) {
                                 var len = userObj.data.user.access_permission_list.length;
                                 for (var i = 0; i < len; i++) {
                                     var perm = userObj.data.user.access_permission_list[i];
                                     accessPermissionList.push({module: perm['access_for'], read: perm['read'], write: perm['write']});
                                 }
                             }
-                            var data = userObj.data.user;
-                            cookieObj = {remember: rememberMe, email: data.email, token: data.auth_token, username: data.email, language: 'English', role: data.user_role};
+                            var data = userObj.data.user;                          
                             CaptivePortal.app.setUserName(data.email);
                             CaptivePortal.app.setUserRole(data.user_role);
                             CaptivePortal.app.setAccessPermissionList(data.access_permission_list);
-                            CaptivePortal.app.setToken(data.auth_token);
-
+                            CaptivePortal.app.setToken(data.auth_token);                        
+                            CaptivePortal.util.Utility.setSuperAdminSession(userObj.data.user,rememberMe);
                             var userInitialObj = {
-                                langDesc: cookieObj.language,
-                                userName: cookieObj.username
-                            }
-                            CaptivePortal.util.Utility.setValuesForCookies(cookieObj);
+                                langDesc: 'English',
+                                userName: data.email
+                            }                           
                             this.loginForSuperAdmin(userInitialObj);
-                        } else {
-                            console.log('userObj For Users');
-                            console.log(userObj);
-                            userName = (profiles && profiles.length && profiles[0].name) ? profiles[0].name : "";
-                            profileId = (profiles && profiles.length && profiles[0].id) ? profiles[0].id : "";
-                            cookieObj = {role: 'user', remember: rememberMe, email: userObj.data.user.email, token: userObj.data.user.auth_token, username: userName, language: 'English', profileId: profileId};
-                            CaptivePortal.util.Utility.setValuesForCookies(cookieObj);
-                            var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
+                        } else {                
+                           var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
                             if (!homepanel) {
                                 homepanel = Ext.create('CaptivePortal.view.home.Home', {
                                     layout: 'vbox',
                                     user: {
-                                        langDesc: cookieObj.language,
-                                        userName: cookieObj.username
+                                        langDesc: 'English',
+                                        userName: userObj.data.user.email
                                     }
                                 });
                             }
-                            var profiles = userObj.data.user.profiles;
+                            var profiles = userObj.data.user.profiles;                           
                             if (profiles.length > 1) {
+                                CaptivePortal.app.setTempUserObj({data:userObj.data.user,remember:rememberMe});                                
                                 homepanel.add({
                                     xtype: 'home_appheader',
                                     margin: '40 0 0 0',
@@ -145,7 +135,7 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                         afterrender: function (panel) {
                                             var grid = panel.down('gridpanel');
                                             grid.getStore().removeAll();
-                                            grid.getStore().setData(userObj.data.user.profiles)
+                                            grid.getStore().setData(userObj.data.user.profiles);                                            
                                         }
                                     }
                                 });
@@ -153,7 +143,6 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                     Ext.getCmp('viewport').removeAll();
                                     Ext.getCmp('viewport').add(homepanel);
                                 }
-
                             } else {
                                 CaptivePortal.util.Utility.doLoginForLoggedUser();
                                 homepanel.add({

@@ -19,15 +19,15 @@ Ext.define('CaptivePortal.view.home.Home', {
         this.items = [{
                 xtype: 'toolbar',
                 //cls: 'custom_toolbar',
-                style: 'border:solid rgb(199, 193, 193) 1px !important;box-shadow: 0 8px 6px -6px grey;',
-                width: '100%',
-                height: 55,
+                style: 'border:none;',
+                width: '98%',
+                height: 60,
                 margin: '10 0 0 0',
                 items: [{
                         xtype: 'image',
-                        src: 'custom/css/images/zebra_logo_big.png',
-                        height: 40,
-                        width: 35
+                        src: 'custom/images/zebra_logo_v1.png',
+                        margin:'0',
+                        height:55
                     }, {
                         xtype: 'tbfill'
                     }, {
@@ -42,8 +42,10 @@ Ext.define('CaptivePortal.view.home.Home', {
                         xtype:'splitbutton',
                         text:'',
                         hidden:true,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
                         itemId:'spb_switchprofile',
                         menu:new Ext.menu.Menu({
+                            cls: 'cp-menu cp-menu-tenantlist',
                             items:[{
                                  text:'SignOut'  
                                 }]

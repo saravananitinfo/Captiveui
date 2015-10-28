@@ -29,15 +29,20 @@ Ext.define('CaptivePortal.view.forget.ForgetPassword', {
                                 },
                                 cls: 'login_logo',
                                 height: 300,
-                                width: 300
+                                 width: 230,
+                                margin: '0 15 0 0'
                             }, {
                                 xtype: 'form',
                                 width: '100%',
-                                margin: '0 0 0 40',
-                                padding: '80 0 0 0',
+                                margin: '40 0 0 20',
+                                // margin: '0 0 0 10',
+                                // padding: '40 0 0 0',
+                                height:300,
                                 defaults: {//margin: '0 0 0 190',
                                     padding: '10 0 0 0',
-                                    width: 270
+                                    width: 350,
+                                    height:35
+
                                 },
                                 items: [{
                                         xtype: 'container',
@@ -64,7 +69,7 @@ Ext.define('CaptivePortal.view.forget.ForgetPassword', {
                                         name: 'name',
                                         allowBlank: false,
                                         emptyText: 'Email',
-                                        invalidText: 'Please enter valid user name',
+                                        invalidText: 'Please enter valid email',
                                         vtype: 'email',
                                         msgTarget: 'under',
                                         itemId: 'forget_password_user_name'
@@ -72,7 +77,7 @@ Ext.define('CaptivePortal.view.forget.ForgetPassword', {
                                         xtype: 'container',
                                         style: 'border-bottom:solid 1px #e1e1e1;',
                                         margin: '0 0 10 0',
-                                        width: 270,
+                                        width: 350,
                                         height: 45,
                                         layout: {
                                             type: 'hbox',

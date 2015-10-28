@@ -28,7 +28,7 @@ Ext.define('CaptivePortal.view.roles.RoleList', {
     items: [{
             xtype: 'gridpanel',
             reference: 'grd_rolelist',
-            style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+            columnLines: true,  
             store: 'CaptivePortal.store.role.Role',
             columns: [
                 {

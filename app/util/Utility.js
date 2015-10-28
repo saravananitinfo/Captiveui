@@ -128,6 +128,8 @@ Ext.define('CaptivePortal.util.Utility', {
                 profile_switch.setMenu({
                     xtype: 'menu',
                     itemId: 'menu_profilenavigation',
+                    cls: 'cp-menu cp-menu-tenantlist',
+                    width: 150,
                     listeners: {
                         click: 'onUserProfileSelect'
                     },
@@ -159,7 +161,8 @@ Ext.define('CaptivePortal.util.Utility', {
                                     click: 'onMenuClick'
                                 },
                                 itemname: menuitem.itemname,
-                                height: 35
+                                height: 35,
+                                cls: "cls-"+ menuitem.name
                             })
                         }
                     }

@@ -31,8 +31,10 @@ Ext.define('CaptivePortal.view.login.Login', {
                                     tag: 'div'
                                 },
                                 cls: 'login_logo',
-                                height: 250,
-                                width: 300
+                                height: 300,
+                                width: 230,
+                                margin: '0 15 0 0'
+
                             }, {
                                 xtype: 'form',
                                 width: '100%',
@@ -71,6 +73,7 @@ Ext.define('CaptivePortal.view.login.Login', {
                                     }, {
                                         xtype: 'container',
                                         margin: '10 0 0 0',
+                                        padding: '0 0 40 0',
                                         style: 'border-bottom:solid 1px #e1e1e1;',
                                         layout: 'hbox',
                                         items: [
@@ -91,7 +94,7 @@ Ext.define('CaptivePortal.view.login.Login', {
                                         ]
                                     }, {
                                         xtype: 'container',
-                                        margin: '10',
+                                        margin: '15 10 10 0',
                                         layout: 'vbox',
                                         items: [{
                                                 xtype: 'label',

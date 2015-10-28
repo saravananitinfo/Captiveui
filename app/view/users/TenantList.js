@@ -6,12 +6,13 @@
 Ext.define('CaptivePortal.view.users.TenantList', {
     extend: 'Ext.Panel',
     alias: 'widget.user_tenantlist',
-    border: true,
-    bodyPadding: 40,
-    width: '100%',
+    border: false,
+    bodyPadding: '20 0 0 0' ,
+    width: '98%',
+    margin: '0 0 0 6',
     dockedItems: [{
             xtype: 'panel',
-            height: 50,
+            height: 30,
             layout: {
                 type: 'hbox',
                 pack: 'start',
@@ -22,8 +23,8 @@ Ext.define('CaptivePortal.view.users.TenantList', {
                     style: 'font-weight: 400;color: #535151;font-size: 16px;padding: 5px 0 0 0;',
                     html: 'We found more than <span style ="color: #1fa1eb;"> 1 Tenant </span>in your login id.Please choose a Tenant.'
                 }]
-        }],
-    style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc; !important;',
+            }],
+    cls: 'tenant-box-border',
     items: [{
             xtype: 'gridpanel',
             reference:'grd_profilelist',

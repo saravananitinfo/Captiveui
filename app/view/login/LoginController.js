@@ -122,7 +122,7 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                 homepanel.add({
                                     xtype: 'home_appheader',
                                     margin: '40 0 0 0',
-                                    padding: '40',
+                                    padding: '25 40 20 7',
                                     listeners: {
                                         afterrender: function (container) {
                                             container.down('label').setText('Choose a Tenant')

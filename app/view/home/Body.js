@@ -6,15 +6,16 @@
 Ext.define('CaptivePortal.view.home.Body', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.appbody',
-    margin: '20 0 0 0',
+    margin: '20 0 0 10',
     reference: 'pan_mainnavigation',
     flex: 1,
-    //height:'120%',				
-    width: '100%',
-    style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc; !important',
+    width: '98%',
+    
+    cls: 'tenant-box-border',
     height: '100%',
     layout: 'card',
-    border: true,
+    border: false,
+    
     //itemId:'container_replace',
     scrollable: false,
     items: [{

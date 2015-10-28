@@ -1,3 +1,24 @@
+/******************/
+
+::-webkit-input-placeholder {
+font-style: italic;
+}
+:-moz-placeholder {
+font-style: italic;
+}
+::-moz-placeholder {
+font-style: italic;
+}
+:-ms-input-placeholder {
+font-style: italic;
+}
+
+input[type="email"] {
+font-style: normal;
+}
+/*****************/
+
+
 .login_logo{
 	background:url('images/zebra_logo_big.png') no-repeat;	
 	border-right: 4px solid #aab300;
@@ -11,8 +32,8 @@
 }
 .flag_icon{
 	background:url('images/flag_icon.png') no-repeat;	
-	height:16px;
-	width:16px;
+	height: 16px !important;
+    width: 26px !important;
 }
 .user_icon{
 background:url('images/user_icon_128.png') no-repeat;	
@@ -23,10 +44,11 @@ background:url('images/user_icon_128.png') no-repeat;
 
 .logout_button.x-btn-default-toolbar-small, .logout_button.x-btn-default-toolbar-small.x-btn-over, .logout_button .x-btn-inner-default-toolbar-small{
 	background-color:#595959 !important;
-	border-color: white !important;
+	border-radius: 4px;
 	opacity: 1 !important;
 	color:white !important;
-	background-image: none !important;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
 }
 
 .menu_item .x-menu-item-text{

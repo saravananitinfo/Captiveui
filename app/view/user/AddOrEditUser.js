@@ -12,9 +12,7 @@ Ext.define('CaptivePortal.view.user.AddOrEditUser', {
 	layout:'vbox',
 	//autoScroll:true,
 	initComponent:function(){
-		
-		
-		var tenantStore = Ext.create('Ext.data.Store',{
+				var tenantStore = Ext.create('Ext.data.Store',{
 			fields:['id', 'name'],
 			data : this.tenantData || []
 		});

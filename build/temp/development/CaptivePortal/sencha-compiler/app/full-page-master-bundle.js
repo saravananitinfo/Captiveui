@@ -1,2 +1,2 @@
 // @tag full-page
-// @require /home/akshay/workspace/cpzebraui/app.js
+// @require C:\Users\Pronto\Documents\NetBeansProjects\CP\public_html\app.js

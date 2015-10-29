@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.view.sites.SiteList', {
     extend: 'Ext.Panel',
-    requires: ['CaptivePortal.view.tenants.SiteListController', 'CaptivePortal.store.site.Site'],
+    //requires: ['CaptivePortal.view.tenants.SiteListController', 'CaptivePortal.store.site.Site'],
     alias: 'widget.sitelist',
     border: true,
     layout: 'fit',

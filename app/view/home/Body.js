@@ -10,14 +10,10 @@ Ext.define('CaptivePortal.view.home.Body', {
     reference: 'pan_mainnavigation',
     flex: 1,
     width: '98%',
-    
-    cls: 'tenant-box-border',
-    height: '100%',
+    cls: 'tenant-box-border', 
     layout: 'card',
     border: false,
-    
-    //itemId:'container_replace',
-    scrollable: false,
+    scrollable: true,
     items: [{
             xtype: 'panel',
             itemId: 'card_intial'

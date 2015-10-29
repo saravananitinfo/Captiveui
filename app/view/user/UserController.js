@@ -26,7 +26,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 	createUsers: function(){
 		CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER,{},function(response){		
 			var resObj = Ext.decode(response.responseText);
-			if(resObj.success){
+                                if(resObj.success){
 				var roles = resObj.data.roles;
 				var tenants = resObj.data.tenants;
 				var sites = [];

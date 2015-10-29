@@ -8,7 +8,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
             }
         }
     },
-    onUserProfileSelect:function(menu,item){
+    onUserProfileSelect: function (menu, item) {
         Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(item.profileid);
         console.log(item)
@@ -17,7 +17,8 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         switch (menu.itemname) {
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(1);
-                this.getView().lookupReference('lab_heading').setText('Users')
+                this.getView().lookupReference('lab_heading').setText('Users');
+                this.fireEvent('setActiveItem', 0);
                 break;
             case "tenants":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(2);
@@ -30,8 +31,8 @@ Ext.define('CaptivePortal.view.home.HomeController', {
 
         }
     },
-    getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) { 
-         Ext.getCmp('viewport').setLoading(true);
+    getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(record.id);
     },
     createUsers: function () {
@@ -79,4 +80,4 @@ Ext.define('CaptivePortal.view.home.HomeController', {
 
 
 
- //# sourceURL=http://localhost:8383/CaptivePortal/app/view/home/HomeController.js
+//# sourceURL=http://localhost:8383/CaptivePortal/app/view/home/HomeController.js

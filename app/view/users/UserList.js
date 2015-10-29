@@ -16,10 +16,8 @@ Ext.define('CaptivePortal.view.users.UserList', {
                     xtype: 'tbfill'
                 }, {
                     xtype: 'button',
-                    text: 'Add User'
-                }, {
-                    xtype: 'button',
-                    text: 'Export'
+                    text: 'Add User',
+                    itemId:'btn_adduser'
                 }]
         }],
     listeners: {

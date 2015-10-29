@@ -5,17 +5,18 @@
  */
 Ext.define('CaptivePortal.Application', {
     extend: 'Ext.app.Application',
-    
     name: 'CaptivePortal',
-
     stores: [
         'CaptivePortal.store.user.User',
         'CaptivePortal.store.tenant.Tenant',
-        'CaptivePortal.store.role.Role',       
+        'CaptivePortal.store.role.Role',
         'CaptivePortal.store.user.TenantList',
+        'CaptivePortal.store.users.TenantList',
+        'CaptivePortal.store.users.Site',
+        'CaptivePortal.store.users.Role',
+        'CaptivePortal.store.users.RoleAccess',
         'ProfileMenuList'
-    ],   
-    
+    ],
     launch: function () {
         // TODO - Launch the application
     }

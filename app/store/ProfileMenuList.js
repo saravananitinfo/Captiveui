@@ -10,6 +10,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
     data: [{
             id: '1',
             name: 'Template',
+            cls: 'nav-icon nav-icon-template',
             menuitem: [{
                     name: 'Template',
                     itemname: 'templates'
@@ -17,6 +18,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
         }, {
             id: 2,
             name: 'Configuration',
+            cls: 'nav-icon nav-icon-config',
             menuitem: [{
                     name: 'User',
                     itemname: 'users'
@@ -33,11 +35,13 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
         }, {
             id: 3,
             name: 'On Board',
+            cls: 'nav-icon nav-icon-onboard',
             menuitem: [{
                 }]
         },{
             id: 4,
             name: 'Management',
+            cls: 'nav-icon nav-icon-mgmt',
             menuitem: [{
                 }]
         }]

@@ -3,7 +3,7 @@ Ext.define('CaptivePortal.view.roles.RoleList', {
     requires: ['CaptivePortal.view.roles.RoleController', 'CaptivePortal.store.role.Role'],
     alias: 'widget.rolelist',
     controller: 'rolelistcontroller',
-    border: true,
+    border: false,
     layout: 'fit',
     bodyPadding: 30,
     dockedItems: [{
@@ -28,13 +28,14 @@ Ext.define('CaptivePortal.view.roles.RoleList', {
     items: [{
             xtype: 'gridpanel',
             reference: 'grd_rolelist',
-            columnLines: true,  
             store: 'CaptivePortal.store.role.Role',
+            style: 'box-shadow: 0px 0px 10px 0px #e3e3e3;',
             columns: [
                 {
                     header: 'Name',
                     dataIndex: 'name',
                     flex:1,
+                    cls: 'table-row',
                     renderer: function (value, metaData, rec, view) {
                         metaData.tdAttr = 'data-qtip="' + value + '" ';
                         return value;
@@ -42,6 +43,7 @@ Ext.define('CaptivePortal.view.roles.RoleList', {
                 },
                 {
                     header: 'Action',
+                    cls: 'table-row',
                     renderer: function (value, metaData, rec, view) {
                         return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
                     },

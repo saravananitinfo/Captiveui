@@ -161,8 +161,9 @@ Ext.define('CaptivePortal.util.Utility', {
                                     click: 'onMenuClick'
                                 },
                                 itemname: menuitem.itemname,
-                                height: 35,
-                                cls: "cls-"+ menuitem.name
+                                //height: 48,
+                                cls: "nav-menu-item nav-menu-item"+ menuitem.name,
+                                width:235
                             })
                         }
                     }
@@ -172,25 +173,33 @@ Ext.define('CaptivePortal.util.Utility', {
             if (rec.data.id == 1)
                 navpanel.add({
                     text: rec.data.name,
-                    iconCls: 'fa fa-bookmark-o',
+                    iconCls: rec.data.cls,
+                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin:'0 50 0 0',
                     menu: menu
                 });
             else if (rec.data.id == 2)
                 navpanel.add({
                     text: rec.data.name,
-                    iconCls: 'fa fa-cog',
+                    iconCls: rec.data.cls,
+                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin:'0 50 0 0',
                     menu: menu
                 });
             else if (rec.data.id == 3)
                 navpanel.add({
                     text: rec.data.name,
-                    iconCls: 'fa fa-paper-plane-o',
+                    iconCls: rec.data.cls,
+                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin:'0 50 0 0',
                     menu: menu
                 });
             else if (rec.data.id == 4)
                 navpanel.add({
                     text: rec.data.name,
-                    iconCls: 'fa fa-user',
+                    iconCls: rec.data.cls,
+                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin:'0 50 0 0',
                     menu: menu
                 });
         })

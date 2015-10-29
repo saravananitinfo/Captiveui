@@ -49,6 +49,17 @@ background:url('images/user_icon_128.png') no-repeat;
 	color:white !important;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
+	padding: 3px 10px;
+}
+.logout_button1.x-btn-default-toolbar-small, .logout_button1.x-btn-default-toolbar-small.x-btn-over, .logout_button1 .x-btn-inner-default-toolbar-small{
+	background:none !important;
+	border: none;
+}
+.btn-logout{
+	background-image: url(/custom/images/icons/logout_btn.png);
+	width: 30px !important;
+	height: 30px !important;
+	border: none;
 }
 
 .menu_item .x-menu-item-text{

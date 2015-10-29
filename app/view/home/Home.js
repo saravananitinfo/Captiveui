@@ -52,19 +52,18 @@ Ext.define('CaptivePortal.view.home.Home', {
                         })
                     },{
                         xtype:'label',
-                        cls:'fa fa-2x fa-user',
-                        style:'color:#1fa1eb'
+                        cls:'top_bar_user_icon',
+                        text: 'S'
                     },{
                         xtype: 'label',
-                        //cls: 'button_remove',                       
-                        padding: '0 20 0 0',
                         text: userObj.userName,
                         hidden: userObj.userName ? false : true,
                         itemId: 'user_name'                       
                     }, {
                         xtype: 'button',
-                        cls: 'logout_button',
-                        text: 'Logout',
+                        iconCls: 'btn-logout',
+                        cls: 'logout_button1',
+                        text: '',
                         itemId: 'logout',
                         handler: 'logout'
                     }]

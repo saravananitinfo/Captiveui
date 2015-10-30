@@ -21,7 +21,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
                 }]
         }],
     listeners: {
-      //  render: 'getUsers'
+         render: 'getUsers'
     },
     items: [{
             xtype: 'gridpanel',
@@ -49,7 +49,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
                 },
                 {
                     header: 'Sites',
-                    dataIndex: 'site_ids',
+                    dataIndex: 'sites[0].names',
                     width: '15%',
                     renderer: function (value, metaData, rec, view) {
                         metaData.tdAttr = 'data-qtip="' + value + '" ';
@@ -58,7 +58,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
                 },
                 {
                     header: 'Roles',
-                    dataIndex: 'site_role_id',
+                    dataIndex: 'site_role.name',
                     width: '15%',
                     renderer: function (value, metaData, rec, view) {
                         metaData.tdAttr = 'data-qtip="' + value + '" ';

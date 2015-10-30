@@ -115,9 +115,7 @@ background:url('images/user_icon_128.png') no-repeat;
 	float:left;
 	cursor:pointer;
 }
- input[placeholder]{
- /* font-style: italic; */
- }
+
  
  
 .custom_toolbar, .custom_toolbar.x-toolbar-default{

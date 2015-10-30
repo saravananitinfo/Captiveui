@@ -15,7 +15,6 @@ Ext.define('CaptivePortal.view.tenants.MainController',{
          Ext.getCmp('viewport').setLoading(false);
     },
     onShowAddEditTenant:function(){
-      console.log("................ second .................");
         // CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, function (response) {
         //     var resObj = Ext.decode(response.responseText);
         //     if (resObj.success) {

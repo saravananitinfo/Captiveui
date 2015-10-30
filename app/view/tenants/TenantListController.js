@@ -9,9 +9,7 @@ Ext.define('CaptivePortal.view.tenants.TenantListController',{
     }
 	},
 	showAddEditTenant: function () {
-		console.log("..................first................");
 		this.fireEvent('showAddEditTenant', this);
-		Ext.getCmp('tenants_addedit').down('form').reset(true)
   },
 	getTenantList:function(){
 		var store = this.getView().lookupReference('grd_tenantlist').getStore();

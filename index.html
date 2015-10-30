@@ -40,7 +40,7 @@
                 padding: 5px;
                 background-color: white;
             }*/
-            .validEmail {
+           /* .validEmail {
                 color:green !important;
                 font-weight:500;
                 font-size:14px;
@@ -51,7 +51,7 @@
                 font-weight:500;
                 font-size:14px;
                 font-family:"Comic Sans MS", cursive, sans-serif;
-            }
+            }*/
           
         </style>
     </head>
@@ -59,12 +59,21 @@
     <body>
         <style type="text/css">
         .x-form-invalid-field{
-            height: 35px;
+            height: 32px;
         }
-        .x-form-field{
+      /*  .x-form-text-default{
+            min-height: 35px;
+        }*/
+        .x-form-text-default{
+            height: 32px;
+        }
+        .x-form-text-wrap{
             border-radius: 4px;
         }
 
+    .x-form-trigger-wrap-default{
+
+    }
         .navbar-default {
             background: #ffffff;
             margin: 0;
@@ -159,7 +168,6 @@
                 -webkit-box-shadow: none;
                 color: #555;
                 background-color: #e7e7e7;
-                b
             }
             .x-btn-wrap-default-toolbar-small.x-btn-arrow-right:after{
                 background-image: url(custom/images/icons/arrow_small.png)
@@ -186,6 +194,52 @@
                 font-weight: 500;
                 font-size: 15px;
             }
+            .x-form-trigger-wrap-default{
+                border-radius: 4px;
+            }
+            .x-grid-item-over{
+                background-color: #F7F8F9 !important;
+                color: #2E2E2E;
+                border:none;
+            }
+            .x-grid-item-selected{
+                background-color: #e7e7e7;
+                color: #2E2E2E;
+                border: none;
+            }
+            .x-grid-item-focused .x-grid-cell-inner:before{
+                border: none;
+            }
+            .table-cell{
+                padding: 5px 2px;
+            }
+            
+            .btn-add-module .x-btn-inner-default-toolbar-small{
+                background-color: rgba(68, 68, 68, 0.67);
+                padding: 8px 20px;
+                color:#f7f7f7 !important;
+                font-size: 15px !important;
+                border: none;
+            }
+            .btn-add-module.x-btn-default-toolbar-small{
+                border: none;
+                padding: 0;
+                border-radius: 0;
+            }
+            .x-form-trigger-default{
+                border-radius:3px;
+            }
+            .x-form-search-trigger{
+                border-radius: 3px;
+            }
+            .form_trigger .x-form-text-default {
+                height: 28px;
+            }
+ 
+            
+           /* .x-grid-with-row-lines .x-grid-item{
+                padding: 3px 0px 3px 5px;
+            }*/
             /*.x-grid-item{
                 padding: 5px;
             }*/

@@ -16,7 +16,8 @@ Ext.define('CaptivePortal.view.tenants.TenantList', {
                     xtype: 'tbfill'
                 }, {
                     xtype: 'button',
-                    text: 'Add User'
+                    text: 'Add Tenant',
+                    itemId:'btn_addtenant'
                 }, {
                     xtype: 'button',
                     text: 'Export'
@@ -52,4 +53,4 @@ Ext.define('CaptivePortal.view.tenants.TenantList', {
             }]
         this.callParent(arguments)
     }
-})
+});

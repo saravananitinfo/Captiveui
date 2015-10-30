@@ -13,7 +13,6 @@ Ext.define('CaptivePortal.view.home.Body', {
     cls: 'tenant-box-border', 
     layout: 'card',
     border: false,
-    scrollable: true,
     items: [{
             xtype: 'panel',
             itemId: 'card_intial'

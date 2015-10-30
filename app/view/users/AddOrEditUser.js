@@ -13,7 +13,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
     //bodyCls: 'custom_bg_background',
     layout: {
         type: 'vbox',
-        padding: '10 0 0 30'
+        padding: '10 0 0 30',
     },
     //autoScroll:true,
     initComponent: function () {
@@ -26,14 +26,16 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
+                padding: '20 0 0 0',
+                cls: 'form_trigger',
                 items: [{
                         xtype: 'form',
                         itemId: 'userform',
                         defaults: {
                             width: 400,
                             height: 30,
-                            padding: 20,
-                            maxLength: 50
+                            padding: '10 0 15 0',
+                            maxLength: 50,
                         },
                         items: [{
                                 xtype: 'hiddenfield', name: 'user_id',

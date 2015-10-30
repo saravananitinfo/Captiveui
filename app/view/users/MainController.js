@@ -17,6 +17,7 @@ Ext.define('CaptivePortal.view.users.MainController',{
     },
     onSetActiveCard:function(card){
          this.getView().setActiveItem(card);
+         this.fireEvent('refreshUserList');
          Ext.getCmp('viewport').setLoading(false);
     },
     onShowAddEditMaster:function(){      

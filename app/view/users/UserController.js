@@ -125,6 +125,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
         }, 'GET');
     },
     selectRole: function (combo, record, eopts) {
+        var me = this;
         Ext.getCmp('viewport').setLoading(true);
         if (combo.getValue()) {
             CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + combo.getValue() + '/edit.json', {}, function (response) {
@@ -133,10 +134,22 @@ Ext.define('CaptivePortal.view.users.UserController', {
                     var accesses = resObj.data.site_role.site_accesses;
                     var permittedRoles = [];
                     Ext.Array.each(accesses, function (rec) {
-                        permittedRoles.push({access_for: rec.access_for, write: false, id: rec.id});
+                        if(rec.access_for === "users"){
+                           if(rec.write === true){
+                                   me.getView().lookupReference('lab_permittedroles').setVisible(true);
+                                   me.getView().lookupReference('con_permittedroles').setVisible(true);
+                                   me.getView().lookupReference('grd_permittedusers').setStore('CaptivePortal.store.users.Role');
+                           }else{
+                                me.getView().lookupReference('lab_permittedroles').setVisible(false);
+                                me.getView().lookupReference('con_permittedroles').setVisible(false);
+                            }
+                        }
                     });
-                    var str = Ext.StoreManager.lookup('CaptivePortal.store.users.RoleAccess')
-                    str.setData(permittedRoles);
+//                    Ext.Array.each(accesses, function (rec) {
+//                        permittedRoles.push({access_for: rec.access_for, write: false, id: rec.id});
+//                    });
+//                    var str = Ext.StoreManager.lookup('CaptivePortal.store.users.RoleAccess')
+//                    str.setData(permittedRoles);
                     Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this), function (response) {
@@ -187,7 +200,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
 
             CaptivePortal.util.Utility.doAjaxJSON(url, saveJson, function (response) {
                 var resObj = Ext.decode(response.responseText);
-                if (resObj.success != 'false') {
+                if (resObj.success != 'false') {                    
                     me.fireEvent('setActiveItem', 0);
                     Ext.toast({
                         html: 'Data Saved',

@@ -16,11 +16,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
         padding: '10 0 0 30',
     },
     //autoScroll:true,
-    initComponent: function () {
-        var permissionStore = Ext.create('Ext.data.Store', {
-            model: 'CaptivePortal.model.role.RoleAccess',
-            data: this.permissions || []
-        });
+    initComponent: function () {       
         var userText = (this.user_id) ? 'Edit User' : 'New User';
         var btnText = (this.user_id) ? 'Update' : 'Create';
         this.items = [{
@@ -135,26 +131,31 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 ]
                             }, {
                                 xtype: 'label',
+                                reference:'lab_permittedroles',
                                 text: 'Permitted User Roles',
+                                hidden:true,
                                 margin: '20 0 0 0',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'container',
+                                reference:'con_permittedroles',
                                 width: '100%',
-                                height: '100%',
+                                hidden:true,
+                                //height: '100%',
                                 height:400,
-                                        layout: 'fit',
+                                layout: 'fit',
                                 margin: '0 20 0 20',
                                 items: [{
                                         xtype: 'grid',
                                         itemId: 'permission_user_role_grid',
+                                        reference:'grd_permittedusers',
                                         border: 1,
                                         style: 'z-index:1000;',
                                         autoScroll: true,
                                         columns: [
                                             {
                                                 header: 'Access',
-                                                dataIndex: 'access_for',
+                                                dataIndex: 'name',
                                                 width: '79.9%',
                                                 renderer: function (value, metaData, rec, view) {
                                                     metaData.tdAttr = 'data-qtip="' + value + '" ';

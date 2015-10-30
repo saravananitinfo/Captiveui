@@ -18,11 +18,11 @@ Ext.define('CaptivePortal.view.users.UserList', {
                     xtype: 'button',
                     text: 'Add User',
                     cls: 'btn-add-module',
-                    itemId:'btn_adduser'
+                    itemId: 'btn_adduser'
                 }]
         }],
     listeners: {
-         render: 'getUsers'
+        render: 'getUsers'
     },
     items: [{
             xtype: 'gridpanel',
@@ -30,12 +30,18 @@ Ext.define('CaptivePortal.view.users.UserList', {
             style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
             store: 'CaptivePortal.store.user.User',
             columnLines: true,
+            viewConfig:{
+              loadMask:false  
+            },
+            listeners: {
+                itemclick: 'userItemClick'
+            },
             columns: [
                 {
                     header: 'Name',
                     dataIndex: 'name',
                     width: '20%',
-                    flex:1,
+                    flex: 1,
                     cls: 'table-row',
                     tdCls: 'table-cell',
                     renderer: function (value, metaData, rec, view) {

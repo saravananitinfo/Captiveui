@@ -5,6 +5,7 @@ Ext.define('CaptivePortal.store.user.User', {
     model: 'CaptivePortal.model.user.User',
     proxy: {
         type: 'ajax',
+        disableCachingParam:'',
         url: CaptivePortal.Config.SERVICE_URLS.GET_USER,
         reader: {
             type: 'json',

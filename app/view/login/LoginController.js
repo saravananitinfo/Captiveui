@@ -84,6 +84,7 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                 var resObj = Ext.decode(response.responseText);
                 var accessPermissionList = [];
                 if (resObj.success) {
+                    debugger
                     var userObj = Ext.decode(response.responseText);                   
                     if (userObj.data && userObj.data.user) {
                         if (userObj.data.user.user_role && userObj.data.user.user_role === 'super_admin') {

@@ -1,5 +1,6 @@
 Ext.define('CaptivePortal.view.users.AddOrEditUser', {
     extend: 'Ext.panel.Panel',
+    itemId:'pan_useraddedit',
     requires: [
         'CaptivePortal.view.users.UserController',
         'CaptivePortal.store.users.TenantList'
@@ -15,6 +16,9 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
         type: 'vbox',
         padding: '10 0 0 30',
     },
+    config:{
+      user_id :null
+     },
     //autoScroll:true,
     initComponent: function () {       
         var userText = (this.user_id) ? 'Edit User' : 'New User';
@@ -34,8 +38,10 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                             maxLength: 50,
                         },
                         items: [{
-                                xtype: 'hiddenfield', name: 'user_id',
-                                value: this.user_id
+                                xtype: 'hiddenfield', 
+                                name: 'user_id',
+                                reference:'hf_userid'
+                               
                             }, {
                                 xtype: 'label',
                                 text: 'Name',
@@ -167,7 +173,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                                 dataIndex: 'permission',
                                                 width: '20%',
                                                 renderer: function (value, metaData, rec, view) {
-                                                    if (value) {
+                                                    if (value === 1) {
                                                         value = '<input type="checkbox" checked action="permission"/>';
                                                     } else {
                                                         value = '<input type="checkbox" action="permission"/>';
@@ -179,7 +185,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                         listeners: {
                                             itemclick: 'permissionRowClick'
                                         },
-                                        store: 'CaptivePortal.store.users.RoleAccess',
+                                        store: 'CaptivePortal.store.users.AccessPermission',
                                     }]
                             },
                             {
@@ -191,6 +197,8 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 items: [
                                     {
                                         xtype: 'button',
+                                        reference:'btn_save',
+                                        itemId:'btn_newusersave',
                                         formBind: true,
                                         text: btnText,
                                         handler: 'saveUser'

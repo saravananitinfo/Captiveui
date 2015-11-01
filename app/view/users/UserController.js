@@ -2,6 +2,52 @@ Ext.define('CaptivePortal.view.users.UserController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.users',
     requires: ['CaptivePortal.model.role.RoleAccess'],
+    listen: {
+        controller: {
+            '*': {
+                getUsersSiteData: 'getSitesData',
+                showUsersAccessPermission: 'showAccessPermission'
+            }
+        }
+    },
+    setUserId:function(userid){        
+        this.getView().lookupReference('hf_userid').setValue(userid);
+        this.getView().lookupReference('btn_save').setText('Update');
+    },
+    showAccessPermission: function (data, view,userid) {
+        console.log('------------.');
+        console.log(data);        
+        if(userid != null && userid  != undefined)
+            this.setUserId(userid)
+        if (view) {
+            this.getView().lookupReference('lab_permittedroles').setVisible(true);
+            this.getView().lookupReference('con_permittedroles').setVisible(true);
+            var rolesStr = Ext.StoreManager.lookup('CaptivePortal.store.users.Role');
+            var accesspermissionStr = Ext.StoreManager.lookup('CaptivePortal.store.users.AccessPermission');
+            var record = [];
+            Ext.Array.each(rolesStr.data.items, function (roledata, index) {
+                record.push({
+                    id: roledata.data.id,
+                    name: roledata.data.name,
+                    permission: 0
+                })
+            });
+            Ext.Array.each(data, function (permission, index) {
+                Ext.Array.each(record, function (rec, index) {
+                    if (rec.id === permission.id) {
+                        record[index].permission = 1;
+                    }
+                })
+            })
+            accesspermissionStr.setData(record);
+            this.getView().lookupReference('grd_permittedusers').setStore(accesspermissionStr);
+        } else {
+            this.getView().lookupReference('lab_permittedroles').setVisible(false);
+            this.getView().lookupReference('con_permittedroles').setVisible(false);
+            this.getView().lookupReference('grd_permittedusers').getStore().removeAll();
+        }
+        this.fireEvent('showUsersEditView', 1);
+    },
     deleteUser: function (view, record, item, index, e, eOpts) {
         Ext.Msg.show({
             title: 'Delete User',
@@ -46,6 +92,8 @@ Ext.define('CaptivePortal.view.users.UserController', {
     cancelUser: function () {
         var me = this;
         me.fireEvent('setActiveItem', 0);
+         var heading = Ext.ComponentQuery.query('label#lab_appheading')[0];
+         heading.setText('Users');
     },
     createUserModel: function (user, idNeed) {
         var siteNames = [];
@@ -106,6 +154,25 @@ Ext.define('CaptivePortal.view.users.UserController', {
             }, 'GET');
         }
     },
+    getSitesData: function (value, callback) {
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + value + '/get_sites.json', {}, function (response) {
+            debugger
+            var resObj = Ext.decode(response.responseText);
+            if (resObj.success) {
+                var sites = resObj.data.sites ? resObj.data.sites : [];
+                var siteStr = Ext.StoreManager.lookup('CaptivePortal.store.users.Site');
+                siteStr.setData(sites);
+                callback(siteStr);
+                Ext.getCmp('viewport').setLoading(false);
+            }
+        }.bind(this), function (response) {
+            var resObj = Ext.decode(response.responseText);
+            if (!resObj.success && resObj.error.length) {
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                Ext.getCmp('viewport').setLoading(false);
+            }
+        }, 'GET');
+    },
     getAllRoles: function () {
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE, {}, function (response) {
             var resObj = Ext.decode(response.responseText);
@@ -134,12 +201,12 @@ Ext.define('CaptivePortal.view.users.UserController', {
                     var accesses = resObj.data.site_role.site_accesses;
                     var permittedRoles = [];
                     Ext.Array.each(accesses, function (rec) {
-                        if(rec.access_for === "users"){
-                           if(rec.write === true){
-                                   me.getView().lookupReference('lab_permittedroles').setVisible(true);
-                                   me.getView().lookupReference('con_permittedroles').setVisible(true);
-                                   me.getView().lookupReference('grd_permittedusers').setStore('CaptivePortal.store.users.Role');
-                           }else{
+                        if (rec.access_for === "users") {
+                            if (rec.write === true) {
+                                me.getView().lookupReference('lab_permittedroles').setVisible(true);
+                                me.getView().lookupReference('con_permittedroles').setVisible(true);
+                                me.getView().lookupReference('grd_permittedusers').setStore('CaptivePortal.store.users.Role');
+                            } else {
                                 me.getView().lookupReference('lab_permittedroles').setVisible(false);
                                 me.getView().lookupReference('con_permittedroles').setVisible(false);
                             }
@@ -200,7 +267,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
 
             CaptivePortal.util.Utility.doAjaxJSON(url, saveJson, function (response) {
                 var resObj = Ext.decode(response.responseText);
-                if (resObj.success != 'false') {                    
+                if (resObj.success != 'false') {
                     me.fireEvent('setActiveItem', 0);
                     Ext.toast({
                         html: 'Data Saved',
@@ -253,3 +320,6 @@ Ext.define('CaptivePortal.view.users.UserController', {
         }
     }
 });
+
+
+//# sourceURL=http://localhost:8383/CP/app/view/users/UserController.js

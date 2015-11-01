@@ -10,6 +10,8 @@ Ext.define('CaptivePortal.util.Utility', {
         this.addHeader();
     },
     setSuperAdminSession: function (obj, remember) {
+        console.log('obj')
+        console.log(obj)
         var cookieObj = {
             remember: remember,
             email: obj.email,

@@ -7,17 +7,19 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                 click: 'showAddEditMaster'
             }
         },
-        controller:{
-            '*':{
-                refreshUserList:'getUsers'
+        controller: {
+            '*': {
+                refreshUserList: 'getUsers'
             }
         }
-           
+
     },
     showAddEditMaster: function () {
         this.fireEvent('showAddEditMaster', this);
+        this.clearForm();
     },
     userItemClick: function (view, record, item, index, e, eOpts) {
+        var me = this;
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
@@ -25,23 +27,27 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                 CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
-                        var record = this.createUserModel(resObj.data.user_profile, true);
-                        debugger
+                        var record = this.createUserModel(resObj.data.user_profile, true);                      
                         var tenant = record.data.tenant_id
+                        var availableroles = resObj.data.user_profile.available_roles;
+                        if (availableroles.length > 0)
+                            me.fireEvent('showUsersAccessPermission', availableroles,true,resObj.data.user_profile.id);
+                        else
+                           me.fireEvent('showUsersAccessPermission', availableroles,false,resObj.data.user_profile.id);
                         console.log(record)
-                      //  CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
-                            //roleData: resObj.data.roles, tenantData: resObj.data.tenants, sites: resObj.data.sites, user_id: resObj.data.user_profile.id});
-                        var tenantStr = Ext.StoreManager.lookup('CaptivePortal.store.users.TenantList');
-                        tenantStr.load();
-                        tenantStr.on('load',function(str,rec){
-                            debugger
-                            console.log(rec)
-                        })
-                        var data = tenantStr.find('id',tenant);
-                        var form = Ext.ComponentQuery.query('#userform')[0];
-                        form.loadRecord(record);
-                        //this.getAllRoles();
-                        this.selectRole(form.down('#role'));
+                        //  CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
+                        //roleData: resObj.data.roles, tenantData: resObj.data.tenants, sites: resObj.data.sites, });
+
+                        this.fireEvent('getUsersMainData', function (resp, store) {
+                            if (resp) {
+                                var data = store.findRecord('id', tenant);
+                                record.data.tenant_id = data.data.name;
+                                me.fireEvent('getUsersSiteData', tenant, function (store) {
+                                    var form = Ext.ComponentQuery.query('#userform')[0];
+                                    form.loadRecord(record);
+                                }.bind(this));
+                            }
+                        }.bind(this))
                     }
                 }.bind(this), function (response) {
                 }, 'GET');
@@ -49,6 +55,30 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                 this.deleteUser(view, record, item, index, e, eOpts);
             }
         }
+    },
+    clearForm: function () {
+        debugger
+        var form = Ext.ComponentQuery.query('#userform')[0];
+        var userid = form.down('hiddenfield');
+        userid.setValue('');
+        var name = userid.nextNode('textfield');
+        name.setValue('')
+        var email = name.nextNode('textfield');
+        email.setValue('');
+        var tenant = email.nextNode('combobox');
+        tenant.setValue('');
+        var site = tenant.nextNode('combobox');
+        site.setValue('');
+        site.getStore().removeAll();
+        var role = site.nextNode('combobox');
+        role.setValue('');
+        var label = role.nextNode('label');
+        var permlabel = label.nextNode('label')
+        permlabel.setVisible(false);
+        var container = permlabel.nextNode('container')
+        container.setVisible(false);
+        // form.loadRecord(userModel);
+
     },
     createUserModel: function (user, idNeed) {
         var siteNames = [];
@@ -96,4 +126,4 @@ Ext.define('CaptivePortal.view.users.UserListController', {
         })
     },
 })
- //# sourceURL=http://localhost:8383/CP/app/view/users/UserListController.js
+//# sourceURL=http://localhost:8383/CP/app/view/users/UserListController.js

@@ -15,7 +15,8 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.users.Site',
         'CaptivePortal.store.users.Role',
         'CaptivePortal.store.users.RoleAccess',
-        'ProfileMenuList'
+        'ProfileMenuList',
+        'CaptivePortal.store.users.AccessPermission'
     ],
     launch: function () {
         // TODO - Launch the application

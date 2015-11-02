@@ -31,6 +31,9 @@ Ext.define('CaptivePortal.view.tenants.TenantList', {
                 //style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 style: 'border: 1px solid #e2e2e2',
                 store: 'CaptivePortal.store.tenant.Tenant',
+                listeners: {
+                              itemclick: 'userItemClick'
+                            },
                 columns: [
                     {
                         header: 'Tenant Name',

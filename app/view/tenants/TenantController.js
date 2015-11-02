@@ -2,6 +2,19 @@ Ext.define('CaptivePortal.view.tenants.TenantController', {
 	extend: 'Ext.app.ViewController',
     alias: 'controller.tenants',
     requires: ['CaptivePortal.model.tenant.Tenant'],
+    listen:{
+    	controller:{
+    		'*':{
+    			setTenantEditViewForm: "onSetTenantEditViewForm"
+    		}
+    	}
+    },
+    onSetTenantEditViewForm: function(record){
+        this.fireEvent('showTenantEditView', 1);
+        var form = Ext.ComponentQuery.query('#tenantform')[0];
+        form.loadRecord(record);
+        this.getView().lookupReference('btn_save').setText('Update');
+    },
     saveTenant: function () {
       var form = this.getView().down('form');
 			if(form.isValid()){

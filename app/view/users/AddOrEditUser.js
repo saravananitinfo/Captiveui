@@ -116,10 +116,10 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                             }, {
                                 xtype: 'container',
                                 defaultType: 'radiofield',
-                                height: 80,
                                 defaults: {
                                     width: 100
                                 },
+                                margin: '0 0 20 0',
                                 layout: 'hbox',
                                 items: [
                                     {
@@ -140,7 +140,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 reference:'lab_permittedroles',
                                 text: 'Permitted User Roles',
                                 hidden:true,
-                                margin: '20 0 0 0',
+                                
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'container',
@@ -150,7 +150,6 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 //height: '100%',
                                 height:400,
                                 layout: 'fit',
-                                margin: '0 20 0 20',
                                 items: [{
                                         xtype: 'grid',
                                         itemId: 'permission_user_role_grid',
@@ -158,11 +157,14 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                         border: 1,
                                         style: 'z-index:1000;',
                                         autoScroll: true,
+                                        margin: '0 30 0 0',
+                                        width: '50%',
                                         columns: [
                                             {
                                                 header: 'Access',
                                                 dataIndex: 'name',
                                                 width: '79.9%',
+                                                cls: 'table-row',
                                                 renderer: function (value, metaData, rec, view) {
                                                     metaData.tdAttr = 'data-qtip="' + value + '" ';
                                                     return value;
@@ -172,6 +174,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                                 header: 'Permission',
                                                 dataIndex: 'permission',
                                                 width: '20%',
+                                                cls: 'table-row',
                                                 renderer: function (value, metaData, rec, view) {
                                                     if (value === 1) {
                                                         value = '<input type="checkbox" checked action="permission"/>';
@@ -190,7 +193,6 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                             },
                             {
                                 xtype: 'container',
-                                margin: 20,
                                 layout: 'hbox',
                                 width: '100%',
                                 height: 50,
@@ -201,12 +203,14 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                         itemId:'btn_newusersave',
                                         formBind: true,
                                         text: btnText,
-                                        handler: 'saveUser'
+                                        handler: 'saveUser',
+                                        cls: 'btn'
                                     },
                                     {
                                         xtype: 'button',
                                         margin: '0 0 0 20',
                                         text: 'Cancel',
+                                        cls: 'btn btn-cancel',
                                         handler: 'cancelUser'
                                     }
                                 ]

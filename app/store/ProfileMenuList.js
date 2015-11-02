@@ -43,6 +43,8 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             name: 'Management',
             cls: 'nav-icon nav-icon-mgmt',
             menuitem: [{
+                    name: 'SMS Gateway',
+                    itemname: 'sms_gateway'
                 }]
         }]
 })

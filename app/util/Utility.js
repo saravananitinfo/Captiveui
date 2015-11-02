@@ -123,9 +123,9 @@ Ext.define('CaptivePortal.util.Utility', {
                         })
                 });
                 console.log(items)
-                items.push({
-                    text: 'SignOut'
-                });
+                // items.push({
+                //     text: 'SignOut'
+                // });
                 profile_switch.setText(profile.tenant.name);
                 profile_switch.setMenu({
                     xtype: 'menu',

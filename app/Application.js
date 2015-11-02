@@ -10,6 +10,7 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.user.User',
         'CaptivePortal.store.tenant.Tenant',
         'CaptivePortal.store.role.Role',
+	'CaptivePortal.store.role.RoleAccess',
         'CaptivePortal.store.user.TenantList',
         'CaptivePortal.store.users.TenantList',
         'CaptivePortal.store.users.Site',

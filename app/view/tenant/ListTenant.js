@@ -57,6 +57,9 @@ Ext.define('CaptivePortal.view.tenant.ListTenant', {
 							height:'100%',
 							width:'90%',
 							//height:100,
+							listeners: {
+              				  itemclick: 'userItemClick'
+            				},
 							columns:[
 							{
 								header:'Tenant Name', 

@@ -6,9 +6,13 @@ Ext.define('CaptivePortal.view.tenants.MainController',{
             controller:{
                  '*':{
                 showAddEditTenant:'onShowAddEditTenant',
-                setTenantMainActiveItem:'onSetTenantMainActiveCard'
+                setTenantMainActiveItem:'onSetTenantMainActiveCard',
+                showTenantEditView: 'onShowTenantEditView'
             }
         }
+    },
+    onShowTenantEditView:function(card){
+         this.getView().setActiveItem(card);
     },
     onSetTenantMainActiveCard:function(card){
          this.getView().setActiveItem(card);

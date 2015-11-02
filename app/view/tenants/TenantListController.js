@@ -20,37 +20,32 @@ Ext.define('CaptivePortal.view.tenants.TenantListController',{
 		})
 	},
 	userItemClick: function (view, record, item, index, e, eOpts) {
+        var me = this
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
-                var url = CaptivePortal.Config.SERVICE_URLS.EDIT_USER + record.data.id + '/edit.json';
+                var url = CaptivePortal.Config.SERVICE_URLS.EDIT_TENANT + record.data.id + '/edit.json';
                 CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
-                        var record = this.createUserModel(resObj.data.user_profile, true);
-                        var tenant = record.data.tenant_id
-                        console.log(record)
-                      //  CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
-                            //roleData: resObj.data.roles, tenantData: resObj.data.tenants, sites: resObj.data.sites, user_id: resObj.data.user_profile.id});
-                        var tenantStr = Ext.StoreManager.lookup('CaptivePortal.store.users.TenantList');
-                        tenantStr.load();
-                        tenantStr.on('load',function(str,rec){
-                            console.log(rec)
-                        })
-                        var data = tenantStr.find('id',tenant);
-                        var form = Ext.ComponentQuery.query('#userform')[0];
-                        form.loadRecord(record);
-                        //this.getAllRoles();
-                        this.selectRole(form.down('#role'));
+                        var record = this.createTenantModel(resObj.data.tenant, true);
+
+                        me.fireEvent('setTenantEditViewForm', record);
                     }
                 }.bind(this), function (response) {
                 }, 'GET');
             } else {
-                this.deleteUser(view, record, item, index, e, eOpts);
+                this.deleteTenant(view, record, item, index, e, eOpts);
             }
         }
     },
-    deleteUser: function (view, record, item, index, e, eOpts) {
+    createTenantModel: function (tenant, idNeed) {
+        return userModel = Ext.create('CaptivePortal.model.tenant.Tenant', {
+            tenant_name: tenant.name,
+            tenant_id: tenant.id
+        });
+    },
+    deleteTenant: function (view, record, item, index, e, eOpts) {
         Ext.Msg.show({
             title: 'Delete Tenant',
             message: 'Do you want to delete?',

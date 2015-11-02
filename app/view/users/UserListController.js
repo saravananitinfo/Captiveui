@@ -35,8 +35,8 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                         else
                            me.fireEvent('showUsersAccessPermission', availableroles,false,resObj.data.user_profile.id);
                         console.log(record)
-                        //  CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
-                        //roleData: resObj.data.roles, tenantData: resObj.data.tenants, sites: resObj.data.sites, });
+                        // //  CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
+                        // //roleData: resObj.data.roles, tenantData: resObj.data.tenants, sites: resObj.data.sites, });
 
                         this.fireEvent('getUsersMainData', function (resp, store) {
                             if (resp) {

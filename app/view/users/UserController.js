@@ -91,7 +91,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
     },
     cancelUser: function () {
         var me = this;
-        me.fireEvent('setActiveItem', 0);
+        me.fireEvent('setUsersActiveItem', 0);
          var heading = Ext.ComponentQuery.query('label#lab_appheading')[0];
          heading.setText('Users');
     },
@@ -268,7 +268,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
             CaptivePortal.util.Utility.doAjaxJSON(url, saveJson, function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success != 'false') {
-                    me.fireEvent('setActiveItem', 0);
+                    me.fireEvent('setUsersActiveItem', 0);
                     Ext.toast({
                         html: 'Data Saved',
                         title: 'Info',

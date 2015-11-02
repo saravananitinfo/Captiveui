@@ -4,11 +4,11 @@ Ext.define('CaptivePortal.store.site.Site',{
 	requires:['CaptivePortal.model.site.Site'],
 	model:'CaptivePortal.model.site.Site',
 	proxy:{
-		url:CaptivePortal.Config.SERVICE_URLS.GET_TENANTS,
+		url:CaptivePortal.Config.SERVICE_URLS.LOAD_SITE,
 		type:'ajax',
 		reader:{
 			type:'json',
-			root:'data'
+			root:'data.sites'
 		}
 	}
 });

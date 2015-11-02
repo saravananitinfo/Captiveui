@@ -4,16 +4,15 @@ Ext.define('CaptivePortal.view.home.Home', {
         'CaptivePortal.view.home.HomeController',
         'CaptivePortal.view.users.Main',
         'CaptivePortal.view.tenants.Main',
-        'CaptivePortal.view.roles.Main'
+        'CaptivePortal.view.roles.Main',
+        'CaptivePortal.view.sites.Main'
     ],
     xtype: 'widget.home.Home',
     itemId: 'pan_apphome',
     controller: 'home',
     padding: '2 80 10 80',
-    bodyCls: 'custom_bg_background',
-    // layout: 'vbox',
-    initComponent: function () {
-        var menuItemHeight = 35, menuItemWidth = 145;
+    bodyCls: 'custom_bg_background',   
+    initComponent: function () {      
         var userObj = this.user;
         console.log(userObj)
         this.items = [{

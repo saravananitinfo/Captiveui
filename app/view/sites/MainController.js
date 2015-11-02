@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-Ext.define('CaptivePortal.view.users.MainController', {
+Ext.define('CaptivePortal.view.sites.MainController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.users_maincontroller',
+    alias: 'controller.sites_maincontroller',
     requires: ['CaptivePortal.store.users.TenantList'],
     listen: {
         controller: {
-            '*': {
-                showAddEditMaster: 'onShowAddEditMaster',
-                setUsersActiveItem: 'onSetActiveCard',
-                getUsersMainData:'getData',
-                showUsersEditView:'showEditView'
+            '#vc_sitecontroller': {
+                setActiveSiteCard: 'setActiveItem'             
+            },
+            '#vc_sitelistcontroller':{
+                  setActiveSiteCard: 'setActiveItem'  
             }
         }
     },
-    showEditView:function(card){
+    setActiveItem:function(card){
          this.getView().setActiveItem(card);
     },  
     onSetActiveCard: function (card) {

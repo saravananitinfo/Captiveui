@@ -58,7 +58,7 @@ Ext.define('CaptivePortal.view.login.Login', {
                                         margin: '10 0 0 0',
                                         itemId: 'login-name',
                                         msgTarget: 'under',
-                                       // value:'admin1@wavespot.net',
+                                        value:'admin1@wavespot.net',
                                         invalidText: 'Please enter valid user name',
                                         vtype: 'email'
                                     }, {
@@ -66,7 +66,7 @@ Ext.define('CaptivePortal.view.login.Login', {
                                         inputType: 'password',
                                         margin: '10 0 0 0',
                                         emptyText: 'Password',
-                                       // value:'password',
+                                        value:'password',
                                         msgTarget: 'under',
                                         name: 'password',
                                         allowBlank: false,

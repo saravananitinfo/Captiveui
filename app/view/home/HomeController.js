@@ -40,7 +40,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(record.id);
-    },
+    },   
     createUsers: function () {
         this.getView().lookupReference('pan_mainnavigation').setActiveItem(1);
         this.getView().lookupReference('lab_heading').setText('Users')

@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.view.home.Body', {
     reference: 'pan_mainnavigation',
     flex: 1,
     width: '98%',
-    cls: 'tenant-box-border', 
+    cls: 'tenant-box-border',
     layout: 'card',
     border: false,
     items: [{
@@ -25,6 +25,9 @@ Ext.define('CaptivePortal.view.home.Body', {
         }, {
             xtype: 'rolemain',
             itemId: 'card_rolelist'
+        }, {
+            xtype: 'sites_main',
+            itemId: 'card_sitelist'
         }]
 
 })

@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.view.sites.SiteList', {
     extend: 'Ext.Panel',
-    //requires: ['CaptivePortal.view.tenants.SiteListController', 'CaptivePortal.store.site.Site'],
+    requires: ['CaptivePortal.view.sites.SiteListController', 'CaptivePortal.store.site.Site'],
     alias: 'widget.sitelist',
     border: true,
     layout: 'fit',
@@ -16,14 +16,12 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                     xtype: 'tbfill'
                 }, {
                     xtype: 'button',
-                    text: 'Add User'
-                }, {
-                    xtype: 'button',
-                    text: 'Export'
+                    text: 'Add Site',
+                    itemId: 'btn_addsite'
                 }]
         }],
     listeners: {
-        render: 'getTenantList'
+        render: 'getSite'
     },
     initComponent: function () {
         this.items = [{
@@ -94,6 +92,9 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                     }
 
                 ],
+                listeners: {
+                    itemclick: 'editSiteItemClick'                    
+                }
             }]
         this.callParent(arguments)
     }

@@ -31,7 +31,7 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         form.down('#timezone').setValue('');
         form.down('#tags').setValue('');
         form.down('#email').setValue('');
-        form.down('#state').setValue('');  
+        form.down('#state').setValue('');
         form.down('#site_id').setValue('');
         this.fireEvent('setActiveSiteCard', 1);
         this.fireEvent('setviewStore');
@@ -50,16 +50,19 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             me.getSite();
+                            Ext.getCmp('viewport').setLoading(false);
                         }
                     }.bind(this), function (response) {
+                        Ext.getCmp('viewport').setLoading(false);
                     }, 'DELETE');
                 } else if (btn === 'no') {
-
+                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this)
         });
     },
     editSiteItemClick: function (view, record, item, index, e, eOpts) {
+        Ext.getCmp('viewport').setLoading(true);
         var me = this;
         var action = e.target.getAttribute('action');
         if (action) {
@@ -72,9 +75,10 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
                         me.fireEvent('setviewStore', model.data.user_profiles);
                         Ext.ComponentQuery.query('#site_form')[0].getForm().loadRecord(model);
                         me.fireEvent('setActiveSiteCard', 1);
-                        console.log(resObj)
+                        Ext.getCmp('viewport').setLoading(false);
                     }
                 }.bind(this), function (response) {
+                     Ext.getCmp('viewport').setLoading(false);
                 }, 'GET');
             } else {
                 this.deleteSite(view, record, item, index, e, eOpts);
@@ -90,4 +94,4 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
     }
 });
 
- //# sourceURL=http://localhost:8383/CP/app/view/sites/SiteListController.js
+//# sourceURL=http://localhost:8383/CP/app/view/sites/SiteListController.js

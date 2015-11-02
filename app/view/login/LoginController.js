@@ -70,6 +70,10 @@ Ext.define('CaptivePortal.view.login.LoginController', {
         var bodypanel = Ext.create('CaptivePortal.view.home.Body');
         homepanel.add(navpanel, headingpanel, bodypanel);
         Ext.getCmp('viewport').add(homepanel);
+        CaptivePortal.util.Utility.loadUserStore()
+        CaptivePortal.util.Utility.loadRoleStore();
+        CaptivePortal.util.Utility.loadSiteStore();
+        CaptivePortal.util.Utility.loadTenantStore();
     },
     login: function (btn) {
         var formObj = btn.up('form'), form = formObj.getForm();
@@ -85,29 +89,29 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                 var accessPermissionList = [];
                 if (resObj.success) {
                     debugger
-                    var userObj = Ext.decode(response.responseText);                   
+                    var userObj = Ext.decode(response.responseText);
                     if (userObj.data && userObj.data.user) {
                         if (userObj.data.user.user_role && userObj.data.user.user_role === 'super_admin') {
-                         if (userObj.data.user.access_permission_list && userObj.data.user.access_permission_list.length) {
+                            if (userObj.data.user.access_permission_list && userObj.data.user.access_permission_list.length) {
                                 var len = userObj.data.user.access_permission_list.length;
                                 for (var i = 0; i < len; i++) {
                                     var perm = userObj.data.user.access_permission_list[i];
                                     accessPermissionList.push({module: perm['access_for'], read: perm['read'], write: perm['write']});
                                 }
                             }
-                            var data = userObj.data.user;                          
+                            var data = userObj.data.user;
                             CaptivePortal.app.setUserName(data.email);
                             CaptivePortal.app.setUserRole(data.user_role);
                             CaptivePortal.app.setAccessPermissionList(data.access_permission_list);
-                            CaptivePortal.app.setToken(data.auth_token);                        
-                            CaptivePortal.util.Utility.setSuperAdminSession(userObj.data.user,rememberMe);
+                            CaptivePortal.app.setToken(data.auth_token);
+                            CaptivePortal.util.Utility.setSuperAdminSession(userObj.data.user, rememberMe);
                             var userInitialObj = {
                                 langDesc: 'English',
                                 userName: data.email
-                            }                           
+                            }
                             this.loginForSuperAdmin(userInitialObj);
-                        } else {                
-                           var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
+                        } else {
+                            var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
                             if (!homepanel) {
                                 homepanel = Ext.create('CaptivePortal.view.home.Home', {
                                     layout: 'vbox',
@@ -117,9 +121,9 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                     }
                                 });
                             }
-                            var profiles = userObj.data.user.profiles;                           
+                            var profiles = userObj.data.user.profiles;
                             if (profiles.length > 1) {
-                                CaptivePortal.app.setTempUserObj({data:userObj.data.user,remember:rememberMe});                                
+                                CaptivePortal.app.setTempUserObj({data: userObj.data.user, remember: rememberMe});
                                 homepanel.add({
                                     xtype: 'home_appheader',
                                     margin: '40 0 0 0',
@@ -136,7 +140,7 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                         afterrender: function (panel) {
                                             var grid = panel.down('gridpanel');
                                             grid.getStore().removeAll();
-                                            grid.getStore().setData(userObj.data.user.profiles);                                            
+                                            grid.getStore().setData(userObj.data.user.profiles);
                                         }
                                     }
                                 });
@@ -145,9 +149,9 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                     Ext.getCmp('viewport').add(homepanel);
                                 }
                             } else {
-                                CaptivePortal.app.setTempUserObj({data:userObj.data.user,remember:rememberMe});
+                                CaptivePortal.app.setTempUserObj({data: userObj.data.user, remember: rememberMe});
                                 CaptivePortal.util.Utility.doProfileLogin(profiles[0].id)
-                               // CaptivePortal.util.Utility.doLoginForLoggedUser();
+                                // CaptivePortal.util.Utility.doLoginForLoggedUser();
                                 homepanel.add({
                                     xtype: 'home_navigation'
                                 }, {

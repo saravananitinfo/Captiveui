@@ -1,6 +1,7 @@
 Ext.define('CaptivePortal.view.home.HomeController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.home',
+    id:'vc_homecontroller',
     listen: {
         component: {
             'gridpanel#grd_profilelist': {
@@ -18,7 +19,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(1);
                 this.getView().lookupReference('lab_heading').setText('Users');
-                this.fireEvent('setActiveItem', 0);
+                this.fireEvent('setActiveUserCard', 0);
                 break;
             case "tenants":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(2);
@@ -32,7 +33,8 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 break;
             case "sites":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(4);
-                this.getView().lookupReference('lab_heading').setText('Sites')
+                this.getView().lookupReference('lab_heading').setText('Sites');
+                this.fireEvent('setActiveSiteCard', 0);
                 break;
 
         }

@@ -25,17 +25,18 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
         this.getTenants();
         this.getCountryStore();
         this.getStateStore();
-        if(data){
+        if (data) {
             this.getView().lookupReference('btn_save').setText('Update');
-        }else{
+        } else {
             this.getView().lookupReference('btn_save').setText('Create');
         }
-        
-    },    
+
+    },
     cancelSite: function () {
         this.fireEvent('setActiveSiteCard', 0);
     },
     saveSite: function (btn) {
+        Ext.getCmp('viewport').setLoading(true);
         var me = this;
         var form = this.getView().down('form');
         if (form.isValid()) {
@@ -55,12 +56,14 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
                     console.log(resObj);
                     me.fireEvent('setActiveSiteCard', 0)
                     me.fireEvent('refreshSitesStore');
+                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (!resObj.success && resObj.error.length) {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
+                Ext.getCmp('viewport').setLoading(false);
             }, method);
         }
     },

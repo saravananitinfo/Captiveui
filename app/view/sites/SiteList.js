@@ -21,7 +21,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                 }]
         }],
     listeners: {
-        render: 'getSite'
+        //render: 'getSite'
     },
     initComponent: function () {
         this.items = [{

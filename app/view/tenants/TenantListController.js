@@ -1,26 +1,26 @@
-Ext.define('CaptivePortal.view.tenants.TenantListController',{
-	extend:'Ext.app.ViewController',
-	alias:'controller.tenantlistcontroller',
-	listen: {
-    component: {
-      'button#btn_addtenant': {
-        click: 'showAddEditTenant'
-      }
-    }
-	},
-	showAddEditTenant: function () {
-		this.fireEvent('showAddEditTenant', this);
+Ext.define('CaptivePortal.view.tenants.TenantListController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.tenantlistcontroller',
+    listen: {
+        component: {
+            'button#btn_addtenant': {
+                click: 'showAddEditTenant'
+            }
+        }
+    },
+    showAddEditTenant: function () {
+        this.fireEvent('showAddEditTenant', this);
         this.clearForm();
-  },
-	getTenantList:function(){
-		var store = this.getView().lookupReference('grd_tenantlist').getStore();
-		store.load();
-		store.on('load',function(store,record){
-			Ext.getCmp('viewport').setLoading(false);
-			console.log(record)
-		})
-	},
-	userItemClick: function (view, record, item, index, e, eOpts) {
+    },
+    getTenantList: function () {       
+        var store = this.getView().lookupReference('grd_tenantlist').getStore();
+        store.load();
+        store.on('load', function (store, record) {
+            Ext.getCmp('viewport').setLoading(false);
+            console.log(record)
+        })
+    },
+    userItemClick: function (view, record, item, index, e, eOpts) {
         var me = this
         var action = e.target.getAttribute('action');
         if (action) {
@@ -54,17 +54,18 @@ Ext.define('CaptivePortal.view.tenants.TenantListController',{
             icon: Ext.Msg.QUESTION,
             fn: function (btn) {
                 if (btn === 'yes') {
-                	Ext.getCmp('viewport').setLoading(true);
-					var url = CaptivePortal.Config.SERVICE_URLS.DELETE_TENANT + record.data.id + '.json';
-					CaptivePortal.util.Utility.doAjax(url,{},function(response){
-						var resObj = Ext.decode(response.responseText);
-						if(resObj.success){
-							this.getTenantList();
-						}
-					}.bind(this),function(response){},'DELETE');
-				} else if (btn === 'no') {
-					
-				}
+                    Ext.getCmp('viewport').setLoading(true);
+                    var url = CaptivePortal.Config.SERVICE_URLS.DELETE_TENANT + record.data.id + '.json';
+                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                        var resObj = Ext.decode(response.responseText);
+                        if (resObj.success) {
+                            this.getTenantList();
+                        }
+                    }.bind(this), function (response) {
+                    }, 'DELETE');
+                } else if (btn === 'no') {
+
+                }
             }.bind(this)
         });
     },

@@ -14,6 +14,9 @@ Ext.define('CaptivePortal.view.sites.MainController', {
             },
             '#vc_sitelistcontroller':{
                   setActiveSiteCard: 'setActiveItem'  
+            },
+            '#vc_homecontroller':{
+                  setActiveSiteCard: 'setActiveItem'  
             }
         }
     },

@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.tenants.TenantList', {
                 }]
         }],
     listeners: {
-        render: 'getTenantList'
+       // render: 'getTenantList'
     },
     initComponent: function () {
         this.items = [{

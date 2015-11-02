@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.roles.RoleList', {
                 }]
         }],
     listeners: {
-        render: 'getRoles'
+        //render: 'getRoles'
     },
     items: [{
             xtype: 'gridpanel',

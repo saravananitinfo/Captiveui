@@ -9,26 +9,28 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.util.Cookies.set('CAP_SESSION', Ext.encode(obj), expires);
         this.addHeader();
     },
-    setSuperAdminSession: function (obj, remember) {
+    setSuperAdminSession: function (obj, remember, token) {
         console.log('obj')
         console.log(obj)
+        debugger
         var cookieObj = {
             remember: remember,
             email: obj.email,
-            token: obj.auth_token,
+            token: token ? token : obj.auth_token,
             username: obj.email,
             language: 'English',
             role: obj.user_role
         };
-        this.setValuesForCookies(cookieObj)
+        this.setValuesForCookies(cookieObj);
+
     },
-    setNormalUserSession: function (obj, profileId) {
-        console.log(obj)
+    setNormalUserSession: function (obj, profileId, token) {
+        debugger
         var cookieObj = {
             role: 'user',
             remember: obj.remember,
             email: obj.data.email,
-            token: obj.data.auth_token,
+            token: token ? token : obj.data.auth_token,
             username: obj.data.email,
             language: 'English',
             profileId: profileId
@@ -47,6 +49,7 @@ Ext.define('CaptivePortal.util.Utility', {
             CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
+                    debugger
                     var cookieObj = Ext.decode(Ext.util.Cookies.get('CAP_SESSION'));
                     var homepanel = Ext.create('CaptivePortal.view.home.Home', {
                         layout: 'vbox',
@@ -57,11 +60,15 @@ Ext.define('CaptivePortal.util.Utility', {
                     });
                     if (resObj.data.profile) {
                         var token = cookieObj.token;
+                        var token = cookieObj.token;
                         var cookieObj = {remember: cookieObj.remember, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
-                        this.setValuesForCookies(cookieObj);
+                        CaptivePortal.app.setTempUserObj({data: resObj.data.profile, remember: cookieObj.remember});
+                        CaptivePortal.util.Utility.doProfileLogin(resObj.data.profile.id, token)
+
+
                     } else if (resObj.data.user_details.user_role === "super_admin") {
-                        var cookieObj = {remember: cookieObj.remember, email: resObj.data.user_details.email, token: token, username: resObj.data.user_details.email, language: 'English', userId: resObj.data.user_details.user_id};
-                        console.log("Super Admin");
+                        debugger
+                        me.setSuperAdminSession(resObj.data.user_details, cookieObj.remember, cookieObj.token);
                         console.log(resObj);
                         resObj = resObj.data.user_details;
                         CaptivePortal.app.setUserName(resObj.email);
@@ -73,15 +80,19 @@ Ext.define('CaptivePortal.util.Utility', {
                         var bodypanel = Ext.create('CaptivePortal.view.home.Body');
                         homepanel.add(navpanel, headingpanel, bodypanel);
                         Ext.getCmp('viewport').add(homepanel);
+                        CaptivePortal.util.Utility.loadUserStore()
+                        CaptivePortal.util.Utility.loadRoleStore();
+                        CaptivePortal.util.Utility.loadSiteStore();
+                        CaptivePortal.util.Utility.loadTenantStore();
                     }
                 }
             }.bind(this), function (response) {
             }.bind(this), 'GET');
         }
     },
-    doProfileLogin: function (profileId) {
+    doProfileLogin: function (profileId, token) {
         console.log(CaptivePortal.app.getTempUserObj());
-        this.setNormalUserSession(CaptivePortal.app.getTempUserObj(), profileId);
+        this.setNormalUserSession(CaptivePortal.app.getTempUserObj(), profileId, token);
         var me = this;
         var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
         CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
@@ -102,6 +113,7 @@ Ext.define('CaptivePortal.util.Utility', {
                 Ext.getCmp('viewport').removeAll();
                 var navpanel = Ext.create('CaptivePortal.view.home.Navigation');
                 me.createMenusForUserBasedOnPermisson(navpanel);
+                me.loadStoreBasedOnPermission();
                 var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
                 var bodypanel = Ext.create('CaptivePortal.view.home.Body');
 
@@ -143,8 +155,41 @@ Ext.define('CaptivePortal.util.Utility', {
                 Ext.getCmp('viewport').setLoading(false);
             }
         }.bind(this), function (response) {
-           
+
         }.bind(this), 'GET');
+    },
+    loadStoreBasedOnPermission: function () {
+        var me = this;
+        Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
+            if (permission.access_for) {
+                if (permission.read || permission.write) {
+                    console.log('sdfsdfsdfsfsfsdfsfsf')
+                    if (permission.access_for === "users") {
+                        me.loadUserStore();
+                    } else if (permission.access_for === "sites") {
+                        me.loadSiteStore();
+                    } else if (permission.access_for === "roles") {
+                        me.loadSiteStore();
+                    }
+                }
+            }
+        })
+    },
+    loadUserStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.user.User');
+        str.load();
+    },
+    loadSiteStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.site.Site');
+        str.load();
+    },
+    loadTenantStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.tenant.Tenant');
+        str.load();
+    },
+    loadRoleStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.role.Role');
+        str.load();
     },
     createMenusForUserBasedOnPermisson: function (navpanel) {
         var store = Ext.StoreManager.lookup('ProfileMenuList');
@@ -164,44 +209,44 @@ Ext.define('CaptivePortal.util.Utility', {
                                 },
                                 itemname: menuitem.itemname,
                                 //height: 48,
-                                cls: "nav-menu-item nav-menu-item"+ menuitem.name,
-                                width:235
+                                cls: "nav-menu-item nav-menu-item" + menuitem.name,
+                                width: 235
                             })
                         }
                     }
                 });
             });
             console.log(rec)
-            if (rec.data.id == 1)
+            if (rec.data.id === 1)
                 navpanel.add({
                     text: rec.data.name,
                     iconCls: rec.data.cls,
-                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin:'0 50 0 0',
+                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin: '0 50 0 0',
                     menu: menu
                 });
-            else if (rec.data.id == 2)
+            else if (rec.data.id === 2)
                 navpanel.add({
                     text: rec.data.name,
                     iconCls: rec.data.cls,
-                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin:'0 50 0 0',
+                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin: '0 50 0 0',
                     menu: menu
                 });
-            else if (rec.data.id == 3)
+            else if (rec.data.id === 3)
                 navpanel.add({
                     text: rec.data.name,
                     iconCls: rec.data.cls,
-                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin:'0 50 0 0',
+                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin: '0 50 0 0',
                     menu: menu
                 });
-            else if (rec.data.id == 4)
+            else if (rec.data.id === 4)
                 navpanel.add({
                     text: rec.data.name,
                     iconCls: rec.data.cls,
-                    cls:'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin:'0 50 0 0',
+                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                    margin: '0 50 0 0',
                     menu: menu
                 });
         })

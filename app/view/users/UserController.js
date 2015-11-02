@@ -10,14 +10,14 @@ Ext.define('CaptivePortal.view.users.UserController', {
             }
         }
     },
-    setUserId:function(userid){        
+    setUserId: function (userid) {
         this.getView().lookupReference('hf_userid').setValue(userid);
         this.getView().lookupReference('btn_save').setText('Update');
     },
-    showAccessPermission: function (data, view,userid) {
+    showAccessPermission: function (data, view, userid) {
         console.log('------------.');
-        console.log(data);        
-        if(userid != null && userid  != undefined)
+        console.log(data);
+        if (userid != null && userid != undefined)
             this.setUserId(userid)
         if (view) {
             this.getView().lookupReference('lab_permittedroles').setVisible(true);
@@ -61,11 +61,13 @@ Ext.define('CaptivePortal.view.users.UserController', {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             this.getUsers();
+                            Ext.getCmp('viewport').setLoading(false);
                         }
                     }.bind(this), function (response) {
+                         Ext.getCmp('viewport').setLoading(false);
                     }, 'DELETE');
                 } else if (btn === 'no') {
-
+                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this)
         });
@@ -92,8 +94,8 @@ Ext.define('CaptivePortal.view.users.UserController', {
     cancelUser: function () {
         var me = this;
         me.fireEvent('setUsersActiveItem', 0);
-         var heading = Ext.ComponentQuery.query('label#lab_appheading')[0];
-         heading.setText('Users');
+        var heading = Ext.ComponentQuery.query('label#lab_appheading')[0];
+        heading.setText('Users');
     },
     createUserModel: function (user, idNeed) {
         var siteNames = [];
@@ -232,6 +234,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
         Ext.getCmp('viewport').setLoading(true);
         var me = this;
         var form = this.getView().down('form');
+        debugger
         if (form.isValid()) {
             var formValues = form.getForm().getValues();
             if (formValues.user_id) {
@@ -275,6 +278,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
                         width: 200,
                         align: 't'
                     });
+                     Ext.getCmp('viewport').setLoading(false);
                 } else {
                     Ext.getCmp('viewport').setLoading(false);
                     Ext.Msg.alert('Info', resObj.message[0])
@@ -289,6 +293,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
         }
     },
     userItemClick: function (view, record, item, index, e, eOpts) {
+        Ext.getCmp('viewport').setLoading(true);
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
@@ -296,13 +301,10 @@ Ext.define('CaptivePortal.view.users.UserController', {
                 CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
-                        var record = this.createUserModel(resObj.data.user_profile, true);
-                        CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
-                            roleData: resObj.data.roles, tenantData: resObj.data.tenants, sites: resObj.data.sites, user_id: resObj.data.user_profile.id});
+                        var record = this.createUserModel(resObj.data.user_profile, true);                       
                         var form = Ext.ComponentQuery.query('#userform')[0];
                         form.loadRecord(record);
-                        //this.getAllRoles();
-                        this.selectRole(form.down('#role'));
+                        Ext.getCmp('viewport').setLoading(false);
                     }
                 }.bind(this), function (response) {
                 }, 'GET');

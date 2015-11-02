@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
                 }]
         }],
     listeners: {
-        render: 'getUsers'
+       // render: 'getUsers'
     },
     items: [{
             xtype: 'gridpanel',

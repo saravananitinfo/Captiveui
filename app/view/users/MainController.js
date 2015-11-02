@@ -12,16 +12,22 @@ Ext.define('CaptivePortal.view.users.MainController', {
             '*': {
                 showAddEditMaster: 'onShowAddEditMaster',
                 setUsersActiveItem: 'onSetActiveCard',
-                getUsersMainData:'getData',
-                showUsersEditView:'showEditView'
+                getUsersMainData: 'getData',
+                showUsersEditView: 'showEditView'
+            },
+            '#vc_homecontroller': {
+                setActiveUserCard: 'setActiveItem'
             }
         }
     },
-    showEditView:function(card){
-         this.getView().setActiveItem(card);
-    },  
+    setActiveItem: function (card) {
+        this.getView().setActiveItem(card);
+    },
+    showEditView: function (card) {
+        this.getView().setActiveItem(card);
+    },
     onSetActiveCard: function (card) {
-      CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, function (response) {
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, function (response) {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 var tenantStr = Ext.StoreManager.lookup('CaptivePortal.store.users.TenantList');
@@ -43,7 +49,7 @@ Ext.define('CaptivePortal.view.users.MainController', {
     onShowAddEditMaster: function () {
         this.getView().setActiveItem(1);
         var laab = Ext.ComponentQuery.query('label#lab_appheading')[0];
-        var btn =  Ext.ComponentQuery.query('button#btn_newusersave')[0];
+        var btn = Ext.ComponentQuery.query('button#btn_newusersave')[0];
         laab.setText('New User Profile');
         btn.setText('Create');
     },
@@ -55,7 +61,7 @@ Ext.define('CaptivePortal.view.users.MainController', {
                 tenantStr.setData(resObj.data.tenants);
                 var roleStr = Ext.StoreManager.lookup('CaptivePortal.store.users.Role');
                 roleStr.setData(resObj.data.roles);
-                callback("success",tenantStr);
+                callback("success", tenantStr);
                 console.log(resObj)
             }
         }.bind(this), function (response) {

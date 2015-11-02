@@ -34,7 +34,7 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         form.down('#state').setValue('');  
         form.down('#site_id').setValue('');
         this.fireEvent('setActiveSiteCard', 1);
-        this.fireEvent('setviewStore')
+        this.fireEvent('setviewStore');
     },
     deleteSite: function (view, record, item, index, e, eOpts) {
         var me = this;

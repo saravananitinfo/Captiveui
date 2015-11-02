@@ -25,6 +25,12 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
         this.getTenants();
         this.getCountryStore();
         this.getStateStore();
+        if(data){
+            this.getView().lookupReference('btn_save').setText('Update');
+        }else{
+            this.getView().lookupReference('btn_save').setText('Create');
+        }
+        
     },    
     cancelSite: function () {
         this.fireEvent('setActiveSiteCard', 0);
@@ -138,5 +144,3 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
         this.fireEvent('setActiveSiteCard', 1);
     }
 });
-
-//# sourceURL=http://localhost:8383/CP/app/view/sites/SiteController.js

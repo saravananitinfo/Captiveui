@@ -347,6 +347,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 items: [
                                     {
                                         xtype: 'button',
+                                        reference:'btn_save',
                                         formBind: true,
                                         text: btnText,
                                         handler: 'saveSite'

@@ -61,6 +61,7 @@ Ext.define('CaptivePortal.view.tenants.AddOrEditTenant', {
 	                                        xtype: 'button',
 	                                        reference:'btn_save',
 	                                        formBind: true,
+	                                        itemId: "btn_saveTenant",
 	                                        text: btnText,
 	                                        handler: 'saveTenant'
 	                                    },

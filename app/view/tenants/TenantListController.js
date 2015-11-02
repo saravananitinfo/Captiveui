@@ -10,6 +10,7 @@ Ext.define('CaptivePortal.view.tenants.TenantListController',{
 	},
 	showAddEditTenant: function () {
 		this.fireEvent('showAddEditTenant', this);
+        this.clearForm();
   },
 	getTenantList:function(){
 		var store = this.getView().lookupReference('grd_tenantlist').getStore();
@@ -66,6 +67,13 @@ Ext.define('CaptivePortal.view.tenants.TenantListController',{
 				}
             }.bind(this)
         });
-    }
+    },
+    clearForm: function () {
+        var form = Ext.ComponentQuery.query('#tenantform')[0];
+        var tenantid = form.down('hiddenfield');
+        tenantid.setValue('');
+        var name = tenantid.nextNode('textfield');
+        name.setValue('')
 
+    }
 });

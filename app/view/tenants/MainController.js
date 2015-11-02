@@ -37,6 +37,8 @@ Ext.define('CaptivePortal.view.tenants.MainController',{
         this.getView().setActiveItem(1);
         var laab = Ext.ComponentQuery.query('label#lab_appheading')[0];
         laab.setText('New Tenant');
+        var btn =  Ext.ComponentQuery.query('button#btn_saveTenant')[0];
+        btn.setText('Create');
     }
 });
 

@@ -145,7 +145,9 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                     Ext.getCmp('viewport').add(homepanel);
                                 }
                             } else {
-                                CaptivePortal.util.Utility.doLoginForLoggedUser();
+                                CaptivePortal.app.setTempUserObj({data:userObj.data.user,remember:rememberMe});
+                                CaptivePortal.util.Utility.doProfileLogin(profiles[0].id)
+                               // CaptivePortal.util.Utility.doLoginForLoggedUser();
                                 homepanel.add({
                                     xtype: 'home_navigation'
                                 }, {

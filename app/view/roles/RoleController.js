@@ -1,62 +1,21 @@
 Ext.define('CaptivePortal.view.roles.RoleController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.rolelistcontroller',
+    alias: 'controller.roles',
+    equires: ['CaptivePortal.model.roles.Role'],
     listen: {
-    component: {
-      'button#btn_addrole': {
-        click: 'showAddEditRole'
-      }
-    }
-	},
-	showAddEditRole: function () {
-		this.fireEvent('showAddEditRole', this);
-    },
-    getRoles: function () {
-        var store = this.getView().lookupReference('grd_rolelist').getStore();
-        store.load();
-        store.on('load', function (store, record) {
-            console.log(record)
-        })
-    },
-    userItemClick: function (view, record, item, index, e, eOpts) {
-        var action = e.target.getAttribute('action');
-        if (action) {
-            if (action == "edit") {
-                var url = CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
-                    var resObj = Ext.decode(response.responseText);
-                    if (resObj.success) {
-                        CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.role.AddOrEditRole', this, {role_access: resObj.data.site_role.site_accesses, role_name: resObj.data.site_role.name, role_id: resObj.data.site_role.id});
-                        CaptivePortal.util.Utility.setHeightForCommonContainer();
-                    }
-                }.bind(this), function (response) {
-                }, 'GET');
-            } else {
-                this.deleteRole(view, record, item, index, e, eOpts);
+        controller: {
+            '*':{
+                setTenantEditViewForm: "onSetTenantEditViewForm"
             }
         }
     },
-    deleteRole: function (view, record, item, index, e, eOpts) {
-        Ext.Msg.show({
-            title: 'Delete Role',
-            message: 'Do you want to delete?',
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            fn: function (btn) {
-                if (btn === 'yes') {
-                    var url = CaptivePortal.Config.SERVICE_URLS.DELETE_ROLE + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
-                        var resObj = Ext.decode(response.responseText);
-                        if (resObj.success) {
-                            this.getRoles();
-                        }
-                    }.bind(this), function (response) {
-                    }, 'DELETE');
-                } else if (btn === 'no') {
-
-                }
-            }.bind(this)
-        });
+    onSetTenantEditViewForm: function(record){
+        this.fireEvent('showRoleEditView', 1)
+        var form = Ext.ComponentQuery.query('#roleform')[0];
+        form.loadRecord(record);
+        this.getView().lookupReference('btn_save').setText('Update');
+        this.getView().lookupReference('grd_permittedusers').getView().refresh();
+        // Ext.ComponentQuery.query('#permission_user_role_grid')[0].getView().refresh();
     },
     cancelRole: function () {
         var me = this;

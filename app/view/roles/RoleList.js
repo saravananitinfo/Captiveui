@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.view.roles.RoleList', {
     extend: 'Ext.Panel',
-    requires: ['CaptivePortal.view.roles.RoleController', 'CaptivePortal.store.role.Role','CaptivePortal.view.roles.MainController'],
+    requires: ['CaptivePortal.view.roles.RoleListController', 'CaptivePortal.store.role.Role','CaptivePortal.view.roles.MainController'],
     alias: 'widget.rolelist',
     controller: 'rolelistcontroller',
     border: false,

@@ -5,7 +5,7 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
         'CaptivePortal.store.role.Role'
     ],
   alias: 'widget.roles_addrole',
-  controller: 'rolelistcontroller',
+  controller: 'roles',
   padding: 0,
   height: 100,
   scrollable: true,
@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
                 width: '100%',
                 items: [{
                         xtype: 'form',
-                        itemId: 'userform',
+                        itemId: 'roleform',
                         defaults: {
                             width: 400,
                             height: 30,
@@ -122,7 +122,9 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 		                                items: [
 		                                    {
 		                                        xtype: 'button',
+		                                        reference:'btn_save',
 		                                        formBind: true,
+		                                        itemId: "btn_saveRole",
 		                                        text: btnText,
 		                                        handler: 'saveRole'
 		                                    },

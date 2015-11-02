@@ -6,9 +6,13 @@ Ext.define('CaptivePortal.view.roles.MainController',{
             controller:{
                  '*':{
                 showAddEditRole:'onShowAddEditRole',
-                setRoleMainActiveItem:'onSetRoleMainActiveCard'
+                setRoleMainActiveItem:'onSetRoleMainActiveCard',
+                showRoleEditView: 'onShowTenantEditView'
             }
         }
+    },
+    onShowTenantEditView: function(card){
+        this.getView().setActiveItem(card);
     },
     onSetRoleMainActiveCard:function(card){
          this.getView().setActiveItem(card);
@@ -33,6 +37,8 @@ Ext.define('CaptivePortal.view.roles.MainController',{
         this.getView().setActiveItem(1);
         var laab = Ext.ComponentQuery.query('label#lab_appheading')[0];
         laab.setText('New Role');
+        var btn =  Ext.ComponentQuery.query('button#btn_saveRole')[0];
+        btn.setText('Create');
     }
 });
 

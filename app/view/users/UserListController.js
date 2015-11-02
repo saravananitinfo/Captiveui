@@ -56,8 +56,7 @@ Ext.define('CaptivePortal.view.users.UserListController', {
             }
         }
     },
-    clearForm: function () {
-        debugger
+    clearForm: function () {    
         var form = Ext.ComponentQuery.query('#userform')[0];
         var userid = form.down('hiddenfield');
         userid.setValue('');
@@ -76,9 +75,7 @@ Ext.define('CaptivePortal.view.users.UserListController', {
         var permlabel = label.nextNode('label')
         permlabel.setVisible(false);
         var container = permlabel.nextNode('container')
-        container.setVisible(false);
-        // form.loadRecord(userModel);
-
+        container.setVisible(false);       
     },
     createUserModel: function (user, idNeed) {
         var siteNames = [];

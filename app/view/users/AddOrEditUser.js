@@ -126,13 +126,13 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                         boxLabel: 'Enable',
                                         name: 'status',
                                         inputValue: 'enable',
-                                        id: 'user_enable',
+                                        itemId: 'user_enable',
                                         checked: true
                                     }, {
                                         boxLabel: 'Disable',
                                         name: 'status',
                                         inputValue: 'disable',
-                                        id: 'user_disable'
+                                        itemId: 'user_disable'
                                     }
                                 ]
                             }, {

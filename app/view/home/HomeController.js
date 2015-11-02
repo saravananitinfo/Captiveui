@@ -29,6 +29,10 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem(3);
                 this.getView().lookupReference('lab_heading').setText('Roles')
                 break;
+            case "sites":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem(4);
+                this.getView().lookupReference('lab_heading').setText('Sites')
+                break;
 
         }
     },

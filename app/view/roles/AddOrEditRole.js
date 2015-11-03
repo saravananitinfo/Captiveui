@@ -20,13 +20,15 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
+                padding: '20 0 0 0',
+                cls: 'form_trigger',
                 items: [{
                         xtype: 'form',
                         itemId: 'roleform',
                         defaults: {
                             width: 400,
                             height: 30,
-                            padding: 20,
+                            padding: '10 0 15 0',
                             maxLength: 50
                         },
                         items: [{
@@ -37,13 +39,10 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 			                     },{
 									xtype:'label',
 									text:'Role Name',							
-									//padding:'20 0 0 0',
-									margin:'0 0 0 20',
 									cls:'header_label_content'
 								},{
 									xtype:'textfield',
 									allowBlank:false,
-									margin:'0 0 0 20',
 									maxLength:50,
 									width:300,
 									name:'role_name',
@@ -53,8 +52,6 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
                                 xtype: 'label',
                                 reference:'lab_permittedroles',
                                 text: 'Permitted User Roles',
-                                
-                                margin: '20 0 0 0',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'container',
@@ -63,7 +60,7 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
                                 //height: '100%',
                                 height:400,
                                 layout: 'fit',
-                                margin: '0 20 0 20',
+                                margin: '0 30 0 0',
                                 items: [{
                                         xtype: 'grid',
                                         itemId: 'permission_user_role_grid',
@@ -76,6 +73,7 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 														header:'Access', 
 														dataIndex:'access_for', 
 														width:'59.9%',
+														cls: 'table-row',
 														renderer: function(value, metaData, rec, view){
 															metaData.tdAttr='data-qtip="' + value + '" ';
 															return value;
@@ -85,6 +83,7 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 														header:'Read', 
 														dataIndex:'read', 
 														width:'20%',
+														cls: 'table-row',
 														renderer: function(value, metaData, rec, view){
 															if(value){
 																value = '<input type="checkbox" checked action="read"/>';
@@ -98,6 +97,7 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 														header:'Wrie', 
 														dataIndex:'write', 
 														width:'20%',
+														cls: 'table-row',
 														renderer: function(value, metaData, rec, view){
 															if(value){
 																value = '<input type="checkbox" checked action="write"/>';
@@ -115,7 +115,6 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
                                     }]
                             },{
 		                                xtype: 'container',
-		                                margin: 20,
 		                                layout: 'hbox',
 		                                width: '100%',
 		                                height: 50,
@@ -126,13 +125,16 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 		                                        formBind: true,
 		                                        itemId: "btn_saveRole",
 		                                        text: btnText,
-		                                        handler: 'saveRole'
+		                                        handler: 'saveRole',
+		                                        cls: 'btn'
 		                                    },
 		                                    {
 		                                        xtype: 'button',
 		                                        margin: '0 0 0 20',
 		                                        text: 'Cancel',
+		                                        cls: 'btn btn-cancel',
 		                                        handler: 'cancelRole'
+
 		                                    }
 		                                ]
 		                              }]

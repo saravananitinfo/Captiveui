@@ -8,7 +8,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
     autoLoad:true,
     fields: ['id','name','menuitem'],
     data: [{
-            id: '1',
+            id: 1,
             name: 'Template',
             cls: 'nav-icon nav-icon-template',
             menuitem: [{

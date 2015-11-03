@@ -4,7 +4,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
     alias: 'widget.sitelist',
     border: true,
     layout: 'fit',
-    bodyPadding: 30,
+    bodyPadding: '15 30 15 30',
     controller: 'sitelistcontroller',
     dockedItems: [{
             xtype: 'toolbar',
@@ -17,6 +17,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                 }, {
                     xtype: 'button',
                     text: 'Add Site',
+		    cls: 'btn-add-module',
                     itemId: 'btn_addsite'
                 }]
         }],
@@ -34,6 +35,8 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Name',
                         dataIndex: 'name',
                         width: '14.9%',
+			cls: 'table-row',
+        	        tdCls: 'table-cell',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
@@ -43,6 +46,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Tenant',
                         dataIndex: 'tenant',
                         width: '14.9%',
+			cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             var tenant = rec.get('tenant');
                             value = tenant ? tenant.name : '';
@@ -54,6 +58,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Time Zone',
                         dataIndex: 'timezone',
                         width: '29.9%',
+			cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
@@ -63,6 +68,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Users',
                         dataIndex: 'users',
                         width: '14.9%',
+			cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             var users = rec.get('users');
                             var userName = [];
@@ -78,6 +84,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'City',
                         dataIndex: 'city',
                         width: '14.9%',
+			cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
@@ -85,6 +92,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                     },
                     {
                         header: 'Action',
+			cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
                         },

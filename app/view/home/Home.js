@@ -51,6 +51,7 @@ Ext.define('CaptivePortal.view.home.Home', {
                         })
                     },{
                         xtype:'label',
+                        itemId:'lab_roledisplay',
                         cls:'top_bar_user_icon',
                         text: 'S'
                     },{

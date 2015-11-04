@@ -40,8 +40,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                         items: [{
                                 xtype: 'hiddenfield', 
                                 name: 'user_id',
-                                reference:'hf_userid'
-                               
+                                reference:'hf_userid'                               
                             }, {
                                 xtype: 'label',
                                 text: 'Name',
@@ -74,8 +73,10 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 itemId: 'tenant',
                                 valueField: 'id',
                                 displayField: 'name',
+                                reference:'cmb_tenant',
                                 store: 'CaptivePortal.store.users.TenantList',
                                 listeners: {
+                                    render:'onTenantComboRender',
                                     'select': 'selectTenant'
                                 }
                             }, {
@@ -85,6 +86,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                             }, {
                                 xtype: 'tagfield',
                                 queryMode: 'local',
+                                reference:'tf_site',
                                 allowBlank: false,
                                 multiSelect: true,
                                 name: 'site_ids',
@@ -101,6 +103,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 xtype: 'combobox',
                                 name: 'site_role_id',
                                 itemId: 'role',
+                                reference:'cmb_siterole',
                                 queryMode: 'local',
                                 allowBlank: false,
                                 valueField: 'id',

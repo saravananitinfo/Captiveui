@@ -41,6 +41,7 @@ Ext.define('CaptivePortal.util.Utility', {
     },
     doLoginForLoggedUser: function () {
         var me = this;
+        Ext.getCmp('viewport').setLoading(true);
         var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
         if (cookieVal) {
             var cookieObj = Ext.decode(cookieVal);
@@ -51,23 +52,22 @@ Ext.define('CaptivePortal.util.Utility', {
                 if (resObj.success) {
                     debugger
                     var cookieObj = Ext.decode(Ext.util.Cookies.get('CAP_SESSION'));
-                    var homepanel = Ext.create('CaptivePortal.view.home.Home', {
-                        layout: 'vbox',
-                        user: {
-                            langDesc: cookieObj.language,
-                            userName: cookieObj.username
-                        }
-                    });
+                  
                     if (resObj.data.profile) {
                         var token = cookieObj.token;
                         var token = cookieObj.token;
                         var cookieObj = {remember: cookieObj.remember, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
                         CaptivePortal.app.setTempUserObj({data: resObj.data.profile, remember: cookieObj.remember});
                         CaptivePortal.util.Utility.doProfileLogin(resObj.data.profile.id, token)
-
-
                     } else if (resObj.data.user_details.user_role === "super_admin") {
                         debugger
+                          var homepanel = Ext.create('CaptivePortal.view.home.Home', {
+                        layout: 'vbox',
+                        user: {
+                            langDesc: cookieObj.language,
+                            userName: cookieObj.username
+                        }
+                    });
                         me.setSuperAdminSession(resObj.data.user_details, cookieObj.remember, cookieObj.token);
                         console.log(resObj);
                         resObj = resObj.data.user_details;
@@ -80,10 +80,11 @@ Ext.define('CaptivePortal.util.Utility', {
                         var bodypanel = Ext.create('CaptivePortal.view.home.Body');
                         homepanel.add(navpanel, headingpanel, bodypanel);
                         Ext.getCmp('viewport').add(homepanel);
-                        CaptivePortal.util.Utility.loadUserStore()
-                        CaptivePortal.util.Utility.loadRoleStore();
-                        CaptivePortal.util.Utility.loadSiteStore();
-                        CaptivePortal.util.Utility.loadTenantStore();
+                        me.loadUserStore()
+                        me.loadRoleStore();
+                        me.loadSiteStore();
+                        me.loadTenantStore();
+                        Ext.getCmp('viewport').setLoading(false);
                     }
                 }
             }.bind(this), function (response) {
@@ -91,11 +92,13 @@ Ext.define('CaptivePortal.util.Utility', {
         }
     },
     doProfileLogin: function (profileId, token) {
+        Ext.getCmp('viewport').setLoading(true);
         console.log(CaptivePortal.app.getTempUserObj());
         this.setNormalUserSession(CaptivePortal.app.getTempUserObj(), profileId, token);
         var me = this;
         var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
         CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+            debugger
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 console.log('profile login');
@@ -116,7 +119,7 @@ Ext.define('CaptivePortal.util.Utility', {
                 me.loadStoreBasedOnPermission();
                 var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
                 var bodypanel = Ext.create('CaptivePortal.view.home.Body');
-
+                debugger
                 var homepanel = Ext.create('CaptivePortal.view.home.Home', {
                     layout: 'vbox',
                     user: {
@@ -125,9 +128,11 @@ Ext.define('CaptivePortal.util.Utility', {
                     }
                 });
                 var profile_switch = Ext.ComponentQuery.query('splitbutton#spb_switchprofile')[0];
-
+                debugger
+                var pro = Ext.util.Cookies.get('USER_PROFILES');
+                pro = Ext.JSON.decode(pro)
                 var items = [];
-                Ext.Array.each(CaptivePortal.app.getTempUserObj().data.profiles, function (data, index) {
+                Ext.Array.each(pro, function (data, index) {
                     if (profile.tenant.name != data.tenant_name)
                         items.push({
                             text: data.tenant_name,
@@ -152,6 +157,9 @@ Ext.define('CaptivePortal.util.Utility', {
                 profile_switch.setVisible(true);
                 homepanel.add(navpanel, headingpanel, bodypanel);
                 Ext.getCmp('viewport').add(homepanel);
+                var lab = Ext.ComponentQuery.query('label#lab_roledisplay')[0];
+                var str = resObj.data.profile.user_role.charAt(0)
+                lab.setText(str)
                 Ext.getCmp('viewport').setLoading(false);
             }
         }.bind(this), function (response) {
@@ -308,10 +316,12 @@ Ext.define('CaptivePortal.util.Utility', {
                 console.log('callback', result);
             },
             success: function (response) {
+                
                 console.log('success', response)
                 Ext.isFunction(successCallback) && successCallback.call(null, response);
             },
-            failure: function (response) {
+            failure: function (response) {               
+                debugger
                 console.log('failure', response)
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
             }
@@ -330,10 +340,12 @@ Ext.define('CaptivePortal.util.Utility', {
                 console.log('callback', result);
             },
             success: function (response) {
+                
                 console.log('success', response)
                 Ext.isFunction(successCallback) && successCallback.call(null, response);
             },
             failure: function (response) {
+                 debugger
                 console.log('failure', response)
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
             }

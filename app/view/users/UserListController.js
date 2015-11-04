@@ -15,15 +15,16 @@ Ext.define('CaptivePortal.view.users.UserListController', {
 
     },
     showAddEditMaster: function () {
-        this.fireEvent('showAddEditMaster', this);
+        this.fireEvent('showAddEditMaster', 1);
         this.clearForm();
     },
     userItemClick: function (view, record, item, index, e, eOpts) {
-        Ext.getCmp('viewport').setLoading(true);
+        
         var me = this;
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
+                Ext.getCmp('viewport').setLoading(true);
                 debugger
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_USER + record.data.id + '/edit.json';
                 CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
@@ -32,25 +33,33 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                         var record = this.createUserModel(resObj.data.user_profile, true);
                         var tenant = record.data.tenant_id
                         var availableroles = resObj.data.user_profile.available_roles;
+                        var roles = resObj.data.roles;
                         if (availableroles.length > 0)
-                            me.fireEvent('showUsersAccessPermission', availableroles, true, resObj.data.user_profile.id);
+                            me.fireEvent('showUsersAccessPermission', roles, availableroles, true, resObj.data.user_profile.id);
                         else
-                            me.fireEvent('showUsersAccessPermission', availableroles, false, resObj.data.user_profile.id);
-                        console.log(record)
-                        // //  CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
-                        // //roleData: resObj.data.roles, tenantData: resObj.data.tenants, sites: resObj.data.sites, });
-
-                        this.fireEvent('getUsersMainData', function (resp, store) {
-                            if (resp) {
-                                var data = store.findRecord('id', tenant);
-                                record.data.tenant_id = data.data.id;
-                                me.fireEvent('getUsersSiteData', tenant, function (store) {
-                                    var form = Ext.ComponentQuery.query('#userform')[0];
-                                    form.loadRecord(record);
-                                    Ext.getCmp('viewport').setLoading(false);
-                                }.bind(this));
-                            }
-                        }.bind(this))
+                            me.fireEvent('showUsersAccessPermission',roles, availableroles, false, resObj.data.user_profile.id);
+                        console.log(record)                       
+                        if (CaptivePortal.app.getUserRole() != "super_admin") {
+                            var form = Ext.ComponentQuery.query('#userform')[0];
+                             me.fireEvent('getUsersSiteData', tenant, function (store) {
+                                        var form = Ext.ComponentQuery.query('#userform')[0];
+                                        form.loadRecord(record);
+                                        Ext.getCmp('viewport').setLoading(false);
+                                        this.fireEvent('showUsersEditView', 1);
+                                    }.bind(this));
+                        } else {
+                            this.fireEvent('getUsersMainData', function (resp, store) {
+                                if (resp) {
+                                    var data = store.findRecord('id', tenant);
+                                    record.data.tenant_id = data.data.id;
+                                    me.fireEvent('getUsersSiteData', tenant, function (store) {
+                                        var form = Ext.ComponentQuery.query('#userform')[0];
+                                        form.loadRecord(record);
+                                        Ext.getCmp('viewport').setLoading(false);
+                                    }.bind(this));
+                                }
+                            }.bind(this));
+                        }
                     }
                 }.bind(this), function (response) {
                     Ext.getCmp('viewport').setLoading(false);

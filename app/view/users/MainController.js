@@ -6,11 +6,12 @@
 Ext.define('CaptivePortal.view.users.MainController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.users_maincontroller',
+    id: 'vc_users_maincontroller',
     requires: ['CaptivePortal.store.users.TenantList'],
     listen: {
         controller: {
             '*': {
-                showAddEditMaster: 'onShowAddEditMaster',
+                showAddEditMaster: 'onSetActiveCard',
                 setUsersActiveItem: 'onSetActiveCard',
                 getUsersMainData: 'getData',
                 showUsersEditView: 'showEditView'
@@ -25,19 +26,30 @@ Ext.define('CaptivePortal.view.users.MainController', {
     },
     showEditView: function (card) {
         this.getView().setActiveItem(card);
+
     },
     onSetActiveCard: function (card) {
+        Ext.getCmp('viewport').setLoading(true)
+        var me = this;
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, function (response) {
             var resObj = Ext.decode(response.responseText);
+            console.log(resObj)
             if (resObj.success) {
                 var tenantStr = Ext.StoreManager.lookup('CaptivePortal.store.users.TenantList');
                 tenantStr.setData(resObj.data.tenants);
                 var roleStr = Ext.StoreManager.lookup('CaptivePortal.store.users.Role');
                 roleStr.setData(resObj.data.roles);
+                if (CaptivePortal.app.getUserRole() != 'super_admin') {
+                    me.fireEvent('getUsersSiteData', CaptivePortal.app.getUserTenantID(), function (store) {                       
+                    }.bind(this));
+                }
+                me.fireEvent('setStoreEvent', roleStr, tenantStr);
+                Ext.getCmp('viewport').setLoading(false);
                 console.log(resObj)
             }
         }.bind(this), function (response) {
             var resObj = Ext.decode(response.responseText);
+            Ext.getCmp('viewport').setLoading(false)
             if (!resObj.success && resObj.error.length) {
                 CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
             }

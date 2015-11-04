@@ -62,11 +62,12 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         });
     },
     editSiteItemClick: function (view, record, item, index, e, eOpts) {
-        Ext.getCmp('viewport').setLoading(true);
+       
         var me = this;
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
+                 Ext.getCmp('viewport').setLoading(true);
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_SITE + record.data.id + '/edit.json';
                 CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
                     var resObj = Ext.decode(response.responseText);

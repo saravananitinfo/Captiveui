@@ -74,6 +74,8 @@ Ext.define('CaptivePortal.view.login.LoginController', {
         CaptivePortal.util.Utility.loadRoleStore();
         CaptivePortal.util.Utility.loadSiteStore();
         CaptivePortal.util.Utility.loadTenantStore();
+        var lab = Ext.ComponentQuery.query('label#lab_roledisplay')[0];
+        lab.setText('S')
     },
     login: function (btn) {
         var formObj = btn.up('form'), form = formObj.getForm();
@@ -109,7 +111,9 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                 langDesc: 'English',
                                 userName: data.email
                             }
+                            Ext.util.Cookies.clear('USER_PROFILES');
                             this.loginForSuperAdmin(userInitialObj);
+                            Ext.getCmp('viewport').setLoading(false);
                         } else {
                             var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
                             if (!homepanel) {
@@ -122,6 +126,10 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                 });
                             }
                             var profiles = userObj.data.user.profiles;
+                            var currentTime = new Date();
+                            var expires = new Date(currentTime.getTime() + (7 * 24 * 60 * 60 * 1000));
+                            Ext.util.Cookies.clear('USER_PROFILES');
+                            Ext.util.Cookies.set('USER_PROFILES', Ext.encode(profiles), expires);
                             if (profiles.length > 1) {
                                 CaptivePortal.app.setTempUserObj({data: userObj.data.user, remember: rememberMe});
                                 homepanel.add({
@@ -163,7 +171,10 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                                     Ext.getCmp('viewport').removeAll();
                                     Ext.getCmp('viewport').add(homepanel);
                                 }
+
                             }
+                            var lab = Ext.ComponentQuery.query('label#lab_roledisplay')[0];
+                            lab.setText('N')
                         }
                     }
                     var loginpanel = Ext.ComponentQuery.query('panel#login')[0];

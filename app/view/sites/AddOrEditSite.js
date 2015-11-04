@@ -36,6 +36,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 width: 500,
                                 name: 'name',
                                 itemId: 'name',
+				emptyText: 'Site Name',
                                 value: this.site_name ? this.site_name : ''
                             }, {
                                 xtype: 'hiddenfield',
@@ -49,7 +50,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'combo',
-                                allowBlank: false,
+                                allowBlank: true,
                                 reference: 'cmb_tenant',
                                 valueField: 'id',
                                 margin: '20 0 0 0',
@@ -74,6 +75,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 multiSelect: true,
                                 name: 'user_profile_ids',
                                 itemId: 'user_profile_ids',
+				emptyText: 'Select Users',
                                 valueField: 'id',
                                 displayField: 'name',
                                 filterPickList: true
@@ -91,7 +93,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 displayField: 'name',
                                 queryMode: 'local',
                                 width: 500,
-                                emptyText: 'Tenant',
+                                emptyText: 'Timezone',
                                 name: 'timezone',
                                 itemId: 'timezone'
                             }, {
@@ -108,6 +110,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 multiSelect: true,
                                 name: 'tags',
                                 itemId: 'tags',
+				emptyText: 'Select Tags',
                                 valueField: 'name',
                                 displayField: 'name',
                                 filterPickList: true
@@ -145,17 +148,18 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                         layout: 'hbox',
                                         items: [{
                                                 xtype: 'textfield',
-                                                allowBlank: false,
                                                 maxLength: 50,
                                                 width: 250,
                                                 name: 'email',
+						emptyText: 'Contact Email',
                                                 itemId: 'email',
                                                 padding: '20 0 0 0',
                                                 vtype: 'email'
                                             }, {
                                                 xtype: 'textfield',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 maxLength: 50,
+						emptyText: 'Contact Phone Number',
                                                 padding: '20 0 0 20',
                                                 width: 250,
                                                 name: 'phone',
@@ -186,15 +190,16 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                         layout: 'hbox',
                                         items: [{
                                                 xtype: 'textfield',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 maxLength: 50,
                                                 width: 250,
+						emptyText: 'Address',
                                                 name: 'address',
                                                 padding: '20 0 0 0',
                                                 itemId: 'address'
                                             }, {
                                                 xtype: 'textfield',
-                                                allowBlank: false,
+						emptyText: 'Street Name',
                                                 maxLength: 50,
                                                 padding: '20 0 0 20',
                                                 width: 250,
@@ -226,15 +231,16 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                         layout: 'hbox',
                                         items: [{
                                                 xtype: 'textfield',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 maxLength: 50,
                                                 width: 250,
+						emptyText: 'City',
                                                 padding: '20 0 0 0',
                                                 name: 'city',
                                                 itemId: 'city'
                                             }, {
                                                 xtype: 'combo',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 reference: 'cmb_state',
                                                 padding: '20 0 0 20',
                                                 valueField: 'name',
@@ -269,22 +275,23 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                         xtype: 'container',
                                         layout: 'hbox',
                                         items: [{xtype: 'combo',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 padding: '20 0 0 0',
                                                 valueField: 'name',
                                                 displayField: 'name',
                                                 queryMode: 'local',
                                                 width: 250,
-                                                emptyText: 'country',
+                                                emptyText: 'Country',
                                                 name: 'country',
                                                 itemId: 'country',
                                                 reference: 'cmb_country',
                                             }, {
                                                 xtype: 'textfield',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 padding: '20 0 0 20',
                                                 maxLength: 50,
                                                 width: 250,
+						emptyText: 'Postal Code',
                                                 name: 'zipcode',
                                                 itemId: 'zipcode'
                                             }
@@ -322,18 +329,20 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                         layout: 'hbox',
                                         items: [{
                                                 xtype: 'textfield',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 maxLength: 50,
                                                 padding: '20 0 0 0',
                                                 width: 250,
+						emptyText: 'Latitude',
                                                 name: 'latitude',
                                                 itemId: 'latitude'
                                             }, {
                                                 xtype: 'textfield',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 maxLength: 50,
                                                 padding: '20 0 0 20',
                                                 width: 250,
+						emptyText: 'Longitude',
                                                 name: 'longitude',
                                                 itemId: 'longitude'
                                             }

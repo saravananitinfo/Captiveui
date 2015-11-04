@@ -30,7 +30,6 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
         } else {
             this.getView().lookupReference('btn_save').setText('Create');
         }
-
     },
     cancelSite: function () {
         this.fireEvent('setActiveSiteCard', 0);
@@ -100,15 +99,22 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
 
     },
     getTenants: function () {
-        var store = null;
-        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS, {}, function (response) {
-            var respObj = Ext.decode(response.responseText);
-            if (respObj.success) {
-                store = Ext.create('CaptivePortal.store.tenant.Tenant', {data: respObj.data});
-            }
-        }.bind(this), function (response) {
-        }, 'GET', false);
-        this.getView().lookupReference('cmb_tenant').setStore(store);
+	if (CaptivePortal.app.getUserRole() === "super_admin") {
+        	var store = null;
+	        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS, {}, function (response) {
+        	    var respObj = Ext.decode(response.responseText);
+	            if (respObj.success) {
+        	        store = Ext.create('CaptivePortal.store.tenant.Tenant', {data: respObj.data});
+	            }
+        	}.bind(this), function (response) {
+	        }, 'GET', false);
+        	this.getView().lookupReference('cmb_tenant').setStore(store);
+	}else{
+		var combo = this.getView().lookupReference('cmb_tenant');
+		combo.setVisible(false);
+	        combo.previousNode('label').setVisible(false);
+		combo.setValue(CaptivePortal.app.getUserTenantID())
+	}
     },
     loadSites: function () {
         CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOAD_SITE, {}, function (response) {

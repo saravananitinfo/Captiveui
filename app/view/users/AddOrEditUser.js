@@ -50,6 +50,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 name: 'name',
                                 itemId: 'user_name',
                                 allowBlank: false,
+				emptyText: 'Name',
                                 //readOnly:(this.user_id) ? true:false
                             }, {
                                 xtype: 'label',
@@ -60,6 +61,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 name: 'email',
                                 itemId: 'email',
                                 vtype: 'email',
+				emptyText: 'Email',
                                 readOnly: (this.user_id) ? true : false
                             }, {
                                 xtype: 'label',
@@ -74,6 +76,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 valueField: 'id',
                                 displayField: 'name',
                                 reference:'cmb_tenant',
+				emptyText: 'Select Tenant',
                                 store: 'CaptivePortal.store.users.TenantList',
                                 listeners: {
                                     render:'onTenantComboRender',
@@ -87,12 +90,13 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 xtype: 'tagfield',
                                 queryMode: 'local',
                                 reference:'tf_site',
-                                allowBlank: false,
+                                allowBlank: true,
                                 multiSelect: true,
                                 name: 'site_ids',
                                 itemId: 'site',
                                 valueField: 'id',
                                 displayField: 'name',
+				emptyText: 'Select Sites',
                                 store: 'CaptivePortal.store.users.Site',
                                 filterPickList: true
                             }, {
@@ -108,6 +112,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 allowBlank: false,
                                 valueField: 'id',
                                 displayField: 'name',
+				emptyText: 'Select Role',
                                 store: 'CaptivePortal.store.users.Role',
                                 listeners: {
                                     'select': 'selectRole'

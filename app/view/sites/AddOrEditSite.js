@@ -18,6 +18,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                 width: '100%',
                 scrollable: true,
                 bodyPadding: 30,
+                cls: 'form_trigger',
                 items: [{
                         xtype: 'form',
                         itemId: 'site_form',
@@ -350,13 +351,15 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                         reference:'btn_save',
                                         formBind: true,
                                         text: btnText,
-                                        handler: 'saveSite'
+                                        handler: 'saveSite',
+					cls: 'btn'
                                     },
                                     {
                                         xtype: 'button',
                                         margin: '0 0 0 10',
                                         text: 'Cancel',
-                                        handler: 'cancelSite'
+                                        handler: 'cancelSite',
+					cls: 'btn btn-cancel'
                                     }
                                 ]
                             }]

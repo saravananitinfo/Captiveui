@@ -5,7 +5,7 @@ Ext.define('CaptivePortal.view.tenants.Main',{
 	  'CaptivePortal.view.tenants.AddOrEditTenant',
 	  'CaptivePortal.view.tenants.MainController'
 	],
-	alias:'tenantsmain',
+	alias:'widget.tenantsmain',
 	controller:'tenants_maincontroller',
 	height:'100%',
 	width:'100%',

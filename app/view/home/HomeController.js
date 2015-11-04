@@ -36,6 +36,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Sites');
                 this.fireEvent('setActiveSiteCard', 0);
                 break;
+            case "sms_gateway":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem(5);
+                this.getView().lookupReference('lab_heading').setText('SMS Gateway')
+                this.fireEvent('setSmSGatewayMainActiveItem', 0);
+                break;
 
         }
     },

@@ -28,6 +28,10 @@ Ext.define('CaptivePortal.view.home.Body', {
         }, {
             xtype: 'sites_main',
             itemId: 'card_sitelist'
+        },
+        {
+            xtype: 'sms_gatewaysmain',
+            itemId: 'card_sms_gatewaysmain'
         }]
 
 })

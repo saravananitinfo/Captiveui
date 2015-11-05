@@ -28,6 +28,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                         items: [{
                                 xtype: 'label',
                                 text: 'Site Name',
+                                padding: '0 0 10 0',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'textfield',
@@ -36,7 +37,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 width: 500,
                                 name: 'name',
                                 itemId: 'name',
-				emptyText: 'Site Name',
+				                emptyText: 'Site Name',
                                 value: this.site_name ? this.site_name : ''
                             }, {
                                 xtype: 'hiddenfield',
@@ -46,14 +47,13 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                             }, {
                                 xtype: 'label',
                                 text: 'Tenant',
-                                margin: '20 0 0 0',
+                                padding: '15 0 10 0',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'combo',
                                 allowBlank: true,
                                 reference: 'cmb_tenant',
                                 valueField: 'id',
-                                margin: '20 0 0 0',
                                 displayField: 'name',
                                 queryMode: 'local',
                                 width: 500,
@@ -64,31 +64,29 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                             }, {
                                 xtype: 'label',
                                 text: 'Users',
-                                margin: '20 0 0 0',
+                                padding: '15 0 10 0',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'tagfield',
                                 reference: 'tf_users',
                                 queryMode: 'local',
-                                margin: '20 0 0 0',
                                 width: 500,
                                 multiSelect: true,
                                 name: 'user_profile_ids',
                                 itemId: 'user_profile_ids',
-				emptyText: 'Select Users',
+				                emptyText: 'Select Users',
                                 valueField: 'id',
                                 displayField: 'name',
                                 filterPickList: true
                             }, {
                                 xtype: 'label',
                                 text: 'Time Zone',
-                                margin: '20 0 0 0',
+                                padding: '15 0 10 0',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'combo',
                                 allowBlank: false,
                                 reference: 'cmb_timezone',
-                                margin: '20 0 0 0',
                                 valueField: 'name',
                                 displayField: 'name',
                                 queryMode: 'local',
@@ -99,13 +97,12 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                             }, {
                                 xtype: 'label',
                                 text: 'Tags',
-                                margin: '20 0 0 0',
+                                padding: '15 0 10 0',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'tagfield',
                                 queryMode: 'local',
                                 reference: 'tf_tag',
-                                margin: '20 0 0 0',
                                 width: 500,
                                 multiSelect: true,
                                 name: 'tags',
@@ -151,7 +148,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 maxLength: 50,
                                                 width: 250,
                                                 name: 'email',
-						emptyText: 'Contact Email',
+						                        emptyText: 'Contact Email',
                                                 itemId: 'email',
                                                 padding: '20 0 0 0',
                                                 vtype: 'email'
@@ -159,7 +156,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 xtype: 'textfield',
                                                 allowBlank: true,
                                                 maxLength: 50,
-						emptyText: 'Contact Phone Number',
+						                        emptyText: 'Contact Phone Number',
                                                 padding: '20 0 0 20',
                                                 width: 250,
                                                 name: 'phone',

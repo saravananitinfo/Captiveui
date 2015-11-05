@@ -14,6 +14,7 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
     },
     setStoreEvent: function (data) {
         var user = [];
+	debugger
         if (data) {
             Ext.Array.each(data, function (record, index) {
                 user.push(record.id)
@@ -86,10 +87,18 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
     },
     getUsers: function (data) {
         var store = null;
-        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_USER, {}, function (response) {
+	var url =""; 
+	if (CaptivePortal.app.getUserRole() === "super_admin"){
+		url = CaptivePortal.Config.SERVICE_URLS.GET_USER;
+	}
+	else{
+		var tenantid = CaptivePortal.app.getUserTenantID();
+		var url = CaptivePortal.Config.SERVICE_URLS.GET_TENANT_USER + tenantid + "/get_users.json";
+	}
+        CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
             var respObj = Ext.decode(response.responseText);
             if (respObj.success) {
-                var userProfiles = respObj.data ? respObj.data.user_profiles : [];
+                var userProfiles = respObj.data ? ((respObj.data.user_profiles == undefined) ? respObj.data.users : respObj.data.user_profiles) : [];
                 store = Ext.create('CaptivePortal.store.user.User', {data: userProfiles});
             }
         }.bind(this), function (response) {
@@ -99,6 +108,7 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
 
     },
     getTenants: function () {
+	debugger
 	if (CaptivePortal.app.getUserRole() === "super_admin") {
         	var store = null;
 	        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS, {}, function (response) {
@@ -110,10 +120,12 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
 	        }, 'GET', false);
         	this.getView().lookupReference('cmb_tenant').setStore(store);
 	}else{
+		debugger
 		var combo = this.getView().lookupReference('cmb_tenant');
 		combo.setVisible(false);
 	        combo.previousNode('label').setVisible(false);
 		combo.setValue(CaptivePortal.app.getUserTenantID())
+		debugger
 	}
     },
     loadSites: function () {

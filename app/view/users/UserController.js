@@ -230,7 +230,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
                     var permittedRoles = [];
                     Ext.Array.each(accesses, function (rec) {
                         if (rec.access_for === "users") {
-                            if (rec.write === true) {
+                            if (rec.write === true || rec.read == true) {
                                 me.getView().lookupReference('lab_permittedroles').setVisible(true);
                                 me.getView().lookupReference('con_permittedroles').setVisible(true);
                                 me.getView().lookupReference('grd_permittedusers').setStore('CaptivePortal.store.users.Role');

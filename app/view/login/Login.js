@@ -98,7 +98,7 @@ Ext.define('CaptivePortal.view.login.Login', {
                                         items: [{
                                                 xtype: 'label',
                                                 style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
-                                                text: 'Forget Password ?',
+                                                text: 'Forgot Password ?',
                                                 listeners: {
                                                     render: 'render_forget_password'
                                                 }

@@ -18,6 +18,7 @@ Ext.define('CaptivePortal.Config', {
 		NEW_TENANT:CaptivePortal.util.Utility.BASE_URL + 'tenants/new.json',
 		SAVE_TENANT:CaptivePortal.util.Utility.BASE_URL + 'tenants.json',
 		EDIT_TENANT:CaptivePortal.util.Utility.BASE_URL + 'tenants/',
+		GET_TENANT_USER:CaptivePortal.util.Utility.BASE_URL + 'tenants/',
 		UPDATE_TENANT:CaptivePortal.util.Utility.BASE_URL + 'tenants/',
 		DELETE_TENANT:CaptivePortal.util.Utility.BASE_URL + 'tenants/',
 		GET_NEW_USER:CaptivePortal.util.Utility.BASE_URL + 'user_profiles/new.json',

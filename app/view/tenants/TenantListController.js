@@ -30,7 +30,8 @@ Ext.define('CaptivePortal.view.tenants.TenantListController', {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                         var record = this.createTenantModel(resObj.data.tenant, true);
-
+                        console.log("...........record....");
+                        console.log(record);
                         me.fireEvent('setTenantEditViewForm', record);
                     }
                 }.bind(this), function (response) {

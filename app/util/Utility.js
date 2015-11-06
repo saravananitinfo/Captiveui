@@ -84,6 +84,7 @@ Ext.define('CaptivePortal.util.Utility', {
                         me.loadRoleStore();
                         me.loadSiteStore();
                         me.loadTenantStore();
+                        me.loadSMSGatewayStore();
                         Ext.getCmp('viewport').setLoading(false);
                     }
                 }
@@ -197,6 +198,10 @@ Ext.define('CaptivePortal.util.Utility', {
     },
     loadRoleStore: function () {
         var str = Ext.StoreManager.lookup('CaptivePortal.store.role.Role');
+        str.load();
+    },
+    loadSMSGatewayStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways');
         str.load();
     },
     createMenusForUserBasedOnPermisson: function (navpanel) {
@@ -350,6 +355,9 @@ Ext.define('CaptivePortal.util.Utility', {
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
             }
         });
+    },
+    capitalizeFirstLetter: function(str){
+        return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
 });

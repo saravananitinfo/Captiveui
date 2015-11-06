@@ -6,8 +6,8 @@ Ext.define('CaptivePortal.store.sms_gateway.SmsGatewayType',{
 		{ name:'name', type:'string'}
 	],
 	data: [
-    	{id: 0, name: 'clickatell'},
-    	{id: 1, name: 'twilio'},
-    	{id: 2, name: 'cdyne'}
+    	{id: 'Clickatell', name: 'Clickatell'},
+    	{id: 'Twilio', name: 'Twilio'},
+    	{id: 'Cdyne', name: 'Cdyne'}
 	]
 });

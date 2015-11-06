@@ -45,6 +45,9 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             menuitem: [{
                     name: 'SMS Gateway',
                     itemname: 'sms_gateway'
+                },{
+                    name: 'Guest Management',
+                    itemname: 'guests'
                 }]
         }]
 })

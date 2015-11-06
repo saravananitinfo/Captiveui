@@ -58,7 +58,6 @@ Ext.define('CaptivePortal.view.login.Login', {
                                         margin: '10 0 0 0',
                                         itemId: 'login-name',
                                         msgTarget: 'under',
-                                        value:'n2mcd@wavespot.net',
                                         invalidText: 'Please enter valid user name',
                                         vtype: 'email'
                                     }, {
@@ -66,7 +65,6 @@ Ext.define('CaptivePortal.view.login.Login', {
                                         inputType: 'password',
                                         margin: '10 0 0 0',
                                         emptyText: 'Password',
-                                        value:'12345678',
                                         msgTarget: 'under',
                                         name: 'password',
                                         allowBlank: false,
@@ -100,7 +98,7 @@ Ext.define('CaptivePortal.view.login.Login', {
                                         items: [{
                                                 xtype: 'label',
                                                 style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
-                                                text: 'Forget Password ?',
+                                                text: 'Forgot Password ?',
                                                 listeners: {
                                                     render: 'render_forget_password'
                                                 }

@@ -12,7 +12,11 @@ Ext.define('CaptivePortal.view.users.UserList', {
             }, {
                 xtype: 'tbfill'
         }]
-        var write = CaptivePortal.app.getAccessPermissionList().filter(function(el){ return el.access_for == 'users'})[0].write
+	var write = false;
+	if (CaptivePortal.app.getAccessPermissionList() != undefined){
+		console.log(CaptivePortal.app.getAccessPermissionList().filter(function(el){ return el.access_for == 'users'}));
+        	 write = CaptivePortal.app.getAccessPermissionList().filter(function(el){ return el.access_for == 'users'})[0].write
+	}
         if(write){
             dockeditems.push({
                 xtype: 'button',

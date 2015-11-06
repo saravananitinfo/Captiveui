@@ -6,37 +6,39 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
     layout: 'fit',
     bodyPadding: '15 30 15 30',
     controller: 'sitelistcontroller',
-    dockedItems: [{
+     initComponent: function(){
+        var dockeditems = [{
+                xtype: 'searchfield'
+            }, {
+                xtype: 'tbfill'
+        }]
+        var write = false;
+        if (CaptivePortal.app.getAccessPermissionList() != undefined){
+            console.log(CaptivePortal.app.getAccessPermissionList().filter(function(el){ return el.access_for == 'sites'}));
+                 write = CaptivePortal.app.getAccessPermissionList().filter(function(el){ return el.access_for == 'sites'})[0].write
+        }
+        if(write){
+            dockeditems.push({
+                    xtype: 'button',
+                    text: 'Add Site',
+                    cls: 'btn-add-module',
+                    itemId: 'btn_addsite'
+                })
+        }
+        this.dockedItems= [{
             xtype: 'toolbar',
             padding: '30 30 0 30',
             dock: 'top',
-            items: [{
-                    xtype: 'searchfield'
-                }, {
-                    xtype: 'tbfill'
-                }, {
-                    xtype: 'button',
-                    text: 'Add Site',
-		    cls: 'btn-add-module',
-                    itemId: 'btn_addsite'
-                }]
-        }],
-    listeners: {
-        //render: 'getSite'
-    },
-    initComponent: function () {
-        this.items = [{
-                xtype: 'gridpanel',
-                reference: 'grd_sitelist',
-                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
-                store: 'CaptivePortal.store.site.Site',
-                columns: [
+            items: dockeditems
+        }]
+
+        var grid_colunms = [
                     {
                         header: 'Name',
                         dataIndex: 'name',
                         width: '14.9%',
-			cls: 'table-row',
-        	        tdCls: 'table-cell',
+                        cls: 'table-row',
+                       tdCls: 'table-cell',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
@@ -46,7 +48,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Tenant',
                         dataIndex: 'tenant',
                         width: '14.9%',
-			cls: 'table-row',
+                         cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             var tenant = rec.get('tenant');
                             value = tenant ? tenant.name : '';
@@ -58,7 +60,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Time Zone',
                         dataIndex: 'timezone',
                         width: '29.9%',
-			cls: 'table-row',
+                         cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
@@ -68,7 +70,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Users',
                         dataIndex: 'users',
                         width: '14.9%',
-			cls: 'table-row',
+                         cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             var users = rec.get('users');
                             var userName = [];
@@ -84,22 +86,28 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'City',
                         dataIndex: 'city',
                         width: '14.9%',
-			cls: 'table-row',
+                         cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
                         }
-                    },
-                    {
-                        header: 'Action',
-			cls: 'table-row',
-                        renderer: function (value, metaData, rec, view) {
-                            return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
-                        },
-                        width: '10%'
+                    }]
+                    if(write){
+                        grid_colunms.push({
+                                    header: 'Action',
+                                     cls: 'table-row',
+                                    renderer: function (value, metaData, rec, view) {
+                                        return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
+                                    },
+                                    width: '10%'
+                                })
                     }
-
-                ],
+                this.items = [{
+                xtype: 'gridpanel',
+                reference: 'grd_sitelist',
+                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+                store: 'CaptivePortal.store.site.Site',
+                columns: grid_colunms,
                 listeners: {
                     itemclick: 'editSiteItemClick'                    
                 }

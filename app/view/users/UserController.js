@@ -16,6 +16,10 @@ Ext.define('CaptivePortal.view.users.UserController', {
     bindDataStore: function (roleStr, tenantStr) {
         this.getView().lookupReference('cmb_siterole').bindStore(roleStr);
         this.getView().lookupReference('cmb_tenant').bindStore(tenantStr);
+	if (CaptivePortal.app.getUserRole() != 'super_admin') {
+		this.getView().lookupReference('cmb_tenant').setValue(CaptivePortal.app.getUserTenantID());
+         }
+
     },
     setUserId: function (userid) {
         this.getView().lookupReference('hf_userid').setValue(userid);
@@ -30,14 +34,12 @@ Ext.define('CaptivePortal.view.users.UserController', {
             if (CaptivePortal.app.getUserTenantID())
                 this.getSitesData(CaptivePortal.app.getUserTenantID(), function (store) {
                     combo.nextNode('combo').bindStore(store);
+		    combo.setValue(CaptivePortal.app.getUserTenantID())
                     Ext.getCmp('viewport').setLoading(false);
                 }.bind(this));
         }
     },
     showAccessPermission: function (roles,data, view, userid) {
-        console.log('------------.');
-        debugger
-        console.log(data);
         if (userid != null && userid != undefined)
             this.setUserId(userid)
         if (view) {
@@ -228,7 +230,7 @@ Ext.define('CaptivePortal.view.users.UserController', {
                     var permittedRoles = [];
                     Ext.Array.each(accesses, function (rec) {
                         if (rec.access_for === "users") {
-                            if (rec.write === true) {
+                            if (rec.write === true || rec.read == true) {
                                 me.getView().lookupReference('lab_permittedroles').setVisible(true);
                                 me.getView().lookupReference('con_permittedroles').setVisible(true);
                                 me.getView().lookupReference('grd_permittedusers').setStore('CaptivePortal.store.users.Role');
@@ -258,7 +260,6 @@ Ext.define('CaptivePortal.view.users.UserController', {
         Ext.getCmp('viewport').setLoading(true);
         var me = this;
         var form = this.getView().down('form');
-        debugger
         if (form.isValid()) {
             var formValues = form.getForm().getValues();
             if (formValues.user_id) {
@@ -283,11 +284,11 @@ Ext.define('CaptivePortal.view.users.UserController', {
                 }
             }
             saveJson['user_profile']['available_roles'] = permissions;
-
+		
             var url = CaptivePortal.Config.SERVICE_URLS.SAVE_USER;
             var method = "POST";
             if (formValues.user_id) {
-                saveJson = formValues;
+                //saveJson = formValues;
                 url = CaptivePortal.Config.SERVICE_URLS.UPDATE_USER + formValues.user_id + '.json';
                 method = "PUT";
             }

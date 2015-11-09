@@ -1,6 +1,7 @@
 Ext.define('CaptivePortal.view.users.UserListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.userlistcontroller',
+    id: 'vc_userlistcontroller',
     listen: {
         component: {
             'button#btn_adduser': {
@@ -8,7 +9,10 @@ Ext.define('CaptivePortal.view.users.UserListController', {
             }
         },
         controller: {
-            '*': {
+            '#users_maincontroller': {
+                refreshUserList: 'getUsers'
+            },
+            '#vc_usersaddoreditcontroller': {
                 refreshUserList: 'getUsers'
             }
         }
@@ -19,13 +23,11 @@ Ext.define('CaptivePortal.view.users.UserListController', {
         this.clearForm();
     },
     userItemClick: function (view, record, item, index, e, eOpts) {
-        
         var me = this;
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
                 Ext.getCmp('viewport').setLoading(true);
-                debugger
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_USER + record.data.id + '/edit.json';
                 CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
                     var resObj = Ext.decode(response.responseText);
@@ -37,16 +39,16 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                         if (availableroles.length > 0)
                             me.fireEvent('showUsersAccessPermission', roles, availableroles, true, resObj.data.user_profile.id);
                         else
-                            me.fireEvent('showUsersAccessPermission',roles, availableroles, false, resObj.data.user_profile.id);
-                        console.log(record)                       
+                            me.fireEvent('showUsersAccessPermission', roles, availableroles, false, resObj.data.user_profile.id);
+                        console.log(record)
                         if (CaptivePortal.app.getUserRole() != "super_admin") {
                             var form = Ext.ComponentQuery.query('#userform')[0];
-                             me.fireEvent('getUsersSiteData', tenant, function (store) {
-                                        var form = Ext.ComponentQuery.query('#userform')[0];
-                                        form.loadRecord(record);
-                                        Ext.getCmp('viewport').setLoading(false);
-                                        this.fireEvent('showUsersEditView', 1);
-                                    }.bind(this));
+                            me.fireEvent('getUsersSiteData', tenant, function (store) {
+                                var form = Ext.ComponentQuery.query('#userform')[0];
+                                form.loadRecord(record);
+                                Ext.getCmp('viewport').setLoading(false);
+                                this.fireEvent('showUsersEditView', 1);
+                            }.bind(this));
                         } else {
                             this.fireEvent('getUsersMainData', function (resp, store) {
                                 if (resp) {
@@ -73,17 +75,23 @@ Ext.define('CaptivePortal.view.users.UserListController', {
         var form = Ext.ComponentQuery.query('#userform')[0];
         var userid = form.down('hiddenfield');
         userid.setValue('');
+        userid.clearInvalid();
         var name = userid.nextNode('textfield');
-        name.setValue('')
+        name.setValue('');
+        name.clearInvalid();
         var email = name.nextNode('textfield');
         email.setValue('');
+        email.clearInvalid();
         var tenant = email.nextNode('combobox');
         tenant.setValue('');
+        tenant.clearInvalid();
         var site = tenant.nextNode('combobox');
         site.setValue('');
+        site.clearInvalid();
         site.getStore().removeAll();
         var role = site.nextNode('combobox');
         role.setValue('');
+        role.clearInvalid();
         var label = role.nextNode('label');
         var permlabel = label.nextNode('label')
         permlabel.setVisible(false);

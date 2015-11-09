@@ -6,6 +6,9 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
     layout: 'fit',
     bodyPadding: '15 30 15 30',
     controller: 'sitelistcontroller',
+    listeners:{
+      render:'getSite'  
+    },
      initComponent: function(){
         var dockeditems = [{
                 xtype: 'searchfield'

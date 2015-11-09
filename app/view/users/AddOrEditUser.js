@@ -2,7 +2,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
     extend: 'Ext.panel.Panel',
     itemId:'pan_useraddedit',
     requires: [
-        'CaptivePortal.view.users.UserController',
+        'CaptivePortal.view.users.AddOrEditController',
         'CaptivePortal.store.users.TenantList'
     ],
     alias: 'widget.users_addedit',
@@ -80,7 +80,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 store: 'CaptivePortal.store.users.TenantList',
                                 listeners: {
                                     render:'onTenantComboRender',
-                                    'select': 'selectTenant'
+                                    select: 'selectTenant'
                                 }
                             }, {
                                 xtype: 'label',

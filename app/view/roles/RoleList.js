@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.view.roles.RoleList', {
     extend: 'Ext.Panel',
-    requires: ['CaptivePortal.view.roles.RoleListController', 'CaptivePortal.store.role.Role','CaptivePortal.view.roles.MainController'],
+    requires: ['CaptivePortal.view.roles.RoleListController', 'CaptivePortal.store.role.Role', 'CaptivePortal.view.roles.MainController'],
     alias: 'widget.rolelist',
     controller: 'rolelistcontroller',
     border: false,
@@ -17,12 +17,12 @@ Ext.define('CaptivePortal.view.roles.RoleList', {
                 }, {
                     xtype: 'button',
                     text: 'Add Roles',
-                    cls: 'btn-add-module',             
-                    itemId:'btn_addrole'
+                    cls: 'btn-add-module',
+                    itemId: 'btn_addrole'
                 }]
         }],
     listeners: {
-        //render: 'getRoles'
+        render: 'getRoles'
     },
     items: [{
             xtype: 'gridpanel',
@@ -31,13 +31,13 @@ Ext.define('CaptivePortal.view.roles.RoleList', {
             style: 'box-shadow: 0px 0px 10px 0px #e3e3e3;',
             columnLines: true,
             listeners: {
-                              itemclick: 'userItemClick'
+                itemclick: 'userItemClick'
             },
             columns: [
                 {
                     header: 'Role Template',
                     dataIndex: 'name',
-                    flex:1,
+                    flex: 1,
                     cls: 'table-row',
                     tdCls: 'table-cell',
                     renderer: function (value, metaData, rec, view) {

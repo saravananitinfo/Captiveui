@@ -125,8 +125,8 @@ Ext.define('CaptivePortal.view.users.UserList', {
             columns: grid_colunms
         }]
         this.callParent(arguments);
-    }
-    // listeners: {
-    //     render: 'getUsers'
-    // }
+    },
+     listeners: {
+         render: 'getUsers'
+     }
 });

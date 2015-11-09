@@ -10,42 +10,37 @@ Ext.define('CaptivePortal.view.users.MainController', {
     requires: ['CaptivePortal.store.users.TenantList'],
     listen: {
         controller: {
-            '*': {
-                showAddEditMaster: 'onSetActiveCard',
-                setUsersActiveItem: 'onSetActiveCard',
-                getUsersMainData: 'getData',
-                showUsersEditView: 'showEditView'
-            },
             '#vc_homecontroller': {
-                setActiveUserCard: 'setActiveItem'
+                setActiveUserCard: 'setActiveItem',
+                getUsersMainData: 'getData'
+            },
+            '#vc_userlistcontroller': {
+                showAddEditMaster: 'createNewUser',
+                setActiveUserCard: 'setActiveItem',
+                getUsersMainData:'getData'
+            },
+            '#vc_usersaddoreditcontroller': {                
+                setActiveUserCard:'setActiveItem'
             }
         }
     },
     setActiveItem: function (card) {
         this.getView().setActiveItem(card);
     },
-    showEditView: function (card) {
-        this.getView().setActiveItem(card);
-
-    },
-    onSetActiveCard: function (card) {
+    createNewUser: function (card) {
         Ext.getCmp('viewport').setLoading(true)
         var me = this;
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, function (response) {
             var resObj = Ext.decode(response.responseText);
             console.log(resObj)
-            if (resObj.success) {
-                var tenantStr = Ext.StoreManager.lookup('CaptivePortal.store.users.TenantList');
-                tenantStr.setData(resObj.data.tenants);
-                var roleStr = Ext.StoreManager.lookup('CaptivePortal.store.users.Role');
-                roleStr.setData(resObj.data.roles);
+            debugger
+            if (resObj.success) {               
                 if (CaptivePortal.app.getUserRole() != 'super_admin') {
-                    me.fireEvent('getUsersSiteData', CaptivePortal.app.getUserTenantID(), function (store) {                       
+                    me.fireEvent('getUsersSiteData', CaptivePortal.app.getUserTenantID(), function (store) {
                     }.bind(this));
                 }
-                me.fireEvent('setStoreEvent', roleStr, tenantStr);
-                Ext.getCmp('viewport').setLoading(false);
-                console.log(resObj)
+                me.fireEvent('setStoreEvent',resObj.data);
+                Ext.getCmp('viewport').setLoading(false);              
             }
         }.bind(this), function (response) {
             var resObj = Ext.decode(response.responseText);

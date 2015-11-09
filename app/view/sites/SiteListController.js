@@ -22,17 +22,22 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
     setActiveItem: function () {
         this.fireEvent('setActiveSiteCard', 1);
     },
-    clearForm: function () {
-        debugger
+    clearForm: function () {     
         var model = Ext.create('CaptivePortal.model.site.Site');
         var form = Ext.ComponentQuery.query('#site_form')[0];
         form.getForm().loadRecord(model);
         form.down('#user_profile_ids').setValue('');
+        form.down('#user_profile_ids').clearInvalid();
         form.down('#timezone').setValue('');
+        form.down('#timezone').clearInvalid();
         form.down('#tags').setValue('');
+        form.down('#tags').clearInvalid();
         form.down('#email').setValue('');
+        form.down('#email').clearInvalid();
         form.down('#state').setValue('');
+        form.down('#state').clearInvalid();
         form.down('#site_id').setValue('');
+        form.down('#site_id').clearInvalid();
         this.fireEvent('setActiveSiteCard', 1);
         this.fireEvent('setviewStore');
     },
@@ -62,12 +67,11 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         });
     },
     editSiteItemClick: function (view, record, item, index, e, eOpts) {
-       
         var me = this;
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
-                 Ext.getCmp('viewport').setLoading(true);
+                Ext.getCmp('viewport').setLoading(true);
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_SITE + record.data.id + '/edit.json';
                 CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
                     var resObj = Ext.decode(response.responseText);
@@ -79,7 +83,7 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
                         Ext.getCmp('viewport').setLoading(false);
                     }
                 }.bind(this), function (response) {
-                     Ext.getCmp('viewport').setLoading(false);
+                    Ext.getCmp('viewport').setLoading(false);
                 }, 'GET');
             } else {
                 this.deleteSite(view, record, item, index, e, eOpts);

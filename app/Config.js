@@ -34,6 +34,16 @@ Ext.define('CaptivePortal.Config', {
 		DELETE_SITE:CaptivePortal.util.Utility.BASE_URL + 'sites/',
 		GET_SITES_FOR_TENANT:CaptivePortal.util.Utility.BASE_URL + 'tenants/',
 		GET_CURRENT_USER_DETAILS:CaptivePortal.util.Utility.BASE_URL + 'get_current_user_details.json',
-                RESET_PASSWORD_LINK :CaptivePortal.util.Utility.BASE_URL + 'portal/users/password.json'
+        RESET_PASSWORD_LINK :CaptivePortal.util.Utility.BASE_URL + 'portal/users/password.json',
+        
+
+        // SMS Gateway Url
+
+        GET_SMSGATEWAYS:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements.json',
+		NEW_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/new.json',
+		SAVE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements.json',
+		EDIT_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
+		DELETE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
+		UPDATE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
 	}
 });

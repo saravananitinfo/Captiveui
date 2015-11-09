@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.user.User',
         'CaptivePortal.store.tenant.Tenant',
         'CaptivePortal.store.role.Role',
-	'CaptivePortal.store.role.RoleAccess',
+	    'CaptivePortal.store.role.RoleAccess',
         'CaptivePortal.store.user.TenantList',
         'CaptivePortal.store.users.TenantList',
         'CaptivePortal.store.users.Site',
@@ -19,7 +19,9 @@ Ext.define('CaptivePortal.Application', {
         'ProfileMenuList',
         'CaptivePortal.store.users.AccessPermission',
         'CaptivePortal.store.site.Site',
-        'CaptivePortal.store.sms_gateway.SmsGatewayType'
+        'CaptivePortal.store.sms_gateway.SmsGatewayType',
+        'CaptivePortal.store.sms_gateway.Sites',
+        'CaptivePortal.store.sms_gateway.SMSGateways'
     ],
     launch: function () {
         // TODO - Launch the application

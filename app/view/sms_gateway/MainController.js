@@ -9,7 +9,7 @@ Ext.define('CaptivePortal.view.sms_gateway.MainController',{
     	}
     },
     onSetActiveItem:function(card){
-         this.getView().setActiveItem(card);
+        this.getView().setActiveItem(card);
     }
 });
     

@@ -2,9 +2,9 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
 	extend: 'Ext.panel.Panel',
 	requires: [
    		'CaptivePortal.view.sms_gateway.SMSGatewayController',
-   		'CaptivePortal.view.sms_gateway.GatewayType0',
-   		'CaptivePortal.view.sms_gateway.GatewayType1',
-   		'CaptivePortal.view.sms_gateway.GatewayType2'
+   		'CaptivePortal.view.sms_gateway.GatewayTypeClickatell',
+   		'CaptivePortal.view.sms_gateway.GatewayTypeTwilio',
+   		'CaptivePortal.view.sms_gateway.GatewayTypeCdyne'
 	],
 	alias: 'widget.sms_gateways_addedit',
 	controller: 'sms_gateway',
@@ -17,97 +17,160 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
 	    padding: '10 0 0 30'
 	},
 	initComponent: function () {
-		this.items = [{
+		this.items = [
+		   {
                 xtype: 'panel',
                 width: '100%',
                 padding: '20 0 0 0',
                 cls: 'form_trigger',
-                items: [{
-                        xtype: 'form',
-                        itemId: 'smsform',
-                        defaults: {
-                            width: 400,
-                            height: 30,
-                            padding: '10 0 15 0',
-                            maxLength: 50,
-                        },
-                        items: [{
-                                xtype: 'hiddenfield', 
-                                name: 'gateway_id',
-                                reference:'hf_gatewayid'
-                               
-                            },{
-                                xtype: 'label',
-                                text: 'Name',
-                                cls: 'header_label_content'
-                            }, {
+                items: [
+        			{
+                		xtype: 'form',
+                		itemId: 'smsform',
+                		defaults: {
+                    		width: 400,
+                    		height: 30,
+                    		padding: '10 0 15 0',
+                    		maxLength: 50,
+                		},
+                		items: [
+        					{
+                				xtype: 'hiddenfield', 
+                				name: 'gateway_id',
+                				itemId: 'gateway_id',
+                				reference:'hf_gatewayid',
+                                value: this.gateway_id ? this.gateway_id : ''
+               
+            				},
+            				{
+                				xtype: 'label',
+                				text: 'Name',
+                				cls: 'header_label_content'
+            				},
+            				{
                                 xtype: 'textfield',
                                 name: 'name',
                                 itemId: 'gateway_name',
                                 allowBlank: false,
+                                value: this.name ? this.name : ''
                                 //readOnly:(this.user_id) ? true:false
-                            },{
+                            },
+                            {
+                            	xtype: 'label',
+                                text: 'Sites',
+                                cls: 'header_label_content'
+                            },
+                            {
+                            	xtype: 'tagfield',
+                                allowBlank: false,
+                                editable: true,
+                                name: 'site_ids',
+                                queryMode: 'local',
+                                itemId: 'gateway_sites',
+                                valueField: 'id',
+                                value: this.site_ids ? this.site_ids : '',
+                                displayField: 'name',
+                                store: 'CaptivePortal.store.sms_gateway.Sites'
+                            },
+                            {
                                 xtype: 'label',
                                 text: 'Gateway Type',
                                 cls: 'header_label_content'
-                            },{
+                            },
+                            {
                                 xtype: 'combobox',
                                 allowBlank: false,
+                                editable: false,
                                 name: 'gateway_type',
                                 queryMode: 'local',
-                                itemId: 'gateway',
+                                itemId: 'gateway_type',
                                 valueField: 'id',
+                                value: this.gateway_type ? this.gateway_type : 'Clickatell',
                                 displayField: 'name',
                                 store: 'CaptivePortal.store.sms_gateway.SmsGatewayType',
                                 listeners: {
                                     'select': 'selectGatewayType'
                                 }
-                             },{
-                                    xtype: 'panel',
-	                                // layout: 'card',
-	                                reference: 'gatwaytype_forms',
-	                                width: '100%',
-	                                height: 150
-	                                // items: [
-	                                // 	{
-	                                // 		xtype: "gatewaytype0",
-	                                // 		itemId: "gatewaytype0"
-	                                // 	},
-	                                // 	{
-	                                // 		xtype: "gatewaytype1",
-	                                // 		itemId: "gatewaytype1"
-	                                // 	},
-	                                // 	{
-	                                // 		xtype: "gatewaytype2",
-	                                // 		itemId: "gatewaytype2"
-	                                // 	}
-	                                // ]
-	                             },{
-                                    xtype: 'container',
-	                                layout: 'hbox',
-	                                width: '100%',
-	                                height: 50,
-	                                items: [{
-	                                        xtype: 'button',
-	                                        reference:'btn_save',
-	                                        formBind: true,
-	                                        itemId: "btn_saveTenant",
-	                                        text: "Save",
-	                                        handler: 'saveSMSGateway',
-											cls: 'btn'
-	                                    },
-	                                    {
-	                                        xtype: 'button',
-	                                        margin: '0 0 0 20',
-	                                        text: 'Cancel',
-	                                        handler: 'cancelTenant',
-											cls: 'btn btn-cancel'
-	                                    }]
-	                              }
-                            ]
-                        }]
-       }]
-	 this.callParent();
+                            },
+                            {
+                				xtype: 'label',
+                				text: 'Status',
+                				cls: 'header_label_content'
+            				},
+                            {
+                                xtype: 'container',
+                                defaultType: 'radiofield',
+                                defaults: {
+                                    width: 100
+                                },
+                                margin: '0 0 20 0',
+                                layout: 'hbox',
+                                items: [
+                                    {
+                                        boxLabel: 'Enable',
+                                        name: 'status',
+                                        inputValue: 'active',
+                                        itemId: 'user_enable',
+                                        // checked: true,
+                                        checked: this.status == 'active' ? true : false
+                                    }, {
+                                        boxLabel: 'Disable',
+                                        name: 'status',
+                                        inputValue: 'inactive',
+                                        itemId: 'user_disable',
+                                        checked: this.status == 'inactive' ? true : false
+                                    }
+                                ]
+                            },
+                            {
+                				xtype: 'label',
+                				text: 'Account Details',
+                				cls: 'header_label_content'
+            				},
+                            {
+                                xtype: 'panel',
+                                reference: 'gatwaytype_forms',
+                                itemId: 'gatwaytype_forms',
+                                width: 400,
+                                layout: 'box',
+                                height: 200
+                       //  		items: [
+                       //      		{
+                       //      			xtype: "gatewaytype0",
+                       //      			itemId: "gatewaytype0"
+                       //      		}
+                    			// ]
+                 			},
+                 			{
+                                xtype: 'container',
+                                layout: 'hbox',
+                                width: '100%',
+                                height: 50,
+                                items: [
+                                	{
+                                        xtype: 'button',
+                                        reference:'btn_save',
+                                        formBind: true,
+                                        itemId: "btn_saveSMSGateway",
+                                        text: "Save",
+                                        handler: 'saveSMSGateway',
+										cls: 'btn'
+                        			},
+                        			{
+                                        xtype: 'button',
+                                        margin: '0 0 0 20',
+                                        text: 'Cancel',
+                                        handler: 'cancelSMSGateway',
+										cls: 'btn btn-cancel'
+                        			}
+                        		]
+                  			}
+            			]
+                	}
+                ]
+            }
+        ]
+	    this.callParent();
 	}
 
 

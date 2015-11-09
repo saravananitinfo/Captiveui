@@ -283,6 +283,9 @@ Ext.define('CaptivePortal.util.Utility', {
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
             }
         });
+    },
+    capitalizeFirstLetter: function(str){
+        return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
 });

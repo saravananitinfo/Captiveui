@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.sms_gateway.SMSGateways',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.sms_gateway.SMSGateway'],
+	model:'CaptivePortal.model.sms_gateway.SMSGateway',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_SMSGATEWAYS,
+		type:'ajax',
+		reader:{
+			type:'json',
+			rootProperty:'data.sms_gateway_managements'
+		}
+	}
+});

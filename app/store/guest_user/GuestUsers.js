@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.guest_user.GuestUsers',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.guest_user.GuestUser'],
+	model:'CaptivePortal.model.guest_user.GuestUser',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_GUESTUSERS,
+		type:'ajax',
+		reader:{
+			type:'json',
+			rootProperty:'data.guest_users'
+		}
+	}
+});

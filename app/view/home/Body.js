@@ -22,6 +22,26 @@ Ext.define('CaptivePortal.view.home.Body', {
             xtype: 'panel',
             itemId: 'card_intial'
         }]
+        // , {
+        //     xtype: 'usermain',
+        //     itemId: 'card_usermain'
+        // }, {
+        //     xtype: 'tenantsmain',
+        //     itemId: 'card_tenantlist'
+        // }, {
+        //     xtype: 'rolemain',
+        //     itemId: 'card_rolelist'
+        // }, {
+        //     xtype: 'sites_main',
+        //     itemId: 'card_sitelist'
+        // },
+        // {
+        //     xtype: 'sms_gatewaysmain',
+        //     itemId: 'card_sms_gatewaysmain'
+        // },{
+        //     xtype: 'guest_usersmain',
+        //     itemId: 'card_guest_usersmain'
+        // }]
 //        }, {
 //            xtype: 'usermain',
 //            itemId: 'card_usermain'

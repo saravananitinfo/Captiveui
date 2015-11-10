@@ -87,7 +87,13 @@ Ext.define('CaptivePortal.util.Utility', {
                         var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
                         var bodypanel = Ext.create('CaptivePortal.view.home.Body');
                         homepanel.add(navpanel, headingpanel, bodypanel);
-                        Ext.getCmp('viewport').add(homepanel);                       
+                        Ext.getCmp('viewport').add(homepanel);
+                        me.loadUserStore()
+                        me.loadRoleStore();
+                        me.loadSiteStore();
+                        me.loadTenantStore();
+                        me.loadSMSGatewayStore();
+                        me.loadGuestUsersStore();
                         Ext.getCmp('viewport').setLoading(false);
                     }
                 }
@@ -149,7 +155,31 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.getCmp('viewport').add(homepanel);
         Ext.ComponentQuery.query('label#lab_roledisplay')[0].setText(profile.user_role.charAt(0))
         Ext.getCmp('viewport').setLoading(false);
-    }, 
+    },
+    loadUserStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.user.User');
+        str.load();
+    },
+    loadSiteStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.site.Site');
+        str.load();
+    },
+    loadTenantStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.tenant.Tenant');
+        str.load();
+    },
+    loadRoleStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.role.Role');
+        str.load();
+    },
+    loadSMSGatewayStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways');
+        str.load();
+    },
+    loadGuestUsersStore: function () {
+        var str = Ext.StoreManager.lookup('CaptivePortal.store.guest_user.GuestUsers');
+        str.load();
+    },
     createMenusForUserBasedOnPermisson: function (navpanel) {
         var store = Ext.StoreManager.lookup('ProfileMenuList');        
         var menu;

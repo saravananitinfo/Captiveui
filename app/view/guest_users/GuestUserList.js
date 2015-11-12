@@ -44,7 +44,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
                 columns: [
                     {
                         header: 'Username',
-                        dataIndex: 'username',
+                        dataIndex: 'user_name',
                         flex: 1,
                         cls: 'table-row',
                         tdCls: 'table-cell',
@@ -77,7 +77,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
                     },
                     {
                         header: 'Status',
-                        dataIndex: 'status',
+                        dataIndex: 'enabled',
                         flex: 1,
                         cls: 'table-row',
                         tdCls: 'table-cell',

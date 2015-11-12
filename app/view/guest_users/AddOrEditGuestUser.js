@@ -45,9 +45,9 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 cls: 'header_label_content'
                             },
                             {
-                            	xtype: 'tagfield',
+                            	xtype: 'combobox',
                                 allowBlank: false,
-                                editable: true,
+                                editable: false,
                                 name: 'site_id',
                                 queryMode: 'local',
                                 itemId: 'gateway_sites',
@@ -81,6 +81,36 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 allowBlank: false,
                                 value: this.password ? this.password : ''
                                 //readOnly:(this.user_id) ? true:false
+                            },
+                            {
+                                xtype: 'label',
+                                text: 'Status',
+                                cls: 'header_label_content'
+                            },
+                            {
+                                xtype: 'container',
+                                defaultType: 'radiofield',
+                                defaults: {
+                                    width: 100
+                                },
+                                margin: '0 0 20 0',
+                                layout: 'hbox',
+                                items: [
+                                    {
+                                        boxLabel: 'Enable',
+                                        name: 'enabled',
+                                        inputValue: 'yes',
+                                        itemId: 'guest_user_enable',
+                                        // checked: true,
+                                        checked: this.enabled == 'yes' ? true : false
+                                    }, {
+                                        boxLabel: 'Disable',
+                                        name: 'enabled',
+                                        inputValue: 'no',
+                                        itemId: 'guest_user_disable',
+                                        checked: this.enabled == 'no' ? true : false
+                                    }
+                                ]
                             },
                             {
                                 xtype: 'label',

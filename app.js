@@ -13,18 +13,20 @@ Ext.application({
     // customize this file, doing so below this section reduces the likelihood
     // of merge conflicts when upgrading to new versions of Sencha Cmd.
     //-------------------------------------------------------------------------
-    requires: ['CaptivePortal.view.login.Login','CaptivePortal.view.sites.Main','CaptivePortal.view.Viewport', 'CaptivePortal.util.Utility', 'CaptivePortal.Config', 'CaptivePortal.view.users.TenantList','CaptivePortal.view.sms_gateway.Main'],
-    config: {       
-        userRole:'',
-        accessPermissionList:[],
-        userName:'',      
-        token:'',
-        userPermittedList:[],
-        userAuthorisedIPs:[],
-        userProfileID:'',
-        userTenantID :'',
-        userTenantName:'',
-        tempUserObj:''
+    requires: ['CaptivePortal.view.login.Login', 'CaptivePortal.view.sites.Main', 'CaptivePortal.view.Viewport', 'CaptivePortal.util.Utility', 'CaptivePortal.Config', 'CaptivePortal.view.users.TenantList', 'CaptivePortal.view.sms_gateway.Main'],
+    config: {
+        userRole: '',
+        accessPermissionList: [],
+        userName: '',
+        token: '',
+        userPermittedList: [],
+        userAuthorisedIPs: [],
+        userProfileID: '',
+        userTenantID: '',
+        userTenantName: '',
+        tempUserObj: '',
+        waitMsg: 'Please Wait...',
+        loginMsg: 'Signing In...'
     },
     launch: function () {
         var vp = Ext.create('CaptivePortal.view.Viewport');
@@ -33,7 +35,7 @@ Ext.application({
             var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
             if (cookieVal) {
                 var cookieObj = Ext.decode(cookieVal);
-                if (cookieObj.remember && cookieObj.email) {                    
+                if (cookieObj.remember && cookieObj.email) {
                     CaptivePortal.util.Utility.doLoginForLoggedUser();
                     return;
                 } else {

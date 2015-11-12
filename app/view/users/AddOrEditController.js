@@ -6,38 +6,46 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
     listen: {
         controller: {
             '#vc_users_maincontroller': {
-                setStoreEvent: 'bindDataStore',
+                setNew: 'bindStoreForNew',
                 getUsersSiteData: 'getSitesData'
             },
             '#vc_userlistcontroller': {
                 getUsersSiteData: 'getSitesData',
-                showUsersAccessPermission: 'showAccessPermission'
+                showUsersAccessPermission: 'showAccessPermission',
+                setEdit: 'setDataForEdit'
             }
         }
     },
-    bindDataStore: function (data) {
-        this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles);
-        this.getView().lookupReference('cmb_tenant').getStore().setData(data.tenants);       
-        if (CaptivePortal.app.getUserRole() != 'super_admin') {
+    bindStoreForNew: function (data) {
+        if (CaptivePortal.app.getUserRole() === "super_admin") {
+            this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles);
+            this.getView().lookupReference('cmb_tenant').getStore().setData(data.tenants);
+        } else {
             this.getView().lookupReference('cmb_tenant').setValue(CaptivePortal.app.getUserTenantID());
+            this.getView().lookupReference('tf_site').getStore().setData(data.sites);
+            this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles);
         }
+    },
+    setDataForEdit: function (data) {
+        data.roles.length > 0 ? this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles) : "";
+        data.tenants.length > 0 ? this.getView().lookupReference('cmb_tenant').getStore().setData(data.tenants) : "";
+        data.sites.length > 0 ? this.getView().lookupReference('tf_site').getStore().setData(data.sites) : "";
+        var record = this.createUserModel(data.user_profile, true);
+        var form = Ext.ComponentQuery.query('#userform')[0];
+        form.loadRecord(record)
     },
     setUserId: function (userid) {
         this.getView().lookupReference('hf_userid').setValue(userid);
         this.getView().lookupReference('btn_save').setText('Update');
     },
-    onTenantComboRender: function (combo) {
+    onTenantComboRender: function () {
+        var combo = this.getView().lookupReference('cmb_tenant');
         if (CaptivePortal.app.getUserRole() === "super_admin") {
-            //  combo.bindStore(Ext.StoreManager.lookup('CaptivePortal.store.tenant.Tenant'))
+            // do nothing
         } else {
             combo.setVisible(false);
             combo.previousNode('label').setVisible(false);
-            if (CaptivePortal.app.getUserTenantID())
-                this.getSitesData(CaptivePortal.app.getUserTenantID(), function (store) {
-                    combo.nextNode('combo').bindStore(store);
-                    combo.setValue(CaptivePortal.app.getUserTenantID())
-                    Ext.getCmp('viewport').setLoading(false);
-                }.bind(this));
+            combo.setValue(CaptivePortal.app.getUserTenantID())
         }
     },
     showAccessPermission: function (roles, data, view, userid) {
@@ -52,9 +60,11 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             var accesspermissionStr = Ext.StoreManager.lookup('CaptivePortal.store.users.AccessPermission');
             var record = [];
             Ext.Array.each(rolesStr.data.items, function (roledata, index) {
+                debugger
                 record.push({
                     id: roledata.data.id,
                     name: roledata.data.name,
+                    write: false,
                     permission: 0
                 })
             });
@@ -62,6 +72,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 Ext.Array.each(record, function (rec, index) {
                     if (rec.id === permission.id) {
                         record[index].permission = 1;
+                        record[index].write = true;
                     }
                 })
             })
@@ -75,6 +86,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         this.fireEvent('setActiveUserCard', 1);
     },
     deleteUser: function (view, record, item, index, e, eOpts) {
+        var me = this;
         Ext.Msg.show({
             title: 'Delete User',
             message: 'Do you want to delete?',
@@ -83,23 +95,20 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             fn: function (btn) {
                 if (btn === 'yes') {
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_USER + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             this.getUsers();
-                            Ext.getCmp('viewport').setLoading(false);
                         }
                     }.bind(this), function (response) {
-                        Ext.getCmp('viewport').setLoading(false);
                     }, 'DELETE');
                 } else if (btn === 'no') {
-                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this)
         });
     },
     createUsers: function () {
-        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, function (response) {
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 var roles = resObj.data.roles;
@@ -108,7 +117,6 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.AddOrEditUser', this, {
                     roleData: roles, tenantData: tenants, sites: sites});
                 CaptivePortal.util.Utility.setHeightForCommonContainer();
-                //this.getAllRoles();
             }
         }.bind(this), function (response) {
             var resObj = Ext.decode(response.responseText);
@@ -147,7 +155,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         return usersObj;
     },
     getUsers: function () {
-        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_USER, {}, function (response) {
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_USER, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 var usersModel = this.createUsersFromArray(resObj.data.user_profiles);
@@ -161,30 +169,27 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         }, 'GET');
     },
     selectTenant: function (combo, record, eopts) {
-        Ext.getCmp('viewport').setLoading(true);
         var siteCombo = combo.nextNode('combo');
         siteCombo.clearValue();
         if (combo.getValue()) {
-            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + combo.getValue() + '/get_sites.json', {}, function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + combo.getValue() + '/get_sites.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     var sites = resObj.data.sites ? resObj.data.sites : [];
                     var siteStr = Ext.StoreManager.lookup('CaptivePortal.store.users.Site');
                     siteStr.setData(sites);
-                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (!resObj.success && resObj.error.length) {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
-                    Ext.getCmp('viewport').setLoading(false);
                 }
             }, 'GET');
         }
     },
     getSitesData: function (value, callback) {
         var me = this;
-        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + value + '/get_sites.json', {}, function (response) {
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + value + '/get_sites.json', {}, 'CaptivePortal.app.getWaitMsg()', Ext.getCmp('viewport'), function (response) {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 var sites = resObj.data.sites ? resObj.data.sites : [];
@@ -192,26 +197,6 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 siteStr.setData(sites);
                 me.getView().lookupReference('tf_site').bindStore(siteStr);
                 callback(siteStr);
-                Ext.getCmp('viewport').setLoading(false);
-            }
-        }.bind(this), function (response) {
-            var resObj = Ext.decode(response.responseText);
-            if (!resObj.success && resObj.error.length) {
-                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
-                Ext.getCmp('viewport').setLoading(false);
-            }
-        }, 'GET');
-    },
-    getAllRoles: function () {
-        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE, {}, function (response) {
-            var resObj = Ext.decode(response.responseText);
-            if (resObj.success) {
-                var accesses = resObj.data.site_accesses ? resObj.data.site_accesses : [];
-                var permittedRoles = [];
-                Ext.Array.each(accesses, function (rec) {
-                    permittedRoles.push({access_for: rec.access_for, write: false, id: rec.id});
-                });
-                Ext.ComponentQuery.query('grid')[0].store.loadRawData(permittedRoles);
             }
         }.bind(this), function (response) {
             var resObj = Ext.decode(response.responseText);
@@ -222,9 +207,8 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
     },
     selectRole: function (combo, record, eopts) {
         var me = this;
-        Ext.getCmp('viewport').setLoading(true);
         if (combo.getValue()) {
-            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + combo.getValue() + '/edit.json', {}, function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + combo.getValue() + '/edit.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     var accesses = resObj.data.site_role.site_accesses;
@@ -241,24 +225,17 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                             }
                         }
                     });
-//                    Ext.Array.each(accesses, function (rec) {
-//                        permittedRoles.push({access_for: rec.access_for, write: false, id: rec.id});
-//                    });
-//                    var str = Ext.StoreManager.lookup('CaptivePortal.store.users.RoleAccess')
-//                    str.setData(permittedRoles);
-                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (!resObj.success && resObj.error.length) {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
-                Ext.getCmp('viewport').setLoading(false);
             }, 'GET');
         }
     },
     saveUser: function () {
-        Ext.getCmp('viewport').setLoading(true);
+        debugger
         var me = this;
         var form = this.getView().down('form');
         if (form.isValid()) {
@@ -293,11 +270,12 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 url = CaptivePortal.Config.SERVICE_URLS.UPDATE_USER + formValues.user_id + '.json';
                 method = "PUT";
             }
-
-            CaptivePortal.util.Utility.doAjaxJSON(url, saveJson, function (response) {
+            console.log(Ext.JSON.encode(saveJson))
+            CaptivePortal.util.Utility.doAjaxJSON(url, saveJson, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success != 'false') {
                     me.fireEvent('setActiveUserCard', 0);
+                    Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Users');
                     Ext.toast({
                         html: 'Data Saved',
                         title: 'Info',
@@ -305,39 +283,15 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                         align: 't'
                     });
                     me.fireEvent('refreshUserList');
-                    Ext.getCmp('viewport').setLoading(false);
                 } else {
-                    Ext.getCmp('viewport').setLoading(false);
-                    Ext.Msg.alert('Info', resObj.message[0])
+                    Ext.Msg.alert('Info', resObj.message[0]);
                 }
             }.bind(this), function (response) {
-                Ext.getCmp('viewport').setLoading(false);
                 var resObj = Ext.decode(response.responseText);
                 if (!resObj.success && resObj.error.length) {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
             }, method);
-        }
-    },
-    userItemClick: function (view, record, item, index, e, eOpts) {
-        Ext.getCmp('viewport').setLoading(true);
-        var action = e.target.getAttribute('action');
-        if (action) {
-            if (action == "edit") {
-                var url = CaptivePortal.Config.SERVICE_URLS.EDIT_USER + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
-                    var resObj = Ext.decode(response.responseText);
-                    if (resObj.success) {
-                        var record = this.createUserModel(resObj.data.user_profile, true);
-                        var form = Ext.ComponentQuery.query('#userform')[0];
-                        form.loadRecord(record);
-                        Ext.getCmp('viewport').setLoading(false);
-                    }
-                }.bind(this), function (response) {
-                }, 'GET');
-            } else {
-                this.deleteUser(view, record, item, index, e, eOpts);
-            }
         }
     },
     permissionRowClick: function (view, record, item, index, e, eOpts) {

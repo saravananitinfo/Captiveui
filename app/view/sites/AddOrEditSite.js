@@ -2,14 +2,11 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
     extend: 'Ext.panel.Panel',
     itemId: 'pan_siteaddedit',
     requires: [
-        'CaptivePortal.view.sites.SiteController'
+        'CaptivePortal.view.sites.AddOrEditSiteController'
     ],
     xtype: 'sites_addedit',
     alias: 'widget.sites_addedit',
     controller: 'sitecontroller',
-    listeners: {
-        activate: 'onEditActivate'
-    },
     initComponent: function () {
         var btnText = this.site_name ? 'Update' : 'Create';
         var title = this.site_name ? 'Edit Site' : 'New Site';
@@ -37,7 +34,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 width: 500,
                                 name: 'name',
                                 itemId: 'name',
-				                emptyText: 'Site Name',
+                                emptyText: 'Site Name',
                                 value: this.site_name ? this.site_name : ''
                             }, {
                                 xtype: 'hiddenfield',
@@ -74,7 +71,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 multiSelect: true,
                                 name: 'user_profile_ids',
                                 itemId: 'user_profile_ids',
-				                emptyText: 'Select Users',
+                                emptyText: 'Select Users',
                                 valueField: 'id',
                                 displayField: 'name',
                                 filterPickList: true
@@ -107,7 +104,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 multiSelect: true,
                                 name: 'tags',
                                 itemId: 'tags',
-				emptyText: 'Select Tags',
+                                emptyText: 'Select Tags',
                                 valueField: 'name',
                                 displayField: 'name',
                                 filterPickList: true
@@ -148,7 +145,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 maxLength: 50,
                                                 width: 250,
                                                 name: 'email',
-						                        emptyText: 'Contact Email',
+                                                emptyText: 'Contact Email',
                                                 itemId: 'email',
                                                 padding: '20 0 0 0',
                                                 vtype: 'email'
@@ -156,7 +153,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 xtype: 'textfield',
                                                 allowBlank: true,
                                                 maxLength: 50,
-						                        emptyText: 'Contact Phone Number',
+                                                emptyText: 'Contact Phone Number',
                                                 padding: '20 0 0 20',
                                                 width: 250,
                                                 name: 'phone',
@@ -190,13 +187,13 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 allowBlank: true,
                                                 maxLength: 50,
                                                 width: 250,
-						emptyText: 'Address',
+                                                emptyText: 'Address',
                                                 name: 'address',
                                                 padding: '20 0 0 0',
                                                 itemId: 'address'
                                             }, {
                                                 xtype: 'textfield',
-						emptyText: 'Street Name',
+                                                emptyText: 'Street Name',
                                                 maxLength: 50,
                                                 padding: '20 0 0 20',
                                                 width: 250,
@@ -231,7 +228,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 allowBlank: true,
                                                 maxLength: 50,
                                                 width: 250,
-						emptyText: 'City',
+                                                emptyText: 'City',
                                                 padding: '20 0 0 0',
                                                 name: 'city',
                                                 itemId: 'city'
@@ -288,7 +285,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 padding: '20 0 0 20',
                                                 maxLength: 50,
                                                 width: 250,
-						emptyText: 'Postal Code',
+                                                emptyText: 'Postal Code',
                                                 name: 'zipcode',
                                                 itemId: 'zipcode'
                                             }
@@ -330,7 +327,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 maxLength: 50,
                                                 padding: '20 0 0 0',
                                                 width: 250,
-						emptyText: 'Latitude',
+                                                emptyText: 'Latitude',
                                                 name: 'latitude',
                                                 itemId: 'latitude'
                                             }, {
@@ -339,7 +336,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 maxLength: 50,
                                                 padding: '20 0 0 20',
                                                 width: 250,
-						emptyText: 'Longitude',
+                                                emptyText: 'Longitude',
                                                 name: 'longitude',
                                                 itemId: 'longitude'
                                             }
@@ -354,18 +351,18 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 items: [
                                     {
                                         xtype: 'button',
-                                        reference:'btn_save',
+                                        reference: 'btn_save',
                                         formBind: true,
                                         text: btnText,
                                         handler: 'saveSite',
-					cls: 'btn'
+                                        cls: 'btn'
                                     },
                                     {
                                         xtype: 'button',
                                         margin: '0 0 0 10',
                                         text: 'Cancel',
                                         handler: 'cancelSite',
-					cls: 'btn btn-cancel'
+                                        cls: 'btn btn-cancel'
                                     }
                                 ]
                             }]

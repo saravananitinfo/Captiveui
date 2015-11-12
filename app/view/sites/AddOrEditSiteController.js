@@ -1,20 +1,16 @@
-Ext.define('CaptivePortal.view.sites.SiteController', {
+Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
     extend: 'Ext.app.ViewController',
     id: 'vc_sitecontroller',
     alias: 'controller.sitecontroller',
     listen: {
         controller: {
             '#vc_sitelistcontroller': {
-                setviewStore: 'setStoreEvent'
+                loadStore: 'setStoreEvent'
             }
         }
     },
-    onEditActivate: function () {
-        // this.createSites();
-    },
     setStoreEvent: function (data) {
         var user = [];
-	debugger
         if (data) {
             Ext.Array.each(data, function (record, index) {
                 user.push(record.id)
@@ -22,10 +18,10 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
         }
         this.getTageStore();
         this.getTimezoneStore();
-        this.getUsers(user);
         this.getTenants();
         this.getCountryStore();
         this.getStateStore();
+        this.getUsers(user);
         if (data) {
             this.getView().lookupReference('btn_save').setText('Update');
         } else {
@@ -36,7 +32,6 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
         this.fireEvent('setActiveSiteCard', 0);
     },
     saveSite: function (btn) {
-        Ext.getCmp('viewport').setLoading(true);
         var me = this;
         var form = this.getView().down('form');
         if (form.isValid()) {
@@ -50,20 +45,18 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
                 method = 'PUT';
             }
             console.log(Ext.JSON.encode(json))
-            CaptivePortal.util.Utility.doAjaxJSON(url, json, function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(url, json, CaptivePortal.app.getWaitMsg(), '', function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     console.log(resObj);
                     me.fireEvent('setActiveSiteCard', 0)
                     me.fireEvent('refreshSitesStore');
-                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (!resObj.success && resObj.error.length) {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
-                Ext.getCmp('viewport').setLoading(false);
             }, method);
         }
     },
@@ -87,15 +80,15 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
     },
     getUsers: function (data) {
         var store = null;
-	var url =""; 
-	if (CaptivePortal.app.getUserRole() === "super_admin"){
-		url = CaptivePortal.Config.SERVICE_URLS.GET_USER;
-	}
-	else{
-		var tenantid = CaptivePortal.app.getUserTenantID();
-		var url = CaptivePortal.Config.SERVICE_URLS.GET_TENANT_USER + tenantid + "/get_users.json";
-	}
-        CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+        var url = "";
+        if (CaptivePortal.app.getUserRole() === "super_admin") {
+            url = CaptivePortal.Config.SERVICE_URLS.GET_USER;
+        }
+        else {
+            var tenantid = CaptivePortal.app.getUserTenantID();
+            var url = CaptivePortal.Config.SERVICE_URLS.GET_TENANT_USER + tenantid + "/get_users.json";
+        }
+        CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
             var respObj = Ext.decode(response.responseText);
             if (respObj.success) {
                 var userProfiles = respObj.data ? ((respObj.data.user_profiles == undefined) ? respObj.data.users : respObj.data.user_profiles) : [];
@@ -108,28 +101,25 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
 
     },
     getTenants: function () {
-	debugger
-	if (CaptivePortal.app.getUserRole() === "super_admin") {
-        	var store = null;
-	        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS, {}, function (response) {
-        	    var respObj = Ext.decode(response.responseText);
-	            if (respObj.success) {
-        	        store = Ext.create('CaptivePortal.store.tenant.Tenant', {data: respObj.data});
-	            }
-        	}.bind(this), function (response) {
-	        }, 'GET', false);
-        	this.getView().lookupReference('cmb_tenant').setStore(store);
-	}else{
-		debugger
-		var combo = this.getView().lookupReference('cmb_tenant');
-		combo.setVisible(false);
-	        combo.previousNode('label').setVisible(false);
-		combo.setValue(CaptivePortal.app.getUserTenantID())
-		debugger
-	}
+        if (CaptivePortal.app.getUserRole() === "super_admin") {
+            var store = null;
+            CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+                var respObj = Ext.decode(response.responseText);
+                if (respObj.success) {
+                    store = Ext.create('CaptivePortal.store.tenant.Tenant', {data: respObj.data});
+                }
+            }.bind(this), function (response) {
+            }, 'GET', false);
+            this.getView().lookupReference('cmb_tenant').setStore(store);
+        } else {
+            var combo = this.getView().lookupReference('cmb_tenant');
+            combo.setVisible(false);
+            combo.previousNode('label').setVisible(false);
+            combo.setValue(CaptivePortal.app.getUserTenantID())
+        }
     },
     loadSites: function () {
-        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOAD_SITE, {}, function (response) {
+        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOAD_SITE, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
             var respObj = Ext.decode(response.responseText);
             if (respObj.success) {
                 this.getView().down('grid').store.loadRawData(respObj.data.sites);
@@ -154,14 +144,5 @@ Ext.define('CaptivePortal.view.sites.SiteController', {
                 {id: '3', name: 'Uthar Pradesh'}]
         });
         this.getView().lookupReference('cmb_state').setStore(store);
-    },
-    createSites: function () {
-        this.getTenants();
-        this.getUsers();
-        this.getTimezoneStore();
-        this.getTageStore();
-        this.getStateStore();
-        this.getCountryStore();
-        this.fireEvent('setActiveSiteCard', 1);
     }
 });

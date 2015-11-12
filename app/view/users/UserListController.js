@@ -16,7 +16,6 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                 refreshUserList: 'getUsers'
             }
         }
-
     },
     showAddEditMaster: function () {
         this.fireEvent('showAddEditMaster', 1);
@@ -27,9 +26,9 @@ Ext.define('CaptivePortal.view.users.UserListController', {
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
-                Ext.getCmp('viewport').setLoading(true);
+                Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Edit User');
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_USER + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                         var record = this.createUserModel(resObj.data.user_profile, true);
@@ -40,31 +39,9 @@ Ext.define('CaptivePortal.view.users.UserListController', {
                             me.fireEvent('showUsersAccessPermission', roles, availableroles, true, resObj.data.user_profile.id);
                         else
                             me.fireEvent('showUsersAccessPermission', roles, availableroles, false, resObj.data.user_profile.id);
-                        console.log(record)
-                        if (CaptivePortal.app.getUserRole() != "super_admin") {
-                            var form = Ext.ComponentQuery.query('#userform')[0];
-                            me.fireEvent('getUsersSiteData', tenant, function (store) {
-                                var form = Ext.ComponentQuery.query('#userform')[0];
-                                form.loadRecord(record);
-                                Ext.getCmp('viewport').setLoading(false);
-                                this.fireEvent('showUsersEditView', 1);
-                            }.bind(this));
-                        } else {
-                            this.fireEvent('getUsersMainData', function (resp, store) {
-                                if (resp) {
-                                    var data = store.findRecord('id', tenant);
-                                    record.data.tenant_id = data.data.id;
-                                    me.fireEvent('getUsersSiteData', tenant, function (store) {
-                                        var form = Ext.ComponentQuery.query('#userform')[0];
-                                        form.loadRecord(record);
-                                        Ext.getCmp('viewport').setLoading(false);
-                                    }.bind(this));
-                                }
-                            }.bind(this));
-                        }
+                        me.fireEvent('setEdit', resObj.data);
                     }
                 }.bind(this), function (response) {
-                    Ext.getCmp('viewport').setLoading(false);
                 }, 'GET');
             } else {
                 this.deleteUser(view, record, item, index, e, eOpts);
@@ -114,6 +91,7 @@ Ext.define('CaptivePortal.view.users.UserListController', {
         });
     },
     deleteUser: function (view, record, item, index, e, eOpts) {
+        var me = this;
         Ext.Msg.show({
             title: 'Delete User',
             message: 'Do you want to delete?',
@@ -121,19 +99,16 @@ Ext.define('CaptivePortal.view.users.UserListController', {
             icon: Ext.Msg.QUESTION,
             fn: function (btn) {
                 if (btn === 'yes') {
-                    Ext.getCmp('viewport').setLoading(true);
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_USER + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             this.getUsers();
-                            Ext.getCmp('viewport').setLoading(false);
                         }
                     }.bind(this), function (response) {
-                        Ext.getCmp('viewport').setLoading(false);
                     }, 'DELETE');
                 } else if (btn === 'no') {
-                    Ext.getCmp('viewport').setLoading(false);
+
                 }
             }.bind(this)
         });
@@ -141,9 +116,6 @@ Ext.define('CaptivePortal.view.users.UserListController', {
     getUsers: function () {
         var store = this.getView().lookupReference('grd_userlist').getStore();
         store.load();
-        store.on('load', function () {
-            Ext.getCmp('viewport').setLoading(false);
-        })
     },
 })
 //# sourceURL=http://localhost:8383/CP/app/view/users/UserListController.js

@@ -2,6 +2,9 @@ Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
     //BASE_URL:'http://ec2-54-159-24-52.compute-1.amazonaws.com:8080/',
     BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
+    config: {
+        myMask: null
+    },
     setValuesForCookies: function (obj) {
         var currentTime = new Date();
         var expires = new Date(currentTime.getTime() + (7 * 24 * 60 * 60 * 1000));
@@ -15,7 +18,7 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.util.Cookies.clear('USER_PROFILES');
         Ext.util.Cookies.set('USER_PROFILES', Ext.encode(profiles), expires);
     },
-    setSuperAdminSession: function (obj, remember, token) {      
+    setSuperAdminSession: function (obj, remember, token) {
         var cookieObj = {
             remember: remember,
             email: obj.email,
@@ -26,7 +29,7 @@ Ext.define('CaptivePortal.util.Utility', {
         };
         this.setValuesForCookies(cookieObj);
     },
-    setNormalUserSession: function (obj, profileId, token) {       
+    setNormalUserSession: function (obj, profileId, token) {
         var cookieObj = {
             role: obj.user_role,
             remember: obj.remember,
@@ -35,7 +38,7 @@ Ext.define('CaptivePortal.util.Utility', {
             username: obj.data.email,
             language: 'English',
             profileId: profileId
-        };       
+        };
         this.setValuesForCookies(cookieObj)
     },
     setNormalUserDetails: function (profile) {
@@ -55,57 +58,54 @@ Ext.define('CaptivePortal.util.Utility', {
     },
     doLoginForLoggedUser: function () {
         var me = this;
-        Ext.getCmp('viewport').setLoading(true);
         var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
         if (cookieVal) {
             var cookieObj = Ext.decode(cookieVal);
             var profileId = cookieObj.profileId;
             var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
-            CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+            CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getLoginMsg(), Ext.getCmp('viewport'), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                    debugger
                     var cookieObj = Ext.decode(Ext.util.Cookies.get('CAP_SESSION'));
                     if (resObj.data.profile) {
-                        var token = cookieObj.token;
-                        var cookieObj = {remember: cookieObj.remember, email: resObj.data.profile.email, token: token, username: resObj.data.profile.name, language: 'English', profileId: resObj.data.profile.id};
                         CaptivePortal.app.setTempUserObj({data: resObj.data.profile, remember: cookieObj.remember});
                         CaptivePortal.util.Utility.doProfileLogin(resObj.data.profile.id, cookieObj.token);
-                    } else if (resObj.data.user_details.user_role === "super_admin") {                        
-                        var homepanel = Ext.create('CaptivePortal.view.home.Home', {
-                            layout: 'vbox',
-                            user: {
-                                langDesc: cookieObj.language,
-                                userName: cookieObj.username
-                            }
-                        });
-                        me.setSuperAdminSession(resObj.data.user_details, cookieObj.remember, cookieObj.token);                      
-                        resObj = resObj.data.user_details;
-                        me.setSuperAdminDetails(resObj)
-                        var navpanel = Ext.create('CaptivePortal.view.home.Navigation');
-                        me.createMenusForUserBasedOnPermisson(navpanel);
-                        var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
-                        var bodypanel = Ext.create('CaptivePortal.view.home.Body');
-                        homepanel.add(navpanel, headingpanel, bodypanel);
-                        Ext.getCmp('viewport').add(homepanel);                       
-                        Ext.getCmp('viewport').setLoading(false);
+                    } else if (resObj.data.user_details.user_role === "super_admin") {
+                        me.doSuperAdminLogin(resObj, cookieObj);
                     }
                 }
             }.bind(this), function (response) {
             }.bind(this), 'GET');
         }
     },
+    doSuperAdminLogin: function (resObj, cookieObj) {
+        var homepanel = Ext.create('CaptivePortal.view.home.Home', {
+            layout: 'vbox',
+            user: {
+                langDesc: cookieObj.language,
+                userName: cookieObj.username
+            }
+        });
+        this.setSuperAdminSession(resObj.data.user_details, cookieObj.remember, cookieObj.token);
+        resObj = resObj.data.user_details;
+        this.setSuperAdminDetails(resObj)
+        var navpanel = Ext.create('CaptivePortal.view.home.Navigation');
+        this.createMenusForUserBasedOnPermisson(navpanel);
+        var headingpanel = Ext.create('CaptivePortal.view.home.Heading');
+        var bodypanel = Ext.create('CaptivePortal.view.home.Body');
+        homepanel.add(navpanel, headingpanel, bodypanel);
+        Ext.getCmp('viewport').add(homepanel);
+    },
     doProfileLogin: function (profileId, token) {
-        Ext.getCmp('viewport').setLoading(true);
-        console.log(CaptivePortal.app.getTempUserObj());
+        Ext.getCmp('viewport').setLoading(true)
         this.setNormalUserSession(CaptivePortal.app.getTempUserObj(), profileId, token);
         var me = this;
         var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
-        CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+        CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getLoginMsg(), Ext.getCmp('viewport'), function (response) {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 me.setNormalUserDetails(resObj.data.profile);
-                me.createNormalUserHomePanel(resObj.data.profile);               
+                me.createNormalUserHomePanel(resObj.data.profile);
             }
         }.bind(this), function (response) {
         }.bind(this), 'GET');
@@ -147,11 +147,11 @@ Ext.define('CaptivePortal.util.Utility', {
         profile_switch.setVisible(true);
         homepanel.add(navpanel, headingpanel, bodypanel);
         Ext.getCmp('viewport').add(homepanel);
-        Ext.ComponentQuery.query('label#lab_roledisplay')[0].setText(profile.user_role.charAt(0))
-        Ext.getCmp('viewport').setLoading(false);
-    }, 
+        Ext.ComponentQuery.query('label#lab_roledisplay')[0].setText(profile.user_role.charAt(0));
+        Ext.getCmp('viewport').setLoading(false)
+    },
     createMenusForUserBasedOnPermisson: function (navpanel) {
-        var store = Ext.StoreManager.lookup('ProfileMenuList');        
+        var store = Ext.StoreManager.lookup('ProfileMenuList');
         var menu;
         console.log(CaptivePortal.app.getAccessPermissionList());
         Ext.Array.each(store.data.items, function (rec, index) {
@@ -235,36 +235,36 @@ Ext.define('CaptivePortal.util.Utility', {
             }
         }
     },
-    doAjax: function (url, params, successCallback, failureCallback, method, async) {
-        this.addHeader();
+    doAjax: function (url, params, msg, view, successCallback, failureCallback, method, async) {
         var async = (async != undefined) ? async : true;
+        CaptivePortal.util.Utility.appLoadMask(msg, Ext.getCmp('viewport'), true);
         Ext.Ajax.request({
             method: method,
             async: async,
             url: url,
             defaultPostHeader: {
                 'Content-Type': 'application/json;charset=UTF-8'
-            },
-            cors: true,
+            }, cors: true,
             params: params,
             callback: function (result) {
                 console.log('callback', result);
+                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
-
                 console.log('success', response)
                 Ext.isFunction(successCallback) && successCallback.call(null, response);
+                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             failure: function (response) {
-                debugger
                 console.log('failure', response)
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
+                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             }
         });
     },
-    doAjaxJSON: function (url, params, successCallback, failureCallback, method, async) {
-        this.addHeader();
+    doAjaxJSON: function (url, params, msg, view, successCallback, failureCallback, method, async) {
         var async = (async != undefined) ? async : true;
+        CaptivePortal.util.Utility.appLoadMask(msg, Ext.getCmp('viewport'), true);
         Ext.Ajax.request({
             method: method,
             url: url,
@@ -273,19 +273,40 @@ Ext.define('CaptivePortal.util.Utility', {
             jsonData: params,
             callback: function (result) {
                 console.log('callback', result);
+                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
                 console.log('success', response)
                 Ext.isFunction(successCallback) && successCallback.call(null, response);
+                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
-            failure: function (response) {                
+            failure: function (response) {
                 console.log('failure', response)
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
+                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             }
         });
-    },
-    capitalizeFirstLetter: function(str){
+    }, capitalizeFirstLetter: function (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+    appLoadMask: function (msg, cmp, show) {
+        if (this.getMyMask() === null) {
+            this.setMyMask(
+                    new Ext.LoadMask({
+                        msg: msg,
+                        target: cmp
+                    })
+                    )
+            this.getMyMask().show();
+        } else {
+            if (show) {
+                this.getMyMask().msg = msg;
+                this.getMyMask().target = cmp;
+                this.getMyMask().show();
+            } else {
+                this.getMyMask().hide();
+            }
+        }
     }
 
 });

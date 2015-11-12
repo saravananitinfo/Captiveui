@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.view.users.AddOrEditUser', {
     extend: 'Ext.panel.Panel',
-    itemId:'pan_useraddedit',
+    itemId: 'pan_useraddedit',
     requires: [
         'CaptivePortal.view.users.AddOrEditController',
         'CaptivePortal.store.users.TenantList'
@@ -16,11 +16,13 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
         type: 'vbox',
         padding: '10 0 0 30',
     },
-    config:{
-      user_id :null
-     },
-    //autoScroll:true,
-    initComponent: function () {       
+    config: {
+        user_id: null
+    },
+    listeners: {
+        activate: 'onTenantComboRender',
+    },
+    initComponent: function () {
         var userText = (this.user_id) ? 'Edit User' : 'New User';
         var btnText = (this.user_id) ? 'Update' : 'Create';
         this.items = [{
@@ -38,9 +40,9 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                             maxLength: 50,
                         },
                         items: [{
-                                xtype: 'hiddenfield', 
+                                xtype: 'hiddenfield',
                                 name: 'user_id',
-                                reference:'hf_userid'                               
+                                reference: 'hf_userid'
                             }, {
                                 xtype: 'label',
                                 text: 'Name',
@@ -50,7 +52,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 name: 'name',
                                 itemId: 'user_name',
                                 allowBlank: false,
-				emptyText: 'Name',
+                                emptyText: 'Name',
                                 //readOnly:(this.user_id) ? true:false
                             }, {
                                 xtype: 'label',
@@ -61,7 +63,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 name: 'email',
                                 itemId: 'email',
                                 vtype: 'email',
-				emptyText: 'Email',
+                                emptyText: 'Email',
                                 readOnly: (this.user_id) ? true : false
                             }, {
                                 xtype: 'label',
@@ -75,11 +77,10 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 itemId: 'tenant',
                                 valueField: 'id',
                                 displayField: 'name',
-                                reference:'cmb_tenant',
-				emptyText: 'Select Tenant',
+                                reference: 'cmb_tenant',
+                                emptyText: 'Select Tenant',
                                 store: 'CaptivePortal.store.users.TenantList',
                                 listeners: {
-                                    render:'onTenantComboRender',
                                     select: 'selectTenant'
                                 }
                             }, {
@@ -89,14 +90,14 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                             }, {
                                 xtype: 'tagfield',
                                 queryMode: 'local',
-                                reference:'tf_site',
+                                reference: 'tf_site',
                                 allowBlank: true,
                                 multiSelect: true,
                                 name: 'site_ids',
                                 itemId: 'site',
                                 valueField: 'id',
                                 displayField: 'name',
-				emptyText: 'Select Sites',
+                                emptyText: 'Select Sites',
                                 store: 'CaptivePortal.store.users.Site',
                                 filterPickList: true
                             }, {
@@ -107,12 +108,12 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 xtype: 'combobox',
                                 name: 'site_role_id',
                                 itemId: 'role',
-                                reference:'cmb_siterole',
+                                reference: 'cmb_siterole',
                                 queryMode: 'local',
                                 allowBlank: false,
                                 valueField: 'id',
                                 displayField: 'name',
-				emptyText: 'Select Role',
+                                emptyText: 'Select Role',
                                 store: 'CaptivePortal.store.users.Role',
                                 listeners: {
                                     'select': 'selectRole'
@@ -145,23 +146,22 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 ]
                             }, {
                                 xtype: 'label',
-                                reference:'lab_permittedroles',
+                                reference: 'lab_permittedroles',
                                 text: 'Permitted User Roles',
-                                hidden:true,
-                                
+                                hidden: true,
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'container',
-                                reference:'con_permittedroles',
+                                reference: 'con_permittedroles',
                                 width: '100%',
-                                hidden:true,
+                                hidden: true,
                                 //height: '100%',
-                                height:400,
+                                height: 400,
                                 layout: 'fit',
                                 items: [{
                                         xtype: 'grid',
                                         itemId: 'permission_user_role_grid',
-                                        reference:'grd_permittedusers',
+                                        reference: 'grd_permittedusers',
                                         border: 1,
                                         style: 'z-index:1000;',
                                         autoScroll: true,
@@ -207,8 +207,8 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 items: [
                                     {
                                         xtype: 'button',
-                                        reference:'btn_save',
-                                        itemId:'btn_newusersave',
+                                        reference: 'btn_save',
+                                        itemId: 'btn_newusersave',
                                         formBind: true,
                                         text: btnText,
                                         handler: 'saveUser',

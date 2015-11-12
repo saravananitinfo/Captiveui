@@ -70,7 +70,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     },
     logout: function () {
         var me = this;
-        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, function (response) {
+        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
             Ext.getCmp('viewport').removeAll();
             me.clearData();
             Ext.getCmp('viewport').add({

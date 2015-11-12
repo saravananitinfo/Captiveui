@@ -10,22 +10,24 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
     listen: {
         component: {
             'button#btn_addsite': {
-                click: 'clearForm'
+                click: 'addNewSite'
             }
         },
         controller: {
-            '*': {
+            '#vc_sitecontroller': {
                 refreshSitesStore: 'getSite'
             }
         }
     },
-    setActiveItem: function () {
+    addNewSite: function () {
+        this.clearForm();
         this.fireEvent('setActiveSiteCard', 1);
+        this.fireEvent('loadStore');
     },
-    clearForm: function () {     
-        var model = Ext.create('CaptivePortal.model.site.Site');
+    clearForm: function () {
         var form = Ext.ComponentQuery.query('#site_form')[0];
-        form.getForm().loadRecord(model);
+        form.down('#name').setValue('');
+        form.down('#name').clearInvalid('');
         form.down('#user_profile_ids').setValue('');
         form.down('#user_profile_ids').clearInvalid();
         form.down('#timezone').setValue('');
@@ -38,8 +40,6 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         form.down('#state').clearInvalid();
         form.down('#site_id').setValue('');
         form.down('#site_id').clearInvalid();
-        this.fireEvent('setActiveSiteCard', 1);
-        this.fireEvent('setviewStore');
     },
     deleteSite: function (view, record, item, index, e, eOpts) {
         var me = this;
@@ -51,17 +51,14 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
             fn: function (btn) {
                 if (btn === 'yes') {
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_SITE + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             me.getSite();
-                            Ext.getCmp('viewport').setLoading(false);
                         }
                     }.bind(this), function (response) {
-                        Ext.getCmp('viewport').setLoading(false);
                     }, 'DELETE');
                 } else if (btn === 'no') {
-                    Ext.getCmp('viewport').setLoading(false);
                 }
             }.bind(this)
         });
@@ -71,19 +68,16 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
-                Ext.getCmp('viewport').setLoading(true);
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_SITE + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                         var model = Ext.create('CaptivePortal.model.site.Site', resObj.data.site);
-                        me.fireEvent('setviewStore', model.data.user_profiles);
+                        me.fireEvent('loadStore', model.data.user_profiles);
                         Ext.ComponentQuery.query('#site_form')[0].getForm().loadRecord(model);
                         me.fireEvent('setActiveSiteCard', 1);
-                        Ext.getCmp('viewport').setLoading(false);
                     }
                 }.bind(this), function (response) {
-                    Ext.getCmp('viewport').setLoading(false);
                 }, 'GET');
             } else {
                 this.deleteSite(view, record, item, index, e, eOpts);
@@ -93,9 +87,6 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
     getSite: function () {
         var store = this.getView().lookupReference('grd_sitelist').getStore();
         store.load();
-        store.on('load', function () {
-            Ext.getCmp('viewport').setLoading(false);
-        })
     }
 });
 

@@ -1,5 +1,6 @@
 Ext.define('CaptivePortal.view.tenants.TenantListController', {
     extend: 'Ext.app.ViewController',
+    id:'vc_tenantlistcontroller',
     alias: 'controller.tenantlistcontroller',
     listen: {
         component: {

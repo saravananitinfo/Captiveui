@@ -1,7 +1,7 @@
 Ext.define('CaptivePortal.view.tenants.AddOrEditTenant', {
     extend: 'Ext.panel.Panel',
     requires: [
-        'CaptivePortal.view.tenants.TenantController',
+        'CaptivePortal.view.tenants.AddOrEditTenantController',
         'CaptivePortal.store.users.TenantList'
     ],
     alias: 'widget.tenants_addedit',

@@ -1,10 +1,10 @@
-Ext.define('CaptivePortal.view.tenants.TenantController', {
+Ext.define('CaptivePortal.view.tenants.AddOrEditTenantController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.tenants',
     requires: ['CaptivePortal.model.tenant.Tenant'],
     listen: {
         controller: {
-            '*': {
+            '#vc_tenantlistcontroller': {
                 setTenantEditViewForm: "onSetTenantEditViewForm"
             }
         }
@@ -28,7 +28,7 @@ Ext.define('CaptivePortal.view.tenants.TenantController', {
             }
             CaptivePortal.util.Utility.doAjaxJSON(url, json, function (response) {
                 var resObj = Ext.decode(response.responseText);
-                if (resObj.success) {             
+                if (resObj.success) {
                     var tenantStr = Ext.StoreManager.lookup('CaptivePortal.store.tenant.Tenant');
                     tenantStr.reload();
                     this.fireEvent('setTenantMainActiveItem', 0);
@@ -42,8 +42,7 @@ Ext.define('CaptivePortal.view.tenants.TenantController', {
             }, method);
         }
     },
-    cancelTenant: function () {
-        var me = this;
-        me.fireEvent('setTenantMainActiveItem', 0);
+    cancelTenant: function () {       
+        this.fireEvent('setTenantMainActiveItem', 0);
     }
 });

@@ -15,6 +15,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         console.log(item)
     },
     onMenuClick: function (menu) {
+        console.log("...........me ............"+menu.itemname)
         switch (menu.itemname) {
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
@@ -40,6 +41,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_sms_gatewaysmain');
                 this.getView().lookupReference('lab_heading').setText('SMS Gateway')
                 this.fireEvent('setSmSGatewayMainActiveItem', 0);
+                break;
+            case "guests":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_guest_usersmain');
+                this.getView().lookupReference('lab_heading').setText('Guest Users Management')
+                this.fireEvent('setGuestUsersMainActiveItem', 0);
                 break;
 
         }

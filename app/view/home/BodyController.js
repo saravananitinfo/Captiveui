@@ -36,6 +36,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'sms_gatewaysmain',
                     itemId: 'card_sms_gatewaysmain'
                 })
+            } else if ("guests" === permission.access_for) {
+                panel.add({
+                    xtype: 'guest_usersmain',
+                    itemId: 'card_guest_usersmain'
+                })
             }
         });
     }

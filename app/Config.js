@@ -37,11 +37,20 @@ Ext.define('CaptivePortal.Config', {
         RESET_PASSWORD_LINK: CaptivePortal.util.Utility.BASE_URL + 'portal/users/password.json',
         // SMS Gateway Url
 
-        GET_SMSGATEWAYS: CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements.json',
-        NEW_SMSGATEWAY: CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/new.json',
-        SAVE_SMSGATEWAY: CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements.json',
-        EDIT_SMSGATEWAY: CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
-        DELETE_SMSGATEWAY: CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
-        UPDATE_SMSGATEWAY: CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
-    }
+        GET_SMSGATEWAYS:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements.json',
+		NEW_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/new.json',
+		SAVE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements.json',
+		EDIT_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
+		DELETE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
+		UPDATE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
+
+		// Guest Users Url
+
+		GET_GUESTUSERS:CaptivePortal.util.Utility.BASE_URL + 'guest_users.json',
+		NEW_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/new.json',
+		SAVE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users.json',
+		EDIT_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
+		DELETE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
+		UPDATE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/'
+	}
 });

@@ -31,9 +31,9 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
         Ext.ComponentQuery.query('#btn_saveSMSGateway')[0].setText('Update');
         Ext.getCmp('viewport').setLoading(false);
     },
-    deleteSMSGateway: function(view, record, item, index, e, eOpts){
+    deleteSMSGateway: function(view, record, item, index, e, eOpts){ 
     	Ext.Msg.show({
-            title: 'Delete Tenant',
+            title: 'Delete SMS Gateway',
             message: 'Do you want to delete?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,

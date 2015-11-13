@@ -48,6 +48,9 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                 },{
                     name: 'Guest Management',
                     itemname: 'guests'
+                },{
+                    name: 'Access Points',
+                    itemname: 'access_points'
                 }]
         }]
 })

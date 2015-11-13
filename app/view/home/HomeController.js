@@ -47,7 +47,10 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Guest Users Management')
                 this.fireEvent('setGuestUsersMainActiveItem', 0);
                 break;
-
+            case "access_points":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_access_point_main');
+                this.getView().lookupReference('lab_heading').setText('Access Point')
+                this.fireEvent('setAccessPointMainActiveItem', 0);
         }
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {

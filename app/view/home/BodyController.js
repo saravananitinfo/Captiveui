@@ -41,6 +41,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'guest_usersmain',
                     itemId: 'card_guest_usersmain'
                 })
+            } else if ("access_points" === permission.access_for) {
+                panel.add({
+                    xtype: 'access_pointmain',
+                    itemId: 'card_access_point_main'
+                })
             }
         });
     }

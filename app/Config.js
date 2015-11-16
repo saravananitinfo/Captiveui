@@ -51,6 +51,15 @@ Ext.define('CaptivePortal.Config', {
 		SAVE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users.json',
 		EDIT_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
 		DELETE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
-		UPDATE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/'
+		UPDATE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
+
+        // Access Point Url
+
+        // GET_GUESTUSERS:CaptivePortal.util.Utility.BASE_URL + 'guest_users.json',
+        NEW_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/new.json'
+        // SAVE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users.json',
+        // EDIT_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
+        // DELETE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
+        // UPDATE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/'
 	}
 });

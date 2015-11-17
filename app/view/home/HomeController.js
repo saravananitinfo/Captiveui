@@ -85,11 +85,8 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
             Ext.getCmp('viewport').removeAll();
             me.clearData();
-            var win = Ext.Create('CaptivePortal.view.login.Login')
-            Ext.getCmp('viewport').add({
-                xtype: 'login'
-            });
-        }.bind(this), function (response) {
+            Ext.getCmp('viewport').add(Ext.create('CaptivePortal.view.login.Login'));
+        }.bind(this), function () {
         }, 'DELETE');
     },
     home_render: function () {

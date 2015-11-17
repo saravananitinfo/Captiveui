@@ -59,8 +59,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             rolesStr.setData(roles)
             var accesspermissionStr = Ext.StoreManager.lookup('CaptivePortal.store.users.AccessPermission');
             var record = [];
-            Ext.Array.each(rolesStr.data.items, function (roledata, index) {
-                debugger
+            Ext.Array.each(rolesStr.data.items, function (roledata, index) {             
                 record.push({
                     id: roledata.data.id,
                     name: roledata.data.name,
@@ -235,7 +234,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         }
     },
     saveUser: function () {
-        debugger
+     
         var me = this;
         var form = this.getView().down('form');
         if (form.isValid()) {

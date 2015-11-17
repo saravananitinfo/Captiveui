@@ -25,7 +25,7 @@ Ext.define('CaptivePortal.view.roles.RoleListController',{
         if (action) {
             if (action == "edit") {
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                         // CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.role.AddOrEditRole', this, {role_access: resObj.data.site_role.site_accesses, role_name: resObj.data.site_role.name, role_id: resObj.data.site_role.id});
@@ -71,7 +71,7 @@ Ext.define('CaptivePortal.view.roles.RoleListController',{
             fn: function (btn) {
                 if (btn === 'yes') {
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_ROLE + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             this.getRoles();

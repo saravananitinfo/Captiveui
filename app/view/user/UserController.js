@@ -11,7 +11,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 			fn: function(btn) {
 				if (btn === 'yes') {
 					var url = CaptivePortal.Config.SERVICE_URLS.DELETE_USER + record.data.id + '.json';
-					CaptivePortal.util.Utility.doAjax(url,{},function(response){
+					CaptivePortal.util.Utility.doAjax(url,{},"Loading...",this.getView(),function(response){
 						var resObj = Ext.decode(response.responseText);
 						if(resObj.success){
 							this.getUsers();
@@ -201,7 +201,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 		if(action){
 			if(action == "edit"){
 			var url = CaptivePortal.Config.SERVICE_URLS.EDIT_USER + record.data.id + '/edit.json';
-				CaptivePortal.util.Utility.doAjax(url,{},function(response){
+				CaptivePortal.util.Utility.doAjax(url,{},"Loading...",this.getView(),function(response){
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					var record = this.createUserModel(resObj.data.user_profile, true);

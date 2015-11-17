@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.view.tenant.TenantController', {
 			fn: function(btn) {
 				if (btn === 'yes') {
 					var url = CaptivePortal.Config.SERVICE_URLS.DELETE_TENANT + record.data.id + '.json';
-					CaptivePortal.util.Utility.doAjax(url,{},function(response){
+					CaptivePortal.util.Utility.doAjax(url,{},"Loading...",this.getView(),function(response){
 						var resObj = Ext.decode(response.responseText);
 						if(resObj.success){
 							this.loadTenants();
@@ -31,7 +31,7 @@ Ext.define('CaptivePortal.view.tenant.TenantController', {
 		if(action){
 			if(action == "edit"){
 			var url = CaptivePortal.Config.SERVICE_URLS.EDIT_TENANT + record.data.id + '/edit.json';
-				CaptivePortal.util.Utility.doAjax(url,{},function(response){
+				CaptivePortal.util.Utility.doAjax(url,{},"Loading...",this.getView(),function(response){
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					var obj = {tenant_id : resObj.data.tenant.id, tenant_name :resObj.data.tenant.name };
@@ -70,7 +70,7 @@ Ext.define('CaptivePortal.view.tenant.TenantController', {
 		}
 	},
 	getNewTenant: function(){
-		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.NEW_TENANT,{},function(response){
+		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.NEW_TENANT,{},"Loading...",this.getView(),function(response){
 				var respObj = Ext.decode(response.responseText);
 				if(respObj.success){
 					var obj = {tenant_id : respObj.data.tenant.id};
@@ -79,7 +79,7 @@ Ext.define('CaptivePortal.view.tenant.TenantController', {
 			}.bind(this),function(response){},'GET');
 	},
 	loadTenants: function(){
-		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS,{},function(response){
+		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS,{},"Loading...",this.getView(),function(response){
 				var respObj = Ext.decode(response.responseText);
 				if(respObj.success){
 					this.getView().down('grid').store.loadRawData(respObj.data);	

@@ -31,7 +31,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
                 if (btn === 'yes') {
                     Ext.getCmp('viewport').setLoading(true);
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_GUESTUSER + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             Ext.StoreManager.lookup('CaptivePortal.store.guest_user.GuestUsers').reload();
@@ -53,7 +53,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
             if (action == "edit") {
             	Ext.getCmp('viewport').setLoading(true);
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_GUESTUSER + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                         this.editGuestUser(resObj);

@@ -63,7 +63,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
             if (action == "edit") {
             	Ext.getCmp('viewport').setLoading(true);
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_SMSGATEWAY + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                     	this.editSMSGateway(resObj);

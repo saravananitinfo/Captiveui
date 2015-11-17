@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.view.site.SiteController', {
 			fn: function(btn) {
 				if (btn === 'yes') {
 					var url = CaptivePortal.Config.SERVICE_URLS.DELETE_SITE + record.data.id + '.json';
-					CaptivePortal.util.Utility.doAjax(url,{},function(response){
+					CaptivePortal.util.Utility.doAjax(url,{},"Loading...",this.getView(),function(response){
 						var resObj = Ext.decode(response.responseText);
 						if(resObj.success){
 							this.loadSites();
@@ -31,7 +31,7 @@ Ext.define('CaptivePortal.view.site.SiteController', {
 		if(action){
 			if(action == "edit"){
 			var url = CaptivePortal.Config.SERVICE_URLS.EDIT_SITE + record.data.id + '/edit.json';
-				CaptivePortal.util.Utility.doAjax(url,{},function(response){
+				CaptivePortal.util.Utility.doAjax(url,{},"Loading...",this.getView(),function(response){
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					var model = Ext.create('CaptivePortal.model.site.Site', resObj.data.site);
@@ -90,7 +90,7 @@ Ext.define('CaptivePortal.view.site.SiteController', {
 	},
 	getUsers: function(){
 		var store = null;
-		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_USER,{},function(response){
+		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_USER,{},"Loading...",this.getView(),function(response){
 				var respObj = Ext.decode(response.responseText);
 				if(respObj.success){
 				var userProfiles = respObj.data ? respObj.data.user_profiles : [];
@@ -101,7 +101,7 @@ Ext.define('CaptivePortal.view.site.SiteController', {
 	},
 	getTenants: function(){
 		var store = null;
-		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS,{},function(response){
+		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_TENANTS,{},"Loading...",this.getView(),function(response){
 				var respObj = Ext.decode(response.responseText);
 				if(respObj.success){
 					store = Ext.create('CaptivePortal.store.tenant.Tenant', {data:respObj.data});
@@ -110,7 +110,7 @@ Ext.define('CaptivePortal.view.site.SiteController', {
 			return store;
 	},
 	loadSites: function(){
-		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOAD_SITE,{},function(response){
+		CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOAD_SITE,{},"Loading...",this.getView(),function(response){
 				var respObj = Ext.decode(response.responseText);
 				if(respObj.success){
 					this.getView().down('grid').store.loadRawData(respObj.data.sites);	

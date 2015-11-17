@@ -51,6 +51,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 name: 'site_id',
                                 queryMode: 'local',
                                 itemId: 'gateway_sites',
+                                emptyText: "Select Sites",
                                 valueField: 'id',
                                 value: this.site_id ? this.site_id : '',
                                 displayField: 'name',
@@ -58,13 +59,14 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                             },
                             {
                 				xtype: 'label',
-                				text: 'Name',
+                				text: 'Username',
                 				cls: 'header_label_content'
             				},
             				{
                                 xtype: 'textfield',
                                 name: 'user_name',
                                 itemId: 'guest_user_username',
+                                emptyText: "Username",
                                 allowBlank: false,
                                 value: this.user_name ? this.user_name : ''
                                 //readOnly:(this.user_id) ? true:false
@@ -78,6 +80,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 xtype: 'textfield',
                                 name: 'password',
                                 itemId: 'guest_user_password',
+                                emptyText: "Password",
                                 allowBlank: false,
                                 value: this.password ? this.password : ''
                                 //readOnly:(this.user_id) ? true:false
@@ -138,7 +141,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_first_name',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 value: this.first_name ? this.first_name : ''
                                             }
                                         ]
@@ -158,7 +161,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_last_name',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 value: this.first_name ? this.first_name : ''
                                             }
                                         ]
@@ -185,7 +188,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_email',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 value: this.email ? this.email : ''
                                             }
                                         ]
@@ -205,7 +208,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_mobile_no',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 value: this.mobile_no ? this.mobile_no : ''
                                             }
                                         ]
@@ -232,7 +235,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_authorized_ssids',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 value: this.authorized_ssids ? this.authorized_ssids : ''
                                             }
                                         ]
@@ -252,7 +255,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_expiry_date',
-                                                allowBlank: false,
+                                                allowBlank: true,
                                                 value: this.expiry_date ? this.expiry_date : ''
                                             }
                                         ]

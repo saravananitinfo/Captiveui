@@ -52,6 +52,7 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                 name: 'name',
                                 itemId: 'gateway_name',
                                 allowBlank: false,
+                                emptyText: "Gateway Name",
                                 value: this.name ? this.name : ''
                                 //readOnly:(this.user_id) ? true:false
                             },
@@ -67,6 +68,7 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                 name: 'site_ids',
                                 queryMode: 'local',
                                 itemId: 'gateway_sites',
+                                emptyText: "Select Sites",
                                 valueField: 'id',
                                 value: this.site_ids ? this.site_ids : '',
                                 displayField: 'name',
@@ -125,15 +127,18 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                             {
                 				xtype: 'label',
                 				text: 'Account Details',
-                				cls: 'header_label_content'
+                				cls: 'header_label_content',
+                                padding: '10 0 10 0'
+
             				},
                             {
                                 xtype: 'panel',
                                 reference: 'gatwaytype_forms',
                                 itemId: 'gatwaytype_forms',
-                                width: 400,
+                                padding: '0 0 15 0',
+                                width: 600,
                                 layout: 'box',
-                                height: 200
+                                height: 220
                        //  		items: [
                        //      		{
                        //      			xtype: "gatewaytype0",

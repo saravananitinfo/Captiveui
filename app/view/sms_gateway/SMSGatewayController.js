@@ -52,7 +52,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewayController', {
                 url = CaptivePortal.Config.SERVICE_URLS.UPDATE_SMSGATEWAY + gateway_id + '.json';
                 method = 'PUT';
             }
-            CaptivePortal.util.Utility.doAjaxJSON(url,json,function(response){
+            CaptivePortal.util.Utility.doAjaxJSON(url,json,"Loading...", this.getView(),function(response){
                 var resObj = Ext.decode(response.responseText);
                 if(resObj.success){
                     Ext.getCmp('viewport').setLoading(false);

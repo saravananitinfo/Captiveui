@@ -41,7 +41,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
                 if (btn === 'yes') {
                     Ext.getCmp('viewport').setLoading(true);
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_SMSGATEWAY + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {},"Loading...", this.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways').reload();
@@ -63,7 +63,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
             if (action == "edit") {
             	Ext.getCmp('viewport').setLoading(true);
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_SMSGATEWAY + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                     	this.editSMSGateway(resObj);
@@ -105,5 +105,9 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
                 model_obj['veri_text'] = obj.data.sms_gateway_management.verification_details.text
         }
         return model = Ext.create('CaptivePortal.model.sms_gateway.SMSGateway', model_obj);
+    },
+    getSMSGateways: function(){
+        var store = this.getView().lookupReference('grd_smsgatewaylist').getStore();
+        store.load();
     }
 });

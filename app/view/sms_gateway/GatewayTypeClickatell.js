@@ -11,6 +11,15 @@ Ext.define('CaptivePortal.view.sms_gateway.GatewayTypeClickatell',{
 	initComponent: function () {
 		this.items = [
             {
+                xtype: 'button',
+                text: 'How to get the API details for My Clickatell Account?',
+                cls: 'header_label_content help-text-sms-gateway',
+                href: 'http://www.clickatell.com',
+                target: '_blank',
+                margin: '0 0 20 0'
+                
+            },
+            {
                 xtype: 'textfield',
                 name: 'api_id',
                 emptyText: "API ID",

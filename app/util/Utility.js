@@ -62,7 +62,10 @@ Ext.define('CaptivePortal.util.Utility', {
         if (cookieVal) {
             var cookieObj = Ext.decode(cookieVal);
             var profileId = cookieObj.profileId;
+            console.log("1..................."+profileId);
+            console.log(cookieObj);
             var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
+            this.addHeader();
             CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getLoginMsg(), Ext.getCmp('viewport'), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
@@ -160,6 +163,7 @@ Ext.define('CaptivePortal.util.Utility', {
                 Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
                     if (menuitem.itemname === permission.access_for) {
                         if (permission.read || permission.write) {
+                            console.log("m..............."+menuitem.name);
                             menu.add({
                                 text: menuitem.name,
                                 listeners: {

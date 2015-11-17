@@ -19,7 +19,7 @@ Ext.define('CaptivePortal.view.roles.MainController',{
          Ext.getCmp('viewport').setLoading(false);
     },
     onShowAddEditRole:function(){
-         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE, {}, function (response) {
+         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE, {},"Loading...", this.getView(), function (response) {
              var resObj = Ext.decode(response.responseText);
              if (resObj.success) {
         //         var tenantStr  = Ext.StoreManager.lookup('CaptivePortal.store.users.TenantList');

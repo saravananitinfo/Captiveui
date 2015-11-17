@@ -20,7 +20,7 @@ Ext.define('CaptivePortal.view.role.RoleController', {
             fn: function (btn) {
                 if (btn === 'yes') {
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_ROLE + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             this.getRoles();
@@ -38,7 +38,7 @@ Ext.define('CaptivePortal.view.role.RoleController', {
         if (action) {
             if (action == "edit") {
                 var url = CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + record.data.id + '/edit.json';
-                CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
                         CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.role.AddOrEditRole', this, {role_access: resObj.data.site_role.site_accesses, role_name: resObj.data.site_role.name, role_id: resObj.data.site_role.id});
@@ -56,7 +56,7 @@ Ext.define('CaptivePortal.view.role.RoleController', {
         CaptivePortal.util.Utility.setHeightForCommonContainer();
     },
     getRoles: function () {
-        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_ROLES, {}, function (response) {
+        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.GET_ROLES, {},"Loading...",this.getView(), function (response) {
             var respObj = Ext.decode(response.responseText);
             this.getView().down('grid').store.loadRawData(respObj.data);
         }.bind(this), function (response) {
@@ -89,7 +89,7 @@ Ext.define('CaptivePortal.view.role.RoleController', {
                 method = 'PUT';
             }
 
-            CaptivePortal.util.Utility.doAjaxJSON(url, json, function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(url, json,"Loading...",this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.role.ListRole', this);
@@ -110,7 +110,7 @@ Ext.define('CaptivePortal.view.role.RoleController', {
         if (view) {
             if (!view.role_id) {
                 var accesses = [];
-                CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE, {}, function (response) {
+                CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE, {},"Loading...",this.getView(), function (response) {
                     var respObj = Ext.decode(response.responseText);
                     accesses = (respObj.data && respObj.data.site_accesses) ? respObj.data.site_accesses : [];
                     this.getView().down('grid').store.loadRawData(accesses);

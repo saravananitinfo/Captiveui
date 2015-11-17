@@ -45,7 +45,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
                 method = 'PUT';
             }
             console.log(Ext.JSON.encode(json))
-            CaptivePortal.util.Utility.doAjaxJSON(url, json, CaptivePortal.app.getWaitMsg(), '', function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(url, json, "Loading...",this.getView(), CaptivePortal.app.getWaitMsg(), '', function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     console.log(resObj);

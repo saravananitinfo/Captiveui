@@ -15,10 +15,36 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
     	store.remove(grid.getSelectionModel().getSelection());
     },
     saveAddAccessPoints: function(){
+    	Ext.getCmp('viewport').setLoading(true);
     	console.log('...................call save');
     	var store = Ext.StoreManager.lookup('CaptivePortal.store.access_point.AddAccessPoint')
-    	data = store.getRange().map(function(ele){ return ele.data});
+    	data = store.getRange().map(function(ele){ return {name: ele.data.name, mac_id: ele.data.mac_id, site_id: ele.data.site_id, uid: ele.data.uid}});
     	console.log(data)
+
+    	var json = {access_point: data}
+
+    	console.log(json)
+    	var url = CaptivePortal.Config.SERVICE_URLS.SAVE_ACCESSPOINT, method = 'POST';
+    	// CaptivePortal.util.Utility.addHeader();
+        CaptivePortal.util.Utility.doAjaxJSON(url, json, "Loading..", this.getView(),function(response){
+        	Ext.getCmp('viewport').setLoading(false);
+            var resObj = Ext.decode(response.responseText);
+            console.log("........success");
+            console.log(resObj)
+            if(resObj.success){
+                console.log("save.........save..........save...access_point");
+
+                // me.fireEvent('setSmSGatewayMainActiveItem', 0);
+                // Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways').reload();
+            }
+        }.bind(this),function(response){
+            var resObj = Ext.decode(response.responseText);
+            if(!resObj.success && resObj.error.length){
+            	Ext.getCmp('viewport').setLoading(false);
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+            }          
+        },method);
+    	
 
     },
     cancleAddAccessPoints: function(){

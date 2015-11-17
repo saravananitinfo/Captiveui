@@ -55,10 +55,10 @@ Ext.define('CaptivePortal.Config', {
 
         // Access Point Url
 
-        // GET_GUESTUSERS:CaptivePortal.util.Utility.BASE_URL + 'guest_users.json',
-        NEW_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/new.json'
-        // SAVE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users.json',
-        // EDIT_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
+        GET_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points.json',
+        NEW_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/new.json',
+        SAVE_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points.json',
+        EDIT_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/'
         // DELETE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
         // UPDATE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/'
 	}

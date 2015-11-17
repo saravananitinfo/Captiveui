@@ -89,7 +89,7 @@ Ext.define('CaptivePortal.view.role.RoleController', {
                 method = 'PUT';
             }
 
-            CaptivePortal.util.Utility.doAjaxJSON(url, json, function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(url, json,"Loading...",this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.role.ListRole', this);

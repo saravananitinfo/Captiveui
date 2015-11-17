@@ -3,6 +3,7 @@ Ext.define('CaptivePortal.model.access_point.AccessPoint',{
 	fields: [
 		{ name:'name', type:'string'},
 		{ name:'mac_id', type:'string'},
-		{ name:'site_id', type:'string'}
+		{ name:'site_id', type:'string'},
+		{ name: 'uid', type:'string'}
     ]
 });

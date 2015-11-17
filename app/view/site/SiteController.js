@@ -56,7 +56,7 @@ Ext.define('CaptivePortal.view.site.SiteController', {
 				url = CaptivePortal.Config.SERVICE_URLS.UPDATE_SITE + site_id + '.json';
 				method = 'PUT';
 			}
-			CaptivePortal.util.Utility.doAjaxJSON(url,json,function(response){		
+			CaptivePortal.util.Utility.doAjaxJSON(url, json, "Loading...", this.getView(),function(response){		
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.site.ListSite', this);

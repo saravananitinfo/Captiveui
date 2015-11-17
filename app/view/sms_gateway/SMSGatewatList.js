@@ -87,5 +87,8 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatList',{
                 ]
             }]
         this.callParent(arguments)
+    },
+    listeners: {
+        render: 'getSMSGateways'
     }
 });

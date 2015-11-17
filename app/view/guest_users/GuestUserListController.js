@@ -82,5 +82,9 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
             site_id: obj.data.guest_user.site_info.id
         };
         return model = Ext.create('CaptivePortal.model.guest_user.GuestUser', model_obj);
+    },
+    getGuestUsers: function(){
+        var store = this.getView().lookupReference('grd_guest_users_list').getStore();
+        store.load();
     }
 });

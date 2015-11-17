@@ -105,5 +105,9 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
                 model_obj['veri_text'] = obj.data.sms_gateway_management.verification_details.text
         }
         return model = Ext.create('CaptivePortal.model.sms_gateway.SMSGateway', model_obj);
+    },
+    getSMSGateways: function(){
+        var store = this.getView().lookupReference('grd_smsgatewaylist').getStore();
+        store.load();
     }
 });

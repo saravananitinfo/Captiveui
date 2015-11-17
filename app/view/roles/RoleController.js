@@ -72,7 +72,7 @@ Ext.define('CaptivePortal.view.roles.RoleController', {
                 method = 'PUT';
             }
          
-            CaptivePortal.util.Utility.doAjaxJSON(url, json, function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(url, json, "Loading...",this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success != 'false') {     
                 	var rolestr  = Ext.StoreManager.lookup('CaptivePortal.store.role.Role');

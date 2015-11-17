@@ -48,8 +48,10 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.fireEvent('setGuestUsersMainActiveItem', 0);
                 break;
             case "access_points":
+                console.log("...........me ............1")
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_access_point_main');
                 this.getView().lookupReference('lab_heading').setText('Access Point')
+                console.log("...........me ............2")
                 this.fireEvent('setAccessPointMainActiveItem', 0);
         }
     },

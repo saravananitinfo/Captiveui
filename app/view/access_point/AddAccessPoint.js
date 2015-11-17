@@ -61,6 +61,22 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
            				emptyCellText: '<span style="color:#aaaaaa;">' + "Name" + "</span>",
            			},
            			{
+            			header: 'NAS Identifier',
+            			dataIndex: 'uid',
+            			flex: 1,
+            			width: 160,
+            			cls: 'table-row',
+                        tdCls: 'table-cell',
+            			editor: {
+                			xtype:"textfield",
+                			emptyText: "NAS Identifier",
+            				hasFocus:true,
+            				enableKeyEvents:true,
+                			allowBlank: false
+           				},
+           				emptyCellText: '<span style="color:#aaaaaa;">' + "NAS Identifier" + "</span>",
+           			},
+           			{
             			header: 'Mac Id',
             			dataIndex: 'mac_id',
             			flex: 1,

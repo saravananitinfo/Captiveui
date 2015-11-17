@@ -55,7 +55,7 @@ Ext.define('CaptivePortal.view.tenant.TenantController', {
 				url = CaptivePortal.Config.SERVICE_URLS.UPDATE_TENANT + tenant_id + '.json';
 				method = 'PUT';
 			}
-			CaptivePortal.util.Utility.doAjaxJSON(url,json,function(response){		
+			CaptivePortal.util.Utility.doAjaxJSON(url,json, "Loading...", this.getView(),function(response){		
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.tenant.ListTenant', this);

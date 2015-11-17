@@ -24,7 +24,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 		});
 	},
 	createUsers: function(){
-		CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER,{},function(response){		
+		CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_NEW_USER, {}, "Loading...", this.getView(),function(response){		
 			var resObj = Ext.decode(response.responseText);
                                 if(resObj.success){
 				var roles = resObj.data.roles;
@@ -72,7 +72,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 	},
 	
 	getUsers: function(){
-		CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_USER ,{},function(response){		
+		CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_USER ,{},"Loading...", this.getView(),function(response){		
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					var usersModel = this.createUsersFromArray(resObj.data.user_profiles);
@@ -91,7 +91,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 	
 	selectTenant: function(combo, record, eopts){
 		if(combo.getValue()){
-			CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + combo.getValue() + '/get_sites.json',{},function(response){		
+			CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + combo.getValue() + '/get_sites.json',{},"Loading...", this.getView(),function(response){		
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					var sites = resObj.data.sites ? resObj.data.sites : [];
@@ -108,7 +108,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 	},
 	
 	getAllRoles: function(){
-		CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE,{},function(response){		
+		CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_ROLE,{},"Loading...", this.getView(),function(response){		
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					var accesses = resObj.data.site_accesses ? resObj.data.site_accesses : [];
@@ -127,7 +127,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 	},
 	selectRole: function(combo, record, eopts){
 		if(combo.getValue()){
-			CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + combo.getValue() + '/edit.json',{},function(response){		
+			CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + combo.getValue() + '/edit.json',{},"Loading...", this.getView(),function(response){		
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					var accesses = resObj.data.site_role.site_accesses;
@@ -180,7 +180,7 @@ Ext.define('CaptivePortal.view.user.UserController', {
 				method = "PUT";
 			}
 			
-			CaptivePortal.util.Utility.doAjaxJSON( url,saveJson,function(response){		
+			CaptivePortal.util.Utility.doAjaxJSON( url,saveJson,"Loading...", this.getView(),function(response){		
 				var resObj = Ext.decode(response.responseText);
 				if(resObj.success){
 					CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.ListUser', this);

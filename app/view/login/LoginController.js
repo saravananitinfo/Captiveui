@@ -102,20 +102,21 @@ Ext.define('CaptivePortal.view.login.LoginController', {
                             Ext.util.Cookies.clear('USER_PROFILES');
                             this.loginForSuperAdmin(userInitialObj);
                         } else {
-                            var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
-                            if (!homepanel) {
-                                homepanel = Ext.create('CaptivePortal.view.home.Home', {
-                                    layout: 'vbox',
-                                    user: {
-                                        langDesc: 'English',
-                                        userName: userObj.data.user.email
-                                    }
-                                });
-                            }
+                            
                             var profiles = userObj.data.user.profiles;
                             CaptivePortal.util.Utility.setUserProfileCookie(profiles);
                             CaptivePortal.app.setTempUserObj({data: userObj.data.user, remember: rememberMe});
                             if (profiles.length > 1) {
+                                var homepanel = Ext.ComponentQuery.query('panel#pan_apphome')[0];
+                                if (!homepanel) {
+                                    homepanel = Ext.create('CaptivePortal.view.home.Home', {
+                                        layout: 'vbox',
+                                        user: {
+                                            langDesc: 'English',
+                                            userName: userObj.data.user.email
+                                        }
+                                    });
+                                }
                                 homepanel.add({
                                     xtype: 'home_appheader',
                                     margin: '40 0 0 0',

@@ -24,7 +24,8 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.sms_gateway.SMSGateways',
         'CaptivePortal.store.guest_user.GuestUsers',
         'CaptivePortal.store.access_point.AddAccessPoint',
-        'CaptivePortal.store.access_point.Sites'
+        'CaptivePortal.store.access_point.Sites',
+        'CaptivePortal.store.access_point.AccessPoints'
     ],
     launch: function () {
         // TODO - Launch the application

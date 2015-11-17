@@ -1,50 +1,47 @@
-Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
+Ext.define('CaptivePortal.view.access_point.AccessPointList',{
 	extend: 'Ext.panel.Panel',
-	alias: 'widget.guest_userslist',
-    requires: [
-        'CaptivePortal.view.guest_users.GuestUserListController'
-    ],
-	controller: 'guest_user_listcontroller',
+	alias: 'widget.access_point_list',
+	requires: [
+		'CaptivePortal.view.access_point.AccessPointListController'
+	],
+	controller: 'access_point_list_controller',
 	border: true,
     layout: 'fit',
     bodyPadding: '15 30 15 30',
-	dockedItems: [
+    dockedItems: [
 		{
             xtype: 'toolbar',
             padding: '30 30 0 30',
             dock: 'top',
             items: [
-            	{
-                    xtype: 'searchfield'
-                },
                 {
                 	xtype: 'tbfill'
                 },
                 {
                     xtype: 'button',
-                    text: 'Add Guest User',
+                    text: 'Add Access Point',
                     cls: 'btn-add-module',             
-                    itemId:'btn_add_guest_user',
-                    handler: 'newGuestUser'
-                    // handler: 'userItemClick'
+                    itemId:'btn_add_access_point',
+                    handler: 'addAccessPoints'
                 }
             ]
         }
     ],
     initComponent: function () {
-    	this.items = [{
-                xtype: 'gridpanel',
-                reference: 'grd_guest_users_list',
+    	this.items = [
+    		{
+    			xtype: 'gridpanel',
+                reference: 'grd_access_point_list',
                 //style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 style: 'border: 1px solid #e2e2e2',
-                store: 'CaptivePortal.store.guest_user.GuestUsers',
+                store: 'CaptivePortal.store.access_point.AccessPoints',
                 listeners: {
                               itemclick: 'userItemClick'
                             },
                 columns: [
-                    {
-                        header: 'Username',
-                        dataIndex: 'user_name',
+                	{
+                        header: 'Name',
+                        dataIndex: 'name',
                         flex: 1,
                         cls: 'table-row',
                         tdCls: 'table-cell',
@@ -54,39 +51,39 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
                         }
                     },
                     {
-                        header: 'First Name',
-                        dataIndex: 'first_name',
-                        flex: 1,
-                        cls: 'table-row',
+            			header: 'NAS Identifier',
+            			dataIndex: 'uid',
+            			flex: 1,
+            			cls: 'table-row',
                         tdCls: 'table-cell',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
                         }
-                    },
-                    {
-                        header: 'Last Name',
-                        dataIndex: 'last_name',
-                        flex: 1,
-                        cls: 'table-row',
+           			},
+           			{
+            			header: 'Mac Id',
+            			dataIndex: 'mac_id',
+            			flex: 1,
+            			cls: 'table-row',
                         tdCls: 'table-cell',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
                         }
-                    },
-                    {
-                        header: 'Status',
-                        dataIndex: 'enabled',
-                        flex: 1,
-                        cls: 'table-row',
+           			},
+           			{
+            			header: 'Site Name',
+            			dataIndex: 'site_name',
+            			flex: 1,
+            			cls: 'table-row',
                         tdCls: 'table-cell',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
                         }
-                    },
-                    {
+           			},
+           			{
                         header: 'Action',
                         cls: 'table-row',
                         tdCls: 'table-cell',
@@ -96,10 +93,11 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
                         width: 100
                     }
                 ]
-            }]
-        this.callParent(arguments)
+    		}
+    	]
+    	this.callParent(arguments);
     },
-    listeners: {
-        render: 'getGuestUsers'
+    listeners:{
+    	render: 'getAccessPoints'
     }
 });

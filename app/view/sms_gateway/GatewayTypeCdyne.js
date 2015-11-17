@@ -11,6 +11,15 @@ Ext.define('CaptivePortal.view.sms_gateway.GatewayTypeCdyne',{
 	initComponent: function () {
 		this.items = [
             {
+                xtype: 'button',
+                text: 'How to get the API details for My Cdyne Account?',
+                cls: 'header_label_content help-text-sms-gateway',
+                href: 'http://www.cdyne.com',
+                target: '_blank',
+                margin: '0 0 20 0'
+                
+            },
+            {
                 xtype: 'textfield',
                 name: 'license_key',
                 emptyText: "License Key",
@@ -21,27 +30,27 @@ Ext.define('CaptivePortal.view.sms_gateway.GatewayTypeCdyne',{
             },
             {
 				xtype: 'label',
-				text: 'Verification Details',
+				text: 'Test/Verify Gateway Details',
 				cls: 'header_label_content',
 				margin: '0 0 20 0'
-			},
-            {
-                xtype: 'textfield',
-                name: 'veri_to',
-                emptyText: "Number",
-                width: '100%',
-                allowBlank: false,
-                margin: '0 0 20 0',
-                value: this.veri_to ? this.veri_to : ''
-            },
-            {
-                xtype: 'textfield',
-                name: 'veri_text',
-                emptyText: "Message",
-                width: '100%',
-                allowBlank: false,
-                value: this.veri_text ? this.veri_text : ''
-            }
+			}
+            // {
+            //     xtype: 'textfield',
+            //     name: 'veri_to',
+            //     emptyText: "Number",
+            //     width: '100%',
+            //     allowBlank: false,
+            //     margin: '0 0 20 0',
+            //     value: this.veri_to ? this.veri_to : ''
+            // },
+            // {
+            //     xtype: 'textfield',
+            //     name: 'veri_text',
+            //     emptyText: "Message",
+            //     width: '100%',
+            //     allowBlank: false,
+            //     value: this.veri_text ? this.veri_text : ''
+            // }
 
 		]
 		this.callParent();

@@ -31,8 +31,10 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
             var resObj = Ext.decode(response.responseText);
             console.log("........success");
             console.log(resObj)
-            if(resObj.success){
+            if(resObj.success == "true"){
                 console.log("save.........save..........save...access_point");
+                Ext.StoreManager.lookup('CaptivePortal.store.access_point.AccessPoints').reload();
+                this.fireEvent('setAccessPointMainActiveItem', 0);
 
                 // me.fireEvent('setSmSGatewayMainActiveItem', 0);
                 // Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways').reload();
@@ -49,5 +51,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
     },
     cancleAddAccessPoints: function(){
     	console.log('...................call cancle');
+        Ext.StoreManager.lookup('CaptivePortal.store.access_point.AccessPoints').reload();
+        this.fireEvent('setAccessPointMainActiveItem', 0);
     }
 });

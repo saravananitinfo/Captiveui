@@ -82,15 +82,15 @@ Ext.define('CaptivePortal.view.access_point.EditAccessPoint',{
                             },
                             {
                             	xtype: 'combobox',
-                            	store: Ext.create("CaptivePortal.store.access_point.Sites"),
                             	editable: false,
-					            queryMode: "remote",
+                                allowBlank: false,
+					            queryMode: "local",
 					            displayField: "name",
 					            valueField: "id",
-                                allowBlank: false,
                                 name: 'site_id',
                                 itemId: 'access_point_sites',
                                 value: this.site_id ? this.site_id : '',
+                                store: "CaptivePortal.store.access_point.Sites"
                             },
                  			{
                                 xtype: 'container',
@@ -102,16 +102,16 @@ Ext.define('CaptivePortal.view.access_point.EditAccessPoint',{
                                         xtype: 'button',
                                         reference:'btn_save',
                                         formBind: true,
-                                        itemId: "btn_saveSMSGateway",
-                                        text: "Save",
-                                        handler: '',
+                                        itemId: "btn_save_access_point",
+                                        text: "Update",
+                                        handler: 'saveEditAccessPoint',
 										cls: 'btn'
                         			},
                         			{
                                         xtype: 'button',
                                         margin: '0 0 0 20',
                                         text: 'Cancel',
-                                        handler: '',
+                                        handler: 'cancleEditAccessPoint',
 										cls: 'btn btn-cancel'
                         			}
                         		]

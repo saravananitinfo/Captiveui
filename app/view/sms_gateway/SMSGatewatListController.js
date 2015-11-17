@@ -41,7 +41,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
                 if (btn === 'yes') {
                     Ext.getCmp('viewport').setLoading(true);
                     var url = CaptivePortal.Config.SERVICE_URLS.DELETE_SMSGATEWAY + record.data.id + '.json';
-                    CaptivePortal.util.Utility.doAjax(url, {}, function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, {},"Loading...", this.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways').reload();

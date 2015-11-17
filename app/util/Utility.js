@@ -97,7 +97,7 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.getCmp('viewport').add(homepanel);
     },
     doProfileLogin: function (profileId, token) {
-        Ext.getCmp('viewport').setLoading(true)
+        Ext.getCmp('viewport').setLoading(true);
         this.setNormalUserSession(CaptivePortal.app.getTempUserObj(), profileId, token);
         var me = this;
         var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
@@ -148,7 +148,7 @@ Ext.define('CaptivePortal.util.Utility', {
         homepanel.add(navpanel, headingpanel, bodypanel);
         Ext.getCmp('viewport').add(homepanel);
         Ext.ComponentQuery.query('label#lab_roledisplay')[0].setText(profile.user_role.charAt(0));
-        Ext.getCmp('viewport').setLoading(false)
+        Ext.getCmp('viewport').setLoading(false);
     },
     createMenusForUserBasedOnPermisson: function (navpanel) {
         var store = Ext.StoreManager.lookup('ProfileMenuList');
@@ -236,6 +236,7 @@ Ext.define('CaptivePortal.util.Utility', {
         }
     },
     doAjax: function (url, params, msg, view, successCallback, failureCallback, method, async) {
+        this.addHeader();
         var async = (async != undefined) ? async : true;
         CaptivePortal.util.Utility.appLoadMask(msg, Ext.getCmp('viewport'), true);
         Ext.Ajax.request({
@@ -263,6 +264,7 @@ Ext.define('CaptivePortal.util.Utility', {
         });
     },
     doAjaxJSON: function (url, params, msg, view, successCallback, failureCallback, method, async) {
+        this.addHeader();
         var async = (async != undefined) ? async : true;
         CaptivePortal.util.Utility.appLoadMask(msg, Ext.getCmp('viewport'), true);
         Ext.Ajax.request({

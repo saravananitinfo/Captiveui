@@ -22,6 +22,13 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
                 },
                 {
                     xtype: 'button',
+                    text: 'Upload Guest List',
+                    cls: 'btn-add-module',             
+                    itemId:'btn_upload_guest_user',
+                    handler: 'uploadGuestUser'
+                },
+                {
+                    xtype: 'button',
                     text: 'Add Guest User',
                     cls: 'btn-add-module',             
                     itemId:'btn_add_guest_user',

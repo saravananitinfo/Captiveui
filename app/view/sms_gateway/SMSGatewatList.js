@@ -8,84 +8,100 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatList',{
 	border: true,
     layout: 'fit',
     bodyPadding: '15 30 15 30',
-	dockedItems: [
-		{
-            xtype: 'toolbar',
-            padding: '30 30 0 30',
-            dock: 'top',
-            items: [
-            	{
-                    xtype: 'searchfield'
-                },
-                {
-                	xtype: 'tbfill'
-                },
-                {
-                    xtype: 'button',
-                    text: 'Add Gateway',
-                    cls: 'btn-add-module',             
-                    itemId:'btn_addgateway',
-                    handler: 'newSMSGateway'
-                    // handler: 'userItemClick'
-                }
-            ]
-        }
-    ],
     initComponent: function () {
-    	this.items = [{
+        // Adding Docked Items..........
+        var dockeditems = [
+            {
+                xtype: 'searchfield'
+            },
+            {
+                xtype: 'tbfill'
+            }
+        ]
+        var write = false;
+        if (CaptivePortal.app.getAccessPermissionList() != undefined) {
+            write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
+                return el.access_for == 'sms_gateway'
+            })[0].write
+        }
+        if (write) {
+            dockeditems.push({
+                xtype: 'button',
+                text: 'Add Gateway',
+                cls: 'btn-add-module',             
+                itemId:'btn_addgateway',
+                handler: 'newSMSGateway'
+            });
+        }
+        this.dockedItems = [
+            {
+                xtype: 'toolbar',
+                padding: '30 30 0 30',
+                dock: 'top',
+                items: dockeditems
+            }
+        ]
+        // Adding SMSGateway List Items..........
+        var grid_colunms = [
+            {
+                header: 'Name',
+                dataIndex: 'name',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value + '" ';
+                    return value;
+                }
+            },
+            {
+                header: 'Type',
+                dataIndex: 'gateway_type',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value + '" ';
+                    return value;
+                }
+            },
+            {
+                header: 'Status',
+                dataIndex: 'status',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value + '" ';
+                    return value;
+                }
+            }
+        ];
+        if (write) {
+            grid_colunms.push({
+                header: 'Action',
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
+                },
+                width: 100
+            });
+        }
+
+        this.items = [
+            {
                 xtype: 'gridpanel',
                 reference: 'grd_smsgatewaylist',
-                //style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 style: 'border: 1px solid #e2e2e2',
                 store: 'CaptivePortal.store.sms_gateway.SMSGateways',
                 listeners: {
-                              itemclick: 'userItemClick'
-                            },
-                columns: [
-                    {
-                        header: 'Name',
-                        dataIndex: 'name',
-                        flex: 1,
-                        cls: 'table-row',
-                        tdCls: 'table-cell',
-                        renderer: function (value, metaData, rec, view) {
-                            metaData.tdAttr = 'data-qtip="' + value + '" ';
-                            return value;
-                        }
-                    },
-                    {
-                        header: 'Type',
-                        dataIndex: 'gateway_type',
-                        flex: 1,
-                        cls: 'table-row',
-                        tdCls: 'table-cell',
-                        renderer: function (value, metaData, rec, view) {
-                            metaData.tdAttr = 'data-qtip="' + value + '" ';
-                            return value;
-                        }
-                    },
-                    {
-                        header: 'Status',
-                        dataIndex: 'status',
-                        flex: 1,
-                        cls: 'table-row',
-                        tdCls: 'table-cell',
-                        renderer: function (value, metaData, rec, view) {
-                            metaData.tdAttr = 'data-qtip="' + value + '" ';
-                            return value;
-                        }
-                    },
-                    {
-                        header: 'Action',
-                        cls: 'table-row',
-                        tdCls: 'table-cell',
-                        renderer: function (value, metaData, rec, view) {
-                            return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
-                        },
-                        width: 100
-                    }
-                ]
-            }]
+                    itemclick: 'userItemClick'
+                },
+                columns: grid_colunms
+            }
+        ]
+
         this.callParent(arguments)
     },
     listeners: {

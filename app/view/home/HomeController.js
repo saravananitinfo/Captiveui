@@ -2,7 +2,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.home',
     id: 'vc_homecontroller',
-    requires:['CaptivePortal.view.login.Login'],
+    // requires:['CaptivePortal.view.login.Login'],
     listen: {
         component: {
             'gridpanel#grd_profilelist': {

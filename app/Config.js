@@ -43,6 +43,7 @@ Ext.define('CaptivePortal.Config', {
 		EDIT_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
 		DELETE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
 		UPDATE_SMSGATEWAY:CaptivePortal.util.Utility.BASE_URL + 'sms_gateway_managements/',
+        GATEWAY_VERIFICATION:CaptivePortal.util.Utility.BASE_URL + '/gateway_verification.json',
 
 		// Guest Users Url
 

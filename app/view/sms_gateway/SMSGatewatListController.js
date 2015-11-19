@@ -96,13 +96,13 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
                 model_obj['account_sid'] = obj.data.sms_gateway_management.acc_details.account_sid
                 model_obj['auth_token'] = obj.data.sms_gateway_management.acc_details.auth_token
                 model_obj['twilio_number'] = obj.data.sms_gateway_management.acc_details.twilio_number
-                model_obj['veri_to'] = obj.data.sms_gateway_management.verification_details.to
-                model_obj['veri_text'] = obj.data.sms_gateway_management.verification_details.text
+                // model_obj['veri_to'] = obj.data.sms_gateway_management.verification_details.to
+                // model_obj['veri_text'] = obj.data.sms_gateway_management.verification_details.text
                 break;
             case 'cdyne':
                 model_obj['license_key'] = obj.data.sms_gateway_management.acc_details.license_key
-                model_obj['veri_to'] = obj.data.sms_gateway_management.verification_details.to
-                model_obj['veri_text'] = obj.data.sms_gateway_management.verification_details.text
+                // model_obj['veri_to'] = obj.data.sms_gateway_management.verification_details.to
+                // model_obj['veri_text'] = obj.data.sms_gateway_management.verification_details.text
         }
         return model = Ext.create('CaptivePortal.model.sms_gateway.SMSGateway', model_obj);
     },

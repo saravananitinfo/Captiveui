@@ -52,6 +52,14 @@ Ext.define('CaptivePortal.view.sms_gateway.GatewayTypeTwilio',{
                 text: 'Test/Verify Gateway Details',
                 cls: 'header_label_content',
                 margin: '0 0 20 0'
+            },
+            {
+                xtype: 'button',
+                text: 'Verify',
+                cls: 'header_label_content help-text-sms-gateway',
+                margin: '0 0 20 0',
+                handler: 'testVerifyGatewayDetails'
+                
             }
             // {
             //     xtype: 'textfield',

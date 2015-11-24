@@ -26,7 +26,7 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'sites_main',
                     itemId: 'card_sitelist'
                 })
-            } else if ("site_roles" === permission.access_for) {
+            }  else if ("site_roles" === permission.access_for) {
                 panel.add({
                     xtype: 'rolemain',
                     itemId: 'card_rolelist'

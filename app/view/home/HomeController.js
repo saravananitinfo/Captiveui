@@ -1,5 +1,6 @@
 Ext.define('CaptivePortal.view.home.HomeController', {
     extend: 'Ext.app.ViewController',
+    requires:['CaptivePortal.view.contentbuilder.Main'],
     alias: 'controller.home',
     id: 'vc_homecontroller',
     // requires:['CaptivePortal.view.login.Login'],
@@ -16,7 +17,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         console.log(item)
     },
     onMenuClick: function (menu) {
-        console.log("...........me ............"+menu.itemname)
+        console.log("...........me ............" + menu.itemname)
         switch (menu.itemname) {
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
@@ -32,6 +33,17 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_rolelist');
                 this.getView().lookupReference('lab_heading').setText('Roles')
                 this.fireEvent('setRoleMainActiveItem', 0);
+                break;
+            case "templates":
+               Ext.create('Ext.window.Window',{
+                   height:'100%',
+                   layout:'fit',
+                   title:'Content Builder',
+                   width:'100%',
+                   items:[{
+                           xtype:'contentbuilder'
+                   }]
+               }).show();
                 break;
             case "sites":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_sitelist');

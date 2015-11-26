@@ -8,7 +8,8 @@ Ext.define('CaptivePortal.view.home.Home', {
         'CaptivePortal.view.sites.Main',
         'CaptivePortal.view.sms_gateway.Main',
         'CaptivePortal.view.guest_users.Main',
-        'CaptivePortal.view.access_point.Main'
+        'CaptivePortal.view.access_point.Main',
+        'CaptivePortal.view.accesstimepolicy.Main'
     ],
     xtype: 'widget.home.Home',
     itemId: 'pan_apphome',

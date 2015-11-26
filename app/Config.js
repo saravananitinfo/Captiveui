@@ -62,6 +62,14 @@ Ext.define('CaptivePortal.Config', {
         SAVE_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points.json',
         EDIT_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/',
         DELETE_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/',
-        UPDATE_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/'
+        UPDATE_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/',
+
+        //access time policy
+        GET_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies.json',
+        NEW_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/new.json',
+        SAVE_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies.json',
+        EDIT_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/',
+        UPDATE_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/',
+        DELETE_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/'
 	}
 });

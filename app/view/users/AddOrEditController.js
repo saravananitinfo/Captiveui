@@ -27,9 +27,9 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         }
     },
     setDataForEdit: function (data) {
-        data.roles.length > 0 ? this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles) : "";
-        data.tenants.length > 0 ? this.getView().lookupReference('cmb_tenant').getStore().setData(data.tenants) : "";
-        data.sites.length > 0 ? this.getView().lookupReference('tf_site').getStore().setData(data.sites) : "";
+        data.roles && data.roles.length > 0 ? this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles) : "";
+        data.tenants && data.tenants.length > 0 ? this.getView().lookupReference('cmb_tenant').getStore().setData(data.tenants) : "";
+        data.sites && data.sites.length > 0 ? this.getView().lookupReference('tf_site').getStore().setData(data.sites) : "";
         var record = this.createUserModel(data.user_profile, true);
         var form = Ext.ComponentQuery.query('#userform')[0];
         form.loadRecord(record)

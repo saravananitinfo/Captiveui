@@ -54,6 +54,12 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Access Point')
                 console.log("...........me ............2")
                 this.fireEvent('setAccessPointMainActiveItem', 0);
+                break;
+            case "time_policy":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_time_policymain');
+                this.getView().lookupReference('lab_heading').setText('Access Time Policy');
+                this.fireEvent('setTimePolicyActiveItem',0);
+                break;
         }
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {

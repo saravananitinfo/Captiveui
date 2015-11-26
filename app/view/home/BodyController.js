@@ -46,6 +46,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'access_pointmain',
                     itemId: 'card_access_point_main'
                 })
+            } else if ("time_policy" === permission.access_for) {
+                panel.add({
+                    xtype: 'access_time_policy_main',
+                    itemId: 'access_time_policymain'
+                })
             }
         });
     }

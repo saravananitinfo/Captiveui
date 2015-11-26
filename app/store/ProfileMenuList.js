@@ -31,6 +31,9 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                 }, {
                     name: 'Tenants',
                     itemname: 'tenants'
+                }, {
+                    name: 'Access Time Policy',
+                    itemname: 'time_policy'
                 }]
         }, {
             id: 3,

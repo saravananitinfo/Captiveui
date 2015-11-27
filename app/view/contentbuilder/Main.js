@@ -7,7 +7,7 @@
  */
 Ext.define('CaptivePortal.view.contentbuilder.Main', {
     extend: 'Ext.container.Container',
-    requires: ['CaptivePortal.view.contentbuilder.Templates'],
+    requires: ['CaptivePortal.view.contentbuilder.Templates','CaptivePortal.view.contentbuilder.themes.Theme1','CaptivePortal.view.contentbuilder.themes.Theme2','CaptivePortal.view.contentbuilder.ContentWidgets'],
     xtype: 'contentbuilder',
     layout: {
         type: 'border'
@@ -17,12 +17,30 @@ Ext.define('CaptivePortal.view.contentbuilder.Main', {
             bodyStyle: 'background:rgb(215, 215, 215) !important;',
             border: false,
             layout: 'fit',
+            region: 'west',
+            width: 100,
+            split: false,
+            items: [{
+                    xtype: 'contentwidgets',
+                    padding: 13
+                }]
+        },
+        {
+            xtype: 'tabpanel',
+            bodyStyle: 'background:rgb(215, 215, 215) !important;',
+            border: false,
+            layout: 'fit',
             region: 'east',
             width: 300,
             split: false,
             items: [{
+                    title: "Select Theme",
                     xtype: 'contenttemplate',
                     padding: 13
+                },{
+                    xtype: "panel",
+                    cls: "widgetTab",
+                    title: "Select Widget"
                 }]
         }, {
             region: 'center',
@@ -38,6 +56,7 @@ Ext.define('CaptivePortal.view.contentbuilder.Main', {
                     xtype: 'panel',
                     width: '90%',
                     margin: 50,
+                    ddGroup: "s",
                     height: '100%',
                     bodyStyle: 'background:white;zoom: 0.88;border-radius: 8px;padding: 40px 30px;',
                     maxWidth: 980,
@@ -88,53 +107,36 @@ Ext.define('CaptivePortal.view.contentbuilder.Main', {
 //                            })
                             panel.dropZone = new Ext.dd.DropZone(panel.el, {
                                 ddGroup: 's',
+                                overClass: 'over-the-drag',
                                 getTargetFromEvent: function (e) {
                                     return e.getTarget('.x-panel-body');
                                 },
                                 onNodeEnter: function (target, dd, e, data) {
-                                    // console.log(target, dd, e, data)
+                                    console.log(target, dd, e, data)
                                     Ext.fly(target).addCls('hospital-target');
                                     console.log('onNodeEner')
                                 },
                                 onNodeOut: function (target, dd, e, data) {
                                     Ext.fly(target).removeCls('hospital-target');
-                                    //console.log('onNodeOut')
+                                    console.log('onNodeOut')
                                 },
-                                notifyOver: function (source, e, data) {
-                                    console.log(source)
-                                    panel.scrollTo(source.startPageX, source.startPageY, true);
-                                },
+                                // notifyOver: function (source, e, data) {
+                                //     console.log(source, e, data)
+                                //     panel.scrollTo(source.startPageX, source.startPageY, true);
+                                // },
                                 onNodeOver: function (target, dd, e, data) {
                                     proto = Ext.dd.DropZone.prototype;
                                     console.log('onNodeOver')
-                                    console.log(e)
+                                    //console.log(e)
                                     return proto.dropAllowed
                                 },
                                 onNodeDrop: function (target, dd, e, data) {
                                     // console.log(target, dd, e, data);
                                     console.log('onNodeDrop')
-                                    if (data.componentData.id == 1) {
-                                        panel.insert(1, {
-                                            xtype: 'panel',
-                                            columnWidth: 1,
-                                            border: true,
-                                            margin: 10,
-                                            height: 100,
-                                            width: '100%',
-                                            html: 'id 1'
-                                        })
-                                    } else {
-                                        panel.insert(0, {
-                                            xtype: 'panel',
-                                            columnWidth: 1,
-                                            border: true,
-                                            margin: 10,
-                                            height: 100,
-                                            width: '100%',
-                                            html: 'id 2'
-                                        })
-                                    }
-
+                                    panel.insert(0, {
+                                            xtype: 'contentbuildertheme' + data.componentData.id
+                                    })
+                                   
                                 }
                             })
                         }

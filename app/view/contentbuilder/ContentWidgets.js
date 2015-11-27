@@ -1,11 +1,6 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-Ext.define('CaptivePortal.view.contentbuilder.Templates', {
+Ext.define('CaptivePortal.view.contentbuilder.ContentWidgets', {
     extend: 'Ext.view.View',
-    alias: 'widget.contenttemplate',
+    alias: 'widget.contentwidgets',
     store: 'Template',
     itemSelector: 'div.thumb-wrap',
     padding: 13,
@@ -18,8 +13,9 @@ Ext.define('CaptivePortal.view.contentbuilder.Templates', {
             ),
     listeners: {
         render: function (dataview) {
+            console.log("hereheher")
             dataview.dragZone = Ext.create('Ext.dd.DragZone', dataview.getEl(), {
-                ddGroup: 's',
+                ddGroup: 'widgetGroup',
                 getDragData: function (e) {
                     var sourceEl = e.getTarget(dataview.itemSelector, 10), d;
                     if (sourceEl) {
@@ -29,7 +25,7 @@ Ext.define('CaptivePortal.view.contentbuilder.Templates', {
                             sourceEl: sourceEl,
                             repairXY: Ext.fly(sourceEl).getXY(),
                             ddel: d,
-                            groupName: 's',
+                            groupName: 'widgetGroup',
                             dragData: dataview.getRecord(sourceEl),
                             componentData: dataview.getRecord(sourceEl).data
                         });
@@ -42,4 +38,3 @@ Ext.define('CaptivePortal.view.contentbuilder.Templates', {
         }
     }
 })
-

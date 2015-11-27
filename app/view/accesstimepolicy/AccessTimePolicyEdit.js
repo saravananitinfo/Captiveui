@@ -490,7 +490,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 		                                items: [
 		                                    {
 		                                        xtype: 'button',
-		                                        reference:'btn_save',
+		                                        //reference:'btn_save',
 		                                        formBind: true,
 		                                        itemId: "btn_savePolicy",
 		                                        text: btnText,

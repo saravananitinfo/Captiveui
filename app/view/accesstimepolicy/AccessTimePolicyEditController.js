@@ -52,6 +52,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         form.down('#time_policy_day_grid').store.loadRawData(this.formatData(data.time_policy.default_policies));
         form.down('#time_policy_date_range_grid').store.loadRawData(this.formatData(data.time_policy.date_range_policies));
         form.down('#time_policy_specific_day_grid').store.loadRawData(this.formatData(data.time_policy.date_policies));
+        form.down('#btn_savePolicy').setText('Update');
     },
     removeSelectedRecords: function(btn){
         var grid = btn.up('gridpanel');
@@ -60,11 +61,13 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
     },
 
     resetTimePolicyForm: function(){
-        this.getView().down('form').reset();
+        var form = this.getView().down('form');
+        form.reset();
         Ext.Array.each(this.getView().query('gridpanel'), function(g){
             g.up('panel').collapse();
             g.store.loadRawData([]);
-        }.bind(this))
+        }.bind(this));
+        form.down('#btn_savePolicy').setText('Create');
     },
 
     cancelAccessTimePolicy: function(){

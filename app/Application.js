@@ -26,7 +26,7 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.access_point.AddAccessPoint',
         'CaptivePortal.store.access_point.Sites',
         'CaptivePortal.store.access_point.AccessPoints',
-        'CaptivePortal.store.accesstimepolicy.TimePolicy'
+        'CaptivePortal.store.accesstimepolicy.TimePolicy',
         'Template'
     ],
     launch: function () {

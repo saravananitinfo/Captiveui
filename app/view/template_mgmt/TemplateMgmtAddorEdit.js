@@ -88,7 +88,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                    {
 				                                        boxLabel: 'Default',
 				                                        name: 'status',
-				                                        inputValue: 'default',
+				                                        inputValue: 'drafted',
 				                                        checked: true
 				                                    }, {
 				                                        boxLabel: 'Publish',

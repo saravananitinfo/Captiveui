@@ -74,7 +74,22 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         this.fireEvent('setTimePolicyActiveItem', 0);
     },
     loadSitesCombo: function(data){
-        this.getView().down('#site_combo').store.loadRawData(data.sites);
+        var sitesAndTags = [];
+        var sites = data.available_resources.sites;
+        var tags = data.available_resources.tags;
+        if(sites && sites.length) {
+            Ext.Array.each(sites, function(s){
+                var rec = {id:s.id, name:s.name, isSite:true};
+                sitesAndTags.push(rec);
+            }.bind(this))
+        }
+        if(tags && tags.length) {
+            Ext.Array.each(tags, function(t){
+                var rec = {id:t.id, name:t.name, isSite:false};
+                sitesAndTags.push(rec);
+            }.bind(this))
+        }
+        this.getView().down('#site_combo').store.loadRawData(sitesAndTags);
     },
 
     saveTimePolicy: function(btn){
@@ -187,7 +202,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         var me = this;
         var form = btn.up('form'), data = {};
         if(form.isValid()){
-            data = form.getValues(), isEdit = data.id ? true : false;    
+            data = form.getValues(), isEdit = data.id ? true : false;
             data['close_message'] = "sorry!!";
             data['default_policies_attributes'] = this.getDataForDayGrid(this.getView().down('#time_policy_day_grid'), isEdit);
             data['date_range_policies_attributes'] = this.getDataForDateRangeGrid(this.getView().down('#time_policy_date_range_grid'), isEdit);
@@ -232,15 +247,18 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
     },
     addRowToDateSpecficDayGrid: function(btn){
         var model = Ext.create('CaptivePortal.model.accesstimepolicy.SpecificDay',{available : true});
-        btn.up('gridpanel').store.insert(0,model);
+        var store = btn.up('gridpanel').store;
+        store.insert(store.getCount(),model);
     },
     addRowToDateRangeGrid: function(btn){
         var model = Ext.create('CaptivePortal.model.accesstimepolicy.DateRange',{available : true});
-        btn.up('gridpanel').store.insert(0,model);
+        var store = btn.up('gridpanel').store;
+        store.insert(store.getCount(),model);
     },
 
     addRowToDayGrid: function(btn){
         var model = Ext.create('CaptivePortal.model.accesstimepolicy.Day',{available : true});
-        btn.up('gridpanel').store.insert(0,model);
+        var store = btn.up('gridpanel').store;
+        store.insert(store.getCount(),model);
     }
 })

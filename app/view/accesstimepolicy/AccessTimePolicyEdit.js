@@ -55,13 +55,14 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 	                                text: 'Site',
 	                                cls: 'header_label_content'
 	                            }, {
-	                                xtype: 'combo',
+	                                xtype: 'tagfield',
 	                                queryMode: 'local',
 	                                reference: 'tf_site',
 	                                allowBlank: false,
 	                                name: 'site_id',
 	                                itemId: 'site_combo',
 	                                forceSelection:true,
+	                                multiSelect:true,
 	                                valueField: 'id',
 	                                displayField: 'name',
 	                                emptyText: 'Select Sites',

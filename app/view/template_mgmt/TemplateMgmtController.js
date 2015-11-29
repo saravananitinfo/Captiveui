@@ -56,7 +56,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
 
     	if(form.isValid() && valid){
     		data = form.getValues(), isEdit = data.id ? true : false; 
-    		data['tenant_id'] = CaptivePortal.app.getUserTenantID();
+            var tenantId = CaptivePortal.app.getUserTenantID();;
+            if(tenantId){
+                data['tenant_id'] = tenantId;    
+            }    		
     		data['default'] = true;
     		data['splash_template_attributes'] = {
     			splash_content : {

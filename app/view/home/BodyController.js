@@ -51,6 +51,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'access_time_policy_main',
                     itemId: 'access_time_policymain'
                 })
+            } else if ("templates" === permission.access_for) {
+                panel.add({
+                    xtype: 'template_mgmt_main',
+                    itemId: 'access_template_main'
+                })
             }
         });
     }

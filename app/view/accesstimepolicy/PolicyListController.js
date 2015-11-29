@@ -29,7 +29,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyListController', {
     deleteAccessTime: function (view, record, item, index, e, eOpts) {
         var me = this;
         Ext.Msg.show({
-            title: 'Delete User',
+            title: 'Delete Access Time',
             message: 'Do you want to delete?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,

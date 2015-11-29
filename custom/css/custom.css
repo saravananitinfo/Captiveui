@@ -19,6 +19,43 @@ font-style: normal;
 /*****************/
 
 
+/* tab relatred changes*/
+
+.customTab{
+	margin: 15px;	
+	border: 1px solid rgba(68, 68, 68, 0.67) !important;
+	border-top-width: 1px !important;
+}
+
+a.x-tab.x-box-item{
+	position: relative; !important;
+	width: 150px !important;
+	border:1px solid rgba(68, 68, 68, 0.67) !important;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	display: block !important;
+	background-color: rgb(183, 183, 183);
+	margin-right: 3px;
+	border-bottom-width: 0px !important;
+}
+a.x-tab.x-box-item.x-tab-active{
+	background-color: white !important;	
+	border-bottom-width: 0px !important;
+}
+
+
+span.x-tab-inner.x-tab-inner-default{
+	font-size:14px !important;
+	font-weight:bold !important;
+	text-align: center !important;
+	display: block !important;
+}
+
+
+/* tab relatred changes*/
+
+
+
 .login_logo{
 	background:url('images/zebra_logo_big.png') no-repeat;	
 	border-right: 4px solid #aab300;
@@ -96,8 +133,8 @@ background:url('images/user_icon_128.png') no-repeat;
 	padding-bottom:20px;
 }
  .header_label_content{
-	font-size:14px;
-	font-weight:bold;
+	font-size:14px !important;
+	font-weight:bold !important;
  }
  .edit-icon{
 	background-image:url(images/edit-icon.png);

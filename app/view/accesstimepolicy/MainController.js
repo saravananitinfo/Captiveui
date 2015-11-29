@@ -30,7 +30,6 @@ Ext.define('CaptivePortal.view.accesstimepolicy.MainController',{
             }
         }, 'GET');
         Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Access Time Policy');
-        Ext.ComponentQuery.query('button#btn_newusersave')[0].setText('Update');
     },
 	showAccessTimePolicy: function(card){
 		this.getView().setActiveItem(card);		
@@ -48,7 +47,6 @@ Ext.define('CaptivePortal.view.accesstimepolicy.MainController',{
             }
         }, 'GET');
 		Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New Access Time Policy');
-        Ext.ComponentQuery.query('button#btn_newusersave')[0].setText('Create');
 	},
 	setTimePolicyActiveItem:function(card){
         this.getView().setActiveItem(card);

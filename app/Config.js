@@ -70,6 +70,14 @@ Ext.define('CaptivePortal.Config', {
         SAVE_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies.json',
         EDIT_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/',
         UPDATE_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/',
-        DELETE_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/'
+        DELETE_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies/',
+
+        // Splash Journey
+        GET_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys.json',
+        NEW_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/new.json',
+        SAVE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys.json',
+        DELETE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
+        EDIT_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
+        UPDATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/'
 	}
 });

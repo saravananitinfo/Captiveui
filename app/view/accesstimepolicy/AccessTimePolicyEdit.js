@@ -59,7 +59,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 	                                queryMode: 'local',
 	                                reference: 'tf_site',
 	                                allowBlank: false,
-	                                name: 'site_id',
+	                                name: 'associated_resources',
 	                                itemId: 'site_combo',
 	                                forceSelection:true,
 	                                multiSelect:true,

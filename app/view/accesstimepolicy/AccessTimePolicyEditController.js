@@ -46,8 +46,11 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         var form = this.getView().down('form');
         var model = Ext.create('CaptivePortal.model.accesstimepolicy.TimePolicy', data.time_policy);
         form.loadRecord(model);
-        if(data.time_policy.site_info && data.time_policy.site_info.id){
+/*        if(data.time_policy.site_info && data.time_policy.site_info.id){
             form.down('#site_combo').setValue(data.time_policy.site_info.id);
+        }*/
+        if(data.time_policy.associated_resources){
+           form.down('#site_combo').setValue(data.time_policy.associated_resources); 
         }
         form.down('#time_policy_day_grid').store.loadRawData(this.formatData(data.time_policy.default_policies));
         form.down('#time_policy_date_range_grid').store.loadRawData(this.formatData(data.time_policy.date_range_policies));

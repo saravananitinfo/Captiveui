@@ -50,8 +50,11 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyList', {
                 cls: 'table-row',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
-                    metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';
-                    return value ? value.name : '';
+                    var siteName = (value && value.name) ? value.name : '' ;
+                    if(siteName){
+                        metaData.tdAttr = 'data-qtip="' + siteName + '"';
+                    }                    
+                    return siteName;
                 }
             }
         ];

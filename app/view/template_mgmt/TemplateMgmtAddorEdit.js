@@ -51,11 +51,21 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 												text:'Category',							
 												cls:'header_label_content'
 											 },{
-												xtype:'textfield',
-												maxLength:100,												
+												xtype:'combo',											
 				                                allowBlank: false,
 												name:'category',
-												itemId:this.itemIdPrefix + 'category'
+												itemId:this.itemIdPrefix + 'category',
+												queryMode: 'local',												
+				                                forceSelection:true,
+				                                valueField: 'id',
+				                                displayField: 'name',
+				                                emptyText: 'Select Category',
+											}, {
+												xtype:'checkboxfield',
+												name:'default',
+												inputValue: true,
+												boxLabel:'Set as Default Template',
+												itemId:this.itemIdPrefix + 'default'
 											}, {
 				                                xtype: 'label',
 				                                text: 'Site',
@@ -86,7 +96,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                layout: 'hbox',
 				                                items: [
 				                                    {
-				                                        boxLabel: 'Default',
+				                                        boxLabel: 'Draft',
 				                                        name: 'status',
 				                                        inputValue: 'drafted',
 				                                        checked: true
@@ -100,7 +110,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                            	xtype: 'tabpanel',
 				                                margin: '0 0 20 0',
 				                                width: '90%',
-											    height: 350,
+											    height: 380,
 											    activeTab: 0,
 											    border:5,
 				                                items: [
@@ -130,6 +140,12 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                        border:5,
 				                                        layout:'vbox',
 			                                        	items:[{
+																xtype:'checkboxfield',
+																name:'custom_tnc',
+																inputValue: true,
+																boxLabel:'Enable custom terms',
+																itemId:this.itemIdPrefix + 'custom_tnc'
+															},{
 					                                        	xtype:'label',
 					                                        	text:'Specify new terms name',
 					                                        	cls:'header_label_content',
@@ -175,6 +191,12 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                        border:5,
 				                                        layout:'vbox',
 			                                        	items:[{
+																xtype:'checkboxfield',
+																name:'custom_privacy_policies',
+																inputValue: true,
+																boxLabel:'Enable privacy policy terms',
+																itemId:this.itemIdPrefix + 'custom_privacy_policies'
+															},{
 					                                        	xtype:'label',
 					                                        	text:'Specify new privacy policy name',
 					                                        	cls:'header_label_content',

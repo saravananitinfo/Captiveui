@@ -10,6 +10,17 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             }
     	}
     },
+    createCategoryStore: function(data){
+        var categoryData = [];
+        if(data.categories && data.categories.length){
+            Ext.Array.each(data.categories, function(c){
+                categoryData.push({id:c, name:c});
+            }.bind(this));
+
+        }
+        var store = Ext.create('Ext.data.Store', {data:categoryData, fields:['id', 'name']});
+        return store;
+    },
     loadDataToTemplateMgmtForm:function(data){
         var form = this.getView().down('form');
         var model = Ext.create('CaptivePortal.model.template_mgmt.TemplateMgmt', data.splash_journey);
@@ -27,6 +38,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
     	this.loadSitesDataToTemplateForm(data);
     	this.getView().down('tabpanel').setActiveItem(0);
         this.getView().down('#btn_addtemplate').setText('Create');
+        this.getView().down('#template_mgmt_form-category').bindStore(this.createCategoryStore(data));
     },
     loadSitesDataToTemplateForm: function(data){
     	this.getView().down('#site_combo').store.loadRawData(data.sites);
@@ -60,7 +72,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             if(tenantId){
                 data['tenant_id'] = tenantId;    
             }    		
-    		data['default'] = true;
+    		data['default'] = form.down('#template_mgmt_form-default').getValue();
+            data['custom_tnc'] = form.down('#template_mgmt_form-custom_tnc').getValue();
+            data['custom_privacy_policies'] = form.down('#template_mgmt_form-custom_privacy_policies').getValue();
+
     		data['splash_template_attributes'] = {
     			splash_content : {
     				content_string : 'feawaaaa',

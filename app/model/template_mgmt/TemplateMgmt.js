@@ -16,7 +16,9 @@ Ext.define('CaptivePortal.model.template_mgmt.TemplateMgmt',{
 		{ name:'tenant_id', type: 'string'},
 		{ name:'tnc', type: 'string'},
 		{ name:'tnc_link', type: 'string'},
-		{ name:'tnc_name', type: 'string'}
+		{ name:'default', type: 'boolean'},
+		{ name:'custom_tnc', type: 'boolean'},
+		{ name:'custom_privacy_policies', type: 'boolean'}
 
 	]
 });

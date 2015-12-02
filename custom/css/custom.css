@@ -136,6 +136,26 @@ background:url('images/user_icon_128.png') no-repeat;
 	font-size:14px !important;
 	font-weight:bold !important;
  }
+
+.duplicate-icon{
+	background-image:url(images/duplicate.png);
+	height:16px;
+	width:16px;
+	float:left;
+	cursor:pointer;
+	left: 16px;
+    position: relative;
+}
+.preview-icon{
+	background-image:url(images/preview.png);
+	height:16px;
+	width:16px;
+	float:left;
+	cursor:pointer;
+	left: 10px;
+    position: relative;
+}
+
  .edit-icon{
 	background-image:url(images/edit-icon.png);
 	height:16px;

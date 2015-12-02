@@ -69,7 +69,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 											}, {
 				                                xtype: 'label',
 				                                text: 'Site',
-				                                cls: 'header_label_content'
+				                                cls: 'header_label_content',
+				                                //hidden:CaptivePortal.app.getUserRole() == 'super_admin'
 				                            }, {
 				                                xtype: 'combo',
 				                                queryMode: 'local',
@@ -81,7 +82,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                displayField: 'name',
 				                                emptyText: 'Select Sites',
 				                                store: 'CaptivePortal.store.users.Site',
-				                                filterPickList: true
+				                                filterPickList: true,
+				                                //hidden:CaptivePortal.app.getUserRole() == 'super_admin'
 			                            	},{
 				                                xtype: 'label',
 				                                text: 'Status',

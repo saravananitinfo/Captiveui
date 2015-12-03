@@ -10,6 +10,20 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             }
     	}
     },
+    privacyChange: function(checkbox, newValue){
+        if(newValue){
+            checkbox.up('tabpanel').down('#template_mgmt_form-custom_privacy_policies_container').show();
+        } else {
+            checkbox.up('tabpanel').down('#template_mgmt_form-custom_privacy_policies_container').hide();
+        }
+    },
+    customChange: function(checkbox, newValue){
+        if(newValue){
+            checkbox.up('tabpanel').down('#template_mgmt_form-custom_tnc_container').show();
+        } else {
+            checkbox.up('tabpanel').down('#template_mgmt_form-custom_tnc_container').hide();
+        }
+    },
     createCategoryStore: function(data){
         var categoryData = [];
         if(data.categories && data.categories.length){
@@ -66,7 +80,11 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             }
         }.bind(this));
 
-    	if(form.isValid() && valid){
+        var isSuperAdmin = CaptivePortal.app.getUserRole() == 'super_admin', allow = true;
+        if(!isSuperAdmin && !form.down('#site_combo').getValue()){
+            allow = false;
+        }
+    	if(form.isValid() && allow){
     		data = form.getValues(), isEdit = data.id ? true : false; 
             var tenantId = CaptivePortal.app.getUserTenantID();;
             if(tenantId){

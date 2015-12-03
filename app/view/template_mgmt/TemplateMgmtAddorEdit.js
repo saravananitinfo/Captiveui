@@ -70,11 +70,11 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                xtype: 'label',
 				                                text: 'Site',
 				                                cls: 'header_label_content',
-				                                //hidden:CaptivePortal.app.getUserRole() == 'super_admin'
+				                                hidden:CaptivePortal.app.getUserRole() == 'super_admin'
 				                            }, {
 				                                xtype: 'combo',
 				                                queryMode: 'local',
-				                                allowBlank: false,
+				                                //allowBlank: false,
 				                                name: 'site_id',
 				                                itemId: 'site_combo',
 				                                forceSelection:true,
@@ -83,7 +83,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                emptyText: 'Select Sites',
 				                                store: 'CaptivePortal.store.users.Site',
 				                                filterPickList: true,
-				                                //hidden:CaptivePortal.app.getUserRole() == 'super_admin'
+				                                hidden:CaptivePortal.app.getUserRole() == 'super_admin'
 			                            	},{
 				                                xtype: 'label',
 				                                text: 'Status',
@@ -144,10 +144,18 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 			                                        	items:[{
 																xtype:'checkboxfield',
 																name:'custom_tnc',
+																checked:true,
 																inputValue: true,
 																boxLabel:'Enable custom terms',
-																itemId:this.itemIdPrefix + 'custom_tnc'
+																itemId:this.itemIdPrefix + 'custom_tnc',
+																listeners:{
+																	change:'customChange'
+																}
 															},{
+					                                        	xtype:'container',
+					                                        	type:'vbox',
+					                                        	itemId:this.itemIdPrefix + 'custom_tnc_container',
+					                                        	items:[{
 					                                        	xtype:'label',
 					                                        	text:'Specify new terms name',
 					                                        	cls:'header_label_content',
@@ -155,7 +163,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 					                                        },{
 																xtype:'textfield',
 																margin: '10 0 20 0',
-																allowBlank:false,
+																//allowBlank:false,
 																 width: 680,  
 																maxLength:100,
 																name:'tnc_name'
@@ -167,7 +175,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 					                                        },{
 																xtype:'textfield',
 																margin: '10 0 20 0',
-																allowBlank:false,
+																//allowBlank:false,
 																 width: 680,  
 																maxLength:100,
 																name:'tnc_link'
@@ -179,11 +187,12 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 					                                        },{
 																xtype:'textareafield',
 																margin: '10 0 20 0',
-																allowBlank:false,
+																//llowBlank:false,
 																 width: 680,  
 																maxLength:100,
 																name:'tnc'
-															}
+															}]
+					                                        }
 			                                        	]
 				                                    },{
 				                                        title:'Privacy Policy',
@@ -195,10 +204,18 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 			                                        	items:[{
 																xtype:'checkboxfield',
 																name:'custom_privacy_policies',
+																checked:true,
 																inputValue: true,
 																boxLabel:'Enable privacy policy terms',
-																itemId:this.itemIdPrefix + 'custom_privacy_policies'
+																itemId:this.itemIdPrefix + 'custom_privacy_policies',
+																listeners:{
+																	change:'privacyChange'
+																}
 															},{
+					                                        	xtype:'container',
+					                                        	itemId:this.itemIdPrefix + 'custom_privacy_policies_container',
+					                                        	type:'vbox',
+					                                        	items:[{
 					                                        	xtype:'label',
 					                                        	text:'Specify new privacy policy name',
 					                                        	cls:'header_label_content',
@@ -207,7 +224,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 																xtype:'textfield',
 																maxLength:100,																
 																margin: '10 0 20 0',
-																allowBlank:false,
+																//allowBlank:false,
 																 width: 680,  
 																name:'privacy_policies_name'
 															},{
@@ -219,7 +236,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 																xtype:'textfield',
 																maxLength:100,
 																margin: '10 0 20 0',
-																allowBlank:false,
+																//allowBlank:false,
 																 width: 680,  
 																name:'privacy_policies_link'
 															},{
@@ -231,10 +248,11 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 																xtype:'textareafield',
 																maxLength:100,
 																margin: '10 0 20 0',
-																allowBlank:false,
+																//allowBlank:false,
 																 width: 680,  
 																name:'privacy_policies'
-															}
+															}]
+					                                        }
 			                                        	]
 				                                    }, {
 				                                        title:'Redirects',

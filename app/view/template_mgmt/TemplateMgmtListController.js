@@ -17,6 +17,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtListController', {
                 this.fireEvent('loadTemplateMgmtRec', 1, record.data.id);
             } else if (action == "delete"){
                 this.deleteSplashJorney(view, record, item, index, e, eOpts);
+            } else if (action == "duplicate"){                
+                this.fireEvent('duplicateTemplate', 1, record.data.id);
             }
         }
     },

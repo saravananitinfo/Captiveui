@@ -44,7 +44,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                     return value;
                 }
             },
-            {
+           /* {
                 header: 'Site Name',
                 dataIndex: 'site_info',
                 flex: 1,
@@ -54,7 +54,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                     metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';
                     return value ? value.name : '';
                 }
-            },
+            },*/
             {
                 header: 'Category',
                 dataIndex: 'category',
@@ -73,7 +73,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                 flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="duplicate" class="duplicate-icon"></div>';
+                    return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
                 }
             })
         }

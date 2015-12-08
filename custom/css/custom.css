@@ -21,7 +21,7 @@ font-style: normal;
 
 /* tab relatred changes*/
 
-.customTab{
+/*.customTab{
 	margin: 15px;	
 	border: 1px solid rgba(68, 68, 68, 0.67) !important;
 	border-top-width: 1px !important;
@@ -49,7 +49,7 @@ span.x-tab-inner.x-tab-inner-default{
 	font-weight:bold !important;
 	text-align: center !important;
 	display: block !important;
-}
+}*/
 
 
 /* tab relatred changes*/
@@ -212,6 +212,10 @@ position: relative;
 	width: 45px;
 	height: 45px;
 	padding: 24px 27px 33px 28px;
- }
+}
+.edtBtn{
+	border: 1px solid transparent;
+	padding: 5px 10px;
+}
 
 

@@ -7,6 +7,8 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
 	width: '100%',
     height: '100%',
     cls: 'button_widget',
+    button_json: '{"text":"Default","padding_val":5,"font_size":13}',
+    // style: 'border: solid 1px gray',
     header: {
         hidden: true,
         titlePosition: 0,
@@ -16,14 +18,17 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
             text: 'Select Button',
             handler: function(){
                 console.log("akshay..............");
-                var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0]
-                var panel = editor_settings.down('#editor_setting_panel')
+                console.log(this.up(".button_widget").id);
+                var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
+                var panel = editor_settings.down('#editor_setting_panel');
                 panel.removeAll();
                 panel.add({
                     xtype: 'editor_button_setting',
+                    cls: this.up(".button_widget").id,
+                    button_id: this.up(".button_widget").id,
                     header: {
                         titlePosition: 0,
-                        title: 'Select Layout'
+                        title: 'Button Settings'
                     },
                     listeners: {
                         'close': function() {
@@ -31,7 +36,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
                             editor_settings.setActiveItem(0)
                         }
                     }
-                })
+                });
 
                 editor_settings.setActiveItem(1)
                 // editor_settings.down('#editor_setting_panel').add({
@@ -54,6 +59,16 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
             text: 'Delete',
             margin: '0 0 0 5',
             handler: function(){
+                // var b_setting = Ext.query('.'+this.up(".button_widget").id)[0]
+                var setting = Ext.ComponentQuery.query('#editor_settings')[0];
+                console.log(setting.getLayout().activeItem);
+
+                if(setting.getLayout().getActiveItem().itemId === 'editor_setting_panel'){
+                    if(setting.getLayout().getActiveItem().down('editor_button_setting').button_id == this.up('.button_widget').id){
+                        setting.setActiveItem(0);
+                    }
+                }
+
                 var theme = this.up().up().up();
                 var indx = theme.items.indexOf(this.up().up());
                 theme.remove(this.up().up());
@@ -68,16 +83,16 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
     },
     border: true,
     items: [{
-        xtype: 'component',
-        autoEl: {
-            tag: 'button',
-        },
         // xtype: 'component',
-        // style: "text-align: center;",
-        // height: '100%',
-        // itemId: "button_panel",
-        // padding: 10,
-        // html: '<button type="button" class="edtBtn btn-default">Default</button>'
+        // autoEl: {
+        //     tag: 'button',
+        // },
+        xtype: 'component',
+        style: "text-align: center;",
+        height: '100%',
+        itemId: "button_panel",
+        padding: 10,
+        html: '<button type="button" class="edtBtn btn-default">Default</button>'
     }],
     listeners: {
         afterrender: function(panel) {
@@ -86,7 +101,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
                 // header.getTools().forEach(function(tool) {
                 //     tool.show();
                 header.show()
-                console.log(header);
+                // console.log(header);
                 // })
             }, this);
             panel.getEl().on('mouseout', function() {

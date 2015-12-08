@@ -8,6 +8,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
     height: '100%',
     cls: 'button_widget',
     header: {
+        hidden: true,
         titlePosition: 0,
         title: 'Button',
         items:[{
@@ -20,7 +21,6 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
                 panel.removeAll();
                 panel.add({
                     xtype: 'editor_button_setting',
-                    html: '<p>akshay</p>',
                     header: {
                         titlePosition: 0,
                         title: 'Select Layout'
@@ -68,10 +68,33 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
     },
     border: true,
     items: [{
-
         xtype: 'component',
-        itemId: "img_panel",
-        padding: 10,
-        height:300,
-    }]
+        autoEl: {
+            tag: 'button',
+        },
+        // xtype: 'component',
+        // style: "text-align: center;",
+        // height: '100%',
+        // itemId: "button_panel",
+        // padding: 10,
+        // html: '<button type="button" class="edtBtn btn-default">Default</button>'
+    }],
+    listeners: {
+        afterrender: function(panel) {
+            var header = panel.getHeader();
+            panel.getEl().on('mouseover', function() {
+                // header.getTools().forEach(function(tool) {
+                //     tool.show();
+                header.show()
+                console.log(header);
+                // })
+            }, this);
+            panel.getEl().on('mouseout', function() {
+                // header.getTools().forEach(function(tool) {
+                //     tool.hide();
+                // })
+                header.hide();
+            }, this);
+        }
+    }
 });

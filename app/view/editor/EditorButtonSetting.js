@@ -4,19 +4,32 @@ Ext.define("CaptivePortal.view.editor.EditorButtonSetting",{
 	title: 'Button Settings',
     closable : true,
     cls: 'editor_button_setting',
-    layout: 'fit',
+    layout: 'vbox',
     items: [
-    	{
-    		xtype: 'component',
-    		cls: 'button_setting_canvas'
-    	}
-    	// {
-	    //     xtype:'button',
-	    //     text: 'Select Button',
-	    //     handler: function(){
-	    //     	console.log(this.up('.editor_button_setting').current_block);
-	    //     	console.log(Ext.query('#'+this.up().current_block));
-	    //     }
-	    // }
+        {
+            xtype: 'panel',
+            width: '100%',
+            items: [
+                {
+                    xtype: 'textfield',
+                    listeners: {
+                        'change': function(){
+                            var btpanel = Ext.ComponentQuery.query('#button_panel')[0]
+                            window.abc = btpanel;
+                            console.log(btpanel);
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
+            width: '100%',
+            items: [
+                {
+                    xtype: 'textfield'
+                }
+            ]
+        }
     ]
 });

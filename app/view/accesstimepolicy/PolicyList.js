@@ -45,16 +45,22 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyList', {
             },
             {
                 header: 'Site Name',
-                dataIndex: 'site_info',
+                dataIndex: 'associated_resources',
                 flex: 1,
                 cls: 'table-row',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
-                    var siteName = (value && value.name) ? value.name : '' ;
-                    if(siteName){
-                        metaData.tdAttr = 'data-qtip="' + siteName + '"';
-                    }                    
-                    return siteName;
+                    var sitesStr = [];
+                    if(value.sites && value.sites.length){
+                        Ext.Array.each(value.sites, function(s){
+                            sitesStr.push(s.name);
+                        }.bind(this))
+                    }
+                    if(value.tags && value.tags.length){
+                        sitesStr = sitesStr.concat(value.tags);
+                    }
+                    metaData.tdAttr = 'data-qtip="' + sitesStr.join(',') + '"';                  
+                    return sitesStr.join(',');
                 }
             }
         ];

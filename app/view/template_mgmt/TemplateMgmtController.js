@@ -35,14 +35,14 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         var store = Ext.create('Ext.data.Store', {data:categoryData, fields:['id', 'name']});
         return store;
     },
-    loadDataToTemplateMgmtForm:function(data){
+    loadDataToTemplateMgmtForm:function(data, btnText){
         var form = this.getView().down('form');
         var model = Ext.create('CaptivePortal.model.template_mgmt.TemplateMgmt', data.splash_journey);
         form.loadRecord(model);
         if(data.splash_journey.site_info && data.splash_journey.site_info.id){
             form.down('#site_combo').setValue(data.splash_journey.site_info.id);
         }
-        this.getView().down('#btn_addtemplate').setText('Update');
+        this.getView().down('#btn_addtemplate').setText(btnText ? btnText : 'Update');
     },
     cancelTemplateMgmt: function(){
     	this.fireEvent('setTemplateMgmtActiveItem', 0);
@@ -85,7 +85,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             allow = false;
         }
     	if(form.isValid() && allow){
-    		data = form.getValues(), isEdit = data.id ? true : false; 
+    		data = form.getValues(), isEdit = data.id ? (data.id.indexOf('model') == -1 ? true : false) : false; 
             var tenantId = CaptivePortal.app.getUserTenantID();;
             if(tenantId){
                 data['tenant_id'] = tenantId;    

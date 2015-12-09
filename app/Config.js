@@ -78,6 +78,7 @@ Ext.define('CaptivePortal.Config', {
         SAVE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys.json',
         DELETE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
         EDIT_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
-        UPDATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/'
+        UPDATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
+        DUPLICATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
 	}
 });

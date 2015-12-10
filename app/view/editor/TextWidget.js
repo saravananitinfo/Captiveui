@@ -4,50 +4,148 @@ Ext.define("CaptivePortal.view.editor.TextWidget",{
 	width: '100%',
     height: '100%',
     header: {
-        hidden: true,
+        // hidden: true,
         titlePosition: 0,
         title: 'Text',
-        items:[{
-            xtype:'button',
-            text: 'Edit',
+        // items:[{
+        //     xtype:'button',
+        //     text: 'Edit',
+        //     handler: function(){
+        //         var me = this
+        //         pn = me.up().up().items.getAt(0)
+        //         var panel = new Ext.panel.Panel({
+        //             title: 'HTML Editor',
+        //             floating: true,
+        //             closable : true,
+        //             width: 473,
+        //             // height: 220,
+        //             default: '',
+        //             frame: true,
+        //             layout: 'fit',
+        //             items: [{
+        //                 xtype: 'button',
+        //                 margin: '10 0 0 0',
+        //                 text: 'Save HTML Contents',
+        //                 handler: function() {
+        //                     // me.el.setHtml(panel.items.getAt(1).getValue());
+        //                     me.up().up().items.getAt(0).setHtml(panel.items.getAt(1).getValue());
+        //                     panel.close();
+        //                 }
+        //             },{
+        //                 xtype: 'htmleditor',
+        //                 enableColors: true,
+        //                 enableAlignments: true,
+        //                 enableLists: true,
+        //                 enableSourceEdit: true
+        //             }]
+        //         });
+        //         panel.items.getAt(1).setValue(pn.el.getHtml());
+        //         panel.show();
+        //         panel.center();
+                       
+        //     }
+        // },{
+        //     xtype:'button',
+        //     text: 'Delete',
+        //     margin: '0 0 0 5',
+        //     handler: function(){
+        //         var theme = this.up().up().up();
+        //         var indx = theme.items.indexOf(this.up().up());
+        //         theme.remove(this.up().up());
+        //         theme.insert(indx,{
+        //             xtype: "dropPanel",
+        //             cls: "dropPanel",
+        //             height: '100%',
+        //             margin: 5
+        //         });
+        //     }
+        // }]
+    },
+    tools: [
+        {
+            type:'gear',
             handler: function(){
                 var me = this
                 pn = me.up().up().items.getAt(0)
+
+                // var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
+                // var panel = editor_settings.down('#editor_setting_panel');
+                // panel.removeAll();
+                // panel.add({
+                //     xtype: 'panel',
+                //     title: 'HTML Editor',
+                //     closable : true,
+                //     layout: 'vbox',
+                //     listeners: {
+                //     'close': function() {
+                //             var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0]
+                //             editor_settings.setActiveItem(0)
+                //         }
+                //     },
+                //     items: [{
+                //         xtype: 'button',
+                //         margin: '10 0 0 0',
+                //         text: 'Save HTML Contents',
+                //         handler: function() {
+                //             // me.el.setHtml(panel.items.getAt(1).getValue());
+                //             me.up().up().items.getAt(0).setHtml(this.up().items.getAt(1).getValue());
+                //             this.up().close();
+                //         }
+                //     },{
+                //         xtype: 'htmleditor',
+                //         width: '100%',
+                //         enableColors: true,
+                //         enableAlignments: true,
+                //         enableLists: true,
+                //         enableSourceEdit: true,
+                //         value: pn.el.getHtml(),
+                //         layout: {
+                //             type: 'vbox',
+                //             // align: 'left'
+                //         }
+                //     }]
+                // });
+
+                // editor_settings.setActiveItem(1)
+
                 var panel = new Ext.panel.Panel({
                     title: 'HTML Editor',
                     floating: true,
                     closable : true,
-                    width: 473,
-                    // height: 220,
+                    width: 800,
+                    height: 400,
                     default: '',
                     frame: true,
-                    layout: 'fit',
+                    layout: 'vbox',
                     items: [{
-                        xtype: 'button',
-                        margin: '10 0 0 0',
-                        text: 'Save HTML Contents',
-                        handler: function() {
-                            // me.el.setHtml(panel.items.getAt(1).getValue());
-                            me.up().up().items.getAt(0).setHtml(panel.items.getAt(1).getValue());
-                            panel.close();
-                        }
-                    },{
                         xtype: 'htmleditor',
                         enableColors: true,
                         enableAlignments: true,
                         enableLists: true,
-                        enableSourceEdit: true
+                        enableSourceEdit: true,
+                        width: '100%',
+                        height: 320
+                    },{
+                        xtype: 'button',
+                        width: '100%',
+                        style: {
+                            right: 0
+                        },
+                        text: 'Save HTML Contents',
+                        handler: function() {
+                            // me.el.setHtml(panel.items.getAt(1).getValue());
+                            me.up().up().items.getAt(0).setHtml(panel.items.getAt(0).getValue());
+                            panel.close();
+                        }
                     }]
                 });
-                panel.items.getAt(1).setValue(pn.el.getHtml());
+                panel.items.getAt(0).setValue(pn.el.getHtml());
                 panel.show();
                 panel.center();
                        
             }
         },{
-            xtype:'button',
-            text: 'Delete',
-            margin: '0 0 0 5',
+            type:'close',
             handler: function(){
                 var theme = this.up().up().up();
                 var indx = theme.items.indexOf(this.up().up());
@@ -59,8 +157,8 @@ Ext.define("CaptivePortal.view.editor.TextWidget",{
                     margin: 5
                 });
             }
-        }]
-    },
+        }
+    ],
     border: true,
     items: [{
         // xtype: "panel",
@@ -75,21 +173,21 @@ Ext.define("CaptivePortal.view.editor.TextWidget",{
 
     }],
     listeners: {
-        afterrender: function(panel) {
-            var header = panel.getHeader();
-            panel.getEl().on('mouseover', function() {
-                // header.getTools().forEach(function(tool) {
-                //     tool.show();
-                header.show()
-                console.log(header);
-                // })
-            }, this);
-            panel.getEl().on('mouseout', function() {
-                // header.getTools().forEach(function(tool) {
-                //     tool.hide();
-                // })
-                header.hide();
-            }, this);
-        }
+        // afterrender: function(panel) {
+        //     var header = panel.getHeader();
+        //     panel.getEl().on('mouseover', function() {
+        //         // header.getTools().forEach(function(tool) {
+        //         //     tool.show();
+        //         header.show()
+        //         console.log(header);
+        //         // })
+        //     }, this);
+        //     panel.getEl().on('mouseout', function() {
+        //         // header.getTools().forEach(function(tool) {
+        //         //     tool.hide();
+        //         // })
+        //         header.hide();
+        //     }, this);
+        // }
     }
 });

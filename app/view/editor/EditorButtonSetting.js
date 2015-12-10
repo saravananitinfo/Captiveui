@@ -8,6 +8,56 @@ Ext.define("CaptivePortal.view.editor.EditorButtonSetting",{
     initComponent: function () {
         var btn_json = Ext.decode(this.btn_json);
         this.items = [
+            // {
+            //     xtype: 'panel',
+            //     layout: 'vbox',
+            //     width: '100%',
+            //     items: [
+            //         {
+            //             xtype: 'label',
+            //             margin: '10 10 10 10',
+            //             text: 'Align'
+            //         },
+            //         {
+            //             xtype: 'panel',
+            //             margin: '0 10 0 10',
+            //             layout: 'hbox',
+            //             items: [
+            //                 {
+            //                     xtype: 'button',
+            //                     margin: '0 20 0 0',
+            //                     text: 'Left',
+            //                     handler: function(){
+            //                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
+            //                         var btn = button_panel.down('#button_panel')
+            //                         btn.el.dom.style.textAlign = 'left'
+            //                     }
+            //                 },
+            //                 {
+            //                     xtype: 'button',
+            //                     margin: '0 20 0 0',
+            //                     text: 'Center',
+            //                     handler: function(){
+            //                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
+            //                         var btn = button_panel.down('#button_panel')
+            //                         btn.el.dom.style.textAlign = 'center'
+            //                     }
+            //                 },
+            //                 {
+            //                     xtype: 'button',
+            //                     margin: '0 20 0 0',
+            //                     text: 'Right',
+            //                     handler: function(){
+            //                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
+            //                         var btn = button_panel.down('#button_panel')
+            //                         btn.el.dom.style.textAlign = 'right'
+            //                     }
+            //                 }
+            //             ]
+
+            //         }
+            //     ]
+            // },
             {
                 xtype: 'panel',
                 layout: 'vbox',
@@ -16,45 +66,24 @@ Ext.define("CaptivePortal.view.editor.EditorButtonSetting",{
                     {
                         xtype: 'label',
                         margin: '10 10 10 10',
-                        text: 'Align'
+                        text: 'Url'
                     },
                     {
-                        xtype: 'panel',
+                        xtype: 'textfield',
                         margin: '0 10 0 10',
-                        layout: 'hbox',
-                        items: [
-                            {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Left',
-                                handler: function(){
-                                    var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
-                                    var btn = button_panel.down('#button_panel')
-                                    btn.el.dom.style.textAlign = 'left'
-                                }
-                            },
-                            {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Center',
-                                handler: function(){
-                                    var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
-                                    var btn = button_panel.down('#button_panel')
-                                    btn.el.dom.style.textAlign = 'center'
-                                }
-                            },
-                            {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Right',
-                                handler: function(){
-                                    var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
-                                    var btn = button_panel.down('#button_panel')
-                                    btn.el.dom.style.textAlign = 'right'
-                                }
-                            }
-                        ]
+                        width: '100%',
+                        cls: 'btn_url',
+                        value: btn_json["url"],
+                        listeners: {
+                            'change': function(){
+                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
+                                // button_panel.down('#button_panel').el.query('a')[0].href = this.value
 
+                                var btn_json = Ext.decode(button_panel.button_json, true);
+                                btn_json['url'] = this.value;
+                                button_panel.button_json = JSON.stringify(btn_json);
+                            }
+                        }
                     }
                 ]
             },

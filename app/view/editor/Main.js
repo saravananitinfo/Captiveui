@@ -31,13 +31,17 @@ Ext.define('CaptivePortal.view.editor.Main', {
         		itemSelector: "div.dragItem",
         		ddGroup:"widgetGroup",
         		height: '100%',
-        		dataA: [{widgetDesc: "text_widget"},{widgetDesc: "img_widget"},{widgetDesc: "button_widget"}],
+        		dataA: [{widgetDesc: "text_widget"},{widgetDesc: "img_widget"},{widgetDesc: "button_widget"},{widgetDesc: "login_button_widget"}],
         		customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetDesc}" data-qtip="{widgetDesc}">',"</div>","</div>","</tpl>"]
 
         	},
         	{
         		xtype: "dropPanel",
         		ddGroup:"themeGroup",
+                bodyStyle: "background: #d6dfeb;",
+                // style: {
+                //     background: '#b6b6cf'
+                // },
         		reference: 'editor_canvas',
         		width: '70%',
         		height: '100%',

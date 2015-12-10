@@ -9,5 +9,10 @@ Ext.define("CaptivePortal.view.editor.DropPanel",{
         render: "onRender"
     },
     layout: "fit",
-    style: "border: 1px dashed #d6dfeb"
+    // style: "border: 1px dashed #03142a"
+
+    // style: "border: 1px dashed #d6dfeb" // original
+    style: 'border: 1px dashed #03142a;background: transparent',
+
+    bodyStyle: "background: transparent"
 });

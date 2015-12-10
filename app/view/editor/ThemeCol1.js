@@ -6,6 +6,7 @@ Ext.define("CaptivePortal.view.editor.ThemeCol1",{
     layout: "vbox",
     resizable: true,
     resizeHandles: 'n s',
+    bodyStyle: "background: transparent;",
     // dockedItems: [
     //     {
     //         xtype: 'panel',

@@ -6,17 +6,39 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     header: {
         titlePosition: 0,
         title: 'Image',
-        items:[{
-            xtype:'button',
-            text: 'Upload Img',
+        // items:[{
+        //     xtype:'button',
+        //     text: 'Upload Img',
+        //     handler: function(){
+                
+                       
+        //     }
+        // },{
+        //     xtype:'button',
+        //     text: 'Delete',
+        //     margin: '0 0 0 5',
+        //     handler: function(){
+        //         var theme = this.up().up().up();
+        //         var indx = theme.items.indexOf(this.up().up());
+        //         theme.remove(this.up().up());
+        //         theme.insert(indx,{
+        //             xtype: "dropPanel",
+        //             cls: "dropPanel",
+        //             height: '100%',
+        //             margin: 5
+        //         });
+        //     }
+        // }]
+    },
+    tools: [
+        {
+            type:'gear',
             handler: function(){
                 
                        
             }
         },{
-            xtype:'button',
-            text: 'Delete',
-            margin: '0 0 0 5',
+            type:'close',
             handler: function(){
                 var theme = this.up().up().up();
                 var indx = theme.items.indexOf(this.up().up());
@@ -28,8 +50,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                     margin: 5
                 });
             }
-        }]
-    },
+        }
+    ],
     border: true,
     items: [{
 

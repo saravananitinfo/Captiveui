@@ -34,6 +34,9 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                 }, {
                     name: 'Access Time Policy',
                     itemname: 'time_policy'
+                }, {
+                    name: 'Radius VSA',
+                    itemname: 'radius_configuration'
                 }]
         }, {
             id: 3,

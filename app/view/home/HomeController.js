@@ -77,6 +77,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Template Management');
                 this.fireEvent('setTemplateMgmtActiveItem',0);
                 break;
+            case "radius_configuration":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_radius_vsa_main');
+                this.getView().lookupReference('lab_heading').setText('Radius VSA');                
+                this.fireEvent('setRadiusVSAActiveItem',0);
+                break;
         }
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {

@@ -9,6 +9,27 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
             }
         }
     },
+    RuleGrpRuleItemClick: function (view, record, item, index, e, eOpts) {
+        var me = this;
+        var action = e.target.getAttribute('action');
+        if (action) {
+            if (action == "edit") {
+                this.fireEvent('setRuleGroupActiveItem', 2);
+                Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Rule');
+                this.fireEvent('loadRuleRecToForm',record);
+            } else if (action == "delete"){
+                this.deleteRuleGrpRule(view, record, item, index, e, eOpts);
+            } 
+        }
+    },
+    deleteRuleGrpRule: function (view, record, item, index, e, eOpts) {
+        record.store.remove(record);
+    },
+    addNewRuleForGroup: function(){
+        this.fireEvent('setRuleGroupActiveItem', 2);
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New Rule');
+        this.fireEvent('createNewRuleForm');
+    },
     navigateToIndexPage:function(isReload){
         this.fireEvent('setRuleGroupActiveItem', 0);
         Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Splash Display');
@@ -29,6 +50,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
     initiateForm: function(){
         var form = this.getView().down('form');
         form.reset();
+        form.down('grid').store.loadRawData([]);
     },
     saveRuleGroup: function(btn){
         var form = btn.up('form'), data, isEdit = false;

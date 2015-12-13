@@ -14,6 +14,9 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             menuitem: [{
                     name: 'Template',
                     itemname: 'templates'
+                }, {
+                    name: 'Rule Group',
+                    itemname: 'rule_group'
                 }]
         }, {
             id: 2,

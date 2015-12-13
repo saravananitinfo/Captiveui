@@ -82,6 +82,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Radius VSA');                
                 this.fireEvent('setRadiusVSAActiveItem',0);
                 break;
+            case "rule_group":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_rule_group_main');
+                this.getView().lookupReference('lab_heading').setText('Splash Display');                
+                this.fireEvent('setRuleGroupActiveItem',0);
+                break;
         }
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {

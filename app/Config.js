@@ -87,5 +87,12 @@ Ext.define('CaptivePortal.Config', {
         DELETE_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas/',
         EDIT_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas/',
         UPDATE_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas/',
+
+
+        //Rule Group
+        SAVE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups.json',
+        GET_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups.json',
+        NEW_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/new.json',
+        DELETE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
 	}
 });

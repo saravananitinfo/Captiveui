@@ -61,6 +61,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'radius_vsa_main',
                     itemId: 'access_radius_vsa_main'
                 })
+            } else if ("rule_group" === permission.access_for) {
+                panel.add({
+                    xtype: 'rule_group_main',
+                    itemId: 'access_rule_group_main'
+                })
             }
         });
     }

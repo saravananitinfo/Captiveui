@@ -7,6 +7,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
 	width: '100%',
     height: '100%',
     cls: 'button_widget',
+    bodyStyle: "background: transparent;",
     // layout: 'hbox',
     button_json: '{"text":"Default","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
     // style: 'border: solid 1px gray',

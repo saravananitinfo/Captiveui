@@ -1,6 +1,9 @@
 Ext.define("CaptivePortal.view.editor.MainController",{
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.editor_main_controller',
+    requires: [
+        'CaptivePortal.view.editor.PageSettings'
+    ],
     saveEditorHtml: function(){
     	var canvas = this.getView().lookupReference('editor_canvas');
     	console.log(canvas);
@@ -34,5 +37,17 @@ Ext.define("CaptivePortal.view.editor.MainController",{
     },
     closeEditor: function(){
     	console.log("........closeEditor.........");
+    },
+    pageSettings: function(){
+        var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
+        var editor_setting_panel = Ext.ComponentQuery.query('#editor_setting_panel')[0];
+        console.log(editor_setting_panel);
+        editor_setting_panel.removeAll();
+        editor_setting_panel.add({
+            xtype: 'page_settings'
+        });
+
+        editor_settings.setActiveItem(1)
+
     }
 });

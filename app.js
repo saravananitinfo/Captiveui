@@ -47,5 +47,7 @@ Ext.application({
             return view;
         };
         vp.add(validateSignIn());
+
+        // vp.add(Ext.create('CaptivePortal.view.editor.Main'));
     }
 });

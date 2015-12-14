@@ -12,7 +12,12 @@ Ext.define('CaptivePortal.view.editor.Main', {
     header: {
         items: [{
             xtype:'button',
+            text: 'Page Settings',
+            handler: "pageSettings"
+        },{
+            xtype:'button',
             text: 'Save',
+            margin: '0 0 0 5',
             handler: "saveEditorHtml"
         },{
             xtype:'button',
@@ -38,7 +43,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
         	{
         		xtype: "dropPanel",
         		ddGroup:"themeGroup",
-                bodyStyle: "background: #d6dfeb;",
+                // bodyStyle: "background: #ffffff",
                 // style: {
                 //     background: '#b6b6cf'
                 // },

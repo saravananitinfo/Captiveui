@@ -8,7 +8,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
     initComponent: function () {
         var btn_json = Ext.decode(this.btn_json);
         this.items = [
-
+            
         ]
         this.callParent(arguments);
     }

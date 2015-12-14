@@ -6,6 +6,7 @@ Ext.define("CaptivePortal.view.editor.ThemeCol4",{
     layout: "hbox",
     resizable: true,
     resizeHandles: 'n s',
+    bodyStyle: "background: transparent;",
     defaults: {
         ddGroup: "widgetGroup",
         width: "50%",

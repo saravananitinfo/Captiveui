@@ -3,6 +3,7 @@ Ext.define("CaptivePortal.view.editor.TextWidget",{
 	alias: 'widget.text_widget',
 	width: '100%',
     height: '100%',
+    bodyStyle: "background: transparent;",
     header: {
         // hidden: true,
         titlePosition: 0,

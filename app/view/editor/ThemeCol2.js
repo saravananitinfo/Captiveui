@@ -15,6 +15,7 @@ Ext.define("CaptivePortal.view.editor.ThemeCol2",{
         // }
     },
     resizeHandles: 'n s',
+    bodyStyle: "background: transparent;",
     defaults: {
         ddGroup: "widgetGroup",
         width: "50%",

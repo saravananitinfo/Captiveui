@@ -1,8 +1,13 @@
 Ext.define("CaptivePortal.view.editor.ImgWidget",{
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.img_widget',
+    requires: [
+        'CaptivePortal.view.editor.ImgWidgetSetting'
+    ],
 	width: '100%',
     height: '100%',
+    cls: 'img_widget',
+    bodyStyle: "background: transparent;",
     header: {
         titlePosition: 0,
         title: 'Image',
@@ -34,8 +39,14 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         {
             type:'gear',
             handler: function(){
-                
-                       
+                var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
+                var editor_setting_panel = Ext.ComponentQuery.query('#editor_setting_panel')[0];
+                editor_setting_panel.removeAll();
+                editor_setting_panel.add({
+                    xtype: 'img_widget_setting',
+                    img_widget_id: this.up(".img_widget").id
+                });
+                editor_settings.setActiveItem(1);
             }
         },{
             type:'close',
@@ -54,11 +65,10 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     ],
     border: true,
     items: [{
-
         xtype: 'component',
+        style: 'text-align:center;',
         itemId: "img_panel",
         padding: 10,
-        bodyStyle: "background-image:url(http://cdn.flaticon.com/png/256/16410.png) !important",
-        height:300,
+        html: '<img class="img" style="height: 150px;" src="http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116"></img>'
     }]
 });

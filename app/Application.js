@@ -28,7 +28,9 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.access_point.AccessPoints',
         'CaptivePortal.store.accesstimepolicy.TimePolicy',
         'Template',
-        'CaptivePortal.store.template_mgmt.TemplateMgmt'
+        'CaptivePortal.store.template_mgmt.TemplateMgmt',
+        'CaptivePortal.store.radius_vsa.RadiusVSA',
+        'CaptivePortal.store.rule_group.RuleGroup'
     ],
     launch: function () {
         // TODO - Launch the application

@@ -5,6 +5,12 @@ Ext.define('CaptivePortal.util.Utility', {
     config: {
         myMask: null
     },
+    showServerError: function(response){
+        var resObj = Ext.decode(response.responseText);
+        if (!resObj.success && resObj.error.length) {
+            CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+        }
+    },
     setValuesForCookies: function (obj) {
         var currentTime = new Date();
         var expires = new Date(currentTime.getTime() + (7 * 24 * 60 * 60 * 1000));
@@ -41,10 +47,25 @@ Ext.define('CaptivePortal.util.Utility', {
         };
         this.setValuesForCookies(cookieObj)
     },
+    addRulegroupForAccess: function(list){
+        var templateFound = false, readPer, writePer;
+        Ext.Array.each(list, function(rec, index){
+            if(rec.access_for === 'templates'){
+                readPer = rec.read;
+                writePer = rec.write;
+                templateFound = true;
+                return false;
+            }
+        });
+        if(templateFound){
+            list.push({access_for : 'rule_group', read : readPer, write : writePer});
+        }
+    },
     setNormalUserDetails: function (profile) {
         CaptivePortal.app.setUserName(profile.name);
         CaptivePortal.app.setUserRole(profile.user_role);
         CaptivePortal.app.setAccessPermissionList(profile.access_permission_list);
+        this.addRulegroupForAccess(profile.access_permission_list);
         CaptivePortal.app.setUserPermittedList(profile.permitted_roles);
         CaptivePortal.app.setUserAuthorisedIPs(profile.authorized_ips);
         CaptivePortal.app.setUserProfileID(profile.id);
@@ -55,6 +76,8 @@ Ext.define('CaptivePortal.util.Utility', {
         CaptivePortal.app.setUserName(resObj.email);
         CaptivePortal.app.setUserRole(resObj.user_role);
         CaptivePortal.app.setAccessPermissionList(resObj.access_permission_list);
+        this.addRulegroupForAccess(resObj.access_permission_list);
+
     },
     doLoginForLoggedUser: function () {
         var me = this;

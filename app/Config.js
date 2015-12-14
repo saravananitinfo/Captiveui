@@ -80,5 +80,19 @@ Ext.define('CaptivePortal.Config', {
         EDIT_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
         UPDATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
         DUPLICATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
+
+        // Radius config
+        SAVE_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas.json',
+        GET_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas.json',
+        DELETE_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas/',
+        EDIT_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas/',
+        UPDATE_RADIUS_VSA:CaptivePortal.util.Utility.BASE_URL + 'radius_vsas/',
+
+
+        //Rule Group
+        SAVE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups.json',
+        GET_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups.json',
+        NEW_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/new.json',
+        DELETE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
 	}
 });

@@ -14,6 +14,9 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             menuitem: [{
                     name: 'Template',
                     itemname: 'templates'
+                }, {
+                    name: 'Rule Group',
+                    itemname: 'rule_group'
                 }]
         }, {
             id: 2,
@@ -34,6 +37,9 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                 }, {
                     name: 'Access Time Policy',
                     itemname: 'time_policy'
+                }, {
+                    name: 'Radius VSA',
+                    itemname: 'radius_configuration'
                 }]
         }, {
             id: 3,

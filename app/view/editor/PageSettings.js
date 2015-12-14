@@ -54,8 +54,8 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 		          	name: 'file_data',
 		          	emptyText: "Select Image",
 		          	width: 300,
-								hideLabel: true,
-								itemId: 'upload_field'
+					hideLabel: true,
+					itemId: 'upload_field'
 		          }
 		        ]
 	        },
@@ -67,7 +67,6 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 		          	text: 'Upload',
 		          	handler: function(){
 		          		var page_setting = Ext.ComponentQuery.query('#page_setting')[0]
-		          		// window.abc = page_setting;
 		          		file = page_setting.el.down('input[type=file]').dom.files[0];
 		          		console.log(file);
 		          		var reader = new FileReader();

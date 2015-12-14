@@ -51,6 +51,20 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         },{
             type:'close',
             handler: function(){
+                var setting = Ext.ComponentQuery.query('#editor_settings')[0];
+                console.log(setting.getLayout().activeItem);
+
+                if(setting.getLayout().getActiveItem().itemId === 'editor_setting_panel'){
+                    var button_setting = setting.getLayout().getActiveItem().down('img_widget_setting')
+                    if(button_setting){
+                        if(setting.getLayout().getActiveItem().down('img_widget_setting').img_widget_id == this.up('.img_widget').id){
+                            setting.setActiveItem(0);
+                        }
+                    }
+                }
+
+
+                
                 var theme = this.up().up().up();
                 var indx = theme.items.indexOf(this.up().up());
                 theme.remove(this.up().up());
@@ -64,11 +78,56 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         }
     ],
     border: true,
-    items: [{
-        xtype: 'component',
-        style: 'text-align:center;',
-        itemId: "img_panel",
-        padding: 10,
-        html: '<img class="img" style="height: 150px;" src="http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116"></img>'
-    }]
+    initComponent: function(){
+        var me= this;
+        this.items = [{
+            xtype: 'component',
+
+            autoEl: {
+                tag: "div",
+                style: {
+                    display: 'inline-block'
+                }
+            },
+            draggable: {
+                constrain: true,
+                constrainTo: me.el,
+                listeners: {
+                    'dragend': function( ths, e, eOpts ){
+                        
+                    }
+                }
+            },
+
+            style: 'text-align:center;',
+            itemId: "img_panel",
+            // padding: 10,
+            html: '<img class="img" width="100%" src="http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116"></img>'
+        }]
+        this.callParent();
+    }
+    // items: [{
+    //     xtype: 'component',
+
+    //     autoEl: {
+    //         tag: "div",
+    //         style: {
+    //             display: 'inline-block'
+    //         }
+    //     },
+    //     draggable: {
+    //         constrain: true,
+    //         // constrainTo: me.el,
+    //         listeners: {
+    //             'dragend': function( ths, e, eOpts ){
+                    
+    //             }
+    //         }
+    //     },
+
+    //     style: 'text-align:center;',
+    //     itemId: "img_panel",
+    //     // padding: 10,
+    //     html: '<img class="img" style="height: 150px;" src="http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116"></img>'
+    // }]
 });

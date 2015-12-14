@@ -30,7 +30,8 @@ Ext.define('CaptivePortal.Application', {
         'Template',
         'CaptivePortal.store.template_mgmt.TemplateMgmt',
         'CaptivePortal.store.radius_vsa.RadiusVSA',
-        'CaptivePortal.store.rule_group.RuleGroup'
+        'CaptivePortal.store.rule_group.RuleGroup',
+        'CaptivePortal.store.editor.LoginButtonTypes'
     ],
     launch: function () {
         // TODO - Launch the application

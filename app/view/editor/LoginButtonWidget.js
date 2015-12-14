@@ -8,7 +8,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     height: '100%',
     cls: 'login_button_widget',
     bodyStyle: "background: transparent;",
-    button_json: '{"text":"Default"}',
+    button_json: '{"text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
     header: {
         titlePosition: 0,
         title: 'Login Button'
@@ -46,8 +46,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
             console.log(setting.getLayout().activeItem);
 
             if(setting.getLayout().getActiveItem().itemId === 'editor_setting_panel'){
-                if(setting.getLayout().getActiveItem().down('login_button_setting').button_id == this.up('.login_button_widget').id){
-                    setting.setActiveItem(0);
+                var login_button_setting = setting.getLayout().getActiveItem().down('login_button_setting')
+                if(login_button_setting){
+                    if(setting.getLayout().getActiveItem().down('login_button_setting').button_id == this.up('.login_button_widget').id){
+                        setting.setActiveItem(0);
+                    }
                 }
             }
 
@@ -70,7 +73,32 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
         var button_json = Ext.decode(me.button_json);
 
         this.items = [
-
+            {
+                xtype: 'component',
+                text: 'Default',
+                autoEl: {
+                    tag: "div",
+                    style: {
+                        display: 'inline-block',
+                        // top: button_json['top']+"px",
+                        // left: button_json['left']+"px"
+                    }
+                },
+                draggable: {
+                    constrain: true,
+                    constrainTo: me.el,
+                    listeners: {
+                        'dragend': function( ths, e, eOpts ){
+                            // var button_json = Ext.decode(me.button_json);
+                            // button_json['top'] = ths.dragTarget.offsetTop;
+                            // button_json['left'] = ths.dragTarget.offsetLeft;
+                            // me.button_json = JSON.stringify(button_json);
+                        }
+                    }
+                },
+                itemId: "button_panel",
+                html: '<a href="#"><button type="button" class="fbBtn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-facebook"></i></span><span class="text">Login</span></button></a>'
+            }
         ]
         this.callParent(arguments);
     }

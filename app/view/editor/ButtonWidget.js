@@ -115,8 +115,11 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
             console.log(setting.getLayout().activeItem);
 
             if(setting.getLayout().getActiveItem().itemId === 'editor_setting_panel'){
-                if(setting.getLayout().getActiveItem().down('editor_button_setting').button_id == this.up('.button_widget').id){
-                    setting.setActiveItem(0);
+                var button_setting = setting.getLayout().getActiveItem().down('editor_button_setting')
+                if(button_setting){
+                    if(setting.getLayout().getActiveItem().down('editor_button_setting').button_id == this.up('.button_widget').id){
+                        setting.setActiveItem(0);
+                    }
                 }
             }
 

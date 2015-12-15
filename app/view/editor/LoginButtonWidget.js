@@ -8,7 +8,8 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     height: '100%',
     cls: 'login_button_widget',
     bodyStyle: "background: transparent;",
-    button_json: '{"text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
+    button_json: '{"type":"Button","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
+    // button_json: '{"type":"Button","values": {}}',
     header: {
         titlePosition: 0,
         title: 'Login Button'

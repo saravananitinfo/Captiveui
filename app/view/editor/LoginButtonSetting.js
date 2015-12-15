@@ -1,12 +1,33 @@
 Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.login_button_setting',
+    requires: [
+        'CaptivePortal.view.editor.LoginLinkSettingPartial',
+        'CaptivePortal.view.editor.LoginButtonSettingPartial'
+    ],
 	title: 'Button Settings',
     closable : true,
     cls: 'login_button_setting',
     layout: 'vbox',
     initComponent: function () {
         var btn_json = Ext.decode(this.btn_json);
+
+        var button = {title: "Button", items: []};
+        var link = {title: "Link", items: []};
+        if(btn_json['type'] === 'Button'){
+            button["items"].push({
+                xtype: "login_button_setting_partial",
+                btn_json: btn_json
+            })
+        }else if(btn_json['type'] === 'Link'){
+            link["items"].push({
+                xtype: "login_link_setting_partial",
+                btn_json: btn_json
+            })
+        }
+
+        // var items = [button, link]
+
         this.items = [
             {
                 xtype: 'panel',
@@ -27,21 +48,32 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                         queryMode: 'local',
                         itemId: 'login_connect_type',
                         valueField: 'id',
-                        value: this.gateway_type ? this.gateway_type : 'fb',
+                        value: btn_json["connect"] ? btn_json["connect"] : 'fb',
                         displayField: 'name',
                         store: 'CaptivePortal.store.editor.LoginButtonTypes',
                         listeners: {
                             'select': function(combo, record, eOpts ){
                                 var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
+
                                 console.log("..........select ............");
                                 console.log(record);
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
-                                var login_button = button_panel.down('#button_panel').el.query('.edtBtn')[0];
-                                // window.abc = button_panel;
-                                login_button.className = record.id+'Btn'+' edtBtn btn-default';
-                                button_panel.down('#button_panel').el.query('i')[0].className = "fa fa-"+local[record.id];
 
-                                Ext.ComponentQuery.query("#"+this.up('.login_button_setting').el.down('.btn_text').id)[0].setValue('Login');
+                                var btn_json = Ext.decode(button_panel.button_json);
+                                btn_json["connect"] = record.id
+                                button_panel.button_json = JSON.stringify(btn_json);
+
+                                if(btn_json['type'] === 'Button'){
+                                    var login_button = button_panel.down('#button_panel').el.query('.edtBtn')[0];
+                                    login_button.className = record.id+'Btn'+' edtBtn btn-default';
+                                    button_panel.down('#button_panel').el.query('i')[0].className = "fa fa-"+local[record.id];
+
+                                    Ext.ComponentQuery.query("#"+this.up('.login_button_setting').el.down('.btn_text').id)[0].setValue('Login');
+                                }else if(btn_json['type'] === 'Link'){
+                                    var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                                    // window.abc = button_panel.down('#button_panel').el
+                                    button_panel.down('#button_panel').el.query('a')[0].textContent = 'Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[record.id]);
+                                }
                                 // window.abc = this.up('.login_button_setting');
                                 // login_button.classList.remove(record.id+'Btn')
                                 // login_button.classList.remove(record.id+'Btn')
@@ -54,228 +86,210 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                 xtype: 'tabpanel',
                 width: '100%',
                 margin: '10 0 0 0',
+                activeTab: btn_json["active_tab"],
                 items: [
-                    {
-                        title: "Button",
-                        items: [
-                            {
-                                xtype: 'panel',
-                                layout: 'vbox',
-                                width: '100%',
-                                items: [
-                                    {
-                                        xtype: 'label',
-                                        margin: '10 10 10 10',
-                                        text: 'Text'
-                                    },
-                                    {
-                                        xtype: 'textfield',
-                                        margin: '0 10 0 10',
-                                        width: '100%',
-                                        cls: 'btn_text',
-                                        value: btn_json["text"],
-                                        listeners: {
-                                            'change': function(){
-                                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                                button_panel.down('#button_panel').el.query('.text')[0].textContent = this.value
-                                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                                btn_json['text'] = this.value;
-                                                button_panel.button_json = JSON.stringify(btn_json);
-                                            }
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                xtype: 'panel',
-                                layout: 'vbox',
-                                width: '100%',
-                                items: [
-                                    {
-                                        xtype: 'label',
-                                        margin: '10 10 10 10',
-                                        text: 'Font Size'
-                                    },
-                                    {
-                                        xtype: 'numberfield',
-                                        margin: '0 10 0 10',
-                                        width: '100%',
-                                        minValue: 0,
-                                        value: btn_json["font_size"],
-                                        listeners: {
-                                            'change': function(ths, newValue, oldValue, eOpts){
-                                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                                var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
-                                                btn.style.fontSize = newValue+"px"
-
-                                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                                btn_json['font_size'] = newValue;
-                                                button_panel.button_json = JSON.stringify(btn_json);
-                                            }
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                xtype: 'panel',
-                                layout: 'vbox',
-                                width: '100%',
-                                items: [
-                                    {
-                                        xtype: 'label',
-                                        margin: '10 10 10 10',
-                                        text: 'Radius'
-                                    },
-                                    {
-                                        xtype: 'numberfield',
-                                        margin: '0 10 0 10',
-                                        width: '100%',
-                                        minValue: 0,
-                                        value: btn_json["border_radius"],
-                                        listeners: {
-                                            'change': function(ths, newValue, oldValue, eOpts){
-                                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                                var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
-                                                btn.style.borderRadius = newValue+"px"
-
-                                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                                btn_json['border_radius'] = newValue;
-                                                button_panel.button_json = JSON.stringify(btn_json);
-                                            }
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                xtype: 'panel',
-                                layout: 'vbox',
-                                width: '100%',
-                                items: [
-                                    {
-                                        xtype: 'label',
-                                        margin: '10 10 10 10',
-                                        text: 'Size'
-                                    },
-                                    {
-                                        xtype: 'sliderfield',
-                                        margin: '0 10 0 10',
-                                        width: '100%',
-                                        value: btn_json["padding_val"],
-                                        increment: 5,
-                                        minValue: 0,
-                                        maxValue: 25,
-                                        listeners: {
-                                            change: function(slider, newValue, thumb, eOpts){
-                                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                                var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
-                                                var newPadding = newValue+"px"+" "+newValue*2+"px"
-                                                btn.style.padding = newPadding
-
-                                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                                btn_json['padding_val'] = newValue;
-                                                button_panel.button_json = JSON.stringify(btn_json);
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        title: "Link",
-                        items: [
-                            {
-                                xtype: 'panel',
-                                layout: 'vbox',
-                                width: '100%',
-                                items: [
-                                    {
-                                        xtype: 'panel',
-                                        layout: 'vbox',
-                                        width: '100%',
-                                        items: [
-                                            {
-                                                xtype: 'label',
-                                                margin: '10 10 10 10',
-                                                text: 'Text'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                margin: '0 10 0 10',
-                                                width: '100%',
-                                                cls: 'btn_text',
-                                                // value: btn_json["text"],
-                                                listeners: {
-                                                    'change': function(){
-                                                        var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                                        button_panel.down('#button_panel').el.query('.a')[0].textContent = this.value
-                                                        var btn_json = Ext.decode(button_panel.button_json, true);
-                                                        btn_json['text'] = this.value;
-                                                        button_panel.button_json = JSON.stringify(btn_json);
-                                                    }
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        xtype: 'panel',
-                                        layout: 'vbox',
-                                        width: '100%',
-                                        items: [
-                                            {
-                                                xtype: 'label',
-                                                margin: '10 10 10 10',
-                                                text: 'Font Size'
-                                            },
-                                            {
-                                                xtype: 'numberfield',
-                                                margin: '0 10 0 10',
-                                                width: '100%',
-                                                minValue: 0,
-                                                // value: btn_json["font_size"],
-                                                listeners: {
-                                                    'change': function(ths, newValue, oldValue, eOpts){
-                                                        var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                                        var btn = button_panel.down('#button_panel').el.query('a')[0]
-                                                        btn.style.fontSize = newValue+"px"
-
-                                                        var btn_json = Ext.decode(button_panel.button_json, true);
-                                                        btn_json['font_size'] = newValue;
-                                                        button_panel.button_json = JSON.stringify(btn_json);
-                                                    }
-                                                }
-                                            }
-                                        ]
-                                    }
-                                    // {
-                                    //     xtype: 'label',
-                                    //     margin: '10 10 10 10',
-                                    //     text: 'Font Size'
-                                    // },
-                                    // {
-                                    //     xtype: 'numberfield',
-                                    //     margin: '0 10 0 10',
-                                    //     width: '100%',
-                                    //     minValue: 0,
-                                    //     value: btn_json["font_size"],
-                                    //     listeners: {
-                                    //         'change': function(ths, newValue, oldValue, eOpts){
-                                    //             var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                    //             var btn = button_panel.down('#button_panel').el.query('a')[0]
-                                    //             btn.style.fontSize = newValue+"px"
-
-                                    //             var btn_json = Ext.decode(button_panel.button_json, true);
-                                    //             btn_json['font_size'] = newValue;
-                                    //             button_panel.button_json = JSON.stringify(btn_json);
-                                    //         }
-                                    //     }
-                                    // }
-                                ]
-                            }
-                        ]
-
-                    }
+                    button,
+                    link
                 ],
+                // items: [
+                //     {
+                //         title: "Button",
+                //         items: [
+                //             {
+                //                 xtype: 'panel',
+                //                 layout: 'vbox',
+                //                 width: '100%',
+                //                 items: [
+                //                     {
+                //                         xtype: 'label',
+                //                         margin: '10 10 10 10',
+                //                         text: 'Text'
+                //                     },
+                //                     {
+                //                         xtype: 'textfield',
+                //                         margin: '0 10 0 10',
+                //                         width: '100%',
+                //                         cls: 'btn_text',
+                //                         value: btn_json["text"],
+                //                         listeners: {
+                //                             'change': function(){
+                //                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                //                                 button_panel.down('#button_panel').el.query('.text')[0].textContent = this.value
+                //                                 var btn_json = Ext.decode(button_panel.button_json, true);
+                //                                 btn_json['text'] = this.value;
+                //                                 button_panel.button_json = JSON.stringify(btn_json);
+                //                             }
+                //                         }
+                //                     }
+                //                 ]
+                //             },
+                //             {
+                //                 xtype: 'panel',
+                //                 layout: 'vbox',
+                //                 width: '100%',
+                //                 items: [
+                //                     {
+                //                         xtype: 'label',
+                //                         margin: '10 10 10 10',
+                //                         text: 'Font Size'
+                //                     },
+                //                     {
+                //                         xtype: 'numberfield',
+                //                         margin: '0 10 0 10',
+                //                         width: '100%',
+                //                         minValue: 0,
+                //                         value: btn_json["font_size"],
+                //                         listeners: {
+                //                             'change': function(ths, newValue, oldValue, eOpts){
+                //                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                //                                 var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
+                //                                 btn.style.fontSize = newValue+"px"
+
+                //                                 var btn_json = Ext.decode(button_panel.button_json, true);
+                //                                 btn_json['font_size'] = newValue;
+                //                                 button_panel.button_json = JSON.stringify(btn_json);
+                //                             }
+                //                         }
+                //                     }
+                //                 ]
+                //             },
+                //             {
+                //                 xtype: 'panel',
+                //                 layout: 'vbox',
+                //                 width: '100%',
+                //                 items: [
+                //                     {
+                //                         xtype: 'label',
+                //                         margin: '10 10 10 10',
+                //                         text: 'Radius'
+                //                     },
+                //                     {
+                //                         xtype: 'numberfield',
+                //                         margin: '0 10 0 10',
+                //                         width: '100%',
+                //                         minValue: 0,
+                //                         value: btn_json["border_radius"],
+                //                         listeners: {
+                //                             'change': function(ths, newValue, oldValue, eOpts){
+                //                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                //                                 var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
+                //                                 btn.style.borderRadius = newValue+"px"
+
+                //                                 var btn_json = Ext.decode(button_panel.button_json, true);
+                //                                 btn_json['border_radius'] = newValue;
+                //                                 button_panel.button_json = JSON.stringify(btn_json);
+                //                             }
+                //                         }
+                //                     }
+                //                 ]
+                //             },
+                //             {
+                //                 xtype: 'panel',
+                //                 layout: 'vbox',
+                //                 width: '100%',
+                //                 items: [
+                //                     {
+                //                         xtype: 'label',
+                //                         margin: '10 10 10 10',
+                //                         text: 'Size'
+                //                     },
+                //                     {
+                //                         xtype: 'sliderfield',
+                //                         margin: '0 10 0 10',
+                //                         width: '100%',
+                //                         value: btn_json["padding_val"],
+                //                         increment: 5,
+                //                         minValue: 0,
+                //                         maxValue: 25,
+                //                         listeners: {
+                //                             change: function(slider, newValue, thumb, eOpts){
+                //                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                //                                 var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
+                //                                 var newPadding = newValue+"px"+" "+newValue*2+"px"
+                //                                 btn.style.padding = newPadding
+
+                //                                 var btn_json = Ext.decode(button_panel.button_json, true);
+                //                                 btn_json['padding_val'] = newValue;
+                //                                 button_panel.button_json = JSON.stringify(btn_json);
+                //                             }
+                //                         }
+                //                     }
+                //                 ]
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         title: "Link",
+                //         items: [
+                //             {
+                //                 xtype: 'panel',
+                //                 layout: 'vbox',
+                //                 width: '100%',
+                //                 items: [
+                //                     {
+                //                         xtype: 'panel',
+                //                         layout: 'vbox',
+                //                         width: '100%',
+                //                         items: [
+                //                             {
+                //                                 xtype: 'label',
+                //                                 margin: '10 10 10 10',
+                //                                 text: 'Text'
+                //                             },
+                //                             {
+                //                                 xtype: 'textfield',
+                //                                 margin: '0 10 0 10',
+                //                                 width: '100%',
+                //                                 cls: 'btn_text',
+                //                                 value: btn_json["text"],
+                //                                 listeners: {
+                //                                     'change': function(){
+                //                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                //                                         button_panel.down('#button_panel').el.query('.a')[0].textContent = this.value
+                //                                         var btn_json = Ext.decode(button_panel.button_json, true);
+                //                                         btn_json['text'] = this.value;
+                //                                         button_panel.button_json = JSON.stringify(btn_json);
+                //                                     }
+                //                                 }
+                //                             }
+                //                         ]
+                //                     },
+                //                     {
+                //                         xtype: 'panel',
+                //                         layout: 'vbox',
+                //                         width: '100%',
+                //                         items: [
+                //                             {
+                //                                 xtype: 'label',
+                //                                 margin: '10 10 10 10',
+                //                                 text: 'Font Size'
+                //                             },
+                //                             {
+                //                                 xtype: 'numberfield',
+                //                                 margin: '0 10 0 10',
+                //                                 width: '100%',
+                //                                 minValue: 0,
+                //                                 value: btn_json["font_size"],
+                //                                 listeners: {
+                //                                     'change': function(ths, newValue, oldValue, eOpts){
+                //                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                //                                         var btn = button_panel.down('#button_panel').el.query('a')[0]
+                //                                         btn.style.fontSize = newValue+"px"
+
+                //                                         var btn_json = Ext.decode(button_panel.button_json, true);
+                //                                         btn_json['font_size'] = newValue;
+                //                                         button_panel.button_json = JSON.stringify(btn_json);
+                //                                     }
+                //                                 }
+                //                             }
+                //                         ]
+                //                     }
+                //                 ]
+                //             }
+                //         ]
+
+                //     }
+                // ],
                 listeners: {
                     'tabchange': function(tabPanel, newCard, oldCard, eOpts){
                         var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
@@ -284,12 +298,43 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                         console.log(connect_type);
                         switch(newCard.title){
                             case "Link":
+                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                                var btn_json = Ext.decode(button_panel.button_json, true);
+                                btn_json["type"] = "Link";
+                                btn_json["active_tab"] = 1;
+                                btn_json["text"] = 'Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[connect_type.value]);
+                                btn_json["font_size"] = 13;
+                                button_panel.button_json = JSON.stringify(btn_json)
+
+                                newCard.removeAll();
+                                newCard.add({
+                                    xtype: 'login_link_setting_partial',
+                                    btn_json: btn_json
+                                })
+
+
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
                                 var btn = button_panel.down('#button_panel').update('<a style="text-decoration: none;" href="#">Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[connect_type.value])+'</a>');
                                 newCard.down()
                                 break;
                             case "Button":
-                                var str = '<a href="#"><button type="button" class="fbBtn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-facebook"></i></span><span class="text">Login</span></button></a>'
+                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                                var btn_json = Ext.decode(button_panel.button_json, true);
+                                btn_json["type"] = "Button";
+                                btn_json["active_tab"] = 0;
+                                btn_json["text"] = "Login";
+                                btn_json["font_size"] = 13;
+                                button_panel.button_json = JSON.stringify(btn_json)
+
+                                newCard.removeAll();
+                                newCard.add({
+                                    xtype: 'login_button_setting_partial',
+                                    btn_json: btn_json
+                                })
+
+
+
+                                var str = '<a href="#"><button type="button" class="'+connect_type.value+'Btn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-'+local[connect_type.value]+'"></i></span><span class="text">Login</span></button></a>'
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
                                 var btn = button_panel.down('#button_panel').update(str);
                                 break;

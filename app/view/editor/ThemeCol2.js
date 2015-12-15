@@ -4,6 +4,21 @@ Ext.define("CaptivePortal.view.editor.ThemeCol2",{
 	width: '100%',
     height: 200,
     layout: "hbox",
+    // dockedItems: [{
+    //     xtype: 'toolbar',
+    //     dock: 'right',
+    //     items: [{
+    //         text: 'Close',
+    //         handler: function(){
+    //             console.log("......close .......");
+    //         }
+    //     },{
+    //         text: 'color',
+    //         handler: function(){
+    //             console.log("......close .......");
+    //         }
+    //     }]
+    // }],
     resizable: {
         // listeners: {
         //     resize: function(ths, width, height, e, eOpts ){

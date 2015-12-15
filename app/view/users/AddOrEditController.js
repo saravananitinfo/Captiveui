@@ -175,12 +175,13 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         var siteCombo = combo.nextNode('combo');
         siteCombo.clearValue();
         if (combo.getValue()) {
-            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + combo.getValue() + '/get_sites.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + combo.getValue() + '/get_sites_and_tags.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                    var sites = resObj.data.sites ? resObj.data.sites : [];
-                    var siteStr = Ext.StoreManager.lookup('CaptivePortal.store.users.Site');
-                    siteStr.setData(sites);
+                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+                    var sitesCombo = this.getView().lookupReference('tf_site');
+                    sitesCombo.reset();
+                    sitesCombo.store.loadRawData(sitesAndTags);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);

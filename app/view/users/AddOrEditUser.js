@@ -85,7 +85,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 }
                             }, {
                                 xtype: 'label',
-                                text: 'Sites',
+                                text: 'Sites / Tags',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'tagfield',
@@ -93,11 +93,11 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 reference: 'tf_site',
                                 allowBlank: true,
                                 multiSelect: true,
-                                name: 'site_ids',
+                                name: 'associated_resources',
                                 itemId: 'site',
                                 valueField: 'id',
                                 displayField: 'name',
-                                emptyText: 'Select Sites',
+                                emptyText: 'Select Sites / Tags',
                                 store: 'CaptivePortal.store.users.Site',
                                 filterPickList: true
                             }, {

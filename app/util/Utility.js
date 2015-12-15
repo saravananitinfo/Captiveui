@@ -5,6 +5,24 @@ Ext.define('CaptivePortal.util.Utility', {
     config: {
         myMask: null
     },
+    createSitesAndTags: function(data){
+        var sitesAndTags = [];
+        var sites = data.available_resources.sites;
+        var tags = data.available_resources.tags;
+        if(sites && sites.length) {
+            Ext.Array.each(sites, function(s){
+                var rec = {id:s.id, name:s.name, isSite:true};
+                sitesAndTags.push(rec);
+            }.bind(this))
+        }
+        if(tags && tags.length) {
+            Ext.Array.each(tags, function(t){
+                var rec = {id:t.id, name:t.name, isSite:false};
+                sitesAndTags.push(rec);
+            }.bind(this))
+        }
+        return sitesAndTags;
+    },
     showServerError: function(response){
         var resObj = Ext.decode(response.responseText);
         if (!resObj.success && resObj.error.length) {

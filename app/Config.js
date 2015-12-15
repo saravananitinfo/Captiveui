@@ -21,12 +21,17 @@ Ext.define('CaptivePortal.Config', {
         GET_TENANT_USER: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
         UPDATE_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
         DELETE_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
+
+        //user 
         GET_NEW_USER: CaptivePortal.util.Utility.BASE_URL + 'user_profiles/new.json',
         SAVE_USER: CaptivePortal.util.Utility.BASE_URL + 'user_profiles.json',
         GET_USER: CaptivePortal.util.Utility.BASE_URL + 'user_profiles.json',
         EDIT_USER: CaptivePortal.util.Utility.BASE_URL + 'user_profiles/',
         UPDATE_USER: CaptivePortal.util.Utility.BASE_URL + 'user_profiles/',
         DELETE_USER: CaptivePortal.util.Utility.BASE_URL + 'user_profiles/',
+        GET_TAGS_FOR_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
+
+
         LOAD_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites.json',
         SAVE_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites.json',
         EDIT_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/',

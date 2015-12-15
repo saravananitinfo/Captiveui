@@ -17,19 +17,23 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         }
     },
     bindStoreForNew: function (data) {
+        var tagsAndSites = CaptivePortal.util.Utility.createSitesAndTags(data);
         if (CaptivePortal.app.getUserRole() === "super_admin") {
             this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles);
             this.getView().lookupReference('cmb_tenant').getStore().setData(data.tenants);
         } else {
             this.getView().lookupReference('cmb_tenant').setValue(CaptivePortal.app.getUserTenantID());
-            this.getView().lookupReference('tf_site').getStore().setData(data.sites);
+            //this.getView().lookupReference('tf_site').getStore().setData(data.sites);
             this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles);
         }
+        this.getView().lookupReference('tf_site').store.loadRawData(tagsAndSites);
     },
     setDataForEdit: function (data) {
         data.roles && data.roles.length > 0 ? this.getView().lookupReference('cmb_siterole').getStore().setData(data.roles) : "";
         data.tenants && data.tenants.length > 0 ? this.getView().lookupReference('cmb_tenant').getStore().setData(data.tenants) : "";
-        data.sites && data.sites.length > 0 ? this.getView().lookupReference('tf_site').getStore().setData(data.sites) : "";
+        //data.sites && data.sites.length > 0 ? this.getView().lookupReference('tf_site').getStore().setData(data.sites) : "";
+        var tagsAndSites = CaptivePortal.util.Utility.createSitesAndTags(data);
+        this.getView().lookupReference('tf_site').store.loadRawData(tagsAndSites);
         var record = this.createUserModel(data.user_profile, true);
         var form = Ext.ComponentQuery.query('#userform')[0];
         form.loadRecord(record)
@@ -139,7 +143,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             name: user.name,
             id: user.id,
             email: user.user.email,
-            site_ids: siteNames.join(),
+            site_ids: siteNames,
             site_role_id: (!idNeed) ? user.site_role.name : user.site_role.id,
             tenant_id: (!idNeed) ? user.tenant.name : user.tenant.id,
             status: user.status

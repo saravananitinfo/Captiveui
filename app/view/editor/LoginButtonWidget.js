@@ -8,7 +8,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     height: '100%',
     cls: 'login_button_widget',
     bodyStyle: "background: transparent;",
-    button_json: '{"type":"Button","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
+    button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
     // button_json: '{"type":"Button","values": {}}',
     header: {
         titlePosition: 0,
@@ -73,6 +73,14 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
         var me= this;
         var button_json = Ext.decode(me.button_json);
 
+        var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
+        if(button_json.type === 'Button'){
+            var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
+            var htm = '<a href="#"><button '+'style="'+stl+'type="button" class="'+button_json.connect+'Btn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-'+local[button_json.connect]+'"></i></span><span class="text">'+button_json.text+'</span></button></a>'
+        }else if(button_json.type === 'Link'){
+            var stl = 'font-size: '+button_json.font_size+'px;'
+            var htm = '<a style="text-decoration: none;'+stl+'" href="#">'+button_json.text+'</a>'
+        }
         this.items = [
             {
                 xtype: 'component',
@@ -81,8 +89,8 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
                     tag: "div",
                     style: {
                         display: 'inline-block',
-                        // top: button_json['top']+"px",
-                        // left: button_json['left']+"px"
+                        top: button_json['top']+"px",
+                        left: button_json['left']+"px"
                     }
                 },
                 draggable: {
@@ -90,15 +98,15 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
                     constrainTo: me.el,
                     listeners: {
                         'dragend': function( ths, e, eOpts ){
-                            // var button_json = Ext.decode(me.button_json);
-                            // button_json['top'] = ths.dragTarget.offsetTop;
-                            // button_json['left'] = ths.dragTarget.offsetLeft;
-                            // me.button_json = JSON.stringify(button_json);
+                            var button_json = Ext.decode(me.button_json);
+                            button_json['top'] = ths.dragTarget.offsetTop;
+                            button_json['left'] = ths.dragTarget.offsetLeft;
+                            me.button_json = JSON.stringify(button_json);
                         }
                     }
                 },
                 itemId: "button_panel",
-                html: '<a href="#"><button type="button" class="fbBtn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-facebook"></i></span><span class="text">Login</span></button></a>'
+                html: htm
             }
         ]
         this.callParent(arguments);

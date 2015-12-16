@@ -72,8 +72,8 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 		          		var reader = new FileReader();
 		          		reader.onload = function(e) {
 		          			var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
-		          			editor_canvas.body.dom.style.background = 'url('+e.target.result+') 100% 100%';
-		          			editor_canvas.body.dom.style.backgroundSize = '100% 100%';
+		          			editor_canvas.body.dom.style.background = 'url('+e.target.result+') no-repeat center';
+		          			// editor_canvas.body.dom.style.backgroundSize = '100% 100%';
 		          		}
 		          		reader.readAsDataURL(file);
 		          	}

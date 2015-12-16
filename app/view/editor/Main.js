@@ -24,6 +24,11 @@ Ext.define('CaptivePortal.view.editor.Main', {
             text: 'Cancle',
             margin: '0 0 0 5',
             handler: 'closeEditor'
+        },{
+            xtype:'button',
+            text: 'Test',
+            margin: '0 0 0 5',
+            handler: 'buildHtml'
         }]
     },
     initComponent: function () {
@@ -47,8 +52,9 @@ Ext.define('CaptivePortal.view.editor.Main', {
                 // style: {
                 //     background: '#b6b6cf'
                 // },
+                style: 'border: 1px solid rgb(151, 173, 194);',
         		reference: 'editor_canvas',
-        		width: '70%',
+        		width: '75%',
         		height: '100%',
         		layout: "vbox",
         		itemId: "editor_canvas",
@@ -64,7 +70,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
             {
                 xtype: 'panel',
                 layout: 'card',
-                width: '25%',
+                width: '20%',
                 itemId: "editor_settings",
                 height: '100%',
                 items: [

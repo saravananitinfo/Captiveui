@@ -43,6 +43,10 @@ Ext.define("CaptivePortal.view.editor.ThemeCol4",{
                 }
             }
         ]
+    },{
+        xtype: 'toolbar',
+        dock: 'left',
+        style: "background: transparent"
     }],
     resizable: true,
     resizeHandles: 'n s',

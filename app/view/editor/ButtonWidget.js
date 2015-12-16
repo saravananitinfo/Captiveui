@@ -145,6 +145,8 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
          var me= this;
          var button_json = Ext.decode(me.button_json);
 
+         var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;'
+
          this.items = [
             // {
             //     xtype: 'component',
@@ -189,14 +191,14 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
                 // height: '100%',
                 itemId: "button_panel",
                 // padding: 10,
-                html: '<a href="#"><button type="button" class="edtBtn btn-default">Default</button></a>'
+                html: '<a href="#"><button '+'style="'+stl+'"type="button" class="edtBtn btn-default">'+button_json.text+'</button></a>'
             }
 
          ]
          this.callParent(arguments);
     },
     listeners: {
-        // afterrender: function(panel) {
+        afterrender: function(panel) {
         //     var header = panel.getHeader();
         //     panel.getEl().on('mouseover', function() {
         //         // header.getTools().forEach(function(tool) {
@@ -211,6 +213,6 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
         //         // })
         //         header.hide();
         //     }, this);
-        // }
+        }
     }
 });

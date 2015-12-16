@@ -7,6 +7,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
 	width: '100%',
     height: '100%',
     cls: 'img_widget',
+    style: 'background: url("http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116") no-repeat center;background-size: 70px 70px;',
     bodyStyle: "background: transparent;",
     header: {
         titlePosition: 0,
@@ -86,7 +87,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
             autoEl: {
                 tag: "div",
                 style: {
-                    display: 'inline-block'
+                    display: 'inline-block',
+                    textAlign: 'center'
                 }
             },
             draggable: {
@@ -99,10 +101,10 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                 }
             },
 
-            style: 'text-align:center;',
+            
             itemId: "img_panel",
             // padding: 10,
-            html: '<img class="img" width="100%" src="http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116"></img>'
+            html: '<img class="img" width="100%"></img>'
         }]
         this.callParent();
     }

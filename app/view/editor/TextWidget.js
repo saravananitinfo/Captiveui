@@ -161,18 +161,30 @@ Ext.define("CaptivePortal.view.editor.TextWidget",{
         }
     ],
     border: true,
-    items: [{
-        // xtype: "panel",
-        // cls: "text_panel",
-        // itemId: "text_panel",
-        // margin: 5
+    initComponent: function(){
+        var htm = this.html_str;
+        this.items = [
+            {
+                xtype: 'component',
+                itemId: "text_panel",
+                padding: 10,
+                html: htm
+            }
+        ]
+        this.callParent();
+    },
+    // items: [{
+    //     // xtype: "panel",
+    //     // cls: "text_panel",
+    //     // itemId: "text_panel",
+    //     // margin: 5
 
-        xtype: 'component',
-        itemId: "text_panel",
-        // margin: '5 0 0 0',
-        padding: 10
+    //     xtype: 'component',
+    //     itemId: "text_panel",
+    //     // margin: '5 0 0 0',
+    //     padding: 10
 
-    }],
+    // }],
     listeners: {
         // afterrender: function(panel) {
         //     var header = panel.getHeader();

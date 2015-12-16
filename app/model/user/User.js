@@ -5,7 +5,7 @@ Ext.define('CaptivePortal.model.user.User',{
 	{ name:'name', type:'string'},
 	{ name:'email', type:'string'},
 	{ name:'tenant_id'},
-	{ name:'site_ids'},
+	{ name:'associated_resources'},
 	{ name:'site_role_id'},
 	{ name:'permission'},
 	{ name:'status', type:'string'},

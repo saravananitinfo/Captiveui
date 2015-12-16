@@ -49,6 +49,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                             }, {
                                 xtype: 'combo',
                                 allowBlank: true,
+                                editable:false,
                                 reference: 'cmb_tenant',
                                 valueField: 'id',
                                 displayField: 'name',
@@ -56,12 +57,16 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 width: 500,
                                 emptyText: 'Tenant',
                                 name: 'tenant_id',
-                                itemId: 'tenant_id'
+                                itemId: 'tenant_id',
+                                listeners:{
+                                    change:'changeTenant'
+                                }
 
                             }, {
                                 xtype: 'label',
                                 text: 'Users',
                                 padding: '15 0 10 0',
+                                hidden:true,
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'tagfield',
@@ -74,6 +79,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 emptyText: 'Select Users',
                                 valueField: 'id',
                                 displayField: 'name',
+                                hidden:true,
                                 filterPickList: true
                             }, {
                                 xtype: 'label',
@@ -97,17 +103,18 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 padding: '15 0 10 0',
                                 cls: 'header_label_content'
                             }, {
-                                xtype: 'tagfield',
+                                xtype: 'combo',
                                 queryMode: 'local',
                                 reference: 'tf_tag',
                                 width: 500,
-                                multiSelect: true,
+                                //editable:true,
+                                //multiSelect: true,
                                 name: 'tags',
                                 itemId: 'tags',
                                 emptyText: 'Select Tags',
-                                valueField: 'name',
+                                valueField: 'id',
                                 displayField: 'name',
-                                filterPickList: true
+                                //filterPickList: true
                             },
                             {
                                 xtype: 'panel',

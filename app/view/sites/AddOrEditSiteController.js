@@ -9,14 +9,34 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
             }
         }
     },
-    setStoreEvent: function (data) {
+    changeTenant: function(field, newValue, oldValue){
+        if(newValue && oldValue){
+            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_TAGS_FOR_TENANT + newValue + '/get_tags.json', {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (resObj.success) {
+                   var store = Ext.create('Ext.data.Store', {
+                        fields: ['id', 'name'],
+                        data: resObj.data.site_tags
+                    });
+                   this.getView().lookupReference('tf_tag').reset();
+                   this.getView().lookupReference('tf_tag').bindStore(store);
+                }
+            }.bind(this), function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (!resObj.success && resObj.error.length) {
+                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                }
+            }, 'GET');
+        }
+    },
+    setStoreEvent: function (data, serverData) {
         var user = [];
         if (data) {
             Ext.Array.each(data, function (record, index) {
                 user.push(record.id)
             })
         }
-        this.getTageStore();
+        this.getTageStore(serverData);
         this.getTimezoneStore();
         this.getTenants();
         this.getCountryStore();
@@ -39,6 +59,19 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
             var site_id = form.down('#site_id').getValue();
             var url = CaptivePortal.Config.SERVICE_URLS.SAVE_SITE, method = 'POST';
             var formValues = form.getValues();
+            var picker = this.getView().lookupReference('tf_tag').picker;
+            if(picker){
+                var selection = picker.getSelection();
+                if(selection.length == 0){
+                    formValues['site_tag_attributes'] = {name : this.getView().lookupReference('tf_tag').getValue()};    
+                } else {
+                    formValues['site_tag_id'] = selection[0].data.id;
+                }
+                
+            } else {
+                formValues['site_tag_attributes'] = {name : this.getView().lookupReference('tf_tag').getValue()};
+            }
+            delete formValues['user_profile_ids'];
             var json = {site: formValues};
             if (site_id) {
                 url = CaptivePortal.Config.SERVICE_URLS.UPDATE_SITE + site_id + '.json';
@@ -60,14 +93,19 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
             }, method);
         }
     },
-    getTageStore: function () {
+    getTageStore: function (serverData) {
+        var data = [], tagCombo = this.getView().lookupReference('tf_tag');
+        if(serverData && serverData.site_tags){
+            data = serverData.site_tags;
+        }
         var store = Ext.create('Ext.data.Store', {
-            fields: ['id', 'name'],
-            data: [{id: '1', name: 'tag1'},
-                {id: '2', name: 'tag2'},
-                {id: '3', name: 'tag3'}]
-        });
-        this.getView().lookupReference('tf_tag').setStore(store);
+                fields: ['id', 'name'],
+                data: data
+            });
+        tagCombo.setStore(store);
+        if(serverData && serverData.site && serverData.site.tag && serverData.site.tag.id){
+            tagCombo.setValue(serverData.site.tag.id);
+        }
     },
     getTimezoneStore: function () {
         var store = Ext.create('Ext.data.Store', {

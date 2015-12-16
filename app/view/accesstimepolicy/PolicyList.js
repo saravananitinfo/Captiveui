@@ -45,12 +45,12 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyList', {
             },
             {
                 header: 'Site Name',
-                dataIndex: 'associated_resources',
+                dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
-                    var sitesStr = [];
+                    /*var sitesStr = [];
                     if(value.sites && value.sites.length){
                         Ext.Array.each(value.sites, function(s){
                             sitesStr.push(s.name);
@@ -60,7 +60,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyList', {
                         sitesStr = sitesStr.concat(value.tags);
                     }
                     metaData.tdAttr = 'data-qtip="' + sitesStr.join(',') + '"';                  
-                    return sitesStr.join(',');
+                    return sitesStr.join(',');*/
+                    var siteName = (value && value.name) ? value.name : '';
+                    metaData.tdAttr = 'data-qtip="' + siteName + '" ';
+                    return siteName;
                 }
             }
         ];

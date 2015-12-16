@@ -52,20 +52,20 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 									value:this.policy_name ? this.policy_name : ''
 								}, {
 	                                xtype: 'label',
-	                                text: 'Site',
+	                                text: 'Site / Tag',
 	                                cls: 'header_label_content'
 	                            }, {
 	                                xtype: 'tagfield',
 	                                queryMode: 'local',
 	                                reference: 'tf_site',
 	                                allowBlank: false,
-	                                name: 'associated_resources',
+	                                name: 'associated_resource',
 	                                itemId: 'site_combo',
 	                                forceSelection:true,
-	                                multiSelect:true,
+	                                multiSelect:false,
 	                                valueField: 'id',
 	                                displayField: 'name',
-	                                emptyText: 'Select Sites',
+	                                emptyText: 'Select Sites / Tags',
 	                                store: 'CaptivePortal.store.users.Site',
 	                                filterPickList: true
                             	},                             	

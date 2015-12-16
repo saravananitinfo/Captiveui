@@ -72,10 +72,13 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
                 CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
+                        me.fireEvent('setActiveSiteCard', 1);
                         var model = Ext.create('CaptivePortal.model.site.Site', resObj.data.site);
                         me.fireEvent('loadStore', model.data.user_profiles, resObj.data);
                         Ext.ComponentQuery.query('#site_form')[0].getForm().loadRecord(model);
-                        me.fireEvent('setActiveSiteCard', 1);
+                        var tagId = (resObj.data && resObj.data.site && resObj.data.site.tag && resObj.data.site.tag.id) ? resObj.data.site.tag.id : null;
+                        Ext.ComponentQuery.query('#tags')[0].setValue(tagId);
+                        
                     }
                 }.bind(this), function (response) {
                 }, 'GET');

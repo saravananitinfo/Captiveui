@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.model.template_mgmt.TemplateMgmt',{
 		{ name:'privacy_policies', type: 'string'},
 		{ name:'privacy_policies_link', type: 'string'},
 		{ name:'privacy_policies_name', type: 'string'},
-		{ name:'site_id', type: 'string'},
+		{ name:'associated_resource', type: 'string'},
 		{ name:'splash_template_attributes'},
 		{ name:'status', type: 'string'},
 		{ name:'tenant_id', type: 'string'},

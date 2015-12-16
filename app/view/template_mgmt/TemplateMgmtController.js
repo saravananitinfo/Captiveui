@@ -55,7 +55,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         this.getView().down('#template_mgmt_form-category').bindStore(this.createCategoryStore(data));
     },
     loadSitesDataToTemplateForm: function(data){
-    	this.getView().down('#site_combo').store.loadRawData(data.sites);
+        var sites = CaptivePortal.util.Utility.createSitesAndTags(data);
+    	this.getView().down('#site_combo').store.loadRawData(sites);
     },
     resetForm:function(){
     	var form = this.getView().down('form');

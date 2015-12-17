@@ -4,7 +4,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSettingPartial",{
     cls: 'login_button_setting_partial',
     layout: 'vbox',
     initComponent: function () {
-    	var btn_json = this.btn_json;
+    	var btn_json = this.button_json;
     	this.items = [
     		{
                 xtype: 'panel',

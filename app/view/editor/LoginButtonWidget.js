@@ -8,8 +8,12 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     height: '100%',
     cls: 'login_button_widget',
     bodyStyle: "background: transparent;",
+    // button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
+    
     button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
-    // button_json: '{"type":"Button","values": {}}',
+    link_json: '{"type":"Link","connect":"fb","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"",top:50,left:50}',
+    form_json: '{email: {enable: false, optional: false},first_name: {enable: false, optional: false},last_name: {enable: false, optional: false},gender: {enable: false, optional: false},birth_day: {enable: false, optional: false}}',
+    trigger_type: 'Button',
     header: {
         titlePosition: 0,
         title: 'Login Button'
@@ -26,6 +30,8 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
                 cls: this.up(".login_button_widget").id,
                 button_id: this.up(".login_button_widget").id,
                 btn_json: this.up(".login_button_widget").button_json,
+                link_json: this.up(".login_button_widget").link_json,
+                trigger_type: this.up(".login_button_widget").trigger_type,
                 header: {
                     titlePosition: 0,
                     title: 'Login Button Settings'
@@ -72,15 +78,28 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     initComponent: function () {
         var me= this;
         var button_json = Ext.decode(me.button_json);
+        var link_json = Ext.decode(me.link_json);
+        var trigger_type = me.trigger_type;
+
+        // var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
+        // if(button_json.type === 'Button'){
+        //     var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
+        //     var htm = '<a href="#"><button '+'style="'+stl+'type="button" class="'+button_json.connect+'Btn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-'+local[button_json.connect]+'"></i></span><span class="text">'+button_json.text+'</span></button></a>'
+        // }else if(button_json.type === 'Link'){
+        //     var stl = 'font-size: '+button_json.font_size+'px;'
+        //     var htm = '<a style="text-decoration: none;'+stl+'" href="#">'+button_json.text+'</a>'
+        // }
+
 
         var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
-        if(button_json.type === 'Button'){
+        if(trigger_type === 'Button'){
             var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
-            var htm = '<a href="#"><button '+'style="'+stl+'type="button" class="'+button_json.connect+'Btn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-'+local[button_json.connect]+'"></i></span><span class="text">'+button_json.text+'</span></button></a>'
-        }else if(button_json.type === 'Link'){
-            var stl = 'font-size: '+button_json.font_size+'px;'
-            var htm = '<a style="text-decoration: none;'+stl+'" href="#">'+button_json.text+'</a>'
+            var htm = '<a href="#"><button '+'style="'+stl+'type="button" class="'+button_json.connect+'Btn edtBtn btn-default"><span class="icon"><i class="fa fa-'+local[button_json.connect]+'"></i></span><span class="text" style="margin: 0 5px;">'+button_json.text+'</span></button></a>'
+        }else if(trigger_type === 'Link'){
+            var stl = 'font-size: '+link_json.font_size+'px;'
+            var htm = '<a style="text-decoration: none;'+stl+'" href="#">'+link_json.text+'</a>'
         }
+
         this.items = [
             {
                 xtype: 'component',

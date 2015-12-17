@@ -7,7 +7,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
         'CaptivePortal.view.editor.ThemeCol1',
         'CaptivePortal.view.editor.DropPanel'
     ],
-    saveEditorHtml: function(){
+    saveEditorHtml1: function(){
     	var canvas = this.getView().lookupReference('editor_canvas');
     	// console.log(canvas);
     	// window.canvas = canvas;
@@ -100,7 +100,8 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                     case 'login_button_widget':
                         var col = {}
                         col["widget_type"] = block.xtype
-                        col["attributes"] = Ext.decode(block.button_json)
+                        var json = block.trigger_type === 'Button' ? block.button_json : block.link_json
+                        col["attributes"] = Ext.decode(json)
                         row['widgets'].push(col);
                         break;
                     case 'dropPanel':

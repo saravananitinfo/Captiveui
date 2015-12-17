@@ -3,7 +3,8 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
 	alias: 'widget.login_button_setting',
     requires: [
         'CaptivePortal.view.editor.LoginLinkSettingPartial',
-        'CaptivePortal.view.editor.LoginButtonSettingPartial'
+        'CaptivePortal.view.editor.LoginButtonSettingPartial',
+        'CaptivePortal.view.editor.LoginFormSettingPartial'
     ],
 	title: 'Button Settings',
     closable : true,
@@ -11,18 +12,26 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
     layout: 'vbox',
     initComponent: function () {
         var btn_json = Ext.decode(this.btn_json);
+        var link_json = Ext.decode(this.link_json);
+        var active_tab = 0;
+        var connect = 'fb';
+        console.log("1.........................................................");
+        console.log(link_json);
 
         var button = {title: "Button", items: []};
         var link = {title: "Link", items: []};
-        if(btn_json['type'] === 'Button'){
+        if(this.trigger_type === 'Button'){
+            connect = btn_json.connect;
             button["items"].push({
                 xtype: "login_button_setting_partial",
-                btn_json: btn_json
+                button_json: btn_json
             })
-        }else if(btn_json['type'] === 'Link'){
+        }else if(this.trigger_type === 'Link'){
+            active_tab = 1;
+            connect = link_json.connect;
             link["items"].push({
                 xtype: "login_link_setting_partial",
-                btn_json: btn_json
+                link_json: link_json
             })
         }
 
@@ -48,35 +57,71 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                         queryMode: 'local',
                         itemId: 'login_connect_type',
                         valueField: 'id',
-                        value: btn_json["connect"] ? btn_json["connect"] : 'fb',
+                        value: connect,//btn_json["connect"] ? btn_json["connect"] : 'fb',
                         displayField: 'name',
                         store: 'CaptivePortal.store.editor.LoginButtonTypes',
                         listeners: {
                             'select': function(combo, record, eOpts ){
-                                var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
+                                var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter', 'form': 'Form'}
+                                var tabpanel = this.up('.login_button_setting').down('tabpanel')
 
                                 console.log("..........select ............");
                                 console.log(record);
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 
+                                // var btn_json = Ext.decode(button_panel.button_json);
+                                // btn_json["connect"] = record.id
+                                // button_panel.button_json = JSON.stringify(btn_json);
+
                                 var btn_json = Ext.decode(button_panel.button_json);
-                                btn_json["connect"] = record.id
+                                btn_json["connect"] = record.id;
                                 button_panel.button_json = JSON.stringify(btn_json);
 
-                                if(btn_json['type'] === 'Button'){
+                                var link_json = Ext.decode(button_panel.link_json);
+                                link_json["connect"] = record.id
+                                link_json["text"] = 'Connect With '+local[record.id];
+                                button_panel.link_json = JSON.stringify(link_json);
+
+
+                                if(button_panel.trigger_type === 'Button'){
                                     var login_button = button_panel.down('#button_panel').el.query('.edtBtn')[0];
                                     login_button.className = record.id+'Btn'+' edtBtn btn-default';
                                     button_panel.down('#button_panel').el.query('i')[0].className = "fa fa-"+local[record.id];
 
                                     Ext.ComponentQuery.query("#"+this.up('.login_button_setting').el.down('.btn_text').id)[0].setValue('Login');
-                                }else if(btn_json['type'] === 'Link'){
+
+                                    
+                                    var tab = tabpanel.getActiveTab()
+                                    tab.removeAll();
+                                    tab.add({
+                                        xtype: 'login_button_setting_partial',
+                                        button_json: btn_json
+                                    })
+
+                                }else if(button_panel.trigger_type === 'Link'){
                                     var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                     // window.abc = button_panel.down('#button_panel').el
                                     button_panel.down('#button_panel').el.query('a')[0].textContent = 'Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[record.id]);
+                                    
+                                    
+                                    var tab = tabpanel.getActiveTab()
+                                    tab.removeAll();
+                                    tab.add({
+                                        xtype: 'login_link_setting_partial',
+                                        link_json: link_json
+                                    })
                                 }
-                                // window.abc = this.up('.login_button_setting');
-                                // login_button.classList.remove(record.id+'Btn')
-                                // login_button.classList.remove(record.id+'Btn')
+
+                                if(record.id === 'form'){
+                                    tabpanel.insert(2, {
+                                        title: "Set Form Field", 
+                                        items: [
+                                            {
+                                                xtype: 'login_form_setting_panel'
+                                            }
+                                        ]
+                                    });
+                                }
                             }
                         }
                     }
@@ -86,7 +131,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                 xtype: 'tabpanel',
                 width: '100%',
                 margin: '10 0 0 0',
-                activeTab: btn_json["active_tab"],
+                activeTab: active_tab,
                 items: [
                     button,
                     link
@@ -299,44 +344,56 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                         switch(newCard.title){
                             case "Link":
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                btn_json["type"] = "Link";
-                                btn_json["active_tab"] = 1;
-                                btn_json["text"] = 'Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[connect_type.value]);
-                                btn_json["font_size"] = 13;
-                                button_panel.button_json = JSON.stringify(btn_json)
+                                var link_json = Ext.decode(button_panel.link_json, true);
+                                button_panel.trigger_type = "Link"
+                                // btn_json["type"] = "Link";
+                                // btn_json["active_tab"] = 1;
+                                // btn_json["text"] = 'Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[connect_type.value]);
+                                // btn_json["font_size"] = 13;
+                                // button_panel.button_json = JSON.stringify(btn_json)
 
                                 newCard.removeAll();
                                 newCard.add({
                                     xtype: 'login_link_setting_partial',
-                                    btn_json: btn_json
+                                    link_json: link_json
                                 })
+
+                                var stl = 'font-size: '+link_json.font_size+'px;'
+                                var htm = '<a style="text-decoration: none;'+stl+'" href="#">'+link_json.text+'</a>'
 
 
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
-                                var btn = button_panel.down('#button_panel').update('<a style="text-decoration: none;" href="#">Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[connect_type.value])+'</a>');
-                                newCard.down()
+                                // var btn = button_panel.down('#button_panel').update('<a style="text-decoration: none;" href="#">Connect With '+CaptivePortal.util.Utility.capitalizeFirstLetter(local[connect_type.value])+'</a>');
+                                var btn = button_panel.down('#button_panel').update(htm);
                                 break;
                             case "Button":
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                btn_json["type"] = "Button";
-                                btn_json["active_tab"] = 0;
-                                btn_json["text"] = "Login";
-                                btn_json["font_size"] = 13;
-                                button_panel.button_json = JSON.stringify(btn_json)
+                                var button_json = Ext.decode(button_panel.button_json, true);
+                                button_panel.trigger_type = "Button"
+
+
+                                var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
+                                var htm = '<a href="#"><button '+'style="'+stl+'type="button" class="'+button_json.connect+'Btn edtBtn btn-default"><span class="icon"><i class="fa fa-'+local[button_json.connect]+'"></i></span><span class="text" style="margin: 0 5px;">'+button_json.text+'</span></button></a>'
+
+                                // button_json["type"] = "Button";
+                                // button_json["active_tab"] = 0;
+                                // button_json["text"] = "Login";
+                                // button_json["font_size"] = 13;
+
+                                button_panel.button_json = JSON.stringify(button_json)
 
                                 newCard.removeAll();
                                 newCard.add({
                                     xtype: 'login_button_setting_partial',
-                                    btn_json: btn_json
+                                    button_json: button_json
                                 })
 
 
 
-                                var str = '<a href="#"><button type="button" class="'+connect_type.value+'Btn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-'+local[connect_type.value]+'"></i></span><span class="text">Login</span></button></a>'
+                                // var str = '<a href="#"><button type="button" class="'+connect_type.value+'Btn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-'+local[connect_type.value]+'"></i></span><span class="text">Login</span></button></a>'
+                                
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
-                                var btn = button_panel.down('#button_panel').update(str);
+                                var btn = button_panel.down('#button_panel').update(htm);
                                 break;
                         }
                     }

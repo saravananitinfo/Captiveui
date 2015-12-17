@@ -4,7 +4,7 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
     cls: 'login_link_setting_partial',
     layout: 'vbox',
     initComponent: function () {
-    	var btn_json = this.btn_json;
+    	var link_json = this.link_json;
     	this.items = [
     		{
                 xtype: 'panel',
@@ -21,14 +21,14 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                         margin: '0 10 0 10',
                         width: '100%',
                         cls: 'btn_text',
-                        value: btn_json["text"],
+                        value: link_json["text"],
                         listeners: {
                             'change': function(){
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                 button_panel.down('#button_panel').el.query('a')[0].textContent = this.value
-                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                btn_json['text'] = this.value;
-                                button_panel.button_json = JSON.stringify(btn_json);
+                                var link_json = Ext.decode(button_panel.link_json, true);
+                                link_json['text'] = this.value;
+                                button_panel.link_json = JSON.stringify(link_json);
                             }
                         }
                     }
@@ -49,16 +49,16 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                         margin: '0 10 0 10',
                         width: '100%',
                         minValue: 0,
-                        value: btn_json["font_size"],
+                        value: link_json["font_size"],
                         listeners: {
                             'change': function(ths, newValue, oldValue, eOpts){
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                 var btn = button_panel.down('#button_panel').el.query('a')[0]
                                 btn.style.fontSize = newValue+"px"
 
-                                var btn_json = Ext.decode(button_panel.button_json, true);
-                                btn_json['font_size'] = newValue;
-                                button_panel.button_json = JSON.stringify(btn_json);
+                                var link_json = Ext.decode(button_panel.link_json, true);
+                                link_json['font_size'] = newValue;
+                                button_panel.link_json = JSON.stringify(link_json);
                             }
                         }
                     }

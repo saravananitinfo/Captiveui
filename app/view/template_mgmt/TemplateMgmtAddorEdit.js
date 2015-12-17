@@ -110,6 +110,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                ]
 				                            }, {
 				                            	xtype: 'tabpanel',
+				                            	id:'template_mgmt_form_custom_tab_panel',
 				                                margin: '0 0 20 0',
 				                                width: '90%',
 											    height: 380,

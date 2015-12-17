@@ -21,13 +21,13 @@ font-style: normal;
 
 /* tab related changes*/
 
-/*.customTab{
+.customTab{
 	margin: 15px;	
 	border: 1px solid #1fa1eb !important;
 	border-top-width: 1px !important;
 }
 
-a.x-tab.x-box-item{
+#template_mgmt_form_custom_tab_panel a.x-tab.x-box-item{
 	height:30px !important;
 	padding-top:7px !important;
 	position: relative; !important;
@@ -41,20 +41,20 @@ a.x-tab.x-box-item{
 	border-bottom-width: 0px !important;
 	color: rgb(121, 121, 121) !important;
 }
-a.x-tab.x-box-item.x-tab-active{
+#template_mgmt_form_custom_tab_panel a.x-tab.x-box-item.x-tab-active{
 	background-color: #1fa1eb !important;	
 	color:white !important;
 	border-bottom-width: 0px !important;
 }
 
 
-span.x-tab-inner.x-tab-inner-default{
+#template_mgmt_form_custom_tab_panel span.x-tab-inner.x-tab-inner-default{
 	font-size:14px !important;
 	font-weight:bold !important;
 	text-align: center !important;
 	display: block !important;
 }
-*/
+
 
 /* tab related changes*/
 

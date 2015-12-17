@@ -1,18 +1,35 @@
 Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.sms_gatewaylistcontroller',
+    createSites: function(formId){
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_SMSGATEWAY, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (resObj.success) {
+                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+                    var sitesCombo = Ext.ComponentQuery.query('#' + formId)[0].down('#gateway_sites');
+                    sitesCombo.reset();
+                    sitesCombo.store.loadRawData(sitesAndTags);
+                }
+            }.bind(this), function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (!resObj.success && resObj.error.length) {
+                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                }
+            }, 'GET', false);
+    },
     newSMSGateway: function(){
-    	Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
+    	//Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
     	this.fireEvent('setSmSGatewayMainActiveItem', 1);
         Ext.ComponentQuery.query('#btn_saveSMSGateway')[0].setText('Create');
         var form = Ext.ComponentQuery.query('#smsform')[0];
         form.reset(true);
     	var gateway_type_form  = Ext.ComponentQuery.query('#gatwaytype_forms')[0];
         gateway_type_form.removeAll();
-    	gateway_type_form.add(Ext.create('CaptivePortal.view.sms_gateway.GatewayTypeClickatell'))
+    	gateway_type_form.add(Ext.create('CaptivePortal.view.sms_gateway.GatewayTypeClickatell'));
+        this.createSites('smsform');
     },
     editSMSGateway: function(obj){
-        Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
+        //Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
     	this.fireEvent('setSmSGatewayMainActiveItem', 1);
     	var gateway_type_form  = Ext.ComponentQuery.query('#gatwaytype_forms')[0];
 
@@ -26,7 +43,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
         gateway_type_form.add(Ext.create('CaptivePortal.view.sms_gateway.GatewayType'+gateway_type))
         record = this.createSMSGatewayModel(obj);
         var form = Ext.ComponentQuery.query('#smsform')[0];
-
+        this.createSites('smsform');
         form.loadRecord(record);
         Ext.ComponentQuery.query('#btn_saveSMSGateway')[0].setText('Update');
         Ext.getCmp('viewport').setLoading(false);
@@ -84,7 +101,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
             name: obj.data.sms_gateway_management.name,
             status: obj.data.sms_gateway_management.status,
             gateway_type: obj.data.sms_gateway_management.gateway_type,
-            site_ids: obj.data.sms_gateway_management.sites.map(function(el){return el.id})
+            associated_resource: obj.data.sms_gateway_management.associated_resource
         }
         switch(obj.data.sms_gateway_management.gateway_type){
             case 'clickatell':

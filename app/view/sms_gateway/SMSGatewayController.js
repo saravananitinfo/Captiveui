@@ -24,7 +24,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewayController', {
             json['sms_gateway_management'] = {}
             json['sms_gateway_management']['name'] = form_values['name'];
             json['sms_gateway_management']['status'] = form_values['status'];
-            json['sms_gateway_management']['site_ids'] = form_values['site_ids'];
+            json['sms_gateway_management']['associated_resource'] = form_values['associated_resource'];
             json['sms_gateway_management']['gateway_type'] = form_values['gateway_type'].toLowerCase();
             json['sms_gateway_management']['acc_details'] = {};
             switch(json['sms_gateway_management']['gateway_type']){

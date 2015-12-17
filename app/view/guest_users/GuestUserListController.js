@@ -1,20 +1,37 @@
 Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.guest_user_listcontroller',
+    createSites: function(formId){
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_SMSGATEWAY, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (resObj.success) {
+                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+                    var sitesCombo = Ext.ComponentQuery.query('#' + formId)[0].down('#gateway_sites');
+                    sitesCombo.reset();
+                    sitesCombo.store.loadRawData(sitesAndTags);
+                }
+            }.bind(this), function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (!resObj.success && resObj.error.length) {
+                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                }
+            }, 'GET', false);
+    },
     newGuestUser: function(){
         Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
     	this.fireEvent('setGuestUsersMainActiveItem', 1);
         Ext.ComponentQuery.query('#btn_save_guest_user')[0].setText('Create');
         var form = Ext.ComponentQuery.query('#guest_user_form')[0];
         form.reset(true);
+        this.createSites('guest_user_form');
     },
     editGuestUser: function(obj){
         console.log('....................edit guest_users...............');
         console.log(obj)
 
-        Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
+        //Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
         this.fireEvent('setGuestUsersMainActiveItem', 1);
-
+        this.createSites('guest_user_form');
         var form  = Ext.ComponentQuery.query('#guest_user_form')[0];
         record = this.createGuestUser(obj);
         form.loadRecord(record);
@@ -79,12 +96,13 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
             mobile_no: obj.data.guest_user.mobile_no,
             password: obj.data.guest_user.password,
             user_name: obj.data.guest_user.user_name,
-            site_id: obj.data.guest_user.site_info.id
+            associated_resource: obj.data.guest_user.associated_resource
         };
         return model = Ext.create('CaptivePortal.model.guest_user.GuestUser', model_obj);
     },
     uploadGuestUser: function(){
         this.fireEvent('setGuestUsersMainActiveItem', 2);
+        this.createSites('upload_guest_user_frm');
     },
     getGuestUsers: function(){
         var store = this.getView().lookupReference('grd_guest_users_list').getStore();

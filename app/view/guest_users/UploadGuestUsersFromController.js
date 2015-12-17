@@ -19,7 +19,7 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFromController', {
             console.log(form_values);
 
             json = {guest_user: {}};
-            json['guest_user']['site_id'] = form_values.site_id;
+            json['guest_user']['associated_resource'] = form_values.associated_resource;
             console.log(json);
             file = form.down('#upload_field').el.down('input[type=file]').dom.files[0];
             if(file){

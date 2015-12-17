@@ -17,6 +17,10 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
 	    padding: '10 0 0 30'
 	},
 	initComponent: function () {
+        var emptySiteStore = Ext.create('Ext.data.Store',{
+            fields:['id', 'name'],
+            data:[]
+        });
 		this.items = [
 		   {
                 xtype: 'panel',
@@ -62,17 +66,17 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                 cls: 'header_label_content'
                             },
                             {
-                            	xtype: 'tagfield',
+                            	xtype: 'combo',
                                 allowBlank: false,
-                                editable: true,
-                                name: 'site_ids',
+                                editable: false,
+                                name: 'associated_resource',
                                 queryMode: 'local',
                                 itemId: 'gateway_sites',
-                                emptyText: "Select Sites",
+                                emptyText: "Select Site / Tag",
                                 valueField: 'id',
-                                value: this.site_ids ? this.site_ids : '',
+                                //value: this.site_ids ? this.site_ids : '',
                                 displayField: 'name',
-                                store: 'CaptivePortal.store.sms_gateway.Sites'
+                                store: emptySiteStore
                             },
                             {
                                 xtype: 'label',

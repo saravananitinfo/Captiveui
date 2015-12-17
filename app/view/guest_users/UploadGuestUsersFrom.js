@@ -14,6 +14,10 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
 	    padding: '10 0 0 30'
 	},
 	initComponent: function () {
+        var emptySiteStore = Ext.create('Ext.data.Store',{
+            fields:['id', 'name'],
+            data:[]
+        });
 		this.items = [
 			{
 				xtype: 'panel',
@@ -32,20 +36,20 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
             		items: [
             			{
                         	xtype: 'label',
-                            text: 'Sites',
+                            text: 'Site / Tag',
                             cls: 'header_label_content'
                         },
                         {
                         	xtype: 'combobox',
                             allowBlank: false,
                             editable: false,
-                            name: 'site_id',
-                            queryMode: 'remote',
+                            name: 'associated_resource',
+                            queryMode: 'local',
                             itemId: 'gateway_sites',
-                            emptyText: "Select Sites",
+                            emptyText: "Select Site / Tag",
                             valueField: 'id',
                             displayField: 'name',
-                            store: 'CaptivePortal.store.sms_gateway.Sites'
+                            store: emptySiteStore
                         },
                         {
                         	xtype: 'label',

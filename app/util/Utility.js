@@ -7,8 +7,8 @@ Ext.define('CaptivePortal.util.Utility', {
     },
     createSitesAndTags: function(data){
         var sitesAndTags = [];
-        var sites = data.available_resources.sites;
-        var tags = data.available_resources.tags;
+        var sites = (data  && data.available_resources) ?  data.available_resources.sites : [];
+        var tags = (data && data.available_resources) ? data.available_resources.tags : [];
         if(sites && sites.length) {
             Ext.Array.each(sites, function(s){
                 var rec = {id:s.id, name:s.name, isSite:true};

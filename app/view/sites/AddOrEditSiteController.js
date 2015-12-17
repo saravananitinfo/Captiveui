@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         }
     },
     changeTenant: function(field, newValue, oldValue){
-        if(newValue && oldValue){
+        if(newValue){
             CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_TAGS_FOR_TENANT + newValue + '/get_tags.json', {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
@@ -26,7 +26,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
                 if (!resObj.success && resObj.error.length) {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
-            }, 'GET');
+            }, 'GET', false);
         }
     },
     setStoreEvent: function (data, serverData) {
@@ -60,16 +60,23 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
             var url = CaptivePortal.Config.SERVICE_URLS.SAVE_SITE, method = 'POST';
             var formValues = form.getValues();
             var picker = this.getView().lookupReference('tf_tag').picker;
+            var tagName = this.getView().lookupReference('tf_tag').getValue() ? this.getView().lookupReference('tf_tag').getValue().trim() : '';
             if(picker){
-                var selection = picker.getSelection();
+                var selection = picker.getSelection();                
                 if(selection.length == 0){
-                    formValues['site_tag_attributes'] = {name : this.getView().lookupReference('tf_tag').getValue()};    
+                    if(tagName){
+                        formValues['site_tag_attributes'] = {name : tagName};    
+                    }
+                    formValues['site_tag_id'] = "";
                 } else {
                     formValues['site_tag_id'] = selection[0].data.id;
                 }
                 
             } else {
-                formValues['site_tag_attributes'] = {name : this.getView().lookupReference('tf_tag').getValue()};
+                if(tagName){
+                    formValues['site_tag_attributes'] = {name : tagName};    
+                }
+                formValues['site_tag_id'] = "";
             }
             delete formValues['user_profile_ids'];
             var json = {site: formValues};
@@ -103,6 +110,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
                 data: data
             });
         tagCombo.setStore(store);
+        this.getView().down('#tenant_id').reset();
         if(serverData && serverData.site && serverData.site.tag && serverData.site.tag.id){
             tagCombo.setValue(serverData.site.tag.id);
         }

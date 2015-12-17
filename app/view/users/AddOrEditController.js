@@ -36,7 +36,17 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         this.getView().lookupReference('tf_site').store.loadRawData(tagsAndSites);
         var record = this.createUserModel(data.user_profile, true);
         var form = Ext.ComponentQuery.query('#userform')[0];
-        form.loadRecord(record)
+        if(CaptivePortal.app.getUserRole() == 'super_admin'){
+            if(data && data.user_profile && data.user_profile.tenant && data.user_profile.tenant.id){
+                this.getTagsForTenant(data.user_profile.tenant.id);
+                form.loadRecord(record);
+            } else{
+                form.loadRecord(record);
+            }
+        } else{
+            form.loadRecord(record);
+        }
+        
     },
     setUserId: function (userid) {
         this.getView().lookupReference('hf_userid').setValue(userid);
@@ -143,7 +153,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             name: user.name,
             id: user.id,
             email: user.user.email,
-            site_ids: siteNames,
+            associated_resources:user.associated_resources,
             site_role_id: (!idNeed) ? user.site_role.name : user.site_role.id,
             tenant_id: (!idNeed) ? user.tenant.name : user.tenant.id,
             status: user.status
@@ -171,11 +181,8 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             }
         }, 'GET');
     },
-    selectTenant: function (combo, record, eopts) {
-        var siteCombo = combo.nextNode('combo');
-        siteCombo.clearValue();
-        if (combo.getValue()) {
-            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + combo.getValue() + '/get_sites_and_tags.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+    getTagsForTenant:function(tenantId){
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + tenantId + '/get_sites_and_tags.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
@@ -188,7 +195,13 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 if (!resObj.success && resObj.error.length) {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
-            }, 'GET');
+            }, 'GET', false);
+    },
+    selectTenant: function (combo, record, eopts) {
+        var siteCombo = combo.nextNode('combo');
+        siteCombo.clearValue();
+        if (combo.getValue()) {
+            this.getTagsForTenant(combo.getValue());
         }
     },
     getSitesData: function (value, callback) {

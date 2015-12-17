@@ -7,7 +7,7 @@ Ext.define('CaptivePortal.model.accesstimepolicy.TimePolicy',{
 		{ name:'default_policies'},
 		{ name:'id', type: 'string'},
 		{ name:'name', type: 'string'},
-		{ name:'associated_resources'},
+		{ name:'associated_resource'},
 		{ name:'site_info'}
 	]
 });

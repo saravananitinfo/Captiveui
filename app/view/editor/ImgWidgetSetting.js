@@ -36,7 +36,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
 		          }
 		        ]
 	        },
-	        {
+	        { 
 	        	items: [
 		          {
 		          	xtype: 'button',
@@ -50,6 +50,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
 		          		var reader = new FileReader();
 		          		reader.onload = function(e) {
 		          			var img_panel = Ext.ComponentQuery.query('#'+image_widget_id)[0];
+                    img_panel.el.dom.style.background = 'none';
 		          			img_panel.down('#img_panel').el.query('.img')[0].src = e.target.result;
 		          		}
 		          		reader.readAsDataURL(file);

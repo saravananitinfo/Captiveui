@@ -15,6 +15,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
         var link_json = Ext.decode(this.link_json);
         var active_tab = 0;
         var connect = 'fb';
+        var form_connect = false;
         console.log("1.........................................................");
         console.log(link_json);
 
@@ -33,6 +34,18 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                 xtype: "login_link_setting_partial",
                 link_json: link_json
             })
+        }
+
+        var items = [ button, link ]
+        if(connect === 'form'){
+            items.push({
+                title: "Set Form Field",
+                items: [
+                    {
+                        xtype: 'login_form_setting_panel'
+                    }
+                ]
+            });
         }
 
         // var items = [button, link]
@@ -121,6 +134,12 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                             }
                                         ]
                                     });
+                                }else{
+                                    console.log("...............mwmwmw");
+                                    window.abc = tabpanel;
+                                    // var indx = tabpanel.items.indexOf(tabpanel.down('login_form_setting_panel').up('panel'));
+                                    tabpanel.remove(tabpanel.items.items[2]);
+                                    // console.log(indx);
                                 }
                             }
                         }
@@ -132,10 +151,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                 width: '100%',
                 margin: '10 0 0 0',
                 activeTab: active_tab,
-                items: [
-                    button,
-                    link
-                ],
+                items: items,
                 // items: [
                 //     {
                 //         title: "Button",

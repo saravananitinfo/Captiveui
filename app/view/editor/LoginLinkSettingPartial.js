@@ -63,6 +63,34 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                         }
                     }
                 ]
+            },
+            {
+                xtype: 'panel',
+                layout: 'vbox',
+                width: '100%',
+                items: [
+                    {
+                        xtype: 'label',
+                        margin: '10 10 10 10',
+                        text: 'Font Color'
+                    },
+                    {
+                        xtype: 'colorpicker',
+                        itemId: 'link_txt_color',
+                        value: link_json["txt_color"],
+                        listeners: {
+                            select: function( ths, color, eOpts ){
+                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                                var link = button_panel.down('#button_panel').el.query('a')[0]
+                                link.style.color = '#'+color;
+
+                                var link_json = Ext.decode(button_panel.link_json, true);
+                                link_json['txt_color'] = color;
+                                button_panel.link_json = JSON.stringify(link_json);
+                            }
+                        }
+                    }
+                ]
             }
     	]
     	this.callParent();

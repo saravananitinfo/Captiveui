@@ -28,6 +28,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
         form.loadRecord(rec);
         form.down('#btn_save_rule_group').setText('Update');
         this.loadDataToRuleGrid(data.splash_rule_group);
+        this.getView().deletedAttrs = [];
     },
     RuleGrpRuleItemClick: function (view, record, item, index, e, eOpts) {
         var me = this;
@@ -68,6 +69,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
         this.loadSitesCombo(data);
         this.loadSplashCombo(data);
         form.down('#btn_save_rule_group').setText('Create');
+        this.getView().deletedAttrs = [];
     },
     initiateForm: function(){
         var form = this.getView().down('form');
@@ -81,10 +83,12 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
             for(var key in r.data){
                 obj[key] = r.data[key];
             }
+            obj["priority"] = r.store.indexOf(r);
+            obj['splash_rule_sets_attributes'] = (obj['splash_rule_sets_attributes'] ? obj['splash_rule_sets_attributes'] : obj['splash_rule_sets']).concat(obj['deleted_splash_rules']);
             delete obj['splash_name'];
             delete obj['splash_rule_sets'];
-            obj['splash_rule_sets_attributes'] = [{ "rule_value":["1", "2"],"rule_type":"1"}];
-            obj["priority"] = r.store.indexOf(r);
+            delete obj['deleted_splash_rules'];
+            
             if(r.phantom){
                 delete obj['id'];
             } 
@@ -105,9 +109,22 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
         rules = rules.concat(this.getRuleValues(grid.store.getRemovedRecords(), true));
         return rules;
     },
+    validSplashJourney: function(){
+        var valid = true;
+        var store = this.getView().down('grid').store;
+        store.each(function(rec){
+            if(!rec.data.splash_journey_id){
+                valid = false;
+            }
+        }.bind(this));
+        if(!valid){
+            CaptivePortal.util.Utility.showError('','Please add splash journey for all rules');
+        }
+        return valid;
+    },
     saveRuleGroup: function(btn){
         var form = btn.up('form'), data, isEdit = false;
-        if(form.isValid()){
+        if(form.isValid() && this.validSplashJourney()){
             data = form.getValues(), 
             url = CaptivePortal.Config.SERVICE_URLS.SAVE_RULE_GROUP,
             method = 'POST';

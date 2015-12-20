@@ -62,30 +62,38 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 	                                store: store,
 	                                filterPickList: true,
 	                                itemId:this.itemIdPrefix + 'splash'
-                            	},	                           
-								
-							{
-		                                xtype: 'container',
-		                                layout: 'hbox',
-		                                width: '100%',
-		                                height: 50,
-		                                items: [
-		                                    {
-		                                        xtype: 'button',
-		                                        formBind: true,
-		                                        text: 'Create',
-		                                        cls: 'btn',
-		                                        itemId:this.itemIdPrefix + 'btn_save',
-		                                        handler:'saveRuleRow'
-		                                    },
-		                                    {
-		                                        xtype: 'button',
-		                                        margin: '0 0 0 20',
-		                                        text: 'Cancel',
-		                                        cls: 'btn btn-cancel',
-		                                        handler:'cancelRuleForm'
-		                                    }
-		                                ]
+                            	},{
+									xtype:'label',
+									text:'Rule Attributes',							
+									cls:'header_label_content'
+								},{
+                            		xtype:'rule_group_rule_attribute',
+                            		width:'100%', 
+                            		padding:0,
+                            		margin:'20 20 0 0'
+                            	},
+								{
+	                                xtype: 'container',
+	                                layout: 'hbox',
+	                                width: '100%',
+	                                height: 50,
+	                                items: [
+	                                    {
+	                                        xtype: 'button',
+	                                        //formBind: true,
+	                                        text: 'Create',
+	                                        cls: 'btn',
+	                                        itemId:this.itemIdPrefix + 'btn_save',
+	                                        handler:'saveRuleRow'
+	                                    },
+	                                    {
+	                                        xtype: 'button',
+	                                        margin: '0 0 0 20',
+	                                        text: 'Cancel',
+	                                        cls: 'btn btn-cancel',
+	                                        handler:'cancelRuleForm'
+	                                    }
+	                                ]
 		                              }]
             					}]
             	}];

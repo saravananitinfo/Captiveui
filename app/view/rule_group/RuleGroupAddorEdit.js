@@ -7,6 +7,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
   height: 100,
   autoScroll:true,
   itemIdPrefix:'rule_group_form-',
+  deletedAttrs:[],
 	layout: {
 	    type: 'vbox',
 	    padding: '10 0 0 30'
@@ -84,13 +85,13 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 						            			cls: 'table-row',
 						                        tdCls: 'table-cell'
 						           			},
-						           			{
+						           			/*{
 						            			header: 'Splash',
 						            			dataIndex: 'splash_name',
 						            			flex: 1,
 						            			cls: 'table-row',
 						                        tdCls: 'table-cell'
-						           			},
+						           			},*/
 						           			{
 								                header: 'Action',
 								                flex:1,

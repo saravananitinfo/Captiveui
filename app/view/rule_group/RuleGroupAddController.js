@@ -5,9 +5,29 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
     listen:{
         controller:{
             '#vc_rule_group_maincontroller':{
-                createNewRule:'createNewRule'
+                createNewRule:'createNewRule',
+                loadRecToRuleGroupForm:'loadRecToRuleGroupForm'
             }
         }
+    },
+    loadDataToRuleGrid: function(data){
+        var rec = [];
+        Ext.Array.each(data.splash_rules, function(r, index){
+            rec.push(Ext.create('CaptivePortal.model.rule_group.Rule',r));
+        }.bind(this));
+        if(rec.length){
+            this.getView().down('grid').store.loadRawData(rec);
+        }
+    },
+    loadRecToRuleGroupForm: function(data){
+        this.initiateForm();
+        this.loadSitesCombo(data);
+        this.loadSplashCombo(data);
+        var rec = Ext.create('CaptivePortal.model.rule_group.RuleGroup', data.splash_rule_group);
+        var form = this.getView().down('form');
+        form.loadRecord(rec);
+        form.down('#btn_save_rule_group').setText('Update');
+        this.loadDataToRuleGrid(data.splash_rule_group);
     },
     RuleGrpRuleItemClick: function (view, record, item, index, e, eOpts) {
         var me = this;
@@ -46,11 +66,44 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
         var form = this.getView().down('form');
         form.loadRecord(rec);
         this.loadSitesCombo(data);
+        this.loadSplashCombo(data);
+        form.down('#btn_save_rule_group').setText('Create');
     },
     initiateForm: function(){
         var form = this.getView().down('form');
         form.reset();
         form.down('grid').store.loadRawData([]);
+    },
+    getRuleValues: function(recs, isDel){
+        var reqRecs = [];
+        Ext.Array.each(recs, function(r, index){
+            var obj = {};
+            for(var key in r.data){
+                obj[key] = r.data[key];
+            }
+            delete obj['splash_name'];
+            delete obj['splash_rule_sets'];
+            obj['splash_rule_sets_attributes'] = [{ "rule_value":["1", "2"],"rule_type":"1"}];
+            obj["priority"] = r.store.indexOf(r);
+            if(r.phantom){
+                delete obj['id'];
+            } 
+            if(isDel){
+                if( !r.phantom){
+                    obj['_destroy'] = true;    
+                    reqRecs.push(obj);
+                }
+            } else {
+                reqRecs.push(obj);    
+            }
+        }.bind(this));
+        return reqRecs;
+    },
+    getRules: function(){
+        var grid = this.getView().down('grid'), rules = [];
+        rules = rules.concat(this.getRuleValues(grid.store.data.items, false));
+        rules = rules.concat(this.getRuleValues(grid.store.getRemovedRecords(), true));
+        return rules;
     },
     saveRuleGroup: function(btn){
         var form = btn.up('form'), data, isEdit = false;
@@ -58,8 +111,8 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
             data = form.getValues(), 
             url = CaptivePortal.Config.SERVICE_URLS.SAVE_RULE_GROUP,
             method = 'POST';
-            if(data.id){
-                isEdit = true;                
+            if(data.id.indexOf('model') == -1){
+                isEdit = true;     
             } else{
                 delete data['id'];
             }
@@ -67,49 +120,46 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
             var param = {
                 splash_rule_group:data                
             }
-            param.splash_rule_group['splash_rules_attributes'] = [{
-                                                                    name: "rule1",
-                                                                    priority: "1",
-                                                                    splash_journey_id: "566a99546b69721832050000",
-                                                                    splash_rule_sets_attributes:[{ 
-                                                                        "rule_value":["1","2","3","123","abcdf"],
-                                                                        "rule_type":"fdsa"
-                                                                    }]
-                                                                }];
-            param.splash_rule_group['access_point_ids'] = ["566a7b206b69724a9d000000"];
-           
-            console.log(param);
+            param.splash_rule_group['splash_rules_attributes'] = this.getRules();
             if(isEdit){
-                
+                url = CaptivePortal.Config.SERVICE_URLS.UPDATE_RULE_GROUP + data.id + '.json';
+                method = 'PUT'; 
             }
             CaptivePortal.util.Utility.doAjaxJSON(url, param, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (resObj.success) {
-                       debugger;
                        this.navigateToIndexPage(true);
                     }
                 }.bind(this), function (response) {
                     CaptivePortal.util.Utility.showServerError(response);
-                    //this.navigateToIndexPage(true);
                 }.bind(this), method);
         }
     },
+    loadSplashCombo: function(data){
+        var splashes = [];
+        if(data && data.available_resources){
+            var sites = data.available_resources.sites;
+            var tags = data.available_resources.tags;
+            if(sites && sites.length){
+                for(var i=0;i<sites.length;i++){
+                    splashes = splashes.concat(sites[i].splash_journeys);
+                }
+            }
+            if(tags && tags.length){
+                for(var i=0;i<tags.length;i++){
+                    splashes = splashes.concat(tags[i].splash_journeys);
+                }
+            }
+        }
+        splashes = [
+        {id: "5671bfc4736d73781f010000",name: "temp1"},
+        {id: "56745ff6736d732554010000",name: "temp2"},
+        {id: "56757302736d737577030000",name: "temp3"}
+        ];
+        Ext.ComponentQuery.query('#rule_group_rule_form-splash')[0].store.loadRawData(splashes);
+    },
     loadSitesCombo: function(data){        
-        var sitesAndTags = [];
-        var sites = data.sites || (data.available_resources ? data.available_resources.sites : []);
-        var tags = data.tags || (data.available_resources ? data.available_resources.tags : []);
-        if(sites && sites.length) {
-            Ext.Array.each(sites, function(s){
-                var rec = {id:s.id, name:s.name, isSite:true};
-                sitesAndTags.push(rec);
-            }.bind(this))
-        }
-        if(tags && tags.length) {
-            Ext.Array.each(tags, function(t){
-                var rec = {id:t.id, name:t.name, isSite:false};
-                sitesAndTags.push(rec);
-            }.bind(this))
-        }
+        var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(data);
         this.getView().down('#rule_group_form-sites').store.loadRawData(sitesAndTags);
     },
 });

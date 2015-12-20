@@ -11,7 +11,11 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 	    type: 'vbox',
 	    padding: '10 0 0 30'
 	},
-  initComponent: function () {    
+  initComponent: function () { 
+  var store = Ext.create('Ext.data.Store', {
+        	fields:['id', 'name'], 
+        	data : []
+        });   
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
@@ -42,19 +46,20 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 									itemId:this.itemIdPrefix + 'name'
 								},{
 	                                xtype: 'label',
-	                                text: 'Site',
+	                                text: 'Splash Template',
 	                                cls: 'header_label_content'
 	                            }, {
 	                                xtype: 'combo',
 	                                queryMode: 'local',
-	                                //allowBlank: false,
+	                                allowBlank: false,
 	                                name: 'splash_journey_id',
 	                                forceSelection:true,
+	                                editable:false,
 	                                width:300,
 	                                valueField: 'id',
 	                                displayField: 'name',
 	                                emptyText: 'Select Splash',
-	                                store: [],
+	                                store: store,
 	                                filterPickList: true,
 	                                itemId:this.itemIdPrefix + 'splash'
                             	},	                           

@@ -102,5 +102,6 @@ Ext.define('CaptivePortal.Config', {
         DELETE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
         EDIT_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
         UPDATE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
+        GET_SPLASHES_FOR_RESOURCE:CaptivePortal.util.Utility.BASE_URL + 'journeys/',
 	}
 });

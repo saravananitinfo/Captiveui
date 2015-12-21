@@ -141,6 +141,26 @@ background:url('images/user_icon_128.png') no-repeat;
 	font-weight:bold !important;
  }
 
+.arrow-down-icon{
+	background-image:url(images/arrow-down.png);
+	height:16px;
+	width:16px;
+	float:left;
+	cursor:pointer;
+	left: 16px;
+    position: relative;
+}
+.arrow-up-icon{
+	background-image:url(images/arrow-up.png);
+	height:16px;
+	width:16px;
+	float:left;
+	cursor:pointer;
+	left: 10px;
+    position: relative;
+}
+
+
 .duplicate-icon{
 	background-image:url(images/duplicate.png);
 	height:16px;

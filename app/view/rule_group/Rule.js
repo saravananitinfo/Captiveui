@@ -48,21 +48,31 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 	                                xtype: 'label',
 	                                text: 'Splash Template',
 	                                cls: 'header_label_content'
-	                            }, {
-	                                xtype: 'combo',
-	                                queryMode: 'local',
-	                                allowBlank: false,
-	                                name: 'splash_journey_id',
-	                                forceSelection:true,
-	                                editable:false,
-	                                width:300,
-	                                valueField: 'id',
-	                                displayField: 'name',
-	                                emptyText: 'Select Splash',
-	                                store: store,
-	                                filterPickList: true,
-	                                itemId:this.itemIdPrefix + 'splash'
-                            	},{
+		                        },{
+									xtype:'container',
+									layout:'hbox',
+									items:[{
+		                                xtype: 'combo',
+		                                queryMode: 'local',
+		                                allowBlank: false,
+		                                name: 'splash_journey_id',
+		                                forceSelection:true,
+		                                editable:false,
+		                                width:300,
+		                                valueField: 'id',
+		                                displayField: 'name',
+		                                emptyText: 'Select Splash',
+		                                store: store,
+		                                filterPickList: true,
+		                                itemId:this.itemIdPrefix + 'splash'
+	                            	},{
+	                                    xtype: 'label',
+	                                    style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
+	                                    margin:'0 0 0 20',
+	                                    padding:'10 0 0 0',
+	                                    text: 'Preview',
+	                                }]
+								},{
 									xtype:'label',
 									text:'Rule Attributes',							
 									cls:'header_label_content'

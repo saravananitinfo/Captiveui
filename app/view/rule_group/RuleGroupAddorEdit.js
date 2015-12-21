@@ -64,7 +64,10 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 	                                emptyText: 'Select',
 	                                store: store,
 	                                filterPickList: true,
-	                                itemId:this.itemIdPrefix + 'sites'
+	                                itemId:this.itemIdPrefix + 'sites',
+	                                listeners:{
+	                                	select:'changeSitesCombo'
+	                                }
                             	},{
 	                                xtype: 'label',
 	                                text: 'Rules',
@@ -97,7 +100,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 								                flex:1,
 								                cls: 'table-row',
 								                renderer: function (value, metaData, rec, view) {
-								                    return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>';
+								                    return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;<div action="moveup" class="arrow-up-icon" title="Move Up"></div>&nbsp;&nbsp;<div action="movedown" class="arrow-down-icon" title="Move Down"></div>';
 								                }
 								            }       			
 						                ],	

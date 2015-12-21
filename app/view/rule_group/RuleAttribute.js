@@ -82,8 +82,10 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   			rec['userAgent']['value'] = data['rule_value'].join();
   		break;
   		case "7":
-  			rec['fromTime']['value'] = data['rule_value'][0];
-  			rec['toTime']['value'] = data['rule_value'][1];
+        var time = data['rule_value'][0].split(':');
+  			rec['fromTime']['value'] = new Date(2008, 0, 1, parseInt(time[0]), parseInt(time[1]));
+        time = data['rule_value'][1].split(':');
+  			rec['toTime']['value'] = new Date(2008, 0, 1, parseInt(time[0]), parseInt(time[1]));
   		break;
   	}
   	rec['attrType']['value'] = data['rule_type'];
@@ -116,7 +118,12 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   	value['rule_value'] = [];
   	var dataFields = this.getFieldsForType(typeValue, cont);
 	Ext.Array.each(dataFields, function(f, ind){
-		value['rule_value'] = value['rule_value'].concat(f.getValue());
+    var fieldValue = f.getValue();
+    if(typeValue == '7'){
+      fieldValue = fieldValue ? Ext.Date.format(new Date(fieldValue),'H:i') : '';
+    }
+    
+		value['rule_value'] = value['rule_value'].concat(fieldValue);
 	}.bind(this));
 	return value;
   },
@@ -198,6 +205,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   		xtype:'container',
   		padding:10,
   		autoScroll:true,
+      width:'99%',
   		layout:'hbox',
   		items:[{
                   xtype: 'hiddenfield',
@@ -206,93 +214,85 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
                  	xtype:'checkboxfield',
                  	padding:'0 10 0 0'
                  },{
-		  			flex:1,
-		  			xtype: 'combo',
-		  			customType:this.ATTR_ENUM.TYPE_COMBO,
+    		  			xtype: 'combo',
+    		  			customType:this.ATTR_ENUM.TYPE_COMBO,
 		            queryMode: 'local',
 		            allowBlank: false,
 		            forceSelection:true,
-		            //width:'15%',
+		            width:'45%',
 		            editable:false,
 		            value:obj.attrType.value,
 		            hidden:false,
 		            valueField: 'id',
 		            displayField: 'name',
 		            emptyText: 'Select Attr',
-		            padding:'0 10 0 0',
+		            padding:'0 35% 0 0',
 		            store: obj.attrType.store,
 		            listeners:{
 		            	change:this.changeAttribute.bind(this)
 		            }
 		        },{
 					xtype:'textfield',
-					flex:1,
 					customType:this.ATTR_ENUM.SSIDS,
 					allowBlank:false,
 					maxLength:50,
-					//width:'15%',
+					width:'50%',
 					emptyText: 'SSIDS',
 					padding:'0 10 0 0',
 					value:obj.ssids.value,
 		            hidden:obj.ssids.value ? false : true
 				},{
 					xtype:'textfield',
-					flex:1,
 					customType:this.ATTR_ENUM.IP_SUBMIT,
 					allowBlank:false,
 					maxLength:50,
 					padding:'0 10 0 0',
 					emptyText: 'IP Submit',
-					//width:'60%',
+					width:'50%',
 					value:obj.ipSubmit.value,
 		            hidden:obj.ipSubmit.value ? false : true
 				},{
 					xtype:'textfield',
-					flex:1,
 					customType:this.ATTR_ENUM.IP_RANGE_FROM,
 					allowBlank:false,
 					maxLength:50,
 					padding:'0 10 0 0',
 					emptyText: 'IP From Range',
-					//width:'29%',
+					width:'25%',
 					value:obj.ipRangeFrom.value,
 		            hidden:obj.ipRangeFrom.value ? false : true
 				},{
 					xtype:'textfield',
-					flex:1,
 					customType:this.ATTR_ENUM.IP_RANGE_TO,
 					allowBlank:false,
 					padding:'0 10 0 0',
 					maxLength:50,
 					emptyText: 'IP To Range',
-					//width:'29%',
+					width:'25%',
 					value:obj.ipRangeTo.value,
 		            hidden:obj.ipRangeTo.value ? false : true
 				},{
 					xtype:'textfield',
-					flex:1,
 					customType:this.ATTR_ENUM.DNS,
 					padding:'0 10 0 0',
 					allowBlank:false,
 					maxLength:50,
 					emptyText: 'DNS',
-					//width:'60%',
+					width:'50%',
 					value:obj.dns.value,
 		            hidden:obj.dns.value ? false : true
 				},{
 					xtype:'textfield',
-					flex:1,
 					padding:'0 10 0 0',
 					customType:this.ATTR_ENUM.VLAN,
 					allowBlank:false,
 					maxLength:50,
 					emptyText: 'VLAN',
-					//width:'60%',
+					width:'50%',
 					value:obj.vlan.value,
 		            hidden:obj.vlan.value ? false : true
 				},{
 		  			xtype: 'combo',
-		  			flex:1,
 		  			customType:this.ATTR_ENUM.USER_AGENT,
 		  			padding:'0 10 0 0',
 		            queryMode: 'local',
@@ -302,14 +302,14 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 		            emptyText: 'User Agent',
 		            value:obj.userAgent.value,
 		            hidden:obj.userAgent.value ? false : true,
-		            //width:300,
+		            width:'50%',
 		            valueField: 'id',
 		            displayField: 'name',
 		            store: obj.userAgent.store
 		        },{
 		        	xtype:"timefield",
-		        	flex:1,		        	
 		  			customType:this.ATTR_ENUM.TIME_FROM,
+            width:'25%',
 		  			padding:'0 10 0 0',
     				increment: 30,
     				forceSelection:true,
@@ -320,7 +320,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 		            hidden:obj.fromTime.value ? false : true
 				},{
 		        	xtype:"timefield",
-		        	flex:1,	        	
+              width:'25%',
 		  			customType:this.ATTR_ENUM.TIME_TO,
 		  			padding:'0 10 0 0',
     				increment: 30,
@@ -412,18 +412,11 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 							width:'100%',
 			                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
 			                store: [],
-			                columns: [						                	
-			           			{
-			            			header: '',
-			            			dataIndex: 'name',
-			            			flex: 1,
-			            			cls: 'table-row',
-			                        tdCls: 'table-cell'
-			           			},
+			                columns: [
 			           			{
 			            			header: 'Name',
 			            			dataIndex: 'name',
-			            			flex: 1,
+                        width:'47%',
 			            			cls: 'table-row',
 			                        tdCls: 'table-cell'
 			           			},

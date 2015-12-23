@@ -2,8 +2,14 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.img_widget',
     requires: [
-        'CaptivePortal.view.editor.ImgWidgetSetting'
+        'CaptivePortal.view.editor.ImgWidgetSetting',
+        'CaptivePortal.view.editor.ImageWidgetController'
     ],
+    controller: "image_widget_controller",
+    listeners: {
+        render: "onRender"
+    },
+    ddGroup: "galleryImage",
 	width: '100%',
     height: '100%',
     cls: 'img_widget',

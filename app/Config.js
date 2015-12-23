@@ -100,5 +100,9 @@ Ext.define('CaptivePortal.Config', {
         GET_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups.json',
         NEW_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/new.json',
         DELETE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
+
+        //Image Upload
+        UPLOAD_IMAGE:CaptivePortal.util.Utility.BASE_URL + 'galleries.json',
+        GALLERY:CaptivePortal.util.Utility.BASE_URL + 'galleries.json',
 	}
 });

@@ -11,7 +11,11 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 	    type: 'vbox',
 	    padding: '10 0 0 30'
 	},
-  initComponent: function () {    
+  initComponent: function () { 
+  var store = Ext.create('Ext.data.Store', {
+        	fields:['id', 'name'], 
+        	data : []
+        });   
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
@@ -42,45 +46,64 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 									itemId:this.itemIdPrefix + 'name'
 								},{
 	                                xtype: 'label',
-	                                text: 'Site',
+	                                text: 'Splash Template',
 	                                cls: 'header_label_content'
-	                            }, {
-	                                xtype: 'combo',
-	                                queryMode: 'local',
-	                                //allowBlank: false,
-	                                name: 'splash_journey_id',
-	                                forceSelection:true,
-	                                width:300,
-	                                valueField: 'id',
-	                                displayField: 'name',
-	                                emptyText: 'Select Splash',
-	                                store: [],
-	                                filterPickList: true,
-	                                itemId:this.itemIdPrefix + 'splash'
-                            	},	                           
-								
-							{
-		                                xtype: 'container',
-		                                layout: 'hbox',
-		                                width: '100%',
-		                                height: 50,
-		                                items: [
-		                                    {
-		                                        xtype: 'button',
-		                                        formBind: true,
-		                                        text: 'Create',
-		                                        cls: 'btn',
-		                                        itemId:this.itemIdPrefix + 'btn_save',
-		                                        handler:'saveRuleRow'
-		                                    },
-		                                    {
-		                                        xtype: 'button',
-		                                        margin: '0 0 0 20',
-		                                        text: 'Cancel',
-		                                        cls: 'btn btn-cancel',
-		                                        handler:'cancelRuleForm'
-		                                    }
-		                                ]
+		                        },{
+									xtype:'container',
+									layout:'hbox',
+									items:[{
+		                                xtype: 'combo',
+		                                queryMode: 'local',
+		                                allowBlank: false,
+		                                name: 'splash_journey_id',
+		                                forceSelection:true,
+		                                editable:false,
+		                                width:300,
+		                                valueField: 'id',
+		                                displayField: 'name',
+		                                emptyText: 'Select Splash',
+		                                store: store,
+		                                filterPickList: true,
+		                                itemId:this.itemIdPrefix + 'splash'
+	                            	},{
+	                                    xtype: 'label',
+	                                    style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
+	                                    margin:'0 0 0 20',
+	                                    padding:'10 0 0 0',
+	                                    text: 'Preview',
+	                                }]
+								},{
+									xtype:'label',
+									text:'Rule Attributes',							
+									cls:'header_label_content'
+								},{
+                            		xtype:'rule_group_rule_attribute',
+                            		width:'100%', 
+                            		padding:0,
+                            		margin:'20 20 0 0'
+                            	},
+								{
+	                                xtype: 'container',
+	                                layout: 'hbox',
+	                                width: '100%',
+	                                height: 50,
+	                                items: [
+	                                    {
+	                                        xtype: 'button',
+	                                        //formBind: true,
+	                                        text: 'Create',
+	                                        cls: 'btn',
+	                                        itemId:this.itemIdPrefix + 'btn_save',
+	                                        handler:'saveRuleRow'
+	                                    },
+	                                    {
+	                                        xtype: 'button',
+	                                        margin: '0 0 0 20',
+	                                        text: 'Cancel',
+	                                        cls: 'btn btn-cancel',
+	                                        handler:'cancelRuleForm'
+	                                    }
+	                                ]
 		                              }]
             					}]
             	}];

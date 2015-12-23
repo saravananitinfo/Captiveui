@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.view.rule_group.Main',{
 	extend:'Ext.container.Container',
-	requires:['CaptivePortal.view.rule_group.MainController', 'CaptivePortal.store.rule_group.Rule', 'CaptivePortal.view.rule_group.RuleGroupAddorEdit', 'CaptivePortal.view.rule_group.RuleGroupList', 'CaptivePortal.view.rule_group.Rule'],
+	requires:['CaptivePortal.view.rule_group.MainController', 'CaptivePortal.store.rule_group.Rule', 'CaptivePortal.view.rule_group.RuleGroupAddorEdit', 'CaptivePortal.view.rule_group.RuleGroupList', 'CaptivePortal.view.rule_group.Rule', 'CaptivePortal.view.rule_group.RuleAttribute'],
 	alias:'widget.rule_group_main',
 	controller: 'rule_group_maincontroller',
 	layout:'card',

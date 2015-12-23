@@ -104,5 +104,9 @@ Ext.define('CaptivePortal.Config', {
         //Image Upload
         UPLOAD_IMAGE:CaptivePortal.util.Utility.BASE_URL + 'galleries.json',
         GALLERY:CaptivePortal.util.Utility.BASE_URL + 'galleries.json',
+
+        EDIT_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
+        UPDATE_RULE_GROUP:CaptivePortal.util.Utility.BASE_URL + 'splash_rule_groups/',
+        GET_SPLASHES_FOR_RESOURCE:CaptivePortal.util.Utility.BASE_URL + 'journeys/',
 	}
 });

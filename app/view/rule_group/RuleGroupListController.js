@@ -14,7 +14,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupListController', {
         var action = e.target.getAttribute('action');
         if (action) {
             if (action == "edit") {
-                
+                this.fireEvent('loadRuleFormRecord', 1, record.data.id);
             } else if (action == "delete"){
                 this.deleteRuleGroup(view, record, item, index, e, eOpts);
             } 

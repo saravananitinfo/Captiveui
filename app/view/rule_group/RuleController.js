@@ -19,6 +19,9 @@ Ext.define('CaptivePortal.view.rule_group.RuleController', {
         var btn = form.down('#rule_group_rule_form-btn_save');
         btn.setText('Update');
         form.loadRecord(rec);
+        this.getView().down('#rule_group_rule_attribute_form-dynRowContainer').removeAll();
+        form.down('rule_group_rule_attribute').generateRuleAttrs(rec.data.splash_rule_sets ? rec.data.splash_rule_sets : []);
+        rec.data.deleted_splash_rules = [];
     },
     createNewRuleForm: function(){
         this.initiateForm();
@@ -27,6 +30,8 @@ Ext.define('CaptivePortal.view.rule_group.RuleController', {
         var btn = form.down('#rule_group_rule_form-btn_save');
         btn.setText('Create');
         form.loadRecord(rec);
+        this.getView().down('#rule_group_rule_attribute_form-dynRowContainer').removeAll();
+        form.down('rule_group_rule_attribute').generateRuleAttrs(rec.data.splash_rule_sets ? rec.data.splash_rule_sets : []);
     },
     initiateForm: function(){
         var form = this.getView().down('form');
@@ -34,18 +39,30 @@ Ext.define('CaptivePortal.view.rule_group.RuleController', {
     },
     saveRuleRow: function(btn){
         var form = btn.up('form'), data, isEdit = false;
+        var nameField = form.down('#rule_group_rule_form-name');
+        var splashField = form.down('#rule_group_rule_form-splash');
         var btnText = btn.getText();
-        if(form.isValid()){
-            data = form.getValues();
+        var ruleattrForm = form.down('rule_group_rule_attribute');
+        if(nameField.isValid() && splashField.isValid()){
+            if(ruleattrForm.areAttributesValid()){
+                data = form.getValues();
             if(btnText == 'Update'){
                 this.getView().down('form').getForm().updateRecord().getRecord();
-            } else{                
+                var updateRec = this.getView().down('form').getForm().getRecord();
+                var attrValues = ruleattrForm.collectAttrValues();
+                updateRec.data['splash_rule_sets_attributes'] = attrValues;
+                updateRec.data['splash_rule_sets'] = attrValues;
+            } else {                
                 var rec = this.getView().down('form').getForm().updateRecord().getRecord();
                 var grid = Ext.getCmp('rule_group_form-grid');
+                var attrValues = ruleattrForm.collectAttrValues();
+                rec.data['splash_rule_sets_attributes'] = attrValues;
+                rec.data['splash_rule_sets'] = attrValues;
                 grid.store.insert(grid.store.getCount(), rec);
             }
             this.fireEvent('setRuleGroupActiveItem', 1);
             Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Rule Group');
+            }
         }
     }
     

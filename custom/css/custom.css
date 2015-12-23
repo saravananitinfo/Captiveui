@@ -208,7 +208,7 @@ position: relative;
 .dragItem {
 	float: left;
 	margin: 0;
-	padding: 2px 0 2px 2px;
+	padding: 2px 2px 2px 2px;
 }
 .dragImage{
  	border: solid 1px #c5d2df!important;
@@ -216,6 +216,12 @@ position: relative;
 	width: 45px;
 	height: 45px;
 	padding: 24px 27px 33px 28px;
+}
+.galleryImage{
+	border: solid 1px #c5d2df!important;
+	background-color: #f3f9fe!important;
+	width: 45px;
+	height: 45px;
 }
 .edtBtn{
 	border: 1px solid transparent;

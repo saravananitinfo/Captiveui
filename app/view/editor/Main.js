@@ -33,18 +33,18 @@ Ext.define('CaptivePortal.view.editor.Main', {
     },
     initComponent: function () {
         this.items = [
-        	{
-        		xtype: "dragPanel",
-        		width: '5%',
-        		height: '100%',
-        		itemId: "editor_widgets",
-        		itemSelector: "div.dragItem",
-        		ddGroup:"widgetGroup",
-        		height: '100%',
-        		dataA: [{widgetDesc: "text_widget"},{widgetDesc: "img_widget"},{widgetDesc: "button_widget"},{widgetDesc: "login_button_widget"}],
-        		customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetDesc}" data-qtip="{widgetDesc}">',"</div>","</div>","</tpl>"]
+        	// {
+        	// 	xtype: "dragPanel",
+        	// 	width: '5%',
+        	// 	height: '100%',
+        	// 	itemId: "editor_widgets",
+        	// 	itemSelector: "div.dragItem",
+        	// 	ddGroup:"widgetGroup",
+        	// 	height: '100%',
+        	// 	dataA: [{widgetDesc: "text_widget"},{widgetDesc: "img_widget"},{widgetDesc: "button_widget"},{widgetDesc: "login_button_widget"}],
+        	// 	customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetDesc}" data-qtip="{widgetDesc}">',"</div>","</div>","</tpl>"]
 
-        	},
+        	// },
         	{
         		xtype: "dropPanel",
         		ddGroup:"themeGroup",
@@ -54,7 +54,8 @@ Ext.define('CaptivePortal.view.editor.Main', {
                 // },
                 style: 'border: 1px solid rgb(151, 173, 194);',
         		reference: 'editor_canvas',
-        		width: '75%',
+                // width: '75%',
+        		width: '80%',
         		height: '100%',
         		layout: "vbox",
         		itemId: "editor_canvas",
@@ -75,14 +76,42 @@ Ext.define('CaptivePortal.view.editor.Main', {
                 height: '100%',
                 items: [
                     {
-                        xtype: "dragPanel",
-                        itemSelector: "div.dragItem",
-                        ddGroup:"themeGroup",
-                        width: '100%',
-                        height: '100%',
-                        overflowY: "auto",
-                        dataA: [{themeDesc: "theme_col_1"},{themeDesc: "theme_col_2"},{themeDesc: "theme_col_3"},{themeDesc: "theme_col_4"}],
-                        customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
+                        xtype: 'tabpanel',
+                        items:
+                        [
+
+                            {
+                                title: "Select Section",
+                                items:[{
+                                    xtype: "dragPanel",
+                                    itemSelector: "div.dragItem",
+                                    ddGroup:"themeGroup",
+                                    width: '100%',
+                                    height: '100%',
+                                    overflowY: "auto",
+                                    dataA: [{themeDesc: "theme_col_1"},{themeDesc: "theme_col_2"},{themeDesc: "theme_col_3"},{themeDesc: "theme_col_4"}],
+                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
+                                }]
+                            },
+                            {
+                                title: "Select Widget",
+                                items:[{
+                                    xtype: "dragPanel",
+                                    // width: '5%',
+                                    width: '100%',
+                                    height: '100%',
+                                    itemId: "editor_widgets",
+                                    itemSelector: "div.dragItem",
+                                    ddGroup:"widgetGroup",
+                                    // height: '100%',
+                                    dataA: [{widgetDesc: "text_widget"},{widgetDesc: "img_widget"},{widgetDesc: "button_widget"},{widgetDesc: "login_button_widget"}],
+                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetDesc}" data-qtip="{widgetDesc}">',"</div>","</div>","</tpl>"]
+                                }]
+                            }
+
+                        ]
+
+
                     },
                     {   
                         xtype: 'panel',

@@ -10,6 +10,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         render: "onRender"
     },
     ddGroup: "galleryImage",
+    img_json: {src: "", width: 0, height: 0, top: 0, left: 0},
 	width: '100%',
     height: '100%',
     cls: 'img_widget',
@@ -86,6 +87,9 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     ],
     border: true,
     initComponent: function(){
+        var img_json = this.img_json;
+        console.log("..................................test............................")
+        console.log(img_json);
         var me= this;
         this.items = [{
             xtype: 'component',
@@ -94,7 +98,9 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                 tag: "div",
                 style: {
                     display: 'inline-block',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    top: img_json.top+"px",
+                    left: img_json.left+"px"
                 }
             },
             draggable: {
@@ -102,7 +108,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                 constrainTo: me.el,
                 listeners: {
                     'dragend': function( ths, e, eOpts ){
-                        
+                        me.img_json.top = ths.dragTarget.offsetTop;
+                        me.img_json.left= ths.dragTarget.offsetLeft;
                     }
                 }
             },
@@ -110,7 +117,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
             
             itemId: "img_panel",
             // padding: 10,
-            html: '<img class="img" width="100%"></img>'
+            html: '<img class="img" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
         }]
         this.callParent();
     }

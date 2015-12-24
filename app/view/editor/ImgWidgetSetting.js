@@ -13,6 +13,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
       }
     },
     initComponent: function () {
+        var img_pnl = Ext.ComponentQuery.query('#'+this.img_widget_id)[0];
+        var image = img_pnl.down('#img_panel').el.query('.img')[0]
     	this.items = [
     		{
     		  xtype: 'panel',
@@ -65,7 +67,9 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                                     Ext.StoreManager.lookup('CaptivePortal.store.editor.ImageGallery').reload();
                                     var img_panel = Ext.ComponentQuery.query('#'+image_widget_id)[0];
                                     img_panel.el.dom.style.background = 'none';
-                                    img_panel.down('#img_panel').el.query('.img')[0].src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.image_url;
+                                    var img = img_panel.down('#img_panel').el.query('.img')[0]
+                                    img.removeAttribute('width');img.removeAttribute('height');
+                                    img.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.image_url;
 
                                 }
                             }.bind(this),function(response){
@@ -95,14 +99,16 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                     },
                     {
                         xtype: 'numberfield',
+                        itemId: 'img_width_field',
                         margin: '0 10 0 10',
                         width: '100%',
                         minValue: 0,
-                        // value: btn_json["font_size"],
+                        value: image.width,
                         listeners: {
                             'change': function(ths, newValue, oldValue, eOpts){
                             	var image_widget_id = Ext.ComponentQuery.query('#img_widget_setting')[0].img_widget_id;
                             	var img_panel = Ext.ComponentQuery.query('#'+image_widget_id)[0];
+                                img_panel.img_json.width = newValue;
     	          				img_panel.down('#img_panel').el.query('.img')[0].width = newValue;
                                 // var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                 // var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
@@ -128,14 +134,16 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                     },
                     {
                         xtype: 'numberfield',
+                        itemId: 'img_height_field',
                         margin: '0 10 0 10',
                         width: '100%',
                         minValue: 0,
-                        // value: btn_json["font_size"],
+                        value: image.height,
                         listeners: {
                             'change': function(ths, newValue, oldValue, eOpts){
                             	var image_widget_id = Ext.ComponentQuery.query('#img_widget_setting')[0].img_widget_id;
                             	var img_panel = Ext.ComponentQuery.query('#'+image_widget_id)[0];
+                                img_panel.img_json.height = newValue;
     	          				img_panel.down('#img_panel').el.query('.img')[0].height = newValue;
                                 // var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                 // var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]

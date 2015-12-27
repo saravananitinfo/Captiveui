@@ -2,7 +2,7 @@ Ext.define('CaptivePortal.store.accesstimepolicy.TimePolicy',{
 	extend:'Ext.data.Store',
 	model:'CaptivePortal.model.accesstimepolicy.TimePolicy',
 	idField:'id',
-	autoLoad:true,
+	autoLoad:false,
 	requires:['CaptivePortal.model.accesstimepolicy.TimePolicy'],
 	proxy:{
 		url:CaptivePortal.Config.SERVICE_URLS.GET_ACCESS_TIME_POLICY,

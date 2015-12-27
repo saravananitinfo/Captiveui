@@ -55,7 +55,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 	                                text: 'Site / Tag',
 	                                cls: 'header_label_content'
 	                            }, {
-	                                xtype: 'tagfield',
+	                                xtype: 'combo',
 	                                queryMode: 'local',
 	                                reference: 'tf_site',
 	                                allowBlank: false,
@@ -65,7 +65,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 	                                multiSelect:false,
 	                                valueField: 'id',
 	                                displayField: 'name',
-	                                emptyText: 'Select Sites / Tags',
+	                                emptyText: 'Select Site / Tag',
 	                                store: 'CaptivePortal.store.users.Site',
 	                                filterPickList: true
                             	},                             	
@@ -81,16 +81,17 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 									items:[
 									{
 										xtype: 'gridpanel',
-										margin:10,
+										margin:'0 0 0 0',
 										itemId:'time_policy_day_grid',
 										width:'100%',
-						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+										autoScroll:false,
+						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 0px 0px #cccccc;',
 						                store: Ext.create('CaptivePortal.store.accesstimepolicy.Day'),
 						                columns: [
 						                	{
 						            			header: 'Days',
 						            			dataIndex: 'days',
-						            			flex: 2,
+						            			flex: 1,
 						            			cls: 'table-row',
 						                        tdCls: 'table-cell',
 						            			editor: {
@@ -98,26 +99,17 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						            				store:Ext.create('CaptivePortal.store.accesstimepolicy.Weekdays'),
 						            				emptyText: "Days",
 						                			queryMode: 'local',
+						                			//height:78,
+						                			padding:0,
+						                			margin:0,
+						                			width:50,
 						                            multiSelect: true,
 						                            valueField: 'id',
 	                                				forceSelection:true,
 						                            displayField: 'name',
 						                            filterPickList: true
 						           				},
-						           				emptyCellText: '<span style="color:#aaaaaa;">' + "Days" + "</span>",
-						           				renderer:function(value, metaData, record, row, col, store, gridView){
-						           					/*if(value && value.length){
-						           						var strArr = [];
-						           						var weekDayStore = Ext.create('CaptivePortal.store.accesstimepolicy.Weekdays');//Ext.StoreManager.lookup('WeekdaysStore');
-						           						Ext.Array.each(value, function(v){
-						           							strArr.push(weekDayStore.findRecord('id',v).data.name)
-						           						}.bind(this));
-						           						return strArr.join();
-						           					} else {
-						           						return '';
-						           					}*/
-						           					return value;
-						           				}
+						           				emptyCellText: '<span style="color:#aaaaaa;">' + "Days" + "</span>"
 						           			},
 						           			{
 						            			header: 'From',
@@ -140,7 +132,6 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						            			header: 'To',
 						            			dataIndex: 'to',
 						            			flex: 1,
-						            			//width: 160,
 						            			cls: 'table-row',
 						                        tdCls: 'table-cell',
 						            			editor: {
@@ -160,8 +151,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 									        clicksToEdit: 1,
 									        listeners: {
 									            beforeedit: function(d, c) {
-									            	console.log("...........cellediting");
-									                // c.record.set("invalidRec", false);
+									            	var arg = arguments;
+									            	if(arg[0] && arg[0].view && arg[0].view.el && arg[0].view.el.dom){
+									            		//arg[0].view.el.dom.style.overflow = "hidden";	
+									            	}
 									            }
 									        }
 									    },
@@ -204,10 +197,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 									items:[
 									{
 										xtype: 'gridpanel',
-										margin:10,
+										margin:'0 0 0 0',
 										itemId:'time_policy_date_range_grid',
 										width:'100%',
-						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 0px 0px #cccccc;',
 						                store: Ext.create('CaptivePortal.store.accesstimepolicy.DateRange'),
 						                columns: [
 						                	{
@@ -363,9 +356,9 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 									items:[{
 									xtype: 'gridpanel',
 									width:'100%',
-									margin:10,
+									margin:'0 0 0 0',
 									itemId:'time_policy_specific_day_grid',
-					                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+					                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 0px 0px #cccccc;',
 					                store: Ext.create('CaptivePortal.store.accesstimepolicy.SpecificDay'),
 					                columns: [
 					                	{

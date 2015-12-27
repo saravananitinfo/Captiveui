@@ -49,8 +49,10 @@ Ext.define('CaptivePortal.view.radius_vsa.RadiusVSAListController', {
         Ext.ComponentQuery.query('#lab_appheading')[0].setText('New Radius VSA'); 
     },
     getRadiusVSAList: function(){
-        var store = this.getView().lookupReference('grd_radius_vsa_list').getStore();
-        store.load();
+        if(CaptivePortal.app.getUserRole() == 'super_admin'){
+            var store = this.getView().lookupReference('grd_radius_vsa_list').getStore();
+            store.load();    
+        }        
     }
 });
 

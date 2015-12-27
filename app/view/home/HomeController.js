@@ -14,10 +14,8 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     onUserProfileSelect: function (menu, item) {
         Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(item.profileid);
-        console.log(item)
     },
     onMenuClick: function (menu) {
-        console.log("...........me ............" + menu.itemname)
         switch (menu.itemname) {
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
@@ -61,10 +59,8 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.fireEvent('setGuestUsersMainActiveItem', 0);
                 break;
             case "access_points":
-                console.log("...........me ............1")
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_access_point_main');
                 this.getView().lookupReference('lab_heading').setText('Access Point')
-                console.log("...........me ............2")
                 this.fireEvent('setAccessPointMainActiveItem', 0);
                 break;
                 case "time_policy":
@@ -123,7 +119,6 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         }, 'DELETE');
     },
     home_render: function () {
-        console.log(CaptivePortal.app.getUserRole())
         setTimeout(function () {
             var bodyTag = document.getElementsByTagName('body')[0];
             bodyTag.className = bodyTag.className + ' custom_bg_background';

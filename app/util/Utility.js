@@ -103,8 +103,6 @@ Ext.define('CaptivePortal.util.Utility', {
         if (cookieVal) {
             var cookieObj = Ext.decode(cookieVal);
             var profileId = cookieObj.profileId;
-            console.log("1..................."+profileId);
-            console.log(cookieObj);
             var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
             this.addHeader();
             CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getLoginMsg(), Ext.getCmp('viewport'), function (response) {
@@ -197,14 +195,12 @@ Ext.define('CaptivePortal.util.Utility', {
     createMenusForUserBasedOnPermisson: function (navpanel) {
         var store = Ext.StoreManager.lookup('ProfileMenuList');
         var menu;
-        console.log(CaptivePortal.app.getAccessPermissionList());
         Ext.Array.each(store.data.items, function (rec, index) {
             menu = Ext.widget('menu');
             Ext.Array.each(rec.data.menuitem, function (menuitem, index) {
                 Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
                     if (menuitem.itemname === permission.access_for) {
                         if (permission.read || permission.write) {
-                            console.log("m..............."+menuitem.name);
                             menu.add({
                                 text: menuitem.name,
                                 listeners: {
@@ -219,7 +215,6 @@ Ext.define('CaptivePortal.util.Utility', {
                     }
                 });
             });
-            console.log(rec)
             if (rec.data.id === 1)
                 navpanel.add({
                     text: rec.data.name,
@@ -293,16 +288,13 @@ Ext.define('CaptivePortal.util.Utility', {
             }, cors: true,
             params: params,
             callback: function (result) {
-                console.log('callback', result);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
-                console.log('success', response)
                 Ext.isFunction(successCallback) && successCallback.call(null, response);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             failure: function (response) {
-                console.log('failure', response)
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             }
@@ -319,16 +311,13 @@ Ext.define('CaptivePortal.util.Utility', {
             async: async,
             jsonData: params,
             callback: function (result) {
-                console.log('callback', result);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
-                console.log('success', response)
                 Ext.isFunction(successCallback) && successCallback.call(null, response);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             failure: function (response) {
-                console.log('failure', response)
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             }

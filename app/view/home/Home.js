@@ -18,7 +18,6 @@ Ext.define('CaptivePortal.view.home.Home', {
     bodyCls: 'custom_bg_background',   
     initComponent: function () {      
         var userObj = this.user;
-        console.log(userObj)
         this.items = [{
                 xtype: 'toolbar',
                 //cls: 'custom_toolbar',

@@ -89,7 +89,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                         var img = block.el.query('.img')[0]
                         var col = {}
                         col["widget_type"] = block.xtype
-                        col["attributes"] = block.img_json
+                        col["attributes"] = Ext.decode(block.img_json);
                         // {
                         //     src: img.src,
                         //     height: img.height,
@@ -106,8 +106,11 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                     case 'login_button_widget':
                         var col = {}
                         col["widget_type"] = block.xtype
-                        var json = block.trigger_type === 'Button' ? block.button_json : block.link_json
-                        col["attributes"] = Ext.decode(json)
+                        var json = Ext.decode(block.trigger_type === 'Button' ? block.button_json : block.link_json)
+                        col["attributes"] = json;
+                        if(json.connect === 'form'){
+                            col["attributes"]["form_fields"] = block.form_json
+                        }
                         row['widgets'].push(col);
                         break;
                     case 'dropPanel':

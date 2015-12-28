@@ -10,7 +10,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         render: "onRender"
     },
     ddGroup: "galleryImage",
-    img_json: {src: "#", width: 0, height: 0, top: 0, left: 0},
+    img_json: '{src: null, width: 0, height: 0, top: 0, left: 0}',
 	width: '100%',
     height: '100%',
     cls: 'img_widget',
@@ -89,8 +89,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     initComponent: function(){
         var stl = 'background: url("http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116") no-repeat center;background-size: 70px 70px;';
 
-        var img_json = this.img_json;
-        if(img_json.src === "#"){
+        var img_json = Ext.decode(this.img_json);
+        if(img_json.src === null){
             this.style = stl;
         }else{
 

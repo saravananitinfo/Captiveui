@@ -108,7 +108,9 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                             'change': function(ths, newValue, oldValue, eOpts){
                             	var image_widget_id = Ext.ComponentQuery.query('#img_widget_setting')[0].img_widget_id;
                             	var img_panel = Ext.ComponentQuery.query('#'+image_widget_id)[0];
-                                img_panel.img_json.width = newValue;
+                                var img_json = Ext.decode(img_panel.img_json);
+                                img_json.width = newValue;
+                                img_panel.img_json = JSON.stringify(img_json);
     	          				img_panel.down('#img_panel').el.query('.img')[0].width = newValue;
                                 // var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                 // var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
@@ -143,7 +145,13 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                             'change': function(ths, newValue, oldValue, eOpts){
                             	var image_widget_id = Ext.ComponentQuery.query('#img_widget_setting')[0].img_widget_id;
                             	var img_panel = Ext.ComponentQuery.query('#'+image_widget_id)[0];
-                                img_panel.img_json.height = newValue;
+
+                                var img_json = Ext.decode(img_panel.img_json);
+                                img_json.height = newValue;
+                                img_panel.img_json = JSON.stringify(img_json);
+
+                                // img_panel.img_json.height = newValue;
+                                
     	          				img_panel.down('#img_panel').el.query('.img')[0].height = newValue;
                                 // var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                 // var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]

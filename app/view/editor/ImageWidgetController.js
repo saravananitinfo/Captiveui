@@ -27,12 +27,6 @@ Ext.define("CaptivePortal.view.editor.ImageWidgetController",{
             //     xtype: n.dragData
             // })
 
-			p.dataView.el.dom.style.background = 'none';
-			p.dataView.img_json.src = n.sourceEl.dataset.imgurl;
-			var img = p.dataView.down('#img_panel').el.query('.img')[0]
-			img.removeAttribute('width');img.removeAttribute('height');
-    	    p.dataView.down('#img_panel').el.query('.img')[0].src = n.sourceEl.dataset.imgurl;
-
     	    // var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
     	    // var img_panel = Ext.ComponentQuery.query('#'+img_widget_setting.img_widget_id)[0];
     	    // var current_setting_img = img_panel.down('#img_panel').el.query('.img')[0]
@@ -47,6 +41,19 @@ Ext.define("CaptivePortal.view.editor.ImageWidgetController",{
                 img_widget_id: p.dataView.id
             });
             editor_settings.setActiveItem(1);
+
+
+            p.dataView.el.dom.style.background = 'none';
+            // p.dataView.img_json.src = n.sourceEl.dataset.imgurl;
+
+            var img_json = Ext.decode(p.dataView.img_json);
+            img_json.src = n.sourceEl.dataset.imgurl;
+            p.dataView.img_json = JSON.stringify(img_json);
+
+            window.abcd = p.dataView 
+            var img = p.dataView.down('#img_panel').el.query('.img')[0]
+            img.removeAttribute('width');img.removeAttribute('height');
+            p.dataView.down('#img_panel').el.query('.img')[0].src = n.sourceEl.dataset.imgurl;
         }
     },
     notifyEnter: function() {

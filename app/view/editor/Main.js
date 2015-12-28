@@ -107,27 +107,51 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                                 margin: '10 10 10 10',
                                                 text: 'Templates'
                                             },
+                                            // {
+                                            //     xtype: 'dataview',
+                                            //     itemId: 'template_gallery',
+                                            //     width: '100%',
+                                            //     margin: '10 0 0 0',
+                                            //     overflowY: "auto",
+                                            //     itemSelector: "div.dragItem",
+                                            //     // data: [{name: "test1"},{name: "test2"}],
+                                            //     data: [{name: 'template1'}],
+                                            //     // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
+                                            //     tpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
+                                            //     listeners: {
+                                            //         afterrender: function(panel){
+                                            //             panel.getEl().query('div.template_img').forEach(function(ele){
+                                            //                 ele.onclick = function(){
+                                            //                     CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[this.dataset.name]);
+
+                                            //                 };
+                                            //             });
+                                            //         }
+                                            //     }
+                                            // }
                                             {
-                                                xtype: 'dataview',
-                                                itemId: 'template_gallery',
+                                                xtype: 'dragPanel',
+                                                ddGroup:"themeGroup",
+                                                // itemId: 'template_gallery',
+                                                pre_filled_sec: true,
                                                 width: '100%',
                                                 margin: '10 0 0 0',
                                                 overflowY: "auto",
                                                 itemSelector: "div.dragItem",
                                                 // data: [{name: "test1"},{name: "test2"}],
-                                                data: [{name: 'template1'}],
+                                                dataA: [{name: 'template1'},{name: 'template2'}],
                                                 // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
-                                                tpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
-                                                listeners: {
-                                                    afterrender: function(panel){
-                                                        panel.getEl().query('div.template_img').forEach(function(ele){
-                                                            ele.onclick = function(){
-                                                                CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[this.dataset.name]);
+                                                customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
+                                                // listeners: {
+                                                //     afterrender: function(panel){
+                                                //         panel.getEl().query('div.template_img').forEach(function(ele){
+                                                //             ele.onclick = function(){
+                                                //                 CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[this.dataset.name]);
 
-                                                            };
-                                                        });
-                                                    }
-                                                }
+                                                //             };
+                                                //         });
+                                                //     }
+                                                // }
                                             }
                                         ]
                                     }

@@ -41,6 +41,8 @@ Ext.define("CaptivePortal.view.editor.DropPanelViewController",{
             if(Ext.ComponentQuery.query('#'+m.id)[0].img_prop){
                 var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
                 editor_canvas.body.dom.style.background = 'url('+n.sourceEl.dataset.imgurl+') no-repeat center';
+            }else if(Ext.ComponentQuery.query('#'+m.id)[0].pre_filled_sec){
+                CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[n.dragData])
             }else{
                 p.dataView.add({
                     xtype: n.dragData

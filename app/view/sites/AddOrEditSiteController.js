@@ -163,7 +163,8 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
                     msg = 'Config from ' + tagName + ' will be copied to current site ?';
                 break;
                 case 3:
-                    this.saveSiteDetails(url, method, site_id, formValues, me);
+                    //this.saveSiteDetails(url, method, site_id, formValues, me);
+                    msg = 'Current site details will be copied to new tag ? ';
                 break;
                 case 4:
                     msg = 'Move tag config from ' + backupRec.tag.name + ' to ' + tagName;
@@ -185,7 +186,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
 
 
 
-            if(caseNo === 2 || caseNo === 4 || caseNo === 8){
+            if(caseNo === 2 || caseNo === 3 || caseNo === 4 || caseNo === 8){
                 Ext.Msg.show({
                     title: 'Confirm',
                     message: msg,
@@ -195,12 +196,10 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
                         if (btn === 'yes') {
                              switch(caseNo){
                                 case 2:
-                                    this.saveSiteDetails(url, method, site_id, formValues, me);
-                                break;
+                                case 3:
                                 case 4:
                                     this.saveSiteDetails(url, method, site_id, formValues, me);
                                 break;
-                                case 8:
                                     formValues['copy_config'] = true;
                                     this.saveSiteDetails(url, method, site_id, formValues, me);
                                 break;

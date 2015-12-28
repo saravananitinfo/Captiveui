@@ -9,20 +9,26 @@ Ext.define('CaptivePortal.view.editor.Main', {
     alias: 'widget.editor_main',
     layout: 'hbox',
     controller: 'editor_main_controller',
+    cls: "speditor",
     header: {
+	cls: "editor_top_panel",
         items: [{
             xtype:'button',
-            text: 'Page Settings',
+            text: 'Page Setting',
+	    cls: "",
+	    align: "left",	
             handler: "pageSettings"
         },{
             xtype:'button',
             text: 'Save',
             margin: '0 0 0 5',
+	    cls: "btn",
             handler: "saveEditorHtml"
         },{
             xtype:'button',
-            text: 'Cancle',
+            text: 'Cancel',
             margin: '0 0 0 5',
+	    cls: "btn btn-cancel",	    
             handler: 'closeEditor'
         },{
             xtype:'button',
@@ -52,10 +58,10 @@ Ext.define('CaptivePortal.view.editor.Main', {
                 // style: {
                 //     background: '#b6b6cf'
                 // },
-                style: 'border: 1px solid rgb(151, 173, 194);',
+                style: 'border: 0px solid rgb(151, 173, 194);',
         		reference: 'editor_canvas',
                 // width: '75%',
-        		width: '80%',
+        		width: '77%',
         		height: '100%',
         		layout: "vbox",
         		itemId: "editor_canvas",
@@ -71,12 +77,15 @@ Ext.define('CaptivePortal.view.editor.Main', {
             {
                 xtype: 'panel',
                 layout: 'card',
-                width: '20%',
+                width: '23%',
                 itemId: "editor_settings",
                 height: '100%',
+		style: 'box-shadow: rgb(206, 206, 206) 0px -1px 5px 0px;',
                 items: [
                     {
                         xtype: 'tabpanel',
+			cls: "editor_side_panel_header",
+			bodyCls: "editor_side_panel_body",
                         items:
                         [
 
@@ -89,8 +98,8 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                     width: '100%',
                                     height: '100%',
                                     overflowY: "auto",
-                                    dataA: [{themeDesc: "theme_col_1"},{themeDesc: "theme_col_2"},{themeDesc: "theme_col_3"},{themeDesc: "theme_col_4"}],
-                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
+                                    dataA: [{themeDesc: "theme_col_1", cls: "sec sec_1"},{themeDesc: "theme_col_2", cls: "sec sec_2"},{themeDesc: "theme_col_3", cls: "sec sec_3"},{themeDesc: "theme_col_4",cls: "sec sec_4"}],
+                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
                                 }]
                             },
                             {
@@ -104,8 +113,8 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                     itemSelector: "div.dragItem",
                                     ddGroup:"widgetGroup",
                                     // height: '100%',
-                                    dataA: [{widgetDesc: "text_widget"},{widgetDesc: "img_widget"},{widgetDesc: "button_widget"},{widgetDesc: "login_button_widget"}],
-                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetDesc}" data-qtip="{widgetDesc}">',"</div>","</div>","</tpl>"]
+                                    dataA: [{widgetDesc: "Text", cls: "icon_txt", widgetType: "text_widget"},{widgetDesc: "Image",cls: "icon_img", widgetType: "img_widget"},{widgetDesc: "Button",cls:"icon_btn", widgetType: "button_widget"},{widgetDesc: "Login Button",cls:"icon_btn_login",widgetType: "login_button_widget"}],
+                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetType} {cls}" data-qtip="{widgetType}">',"</div>","</div>","</tpl>"]
                                 }]
                             }
 

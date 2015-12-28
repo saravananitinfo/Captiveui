@@ -25,8 +25,8 @@ Ext.define("CaptivePortal.view.editor.DragPanelViewController",{
 
                 var a = e.getTarget(b.itemSelector, 10),
                     d;
-                    console.log(a);
-                    console.log(b.getRecord(a));
+                    // console.log(a);
+                    // console.log(b.getRecord(a));
                 if (a) {
                     d = a.cloneNode(true);
                     d.id = Ext.id();

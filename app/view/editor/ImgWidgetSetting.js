@@ -69,7 +69,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                                     img_panel.el.dom.style.background = 'none';
                                     var img = img_panel.down('#img_panel').el.query('.img')[0]
                                     img.removeAttribute('width');img.removeAttribute('height');
-                                    img.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.image_url;
+                                    img.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.medium_image_url;
 
                                 }
                             }.bind(this),function(response){
@@ -173,7 +173,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                         ddGroup:"galleryImage",
                         dataA: [],
                         store: Ext.StoreManager.lookup('CaptivePortal.store.editor.ImageGallery').load(),
-                        customTpl:['<tpl for=".">','<div data-imgurl="'+CaptivePortal.util.Utility.BASE_URL+'{image_url}" class="dragItem">','<div style="line-height: 1px;" class="{name}" data-qtip="{name}">','<img class="galleryImage" src="'+CaptivePortal.util.Utility.BASE_URL+'{image_url}">',"</div>","</div>","</tpl>"]
+                        customTpl:['<tpl for=".">','<div data-imgurl="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}" class="dragItem">','<div style="line-height: 1px;" class="{name}" data-qtip="{name}">','<img class="galleryImage" src="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}">',"</div>","</div>","</tpl>"]
                     }
                 ]
             }

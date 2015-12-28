@@ -34,10 +34,18 @@ Ext.define("CaptivePortal.view.editor.DropPanelViewController",{
             l = n.groupName;
         // p.dataView.removeAll();
         if (l === "themeGroup") {
-            p.dataView.add({
-                xtype: n.dragData
-            })
-            window.ab = this;
+            // p.dataView.add({
+            //     xtype: n.dragData
+            // })
+            window.abc = m;
+            if(Ext.ComponentQuery.query('#'+m.id)[0].img_prop){
+                var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+                editor_canvas.body.dom.style.background = 'url('+n.sourceEl.dataset.imgurl+') no-repeat center';
+            }else{
+                p.dataView.add({
+                    xtype: n.dragData
+                })
+            }
         }else{
             if(l === "widgetGroup"){
                 console.log(".......................1")

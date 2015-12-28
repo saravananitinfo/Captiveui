@@ -54,13 +54,8 @@ Ext.define('CaptivePortal.view.editor.Main', {
         	{
         		xtype: "dropPanel",
         		ddGroup:"themeGroup",
-                // bodyStyle: "background: #ffffff",
-                // style: {
-                //     background: '#b6b6cf'
-                // },
-                style: 'border: 0px solid rgb(151, 173, 194);',
+                	style: 'border: 0px solid rgb(151, 173, 194);',
         		reference: 'editor_canvas',
-                // width: '75%',
         		width: '77%',
         		height: '100%',
         		layout: "vbox",
@@ -69,9 +64,9 @@ Ext.define('CaptivePortal.view.editor.Main', {
         		defaults: {
         			reorderable: true
         		},
-            	plugins : Ext.create('Ext.ux.BoxReorderer', {
-            		// itemSelector: '.sort_item'
-            	})
+	            	plugins : Ext.create('Ext.ux.BoxReorderer', {
+        	    		// itemSelector: '.sort_item'
+            		})
 
         	},
             {
@@ -91,16 +86,52 @@ Ext.define('CaptivePortal.view.editor.Main', {
 
                             {
                                 title: "Select Section",
-                                items:[{
-                                    xtype: "dragPanel",
-                                    itemSelector: "div.dragItem",
-                                    ddGroup:"themeGroup",
-                                    width: '100%',
-                                    height: '100%',
-                                    overflowY: "auto",
-                                    dataA: [{themeDesc: "theme_col_1", cls: "sec sec_1"},{themeDesc: "theme_col_2", cls: "sec sec_2"},{themeDesc: "theme_col_3", cls: "sec sec_3"},{themeDesc: "theme_col_4",cls: "sec sec_4"}],
-                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
-                                }]
+                                items:[
+                                    {
+                                        xtype: "dragPanel",
+                                        itemSelector: "div.dragItem",
+                                        ddGroup:"themeGroup",
+                                        width: '100%',
+                                        // height: '100%',
+                                        overflowY: "auto",
+					dataA: [{themeDesc: "theme_col_1", cls: "sec sec_1"},{themeDesc: "theme_col_2", cls: "sec sec_2"},{themeDesc: "theme_col_3", cls: "sec sec_3"},{themeDesc: "theme_col_4",cls: "sec sec_4"}],
+                                        customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
+                                    },
+                                    {
+                                        xtype: 'panel',
+                                        layout: 'vbox',
+                                        width: '100%',
+                                        items: [
+                                            {
+                                                xtype: 'label',
+                                                margin: '10 10 10 10',
+                                                text: 'Templates'
+                                            },
+                                            {
+                                                xtype: 'dataview',
+                                                itemId: 'template_gallery',
+                                                width: '100%',
+                                                margin: '10 0 0 0',
+                                                overflowY: "auto",
+                                                itemSelector: "div.dragItem",
+                                                // data: [{name: "test1"},{name: "test2"}],
+                                                data: [{name: 'template1'}],
+                                                // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
+                                                tpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
+                                                listeners: {
+                                                    afterrender: function(panel){
+                                                        panel.getEl().query('div.template_img').forEach(function(ele){
+                                                            ele.onclick = function(){
+                                                                CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[this.dataset.name]);
+
+                                                            };
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 title: "Select Widget",

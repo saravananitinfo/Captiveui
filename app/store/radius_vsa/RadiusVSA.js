@@ -1,5 +1,6 @@
 Ext.define('CaptivePortal.store.radius_vsa.RadiusVSA',{
 	extend:'Ext.data.Store',
+	autoLoad:false,
 	requires:['CaptivePortal.model.radius_vsa.RadiusVSA'],
 	model:'CaptivePortal.model.radius_vsa.RadiusVSA',
 	proxy:{

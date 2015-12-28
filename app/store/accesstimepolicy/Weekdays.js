@@ -6,7 +6,7 @@ Ext.define('CaptivePortal.store.accesstimepolicy.Weekdays',{
 	{id:'Monday', name:'Monday'},
 	{id:'Tuesday', name:'Tuesday'},
 	{id:'Wednesday', name:'Wednesday'},
-	{id:'Thurdday', name:'Thurdday'},
+	{id:'Thursday', name:'Thursday'},
 	{id:'Friday', name:'Friday'},
 	{id:'Saturday', name:'Saturday'}]
 });

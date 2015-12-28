@@ -53,7 +53,9 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyListController', {
         this.fireEvent('showAccessTimePolicy', 1);
     },
     getPolicyList: function(){
-        var store = this.getView().lookupReference('grd_policylist').getStore();
-    store.load();
+        if(CaptivePortal.app.getUserRole() !== 'super_admin'){
+            var store = this.getView().lookupReference('grd_policylist').getStore();
+            store.load();
+        }        
     }
 });

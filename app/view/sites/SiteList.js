@@ -70,17 +70,18 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         }
                     },
                     {
-                        header: 'Users',
-                        dataIndex: 'users',
+                        header: 'Tag',
+                        dataIndex: 'tag',
                         width: '14.9%',
                          cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
-                            var users = rec.get('users');
-                            var userName = [];
-                            Ext.Array.each(users, function (r) {
-                                userName.push(r.name)
-                            });
-                            value = userName.length ? userName.join() : "";
+                            var tag = rec.get('tag');
+			    value = tag ? ((tag.name==null) ? '' : tag.name) : '';
+                            //var userName = [];
+                           // Ext.Array.each(users, function (r) {
+                           //     userName.push(r.name)
+                           // });
+                           // value = userName.length ? userName.join() : "";
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             return value;
                         }

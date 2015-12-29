@@ -27,21 +27,21 @@ Ext.define('CaptivePortal.view.sms_gateway.GatewayTypeCdyne',{
                 allowBlank: false,
                 margin: '0 0 20 0',
                 value: this.license_key ? this.license_key : ''
-            },
-            {
-				xtype: 'label',
-				text: 'Test/Verify Gateway Details',
-				cls: 'header_label_content',
-				margin: '0 0 20 0'
-			},
-            {
-                xtype: 'button',
-                text: 'Verify',
-                cls: 'header_label_content help-text-sms-gateway',
-                margin: '0 0 20 0',
-                handler: 'testVerifyGatewayDetails'
-                
             }
+         //   {
+	//			xtype: 'label',
+//				text: 'Test/Verify Gateway Details',
+//				cls: 'header_label_content',
+//				margin: '0 0 20 0'
+//			},
+  //          {
+    //            xtype: 'button',
+ //               text: 'Verify',
+  //              cls: 'header_label_content help-text-sms-gateway',
+   //             margin: '0 0 20 0',
+    //            handler: 'testVerifyGatewayDetails'
+                
+    //        }
             // {
             //     xtype: 'textfield',
             //     name: 'veri_to',

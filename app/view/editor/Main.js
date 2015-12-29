@@ -60,6 +60,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
         		xtype: "dropPanel",
         		ddGroup:"themeGroup",
                 	style: 'border: 0px solid rgb(151, 173, 194);',
+			margin: '15 0 0 0',
         		reference: 'editor_canvas',
         		width: '77%',
         		height: '100%',
@@ -99,7 +100,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                         width: '100%',
                                         // height: '100%',
                                         overflowY: "auto",
-					                    dataA: [{dragData: "theme_col_1", themeDesc: "Theme Column 1", cls: "sec sec_1"},{dragData: "theme_col_2", themeDesc: "Theme Column 2", cls: "sec sec_2"},{dragData: "theme_col_3", themeDesc: "Theme Column 3", cls: "sec sec_3"},{dragData: "theme_col_4", themeDesc: "Theme Column 4",cls: "sec sec_4"}, {dragData: "theme_col_2_left_vbox", themeDesc: "Theme Column 2 Left Vbox",cls: "sec sec_2"}],
+					                    dataA: [{dragData: "theme_col_1", themeDesc: "Theme Column 1", cls: "sec sec_1"},{dragData: "theme_col_2", themeDesc: "Theme Column 2", cls: "sec sec_2"},{dragData: "theme_col_3", themeDesc: "Theme Column 3", cls: "sec sec_3"},{dragData: "theme_col_4", themeDesc: "Theme Column 4",cls: "sec sec_4"}],
                                         customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-drag="{dragData}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
                                     },
                                     {
@@ -144,7 +145,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                                 overflowY: "auto",
                                                 itemSelector: "div.dragItem",
                                                 // data: [{name: "test1"},{name: "test2"}],
-                                                dataA: [{name: 'template1'},{name: 'template2'}],
+                                                dataA: [{name: 'template1'},{name: 'template2'},{name: 'template3'},{name: 'template4'},{name: 'template5'}],
                                                 // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
                                                 customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-drag="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
                                                 // listeners: {

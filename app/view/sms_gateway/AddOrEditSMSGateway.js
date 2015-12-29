@@ -117,7 +117,6 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                         name: 'status',
                                         inputValue: 'active',
                                         itemId: 'user_enable',
-                                        // checked: true,
                                         checked: this.status == 'active' ? true : false
                                     }, {
                                         boxLabel: 'Disable',
@@ -171,7 +170,15 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                         text: 'Cancel',
                                         handler: 'cancelSMSGateway',
 										cls: 'btn btn-cancel'
-                        			}
+                        			},
+					{
+				                xtype: 'button',
+                				text: 'Verify',
+				                cls: 'header_label_content btn btn-verify',
+				                margin: '0 0 0 20',
+				                handler: 'testVerifyGatewayDetails'
+            }
+
                         		]
                   			}
             			]

@@ -46,7 +46,7 @@ Ext.define('CaptivePortal.view.sms_gateway.GatewayTypeClickatell',{
                 margin: '0 0 20 0',
                 value: this.password ? this.password : ''
             },
-            {
+          /*  {
                 xtype: 'label',
                 text: 'Test/Verify Gateway Details',
                 cls: 'header_label_content',
@@ -58,7 +58,7 @@ Ext.define('CaptivePortal.view.sms_gateway.GatewayTypeClickatell',{
                 cls: 'header_label_content help-text-sms-gateway',
                 margin: '0 0 20 0',
                 handler: 'testVerifyGatewayDetails'
-            }
+            }*/
 
 
 		]

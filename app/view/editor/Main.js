@@ -14,9 +14,14 @@ Ext.define('CaptivePortal.view.editor.Main', {
 	cls: "editor_top_panel",
         items: [{
             xtype:'button',
+            text: 'Preview',
+            handler: 'preview'
+        },{
+            xtype:'button',
             text: 'Page Setting',
-	    cls: "",
-	    align: "left",	
+            cls: "",
+            align: "left",
+            margin: '0 0 0 5',
             handler: "pageSettings"
         },{
             xtype:'button',
@@ -94,7 +99,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                         width: '100%',
                                         // height: '100%',
                                         overflowY: "auto",
-					                    dataA: [{dragData: "theme_col_1", themeDesc: "Theme Column 1", cls: "sec sec_1"},{dragData: "theme_col_2", themeDesc: "Theme Column 2", cls: "sec sec_2"},{dragData: "theme_col_3", themeDesc: "Theme Column 3", cls: "sec sec_3"},{dragData: "theme_col_4", themeDesc: "Theme Column 4",cls: "sec sec_4"}],
+					                    dataA: [{dragData: "theme_col_1", themeDesc: "Theme Column 1", cls: "sec sec_1"},{dragData: "theme_col_2", themeDesc: "Theme Column 2", cls: "sec sec_2"},{dragData: "theme_col_3", themeDesc: "Theme Column 3", cls: "sec sec_3"},{dragData: "theme_col_4", themeDesc: "Theme Column 4",cls: "sec sec_4"}, {dragData: "theme_col_2_left_vbox", themeDesc: "Theme Column 2 Left Vbox",cls: "sec sec_2"}],
                                         customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-drag="{dragData}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
                                     },
                                     {

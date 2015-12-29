@@ -174,7 +174,7 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
 					{
 				                xtype: 'button',
                 				text: 'Verify',
-				                cls: 'header_label_content btn help-text-sms-gateway',
+				                cls: 'header_label_content btn btn-verify',
 				                margin: '0 0 0 20',
 				                handler: 'testVerifyGatewayDetails'
             }

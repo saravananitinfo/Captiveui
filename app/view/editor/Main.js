@@ -94,8 +94,8 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                         width: '100%',
                                         // height: '100%',
                                         overflowY: "auto",
-					dataA: [{themeDesc: "theme_col_1", cls: "sec sec_1"},{themeDesc: "theme_col_2", cls: "sec sec_2"},{themeDesc: "theme_col_3", cls: "sec sec_3"},{themeDesc: "theme_col_4",cls: "sec sec_4"}],
-                                        customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
+					                    dataA: [{dragData: "theme_col_1", themeDesc: "Theme Column 1", cls: "sec sec_1"},{dragData: "theme_col_2", themeDesc: "Theme Column 2", cls: "sec sec_2"},{dragData: "theme_col_3", themeDesc: "Theme Column 3", cls: "sec sec_3"},{dragData: "theme_col_4", themeDesc: "Theme Column 4",cls: "sec sec_4"}],
+                                        customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-drag="{dragData}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
                                     },
                                     {
                                         xtype: 'panel',
@@ -141,7 +141,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                                 // data: [{name: "test1"},{name: "test2"}],
                                                 dataA: [{name: 'template1'},{name: 'template2'}],
                                                 // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
-                                                customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
+                                                customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-drag="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
                                                 // listeners: {
                                                 //     afterrender: function(panel){
                                                 //         panel.getEl().query('div.template_img').forEach(function(ele){
@@ -168,8 +168,8 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                     itemSelector: "div.dragItem",
                                     ddGroup:"widgetGroup",
                                     // height: '100%',
-                                    dataA: [{widgetDesc: "Text", cls: "icon_txt", widgetType: "text_widget"},{widgetDesc: "Image",cls: "icon_img", widgetType: "img_widget"},{widgetDesc: "Button",cls:"icon_btn", widgetType: "button_widget"},{widgetDesc: "Login Button",cls:"icon_btn_login",widgetType: "login_button_widget"}],
-                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetType} {cls}" data-qtip="{widgetType}">',"</div>","</div>","</tpl>"]
+                                    dataA: [{dragData: "text_widget", widgetDesc: "Text", cls: "icon_txt", widgetType: "text_widget"},{dragData: "img_widget", widgetDesc: "Image",cls: "icon_img", widgetType: "img_widget"},{dragData: "button_widget", widgetDesc: "Button",cls:"icon_btn", widgetType: "button_widget"},{dragData: "login_button_widget", widgetDesc: "Login Button",cls:"icon_btn_login",widgetType: "login_button_widget"}],
+                                    customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetType} {cls}" data-drag="{dragData}" data-qtip="{widgetDesc}">',"</div>","</div>","</tpl>"]
                                 }]
                             }
 

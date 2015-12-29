@@ -32,7 +32,8 @@ Ext.define("CaptivePortal.view.editor.DragPanelViewController",{
                     d.id = Ext.id();
                     return b.dragData = {
                         groupName: this.ddGroup,
-                        dragData: Ext.getDom(e.getTarget()).getAttribute('data-qtip'),
+                        // dragData: Ext.getDom(e.getTarget()).getAttribute('data-qtip'),
+                        dragData: Ext.getDom(e.getTarget()).getAttribute('data-drag'),
                         sourceEl: a,
                         repairXY: Ext.fly(a).getXY(),
                         ddel: d

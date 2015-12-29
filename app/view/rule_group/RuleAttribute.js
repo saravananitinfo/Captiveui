@@ -6,7 +6,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   autoScroll:true,
   width:'100%',
   itemIdPrefix:'rule_group_rule_attribute_form-',
-  style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+  style: 'border-radius:2px !important;border:solid #cccccc 1px !important; ',
   layout: {
 	    type: 'vbox',
 	    padding: '0 0 0 0'
@@ -247,7 +247,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 					allowBlank:false,
 					maxLength:50,
 					padding:'0 10 0 0',
-					emptyText: 'IP Submit',
+					emptyText: 'IP Subnet',
 					width:'50%',
 					value:obj.ipSubmit.value,
 		            hidden:obj.ipSubmit.value ? false : true
@@ -362,7 +362,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 	        	fields:['id', 'name'], 
 	        	data : [
 	        		{name: "SSIDS", id: "1"},
-					{name: "IP Submit", id: "2"},
+					{name: "IP Subnet", id: "2"},
 					{name: "IP Range", id: "3"},
 					{name: "DNS", id: "4"},
 					{name: "VLAN", id: "5"},

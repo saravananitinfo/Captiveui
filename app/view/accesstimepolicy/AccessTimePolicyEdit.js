@@ -85,7 +85,6 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										itemId:'time_policy_day_grid',
 										width:'100%',
 										autoScroll:false,
-						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 0px 0px #cccccc;',
 						                store: Ext.create('CaptivePortal.store.accesstimepolicy.Day'),
 						                columns: [
 						                	{
@@ -200,7 +199,6 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										margin:'0 0 0 0',
 										itemId:'time_policy_date_range_grid',
 										width:'100%',
-						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 0px 0px #cccccc;',
 						                store: Ext.create('CaptivePortal.store.accesstimepolicy.DateRange'),
 						                columns: [
 						                	{
@@ -358,7 +356,6 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 									width:'100%',
 									margin:'0 0 0 0',
 									itemId:'time_policy_specific_day_grid',
-					                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 0px 0px #cccccc;',
 					                store: Ext.create('CaptivePortal.store.accesstimepolicy.SpecificDay'),
 					                columns: [
 					                	{

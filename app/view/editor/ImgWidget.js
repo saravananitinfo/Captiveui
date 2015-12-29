@@ -87,11 +87,12 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     ],
     border: true,
     initComponent: function(){
-        var stl = 'background: url("http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116") no-repeat center;background-size: 70px 70px;';
+        var stl = 'background: url("/resources/images/img_before.png") no-repeat center;background-size: 61px 44px;';
 
         var img_json = Ext.decode(this.img_json);
         if(img_json.src === null){
-            this.style = stl;
+            // this.style = stl;
+            this.cls = 'default_img';
         }else{
 
         }

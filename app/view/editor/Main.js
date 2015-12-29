@@ -55,6 +55,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
         		xtype: "dropPanel",
         		ddGroup:"themeGroup",
                 	style: 'border: 0px solid rgb(151, 173, 194);',
+			margin: '15 0 0 0',
         		reference: 'editor_canvas',
         		width: '77%',
         		height: '100%',
@@ -139,7 +140,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                                 overflowY: "auto",
                                                 itemSelector: "div.dragItem",
                                                 // data: [{name: "test1"},{name: "test2"}],
-                                                dataA: [{name: 'template1'},{name: 'template2'}],
+                                                dataA: [{name: 'template1'},{name: 'template2'},{name: 'template3'},{name: 'template4'},{name: 'template5'}],
                                                 // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
                                                 customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
                                                 // listeners: {

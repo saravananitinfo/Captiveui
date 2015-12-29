@@ -78,7 +78,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 										margin:'10 10 10 0',										
 										id:this.itemIdPrefix + 'grid',
 										width:'100%',
-						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; ',
 						                store: Ext.create('CaptivePortal.store.rule_group.Rule'),
 						                columns: [						                	
 						           			{

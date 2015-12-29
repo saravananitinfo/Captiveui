@@ -27,12 +27,6 @@ Ext.define("CaptivePortal.view.editor.ImageWidgetController",{
             //     xtype: n.dragData
             // })
 
-    	    // var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
-    	    // var img_panel = Ext.ComponentQuery.query('#'+img_widget_setting.img_widget_id)[0];
-    	    // var current_setting_img = img_panel.down('#img_panel').el.query('.img')[0]
-    	    // img_widget_setting.down('#img_height_field').setValue(current_setting_img.height);
-    	    // img_widget_setting.down('#img_width_field').setValue(current_setting_img.width);
-
     	    var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
             var editor_setting_panel = Ext.ComponentQuery.query('#editor_setting_panel')[0];
             editor_setting_panel.removeAll();
@@ -53,7 +47,14 @@ Ext.define("CaptivePortal.view.editor.ImageWidgetController",{
             window.abcd = p.dataView 
             var img = p.dataView.down('#img_panel').el.query('.img')[0]
             img.removeAttribute('width');img.removeAttribute('height');
-            p.dataView.down('#img_panel').el.query('.img')[0].src = n.sourceEl.dataset.imgurl;
+            img.src = n.sourceEl.dataset.imgurl;
+            img.style.display = 'block';
+
+            var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
+            // var img_panel = Ext.ComponentQuery.query('#'+img_widget_setting.img_widget_id)[0];
+            // var current_setting_img = img_panel.down('#img_panel').el.query('.img')[0]
+            img_widget_setting.down('#img_height_field').setValue(img.height);
+            img_widget_setting.down('#img_width_field').setValue(img.width);
         }
     },
     notifyEnter: function() {

@@ -10,7 +10,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         render: "onRender"
     },
     ddGroup: "galleryImage",
-    img_json: '{src: null, width: 0, height: 0, top: 0, left: 0}',
+    img_json: '{src: "#", width: 0, height: 0, top: 0, left: 0}',
 	width: '100%',
     height: '100%',
     cls: 'img_widget',
@@ -87,11 +87,11 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     ],
     border: true,
     initComponent: function(){
-        var stl = 'background: url("/resources/images/img_before.png") no-repeat center;background-size: 61px 44px;';
-
+        // var stl = 'background: url("/resources/images/img_before.png") no-repeat center;background-size: 61px 44px;';
+        var stl = '';
         var img_json = Ext.decode(this.img_json);
-        if(img_json.src === null){
-            // this.style = stl;
+        if(img_json.src === "#"){
+            stl = 'display:none';
             this.cls = 'default_img';
         }else{
 
@@ -116,8 +116,12 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                 constrainTo: me.el,
                 listeners: {
                     'dragend': function( ths, e, eOpts ){
-                        me.img_json.top = ths.dragTarget.offsetTop;
-                        me.img_json.left= ths.dragTarget.offsetLeft;
+                        // me.img_json.top = ths.dragTarget.offsetTop;
+                        // me.img_json.left= ths.dragTarget.offsetLeft;
+                        var img_json = Ext.decode(me.img_json);
+                        img_json.top = ths.dragTarget.offsetTop;;
+                        img_json.left = ths.dragTarget.offsetLeft;;
+                        me.img_json = JSON.stringify(img_json);
                     }
                 }
             },
@@ -125,7 +129,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
             
             itemId: "img_panel",
             // padding: 10,
-            html: '<img class="img" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
+            html: '<img class="img" style="'+stl+'" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
         }]
         this.callParent();
     }

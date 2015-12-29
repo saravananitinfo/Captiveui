@@ -181,7 +181,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                         ddGroup:"galleryImage",
                         dataA: [],
                         store: Ext.StoreManager.lookup('CaptivePortal.store.editor.ImageGallery').load(),
-                        customTpl:['<tpl for=".">','<div data-imgurl="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}" class="dragItem">','<div style="line-height: 1px;" class="{name}" data-qtip="{name}">','<img class="galleryImage" src="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}">',"</div>","</div>","</tpl>"]
+                        customTpl:['<tpl for=".">','<div data-imgurl="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}" class="dragItem">','<div style="line-height: 1px;" class="{name}" data-drag="{name} data-qtip="{name}">','<img class="galleryImage" src="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}">',"</div>","</div>","</tpl>"]
                     }
                 ]
             }

@@ -13,26 +13,32 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 	  }
 	},
 	initComponent: function () {
+		var canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+		var page_data = Ext.decode(canvas.page_data);
 		this.items = [
 			{
 				xtype: 'panel',
 				width: '100%',
 				items: [
 					{
-					  	title: "Text",
 					  	items: [
 					      	{
-								xtype: 'colorpicker',
-								itemId: 'page_color',
-								margin: '10 10 10 10',
-								// value: btn_json["txt_color"],
-								listeners: {
-								  select: function( ths, color, eOpts ){
-								    var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
-								    editor_canvas.body.dom.style.background = '#'+color;
-								  }
-								}
-					      	}
+						        xtype: 'colorfield',
+						        fieldLabel: 'Color Field',
+						        labelWidth: 75,
+						        value: page_data.background,
+						        width: '92%',
+						        margin: '10 10 10 10',
+						        listeners: {
+						            change: function(picker){
+						            	var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+						            	var page_data = Ext.decode(editor_canvas.page_data);
+						            	page_data.background = picker.getValue()
+						            	editor_canvas.page_data = JSON.stringify(page_data);
+								    	editor_canvas.body.dom.style.background = '#'+picker.getValue();
+						            }
+						        }
+						    }
 					  	]
 					}
 	      		]

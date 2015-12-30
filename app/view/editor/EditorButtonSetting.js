@@ -215,18 +215,38 @@ Ext.define("CaptivePortal.view.editor.EditorButtonSetting",{
                     {
                         title: "Text",
                         items: [
+                            // {
+                            //     xtype: 'colorpicker',
+                            //     itemId: 'btn_txt_color',
+                            //     value: btn_json["txt_color"],
+                            //     listeners: {
+                            //         select: function( ths, color, eOpts ){
+                            //             var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
+                            //             var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
+                            //             btn.style.color = '#'+color;
+
+                            //             var btn_json = Ext.decode(button_panel.button_json, true);
+                            //             btn_json['txt_color'] = color;
+                            //             button_panel.button_json = JSON.stringify(btn_json);
+                            //         }
+                            //     }
+                            // },
                             {
-                                xtype: 'colorpicker',
-                                itemId: 'btn_txt_color',
+                                xtype: 'colorfield',
+                                fieldLabel: 'Color Field',
+                                labelWidth: 75,
                                 value: btn_json["txt_color"],
+                                width: '92%',
+                                margin: '10 10 10 10',
                                 listeners: {
-                                    select: function( ths, color, eOpts ){
+                                    change: function(picker){
+
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
                                         var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
-                                        btn.style.color = '#'+color;
+                                        btn.style.color = '#'+picker.getValue();;
 
                                         var btn_json = Ext.decode(button_panel.button_json, true);
-                                        btn_json['txt_color'] = color;
+                                        btn_json['txt_color'] = picker.getValue();;
                                         button_panel.button_json = JSON.stringify(btn_json);
                                     }
                                 }
@@ -236,18 +256,38 @@ Ext.define("CaptivePortal.view.editor.EditorButtonSetting",{
                     {
                         title: "Button",
                         items: [
+                            // {
+                            //     xtype: 'colorpicker',
+                            //     itemId: 'btn_bg_color',
+                            //     value: btn_json["bg_color"],
+                            //     listeners: {
+                            //         select: function( ths, color, eOpts ){
+                            //             var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
+                            //             var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
+                            //             btn.style.background = '#'+color;
+
+                            //             var btn_json = Ext.decode(button_panel.button_json, true);
+                            //             btn_json['bg_color'] = color;
+                            //             button_panel.button_json = JSON.stringify(btn_json);
+                            //         }
+                            //     }
+                            // },
                             {
-                                xtype: 'colorpicker',
-                                itemId: 'btn_bg_color',
+                                xtype: 'colorfield',
+                                fieldLabel: 'Color Field',
+                                labelWidth: 75,
                                 value: btn_json["bg_color"],
+                                width: '92%',
+                                margin: '10 10 10 10',
                                 listeners: {
-                                    select: function( ths, color, eOpts ){
+                                    change: function(picker){
+
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.editor_button_setting').button_id)[0]
                                         var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
-                                        btn.style.background = '#'+color;
+                                        btn.style.background = '#'+picker.getValue();
 
                                         var btn_json = Ext.decode(button_panel.button_json, true);
-                                        btn_json['bg_color'] = color;
+                                        btn_json['bg_color'] = picker.getValue();
                                         button_panel.button_json = JSON.stringify(btn_json);
                                     }
                                 }

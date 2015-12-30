@@ -74,18 +74,37 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                         margin: '10 10 10 10',
                         text: 'Font Color'
                     },
+                    // {
+                    //     xtype: 'colorpicker',
+                    //     itemId: 'link_txt_color',
+                    //     value: link_json["txt_color"],
+                    //     listeners: {
+                    //         select: function( ths, color, eOpts ){
+                    //             var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                    //             var link = button_panel.down('#button_panel').el.query('a')[0]
+                    //             link.style.color = '#'+color;
+
+                    //             var link_json = Ext.decode(button_panel.link_json, true);
+                    //             link_json['txt_color'] = color;
+                    //             button_panel.link_json = JSON.stringify(link_json);
+                    //         }
+                    //     }
+                    // },
                     {
-                        xtype: 'colorpicker',
-                        itemId: 'link_txt_color',
+                        xtype: 'colorfield',
+                        fieldLabel: 'Color Field',
+                        labelWidth: 75,
                         value: link_json["txt_color"],
+                        width: '92%',
+                        margin: '10 10 10 10',
                         listeners: {
-                            select: function( ths, color, eOpts ){
+                            change: function(picker){
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                 var link = button_panel.down('#button_panel').el.query('a')[0]
-                                link.style.color = '#'+color;
+                                link.style.color = '#'+picker.getValue();
 
                                 var link_json = Ext.decode(button_panel.link_json, true);
-                                link_json['txt_color'] = color;
+                                link_json['txt_color'] = picker.getValue();
                                 button_panel.link_json = JSON.stringify(link_json);
                             }
                         }

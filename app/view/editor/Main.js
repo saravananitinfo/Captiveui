@@ -59,20 +59,21 @@ Ext.define('CaptivePortal.view.editor.Main', {
         	{
         		xtype: "dropPanel",
         		ddGroup:"themeGroup",
-                	style: 'border: 0px solid rgb(151, 173, 194);',
-			margin: '15 0 0 0',
+                style: 'border: 0px solid rgb(151, 173, 194);',
+                margin: '15 0 0 0',
         		reference: 'editor_canvas',
         		width: '77%',
         		height: '100%',
         		layout: "vbox",
         		itemId: "editor_canvas",
+                page_data: '{background: "ffffff"}',
         		scrollable: 'y',
         		defaults: {
         			reorderable: true
         		},
-	            	plugins : Ext.create('Ext.ux.BoxReorderer', {
-        	    		// itemSelector: '.sort_item'
-            		})
+	            plugins : Ext.create('Ext.ux.BoxReorderer', {
+        	    	// itemSelector: '.sort_item'
+            	})
 
         	},
             {
@@ -81,12 +82,12 @@ Ext.define('CaptivePortal.view.editor.Main', {
                 width: '23%',
                 itemId: "editor_settings",
                 height: '100%',
-		style: 'box-shadow: rgb(206, 206, 206) 0px -1px 5px 0px;',
+                style: 'box-shadow: rgb(206, 206, 206) 0px -1px 5px 0px;',
                 items: [
                     {
                         xtype: 'tabpanel',
-			cls: "editor_side_panel_header",
-			bodyCls: "editor_side_panel_body",
+                        cls: "editor_side_panel_header",
+                        bodyCls: "editor_side_panel_body",
                         items:
                         [
 

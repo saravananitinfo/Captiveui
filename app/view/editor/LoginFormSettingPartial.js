@@ -300,122 +300,120 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 								}
 							}
 						]
+					},
+					{
+						xtype: 'panel',
+						defaults: {
+							style: 'float: left;'
+						},
+						items: [
+							{
+								width: '50%',
+								margin: '5 0 0 0',
+								items: [{
+									xtype: 'label',
+									margin: '0 0 0 5',
+									text: 'Mobile Nunber'
+								}]
+							},
+							{
+								xtype: 'checkbox',
+								style: 'float: left;text-align: center;',
+								margin: '0 0 0 0',
+								value: form_json.mobile_number.enable,
+								width: '25%',
+								listeners: {
+									'change': function(ths, newValue, oldValue, eOpts){
+										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+										// var form_json = Ext.decode(button_panel.form_json, true);
+										var form_json = button_panel.form_json;
+										console.log(newValue)
+										form_json.mobile_number.enable = newValue;
+										button_panel.form_json = form_json;
+									}
+								}
+							},
+							{
+								xtype: 'checkbox',
+								style: 'float: left;text-align: center;',
+								margin: '0 0 0 0',
+								value: form_json.mobile_number.optional,
+								width: '25%',
+								listeners: {
+									'change': function(ths, newValue, oldValue, eOpts){
+										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+										// var form_json = Ext.decode(button_panel.form_json, true);
+										var form_json = button_panel.form_json;
+										console.log(newValue)
+										form_json.mobile_number.optional = newValue;
+										button_panel.form_json = form_json;
+									}
+								}
+							}
+						]
+					},
+					{
+						xtype: 'panel',
+						defaults: {
+							style: 'float: left;'
+						},
+						items: [
+							{
+								width: '50%',
+								margin: '5 0 0 0',
+								items: [{
+									xtype: 'label',
+									margin: '0 0 0 5',
+									text: 'Password'
+								}]
+							},
+							{
+								xtype: 'checkbox',
+								style: 'float: left;text-align: center;',
+								margin: '0 0 0 0',
+								value: form_json.password.enable,
+								width: '25%',
+								listeners: {
+									'change': function(ths, newValue, oldValue, eOpts){
+										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+										// var form_json = Ext.decode(button_panel.form_json, true);
+										var form_json = button_panel.form_json;
+										console.log(newValue)
+										form_json.password.enable = newValue;
+										button_panel.form_json = form_json;
+									}
+								}
+							},
+							{
+								xtype: 'checkbox',
+								style: 'float: left;text-align: center;',
+								margin: '0 0 0 0',
+								value: form_json.password.optional,
+								width: '25%',
+								listeners: {
+									'change': function(ths, newValue, oldValue, eOpts){
+										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+										// var form_json = Ext.decode(button_panel.form_json, true);
+										var form_json = button_panel.form_json;
+										console.log(newValue)
+										form_json.password.optional = newValue;
+										button_panel.form_json = form_json;
+									}
+								}
+							}
+						]
+					},
+
+					// ....... Verification Fields........
+
+					{
+						xtype: 'panel',
+						margin: '10 0 0 0',
+						itemId: 'form_login_varify_fields_panel',
+						items: []
 					}
 				]    		
     		}
-    // 		{
-				// xtype: 'panel',
-				// label: 'vbox',
-				// width: '25%',
-				// items: [
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'label',
-				// 		text: 'Enable'
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'check': function(ths, newValue, oldValue, eOpts){
-				// 				console.log(newValue);
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	}
-				// ]    		
-    // 		},
-    // 		{
-				// xtype: 'panel',
-				// width: '25%',
-				// items: [
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'label',
-				// 		text: 'Optional'
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	},
-				// 	{
-				// 		margin: '5 0 0 5',
-				// 		xtype: 'checkboxfield',
-				// 		listener: {
-				// 			'change': function(ths, newValue, oldValue, eOpts){
-								
-				// 			}
-				// 		}
-				// 	}
-				// ]    		
-    // 		}
     	]
     	this.callParent();
     }

@@ -175,7 +175,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                     itemSelector: "div.dragItem",
                                     ddGroup:"widgetGroup",
                                     // height: '100%',
-                                    dataA: [{dragData: "text_widget", widgetDesc: "Text", cls: "icon_txt", widgetType: "text_widget"},{dragData: "img_widget", widgetDesc: "Image",cls: "icon_img", widgetType: "img_widget"},{dragData: "button_widget", widgetDesc: "Button",cls:"icon_btn", widgetType: "button_widget"},{dragData: "login_button_widget", widgetDesc: "Login Button",cls:"icon_btn_login",widgetType: "login_button_widget"}],
+                                    dataA: [{dragData: "text_widget", widgetDesc: "Text", cls: "icon_txt", widgetType: "text_widget"},{dragData: "img_widget", widgetDesc: "Image",cls: "icon_img", widgetType: "img_widget"},{dragData: "button_widget", widgetDesc: "Button",cls:"icon_btn", widgetType: "button_widget"},{dragData: "login_button_widget", widgetDesc: "Login Button",cls:"icon_btn_login",widgetType: "login_button_widget"},{dragData: "html_widget", widgetDesc: "Html Editor",cls:"icon_btn_login",widgetType: "html_widget"}],
                                     customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {widgetType} {cls}" data-drag="{dragData}" data-qtip="{widgetDesc}">',"</div>","</div>","</tpl>"]
                                 }]
                             }

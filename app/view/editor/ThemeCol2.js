@@ -64,20 +64,19 @@ Ext.define("CaptivePortal.view.editor.ThemeCol2",{
     defaults: {
         ddGroup: "widgetGroup",
         width: "50%",
-        flex: 1
+        flex: 1,
+        height: '100%',
+        margin: 5
     },
+    cls: 'dpanel',
      items: [
         {
             xtype: "dropPanel",
-            cls: "dropPanel",
-            height: '100%',
-            margin: 5
+            cls: "dropPanel"
         },
         {
             xtype: "dropPanel",
             cls: "dropPanel",
-            height: '100%',
-            margin: 5
         }
     ]
 });

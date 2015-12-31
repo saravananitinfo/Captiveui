@@ -61,16 +61,24 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
                 }
             }
 
-            var theme = this.up('.login_button_widget').up();
-            var indx = theme.items.indexOf(this.up('.login_button_widget'));
-            theme.remove(this.up('.login_button_widget'));
+            // var theme = this.up('.login_button_widget').up();
+            // var indx = theme.items.indexOf(this.up('.login_button_widget'));
+            // theme.remove(this.up('.login_button_widget'));
 
 
+            // theme.insert(indx,{
+            //     xtype: "dropPanel",
+            //     cls: "dropPanel",
+            //     height: '100%',
+            //     margin: 5
+            // });
+
+            var theme = Ext.ComponentQuery.query('#'+this.el.up('.dpanel').id)[0];
+            var indx = theme.items.indexOf(this.up('login_button_widget'));
+            theme.remove(this.up('login_button_widget'));
             theme.insert(indx,{
                 xtype: "dropPanel",
-                cls: "dropPanel",
-                height: '100%',
-                margin: 5
+                cls: "dropPanel"
             });
         }
     }],

@@ -73,15 +73,25 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
 
 
                 
-                var theme = this.up().up().up();
-                var indx = theme.items.indexOf(this.up().up());
-                theme.remove(this.up().up());
+                // var theme = this.up().up().up();
+                // var indx = theme.items.indexOf(this.up().up());
+                // theme.remove(this.up().up());
+                // theme.insert(indx,{
+                //     xtype: "dropPanel",
+                //     cls: "dropPanel",
+                //     height: '100%',
+                //     margin: 5
+                // });
+                
+                window.ths = this;
+                var theme = Ext.ComponentQuery.query('#'+this.el.up('.dpanel').id)[0];
+                var indx = theme.items.indexOf(this.up('img_widget'));
+                theme.remove(this.up('img_widget'));
                 theme.insert(indx,{
                     xtype: "dropPanel",
-                    cls: "dropPanel",
-                    height: '100%',
-                    margin: 5
+                    cls: "dropPanel"
                 });
+                
             }
         }
     ],

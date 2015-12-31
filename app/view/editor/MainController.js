@@ -60,6 +60,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
         window.htm = html;
     },
     saveEditorHtml: function(){
+        var me = this;
         var canvas = this.getView().lookupReference('editor_canvas');
         // console.log(canvas);
         // window.canvas = canvas;
@@ -76,56 +77,73 @@ Ext.define("CaptivePortal.view.editor.MainController",{
             row['widgets'] = [];
             theme.items.each(function(block){
                 console.log(block.xtype);
-                switch(block.xtype){
-                    case 'text_widget':
-                        var col = {}
-                        col["widget_type"] = block.xtype
-                        col["attributes"] = {
-                            html_str: block.items.getAt(0).el.getHtml()
-                        }
+                console.log(".............."+block.verticle_divide);
+                if(block.verticle_divide){
+                    console.log("______________");
+                    block = block.items.each(function(blc){
+                        console.log(",,,,,,,,,,,,,,"+blc.xtype);
+                        var col = me.getWidgetJSON(blc);
                         row['widgets'].push(col);
-                        break;
-                    case 'img_widget':
-                        var img = block.el.query('.img')[0]
-                        var col = {}
-                        col["widget_type"] = block.xtype
-                        col["attributes"] = Ext.decode(block.img_json);
-                        // {
-                        //     src: img.src,
-                        //     height: img.height,
-                        //     width: img.width
-                        // }
-                        row['widgets'].push(col);
-                        break;
-                    case 'button_widget':
-                        var col = {}
-                        col["widget_type"] = block.xtype
-                        col["attributes"] = Ext.decode(block.button_json)
-                        row['widgets'].push(col);
-                        break;
-                    case 'login_button_widget':
-                        var col = {}
-                        col["widget_type"] = block.xtype
-                        var json = Ext.decode(block.trigger_type === 'Button' ? block.button_json : block.link_json)
-                        col["attributes"] = json;
-                        if(json.connect === 'form'){
-                            col["attributes"]["form_fields"] = block.form_json
-                        }
-                        row['widgets'].push(col);
-                        break;
-                    case 'dropPanel':
-                        var col = {}
-                        col["widget_type"] = block.xtype
-                        col["attributes"] = {}
-                        row['widgets'].push(col);
-                        break;
+                    });
+                }else{
+                    var col = me.getWidgetJSON(block);
+                    row['widgets'].push(col);
                 }
+                
             });
             html["rows"].push(row);
         });
         console.log(html);
         window.htm = html;
         return html;
+    },
+    getWidgetJSON: function(block){
+        var col = {}
+        switch(block.xtype){
+            case 'text_widget':
+                // var col = {}
+                col["widget_type"] = block.xtype
+                col["attributes"] = {
+                    html_str: block.items.getAt(0).el.getHtml()
+                }
+                // row['widgets'].push(col);
+                break;
+            case 'img_widget':
+                var img = block.el.query('.img')[0]
+                // var col = {}
+                col["widget_type"] = block.xtype
+                col["attributes"] = Ext.decode(block.img_json);
+                // {
+                //     src: img.src,
+                //     height: img.height,
+                //     width: img.width
+                // }
+                // row['widgets'].push(col);
+                break;
+            case 'button_widget':
+                // var col = {}
+                col["widget_type"] = block.xtype
+                col["attributes"] = Ext.decode(block.button_json)
+                // row['widgets'].push(col);
+                break;
+            case 'login_button_widget':
+                // var col = {}
+                col["widget_type"] = block.xtype
+                var json = Ext.decode(block.trigger_type === 'Button' ? block.button_json : block.link_json)
+                col["attributes"] = json;
+                if(json.connect === 'form'){
+                    col["attributes"]["form_fields"] = block.form_json
+                }
+                // row['widgets'].push(col);
+                break;
+            case 'dropPanel':
+                // var col = {}
+                col["widget_type"] = block.xtype
+                col["attributes"] = {}
+                // row['widgets'].push(col);
+                break;
+        }
+        return col;
     },
     buildHtml: function(){
         var me = this;

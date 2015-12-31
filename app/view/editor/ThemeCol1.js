@@ -64,6 +64,7 @@ Ext.define("CaptivePortal.view.editor.ThemeCol1",{
         width: "100%",
         flex: 1
     },
+    cls: 'dpanel',
     items: [{
         xtype: "dropPanel",
         cls: "dropPanel",

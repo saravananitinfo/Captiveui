@@ -148,14 +148,22 @@ Ext.define("CaptivePortal.view.editor.TextWidget",{
         },{
             type:'close',
             handler: function(){
-                var theme = this.up().up().up();
-                var indx = theme.items.indexOf(this.up().up());
-                theme.remove(this.up().up());
+                // var theme = this.up().up().up();
+                // var indx = theme.items.indexOf(this.up().up());
+                // theme.remove(this.up().up());
+                // theme.insert(indx,{
+                //     xtype: "dropPanel",
+                //     cls: "dropPanel",
+                //     height: '100%',
+                //     margin: 5
+                // });
+
+                var theme = Ext.ComponentQuery.query('#'+this.el.up('.dpanel').id)[0];
+                var indx = theme.items.indexOf(this.up('text_widget'));
+                theme.remove(this.up('text_widget'));
                 theme.insert(indx,{
                     xtype: "dropPanel",
-                    cls: "dropPanel",
-                    height: '100%',
-                    margin: 5
+                    cls: "dropPanel"
                 });
             }
         }

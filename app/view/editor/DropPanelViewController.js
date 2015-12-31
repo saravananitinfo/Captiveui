@@ -9,7 +9,9 @@ Ext.define("CaptivePortal.view.editor.DropPanelViewController",{
         'CaptivePortal.view.editor.TextWidget',
         'CaptivePortal.view.editor.ImgWidget',
         'CaptivePortal.view.editor.ButtonWidget',
-        'CaptivePortal.view.editor.LoginButtonWidget'
+        'CaptivePortal.view.editor.LoginButtonWidget',
+        'CaptivePortal.view.editor.ThemeCol2LeftVbox',
+        'CaptivePortal.view.editor.ThemeCol2RightVbox'
 
     ],
 	onRender: function(d) {

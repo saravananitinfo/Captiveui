@@ -75,6 +75,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 										console.log(newValue)
 										form_json.email.enable = newValue;
 										button_panel.form_json = form_json;
+										var form_login_varify_fields_panel = Ext.ComponentQuery.query('#form_login_varify_fields_panel')[0]
+										if(newValue){
+											form_login_varify_fields_panel.down('panel').show();
+										}else{
+											form_login_varify_fields_panel.down('panel').hide();
+										}
+										form_login_varify_fields_panel.query('checkbox').forEach(function(checkbox){
+											checkbox.setValue(false);
+										})
 									}
 								}
 							},
@@ -410,7 +419,60 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 						xtype: 'panel',
 						margin: '10 0 0 0',
 						itemId: 'form_login_varify_fields_panel',
-						items: []
+						items: [
+							{
+								xtype: 'panel',
+								hidden: !form_json.email.enable,
+								defaults: {
+									style: 'float: left;'
+								},
+								items: [
+									{
+										width: '50%',
+										margin: '5 0 0 0',
+										items: [{
+											xtype: 'label',
+											margin: '0 0 0 5',
+											text: 'Verify Email'
+										}]
+									},
+									{
+										xtype: 'checkbox',
+										style: 'float: left;text-align: center;',
+										margin: '0 0 0 0',
+										value: form_json.verify_email.enable,
+										width: '25%',
+										listeners: {
+											'change': function(ths, newValue, oldValue, eOpts){
+												var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+												// var form_json = Ext.decode(button_panel.form_json, true);
+												var form_json = button_panel.form_json;
+												console.log(newValue)
+												form_json.verify_email.enable = newValue;
+												button_panel.form_json = form_json;
+											}
+										}
+									},
+									{
+										xtype: 'checkbox',
+										style: 'float: left;text-align: center;',
+										margin: '0 0 0 0',
+										value: form_json.verify_email.optional,
+										width: '25%',
+										listeners: {
+											'change': function(ths, newValue, oldValue, eOpts){
+												var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+												// var form_json = Ext.decode(button_panel.form_json, true);
+												var form_json = button_panel.form_json;
+												console.log(newValue)
+												form_json.verify_email.optional = newValue;
+												button_panel.form_json = form_json;
+											}
+										}
+									}
+								]
+							}
+						]
 					}
 				]    		
     		}

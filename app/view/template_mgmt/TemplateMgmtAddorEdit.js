@@ -74,16 +74,17 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                            }, {
 				                                xtype: 'combo',
 				                                queryMode: 'local',
-				                                //allowBlank: false,
 				                                name: 'associated_resource',
 				                                itemId: 'site_combo',
 				                                forceSelection:true,
 				                                valueField: 'id',
 				                                displayField: 'name',
 				                                emptyText: 'Select Site / Tag',
-				                                store: 'CaptivePortal.store.users.Site',
-				                                filterPickList: true,
-				                                hidden:CaptivePortal.app.getUserRole() == 'super_admin'
+				                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
+				                                hidden:CaptivePortal.app.getUserRole() == 'super_admin',
+				                                listConfig:{
+				                                	getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+				                                }
 			                            	},{
 				                                xtype: 'label',
 				                                text: 'Status',

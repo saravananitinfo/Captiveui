@@ -65,12 +65,21 @@ Ext.define('CaptivePortal.view.users.UserList', {
                 width: '15%',
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
-                    metaData.tdAttr = 'data-qtip="' + value.map(function (ele) {
-                        return ele.name
-                    }).join(', ') + '" ';
-                    return value.map(function (ele) {
-                        return ele.name
-                    }).join(', ');
+                    var asso_reso = rec.get('associated_resources'), siteNames = [];
+                    if(asso_reso){
+                        if(asso_reso.sites && asso_reso.sites.length){
+                            Ext.Array.each(asso_reso.sites, function(r){
+                                siteNames.push(r.name);
+                            }.bind(this));
+                        }
+                        if(asso_reso.tags && asso_reso.tags.length){
+                            Ext.Array.each(asso_reso.tags, function(r){
+                                siteNames.push(r.name);
+                            }.bind(this));
+                        }
+                    }
+                    metaData.tdAttr = 'data-qtip="' + siteNames.join() + '" ';
+                    return siteNames.join();
                 }
             },
             {

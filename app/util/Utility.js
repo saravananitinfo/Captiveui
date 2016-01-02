@@ -1,9 +1,17 @@
 Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
-    //BASE_URL:'http://ec2-54-159-24-52.compute-1.amazonaws.com:8080/',
     BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
     config: {
         myMask: null
+    },
+    getEmptySiteStore: function(){
+        return Ext.create('Ext.data.Store',{
+            fields:['name', 'id', 'isSite','iconCss'], data:[]
+        })
+    },
+    getSiteTemplateIcon: function(){
+        var tpl = '<div class={iconCss}></div>&nbsp;&nbsp;&nbsp;<span class="site-icon-cls">{name}</span>';
+        return tpl;
     },
     createSitesAndTags: function(data){
         var sitesAndTags = [];
@@ -11,13 +19,13 @@ Ext.define('CaptivePortal.util.Utility', {
         var tags = (data && data.available_resources) ? data.available_resources.tags : [];
         if(sites && sites.length) {
             Ext.Array.each(sites, function(s){
-                var rec = {id:s.id, name:s.name, isSite:true};
+                var rec = {id:s.id, name:s.name, isSite:true, iconCss:'site-icon'};
                 sitesAndTags.push(rec);
             }.bind(this))
         }
         if(tags && tags.length) {
             Ext.Array.each(tags, function(t){
-                var rec = {id:t.id, name:t.name, isSite:false};
+                var rec = {id:t.id, name:t.name, isSite:false, iconCss:'tag-icon'};
                 sitesAndTags.push(rec);
             }.bind(this))
         }

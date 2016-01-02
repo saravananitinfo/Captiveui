@@ -107,14 +107,15 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 queryMode: 'local',
                                 reference: 'tf_tag',
                                 width: 500,
-                                //editable:true,
-                                //multiSelect: true,
                                 name: 'tags',
                                 itemId: 'tags',
                                 emptyText: 'Select Tags',
                                 valueField: 'id',
                                 displayField: 'name',
-                                //filterPickList: true
+                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
+                                listConfig:{
+                                    getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                }
                             },
                             {
                                 xtype: 'panel',

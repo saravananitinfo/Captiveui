@@ -57,9 +57,11 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 itemId: 'gateway_sites',
                                 emptyText: "Select Site / Tag",
                                 valueField: 'id',
-                                //value: this.site_id ? this.site_id : '',
                                 displayField: 'name',
-                                store: emptySiteStore
+                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
+                                listConfig:{
+                                    getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                }
                             },
                             {
                 				xtype: 'label',
@@ -108,8 +110,8 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                         name: 'enabled',
                                         inputValue: 'yes',
                                         itemId: 'guest_user_enable',
-                                        // checked: true,
-                                        checked: this.enabled == 'yes' ? true : false
+                                        checked: true,
+                                        //checked: this.enabled == 'yes' ? true : false
                                     }, {
                                         boxLabel: 'Disable',
                                         name: 'enabled',

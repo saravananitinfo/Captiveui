@@ -23,10 +23,6 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
         activate: 'onTenantComboRender',
     },
     initComponent: function () {
-        var emptySiteStore = Ext.create('Ext.data.Store',{
-            fields:['id', 'name'],
-            data:[]
-        });
         var userText = (this.user_id) ? 'Edit User' : 'New User';
         var btnText = (this.user_id) ? 'Update' : 'Create';
         this.items = [{
@@ -96,15 +92,16 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 queryMode: 'local',
                                 reference: 'tf_site',
                                 allowBlank: true,
-                                //editable:false,
                                 multiSelect: true,
                                 name: 'associated_resources',
                                 itemId: 'site',
                                 valueField: 'id',
                                 displayField: 'name',
                                 emptyText: 'Select Sites / Tags',
-                                store: emptySiteStore,
-                                filterPickList: true
+                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
+                                listConfig:{
+                                   getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                }
                             }, {
                                 xtype: 'label',
                                 text: 'Role',

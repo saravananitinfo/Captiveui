@@ -51,7 +51,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         }*/
         if(data.time_policy.associated_resources){
            form.down('#site_combo').setValue(data.time_policy.associated_resources); 
-        }
+        }        
         form.down('#time_policy_day_grid').store.loadRawData(this.formatData(data.time_policy.default_policies));
         form.down('#time_policy_date_range_grid').store.loadRawData(this.formatData(data.time_policy.date_range_policies));
         form.down('#time_policy_specific_day_grid').store.loadRawData(this.formatData(data.time_policy.date_policies));
@@ -77,22 +77,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         this.fireEvent('setTimePolicyActiveItem', 0);
     },
     loadSitesCombo: function(data){
-        var sitesAndTags = [];
-        var sites = data.available_resources.sites;
-        var tags = data.available_resources.tags;
-        if(sites && sites.length) {
-            Ext.Array.each(sites, function(s){
-                var rec = {id:s.id, name:s.name, isSite:true};
-                sitesAndTags.push(rec);
-            }.bind(this))
-        }
-        if(tags && tags.length) {
-            Ext.Array.each(tags, function(t){
-                var rec = {id:t.id, name:t.name, isSite:false};
-                sitesAndTags.push(rec);
-            }.bind(this))
-        }
-        this.getView().down('#site_combo').store.loadRawData(sitesAndTags);
+        this.getView().down('#site_combo').store.loadRawData(CaptivePortal.util.Utility.createSitesAndTags(data));
     },
 
     saveTimePolicy: function(btn){

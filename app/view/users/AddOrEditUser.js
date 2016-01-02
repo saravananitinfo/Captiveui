@@ -99,6 +99,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 displayField: 'name',
                                 emptyText: 'Select Sites / Tags',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),
+                                filterPickList: true,
                                 listConfig:{
                                    getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
                                 }

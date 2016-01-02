@@ -13,12 +13,6 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 	    padding: '10 0 0 30'
 	},
   initComponent: function () {
-        var store = Ext.create('Ext.data.Store', {
-        	fields:['id', 'name'], 
-        	data : []
-        });
-
-
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
@@ -49,7 +43,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 									itemId:this.itemIdPrefix + 'name'
 								},{
 	                                xtype: 'label',
-	                                text: 'Site',
+	                                text: 'Site / Tag',
 	                                cls: 'header_label_content'
 	                            }, {
 	                                xtype: 'combo',
@@ -61,12 +55,15 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 	                                width:300,
 	                                valueField: 'id',
 	                                displayField: 'name',
-	                                emptyText: 'Select',
-	                                store: store,
+	                                emptyText: 'Select Site / Tag',
 	                                filterPickList: true,
 	                                itemId:this.itemIdPrefix + 'sites',
 	                                listeners:{
 	                                	select:'changeSitesCombo'
+	                                },
+	                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
+	                                listConfig:{
+	                                    getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
 	                                }
                             	},{
 	                                xtype: 'label',

@@ -17,10 +17,6 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
 	    padding: '10 0 0 30'
 	},
 	initComponent: function () {
-        var emptySiteStore = Ext.create('Ext.data.Store',{
-            fields:['id', 'name'],
-            data:[]
-        });
 		this.items = [
 		   {
                 xtype: 'panel',
@@ -62,7 +58,7 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                             },
                             {
                             	xtype: 'label',
-                                text: 'Sites',
+                                text: 'Select Site / Tag',
                                 cls: 'header_label_content'
                             },
                             {
@@ -74,9 +70,11 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                 itemId: 'gateway_sites',
                                 emptyText: "Select Site / Tag",
                                 valueField: 'id',
-                                //value: this.site_ids ? this.site_ids : '',
                                 displayField: 'name',
-                                store: emptySiteStore
+                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
+                                listConfig:{
+                                    getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                }
                             },
                             {
                                 xtype: 'label',
@@ -117,7 +115,7 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                         name: 'status',
                                         inputValue: 'active',
                                         itemId: 'user_enable',
-                                        checked: this.status == 'active' ? true : false
+                                        checked: true
                                     }, {
                                         boxLabel: 'Disable',
                                         name: 'status',

@@ -66,8 +66,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 	                                valueField: 'id',
 	                                displayField: 'name',
 	                                emptyText: 'Select Site / Tag',
-	                                store: 'CaptivePortal.store.users.Site',
-	                                filterPickList: true
+	                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
+	                                listConfig:{
+	                                	getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+	                                }
                             	},                             	
 								{
 									xtype: 'panel',

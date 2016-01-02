@@ -160,6 +160,27 @@ background:url('images/user_icon_128.png') no-repeat;
     position: relative;
 }
 
+.tag-icon{
+	background-image:url(images/tag16.png);
+	background-repeat: no-repeat;
+	height:16px;
+	width:16px;
+	float:left;
+}
+
+ .site-icon-cls{
+ 	margin-left: -10px;
+ }
+
+ .site-icon{
+	background-image:url(images/site16.png);
+	background-repeat: no-repeat;
+	height:16px;
+	width:16px;
+	float:left;
+	top: 3px;
+    position: relative;
+}
 
 .duplicate-icon{
 	background-image:url(images/duplicate.png);

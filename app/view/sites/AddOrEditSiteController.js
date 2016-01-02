@@ -220,6 +220,11 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         if(serverData && serverData.site_tags){
             data = serverData.site_tags;
         }
+        if(data.length){
+            Ext.Array.each(data,function(d){
+                d['iconCss']  = 'tag-icon';
+            }.bind(this));
+        }
         var store = Ext.create('Ext.data.Store', {
                 fields: ['id', 'name'],
                 data: data

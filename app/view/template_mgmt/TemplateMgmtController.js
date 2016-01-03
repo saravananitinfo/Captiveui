@@ -43,11 +43,15 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             form.down('#site_combo').setValue(data.splash_journey.site_info.id);
         }
         this.getView().down('#btn_addtemplate').setText(btnText ? btnText : 'Update');
+        if(data && data.splash_journey && data.splash_journey.associated_resource){
+            CaptivePortal.util.Utility.getSiteAndTagDetails(form.down('#site_combo'),form.down('#site_combo').getSelectedRecord());
+        }
     },
     cancelTemplateMgmt: function(){
     	this.fireEvent('setTemplateMgmtActiveItem', 0);
     },
     initiateTemplateMgmtForm: function(data){
+        CaptivePortal.util.Utility.hideSiteTagRefLabel(this.getView());
     	this.resetForm();
     	this.loadSitesDataToTemplateForm(data);
     	this.getView().down('tabpanel').setActiveItem(0);
@@ -130,7 +134,6 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
 		            }
 		        }, 'POST');
     		}
-    		console.log(data);
     	}
     }
     

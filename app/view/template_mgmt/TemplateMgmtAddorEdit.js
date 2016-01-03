@@ -16,7 +16,6 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
         				{
 			                xtype: 'panel',
 			                width: '100%',
-			                padding: '20 0 0 0',
 			                cls: 'form_trigger',
 			                items: [
 			                		{
@@ -84,8 +83,13 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                hidden:CaptivePortal.app.getUserRole() == 'super_admin',
 				                                listConfig:{
 				                                	getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
-				                                }
-			                            	},{
+				                                },
+				                                listeners:{
+				                                	select:CaptivePortal.util.Utility.getSiteAndTagDetails
+				                                },margin:'0 0 0 0'
+			                            	},
+			                            	CaptivePortal.util.Utility.generateSiteTagRefLabel(),
+			                            	{
 				                                xtype: 'label',
 				                                text: 'Status',
 				                                cls: 'header_label_content'
@@ -295,7 +299,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 			                                xtype: 'container',
 			                                layout: 'hbox',
 			                                width: '100%',
-			                                height: 50,
+			                                margin:'0 0 10 0',
 			                                items: [
 			                                    {
 			                                        xtype: 'button',

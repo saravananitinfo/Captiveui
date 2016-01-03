@@ -4,6 +4,37 @@ Ext.define('CaptivePortal.util.Utility', {
     config: {
         myMask: null
     },
+    hideSiteTagRefLabel: function(view){
+        var lab = view.down('#sitetagdetails');
+        lab && lab.setText('');
+    },
+    generateSiteTagRefLabel: function(){
+        return {
+                    xtype:'label',
+                    text:'',
+                    //height:20,
+                    itemId:'sitetagdetails',
+                    style:'color: #1fa1eb !important;padding-left:10px;margin-top:-25px;',
+                    //hidden:true
+                };
+    },
+    getSiteAndTagDetails:function(combo, recs, eOpts){
+        var form = combo.up('form'), labText = [];
+        var siteTagDetailsLab = form.down('#sitetagdetails');
+        siteTagDetailsLab && siteTagDetailsLab.hide();
+        if(siteTagDetailsLab && recs){
+            if(Ext.isArray(recs)){
+                Ext.Array.each(recs, function(r){
+                    labText.push(r.get('name'));
+                }.bind(this));
+            } else {
+                labText.push(recs.get('name'));
+            }
+            siteTagDetailsLab.setText('Seleted site(s) / Tag(s) : ' + labText.join());
+            siteTagDetailsLab.show();
+            siteTagDetailsLab.setStyle('display', 'block');            
+        }
+    },
     getEmptySiteStore: function(){
         return Ext.create('Ext.data.Store',{
             fields:['name', 'id', 'isSite','iconCss'], data:[]

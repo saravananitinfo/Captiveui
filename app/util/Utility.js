@@ -4,6 +4,19 @@ Ext.define('CaptivePortal.util.Utility', {
     config: {
         myMask: null
     },
+    logout: function () {
+        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+            Ext.getCmp('viewport').removeAll();
+            Ext.util.Cookies.clear('CAP_SESSION');
+            Ext.util.Cookies.clear('USER_PROFILES');
+            Ext.StoreManager.lookup('CaptivePortal.store.tenant.Tenant').removeAll();
+            Ext.StoreManager.lookup('CaptivePortal.store.site.Site').removeAll();
+            Ext.StoreManager.lookup('CaptivePortal.store.user.User').removeAll();
+            Ext.StoreManager.lookup('CaptivePortal.store.role.Role').removeAll();
+            Ext.getCmp('viewport').add(Ext.create('CaptivePortal.view.login.Login'));
+        }.bind(this), function () {
+        }, 'DELETE');
+    },
     hideSiteTagRefLabel: function(view){
         var lab = view.down('#sitetagdetails');
         lab && lab.setText('');
@@ -339,6 +352,18 @@ Ext.define('CaptivePortal.util.Utility', {
             }
         });
     },
+
+    logoutForSession: function(){
+        Ext.Msg.show({
+                        title: 'Session Expired',
+                        message: 'Your session is expired. Please Login again',
+                        buttons: Ext.Msg.YES,
+                        icon: Ext.Msg.INFO,
+                        fn: function (btn) {
+                            CaptivePortal.util.Utility.logout();
+                        }.bind(this)
+                    });
+    },
     doAjaxJSON: function (url, params, msg, view, successCallback, failureCallback, method, async) {
         this.addHeader();
         var async = (async != undefined) ? async : true;
@@ -353,12 +378,20 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
+                if(response.status === 401){
+                    CaptivePortal.util.Utility.logoutForSession();
+                } else{
+                    CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+                }
                 Ext.isFunction(successCallback) && successCallback.call(null, response);
-                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             failure: function (response) {
+                if(response.status === 401){
+                    CaptivePortal.util.Utility.logoutForSession();
+                } else{
+                    CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+                }
                 Ext.isFunction(failureCallback) && failureCallback.call(null, response);
-                CaptivePortal.util.Utility.appLoadMask(null, null, false);
             }
         });
     }, capitalizeFirstLetter: function (str) {

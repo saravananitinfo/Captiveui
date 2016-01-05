@@ -33,7 +33,8 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.rule_group.RuleGroup',
         'CaptivePortal.store.editor.LoginButtonTypes',
         'CaptivePortal.store.editor.ImageGallery',
-        'CaptivePortal.store.editor.TemplateGallery'
+        'CaptivePortal.store.editor.TemplateGallery',
+        'CaptivePortal.store.splash_template.SplashTemplates'
     ],
     launch: function () {
         // TODO - Launch the application

@@ -68,6 +68,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                 })
             }
         });
+
+        panel.add({
+            xtype: 'splash_template_main',
+            itemId: 'card_splash_template_main'
+        })
     }
 
 })

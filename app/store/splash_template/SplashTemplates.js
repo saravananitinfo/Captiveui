@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.splash_template.SplashTemplates',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.splash_template.SplashTemplate'],
+	model:'CaptivePortal.model.splash_template.SplashTemplate',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATES,
+		type:'ajax',
+		reader:{
+			type:'json',
+			rootProperty:'data.splash_templates'
+		}
+	}
+});

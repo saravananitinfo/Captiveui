@@ -7,7 +7,7 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
     	var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
     	console.log(".................blh .....................");
     	console.log(button_panel);
-    	var form_json = button_panel.form_json
+    	var form_json = Ext.decode(button_panel.form_json);
     	this.items = [
     		{
 				xtype: 'panel',
@@ -71,10 +71,19 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
+
 										console.log(newValue)
 										form_json.email.enable = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
+
+
 										var form_login_varify_fields_panel = Ext.ComponentQuery.query('#form_login_varify_fields_panel')[0]
 										if(newValue){
 											form_login_varify_fields_panel.down('panel').show();
@@ -97,10 +106,16 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.email.optional = newValue;
-										button_panel.form_json = form_json;
+
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							}
@@ -131,10 +146,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.first_name.enable = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							},
@@ -148,10 +168,16 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.first_name.optional = newValue;
-										button_panel.form_json = form_json;
+
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							}
@@ -182,10 +208,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.last_name.enable = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							},
@@ -199,10 +230,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.last_name.optional = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							}
@@ -233,10 +269,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.gender.enable = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							},
@@ -250,10 +291,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.gender.optional = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							}
@@ -284,10 +330,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.birth_day.enable = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							},
@@ -301,10 +352,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.birth_day.optional = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							}
@@ -335,10 +391,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.mobile_number.enable = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							},
@@ -352,10 +413,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.mobile_number.optional = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							}
@@ -386,10 +452,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.password.enable = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							},
@@ -403,10 +474,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 									'change': function(ths, newValue, oldValue, eOpts){
 										var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 										// var form_json = Ext.decode(button_panel.form_json, true);
-										var form_json = button_panel.form_json;
+
+										// var form_json = button_panel.form_json;
+										var form_json = Ext.decode(button_panel.form_json);
+
 										console.log(newValue)
 										form_json.password.optional = newValue;
-										button_panel.form_json = form_json;
+
+										// button_panel.form_json = form_json;
+										button_panel.form_json = JSON.stringify(form_json);
 									}
 								}
 							}
@@ -446,10 +522,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 											'change': function(ths, newValue, oldValue, eOpts){
 												var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 												// var form_json = Ext.decode(button_panel.form_json, true);
-												var form_json = button_panel.form_json;
+
+												// var form_json = button_panel.form_json;
+												var form_json = Ext.decode(button_panel.form_json);
+
 												console.log(newValue)
 												form_json.verify_email.enable = newValue;
-												button_panel.form_json = form_json;
+
+												// button_panel.form_json = form_json;
+												button_panel.form_json = JSON.stringify(form_json);
 											}
 										}
 									},
@@ -463,10 +544,15 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 											'change': function(ths, newValue, oldValue, eOpts){
 												var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
 												// var form_json = Ext.decode(button_panel.form_json, true);
-												var form_json = button_panel.form_json;
+
+												// var form_json = button_panel.form_json;
+												var form_json = Ext.decode(button_panel.form_json);
+
 												console.log(newValue)
 												form_json.verify_email.optional = newValue;
-												button_panel.form_json = form_json;
+
+												// button_panel.form_json = form_json;
+												button_panel.form_json = JSON.stringify(form_json);
 											}
 										}
 									}

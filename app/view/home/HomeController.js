@@ -17,6 +17,14 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     },
     onMenuClick: function (menu) {
         switch (menu.itemname) {
+            // Test Start
+                case "templates":
+                    this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
+                    this.getView().lookupReference('lab_heading').setText('Splash Template');                
+                    this.fireEvent('setSplashPageActiveItem',0);
+                    break;
+            // Test End
+
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
                 this.getView().lookupReference('lab_heading').setText('Users');

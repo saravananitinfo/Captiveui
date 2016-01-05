@@ -9,7 +9,8 @@ Ext.define('CaptivePortal.view.home.Home', {
         'CaptivePortal.view.sms_gateway.Main',
         'CaptivePortal.view.guest_users.Main',
         'CaptivePortal.view.access_point.Main',
-        'CaptivePortal.view.accesstimepolicy.Main'
+        'CaptivePortal.view.accesstimepolicy.Main',
+        'CaptivePortal.view.splash_template.Main'
     ],
     xtype: 'widget.home.Home',
     itemId: 'pan_apphome',

@@ -389,7 +389,9 @@ Ext.define('CaptivePortal.util.Utility', {
         var jsn = json;//Ext.decode(json);
         var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0];
         // editor_canvas.removeAll();
-        // editor_canvas.body.dom.style.background = jsn.style.background;
+        if(jsn.style){
+            editor_canvas.body.dom.style.background = jsn.style.background;
+        }
         
 
         jsn["rows"].forEach(function(row){
@@ -444,10 +446,24 @@ Ext.define('CaptivePortal.util.Utility', {
                     })
                     break;
                 case 'login_button_widget':
-                    items.push({
+                    var obj = {
                         xtype: 'login_button_widget',
-                        button_json: JSON.stringify(widget.attributes)
-                    })
+                    }
+                    if(widget.attributes.connect === 'form'){
+                        var form_fields = JSON.stringify(widget.attributes.form_fields);
+                        obj['form_json'] = form_fields
+                        obj['trigger_type'] = widget.attributes.type
+                        if(widget.attributes.type === 'Button'){
+                            obj['button_json'] = JSON.stringify(widget.attributes)
+                        }else{
+                            obj['link_json'] = JSON.stringify(widget.attributes)
+                        }
+                    }else{
+                        obj['button_json'] = JSON.stringify(widget.attributes)
+                    }
+                    console.log(".............................................1");
+                    console.log(obj);
+                    items.push(obj);
                     break;
                 case 'text_widget':
                     items.push({

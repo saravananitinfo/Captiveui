@@ -8,7 +8,10 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         component: {
             'gridpanel#grd_profilelist': {
                 cellclick: 'getProfileFromUser'
-            }
+            },
+        global:{
+            logout:'logout'
+        }
         }
     },
     onUserProfileSelect: function (menu, item) {
@@ -118,13 +121,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         this.getView().lookupReference('lab_heading').setText('Roles')
     },
     logout: function () {
-        var me = this;
-        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
-            Ext.getCmp('viewport').removeAll();
-            me.clearData();
-            Ext.getCmp('viewport').add(Ext.create('CaptivePortal.view.login.Login'));
-        }.bind(this), function () {
-        }, 'DELETE');
+        CaptivePortal.util.Utility.logout();
     },
     home_render: function () {
         setTimeout(function () {

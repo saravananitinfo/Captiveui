@@ -11,6 +11,8 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                 this.deleteSplashJorney(view, record, item, index, e, eOpts);
             } else if (action == "duplicate"){                
                 // this.fireEvent('duplicateTemplate', 1, record.data.id);
+            } else if (action == "preview"){
+                this.preview(view, record, item, index, e, eOpts)
             }
         }
     },
@@ -45,5 +47,103 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     getSplashTemplateList: function(){
         var store = this.getView().lookupReference('grd_splash_template_list').getStore();
         store.load();
+    },
+    preview: function(view, record, item, index, e, eOpts){
+        var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
+        var index = store.findExact('id', record.data.id);
+        var splash_content = store.getAt(index).data.splash_content;
+
+
+        var json = {"splash_content": splash_content};
+        if(json.splash_content.rows.length === 0){
+            return
+        }
+        Ext.getCmp('viewport').setLoading(true);
+        console.log(json);
+        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW, method = 'POST';
+        CaptivePortal.util.Utility.doAjaxJSON(url,json,"Loading...", this.getView(),function(response){
+            var resObj = response.responseText;
+            // if(resObj.success){
+                Ext.getCmp('viewport').setLoading(false);
+                console.log(resObj);
+                var panel = new Ext.panel.Panel({
+                    title: 'Preview',
+                    floating: true,
+                    closable : true,
+                    width: '100%',
+                    height: '100%',
+                    default: '',
+                    frame: true,
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'tabpanel',
+                        tabBar: {
+                            layout: { pack: 'center' }
+                        },
+                        items:[
+                            {
+                                title: "Desktop",
+                                height: '100%',
+                                items: [{
+                                    xtype: 'component',
+                                    style: 'margin: 0 auto;',
+                                    width: '85%',
+                                    height: '100%',
+                                    html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
+                                }]
+                            },
+                            {
+                                title: "Tab",
+                                height: '100%',
+                                items: [{
+                                    xtype: 'component',
+                                    style: 'margin: 0 auto;',
+                                    width: '60%',
+                                    height: '100%',
+                                    html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
+                                }]
+                            },
+                            {
+                                title: "Mobile",
+                                height: '100%',
+                                items: [{
+                                    xtype: 'component',
+                                    style: 'margin: 0 auto;',
+                                    width: '25%',
+                                    height: '100%',
+                                    html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
+                                }]
+                            }
+                        ],
+                        listeners:{
+                            tabchange: function(tabPanel, newCard, oldCard, eOpts){
+                                console.log("...................");
+                                var iframe = newCard.el.query('iframe')[0]
+                                iframe.contentWindow.document.body.innerHTML = "";
+                                iframe.contentWindow.document.write(resObj);
+                            }
+                        }
+                    }],
+                    listeners:{
+                        afterrender: function(panel){
+                            var iframe = panel.down('panel').items.items[0].el.query('iframe')[0]
+                            iframe.contentWindow.document.write(resObj);
+                            // panel.down('panel').items.items.forEach(function(tab){
+                            //     window.tbp = tab
+                            //     // var iframe = tab.el.query('iframe')[0]
+                            //     // iframe.contentWindow.document.write(resObj);
+                            // })
+                        }
+                    }
+                });
+                panel.show();
+                panel.center();
+            // }
+        }.bind(this),function(response){
+            var resObj = Ext.decode(response.responseText);
+            if(!resObj.success && resObj.error.length){
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+            }          
+        },method);
     }
 });

@@ -5,8 +5,6 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
     layout: 'vbox',
     initComponent: function () {
     	var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
-    	console.log(".................blh .....................");
-    	console.log(button_panel.form_json);
     	var form_json = Ext.decode(button_panel.form_json);
     	this.items = [
     		{

@@ -66,13 +66,18 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'rule_group_main',
                     itemId: 'access_rule_group_main'
                 })
+            } else if ("splash_template" === permission.access_for){
+                panel.add({
+                    xtype: 'splash_template_main',
+                    itemId: 'card_splash_template_main'
+                })
             }
         });
 
-        panel.add({
-            xtype: 'splash_template_main',
-            itemId: 'card_splash_template_main'
-        })
+        // panel.add({
+        //     xtype: 'splash_template_main',
+        //     itemId: 'card_splash_template_main'
+        // })
     }
 
 })

@@ -21,11 +21,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     onMenuClick: function (menu) {
         switch (menu.itemname) {
             // Test Start
-                case "templates":
-                    this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
-                    this.getView().lookupReference('lab_heading').setText('Splash Template');                
-                    this.fireEvent('setSplashPageActiveItem',0);
-                    break;
+                // case "templates":
+                //     this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
+                //     this.getView().lookupReference('lab_heading').setText('Splash Template');                
+                //     this.fireEvent('setSplashPageActiveItem',0);
+                //     break;
             // Test End
 
             case "users":
@@ -93,6 +93,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_rule_group_main');
                 this.getView().lookupReference('lab_heading').setText('Splash Display');                
                 this.fireEvent('setRuleGroupActiveItem',0);
+                break;
+            case "splash_template":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
+                this.getView().lookupReference('lab_heading').setText('Splash Template');                
+                this.fireEvent('setSplashPageActiveItem',0);
                 break;
         }
     },

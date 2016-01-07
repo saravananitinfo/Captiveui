@@ -75,7 +75,7 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'splash_template_main',
                     itemId: 'card_splash_template_main'
                 })
-            } else if ("journey" === permission.access_for){
+            } else if ("journeys" === permission.access_for){
                 panel.add({
                     xtype: 'template_mgmt_main',
                     itemId: 'access_template_main'

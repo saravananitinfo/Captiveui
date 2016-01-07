@@ -78,7 +78,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                     this.getView().lookupReference('lab_heading').setText('Access Time Policy');
                     this.fireEvent('setTimePolicyActiveItem',0);
                 break;
-            case "journey":
+            case "journeys":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_template_main');
                 this.getView().lookupReference('lab_heading').setText('Template Management');
                 this.fireEvent('setTemplateMgmtActiveItem',0);

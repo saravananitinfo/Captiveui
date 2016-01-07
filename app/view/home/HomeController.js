@@ -27,14 +27,6 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     },
     onMenuClick: function (menu) {
         switch (menu.itemname) {
-            // Test Start
-                // case "templates":
-                //     this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
-                //     this.getView().lookupReference('lab_heading').setText('Splash Template');                
-                //     this.fireEvent('setSplashPageActiveItem',0);
-                //     break;
-            // Test End
-
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
                 this.getView().lookupReference('lab_heading').setText('Users');
@@ -86,7 +78,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                     this.getView().lookupReference('lab_heading').setText('Access Time Policy');
                     this.fireEvent('setTimePolicyActiveItem',0);
                 break;
-            case "templates":
+            case "journey":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_template_main');
                 this.getView().lookupReference('lab_heading').setText('Template Management');
                 this.fireEvent('setTemplateMgmtActiveItem',0);
@@ -101,7 +93,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Splash Display');                
                 this.fireEvent('setRuleGroupActiveItem',0);
                 break;
-            case "splash_template":
+            case "templates":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
                 this.getView().lookupReference('lab_heading').setText('Splash Template');                
                 this.fireEvent('setSplashPageActiveItem',0);

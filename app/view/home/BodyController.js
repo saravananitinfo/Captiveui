@@ -52,9 +52,13 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     itemId: 'access_time_policymain'
                 })
             } else if ("templates" === permission.access_for) {
+                // panel.add({
+                //     xtype: 'template_mgmt_main',
+                //     itemId: 'access_template_main'
+                // })
                 panel.add({
-                    xtype: 'template_mgmt_main',
-                    itemId: 'access_template_main'
+                    xtype: 'splash_template_main',
+                    itemId: 'card_splash_template_main'
                 })
             } else if ("radius_configuration" === permission.access_for) {
                 panel.add({
@@ -71,17 +75,17 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'splash_template_main',
                     itemId: 'card_splash_template_main'
                 })
+            } else if ("journey" === permission.access_for){
+                panel.add({
+                    xtype: 'template_mgmt_main',
+                    itemId: 'access_template_main'
+                })
             }
         });
         panel.add({
                     xtype: 'change_password_view',
                     itemId: 'change_password_main'
                 });
-
-        // panel.add({
-        //     xtype: 'splash_template_main',
-        //     itemId: 'card_splash_template_main'
-        // })
     }
 
 })

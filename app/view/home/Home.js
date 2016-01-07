@@ -64,12 +64,31 @@ Ext.define('CaptivePortal.view.home.Home', {
                         hidden: userObj.userName ? false : true,
                         itemId: 'user_name'                       
                     }, {
-                        xtype: 'button',
-                        iconCls: 'btn-logout',
-                        cls: 'logout_button1',
-                        text: '',
-                        itemId: 'logout',
-                        handler: 'logout'
+                        xtype: 'splitbutton',
+
+                  //iconCls: 'btn-logout',
+
+                      //cls: 'logout_button1',
+
+                     text: 'Settings',
+
+                     //itemId: 'logout',
+
+                      //handler: 'logout'
+
+                     menu:new Ext.menu.Menu({
+
+                           items:[
+
+                              {text:'Logout', 
+                              //iconCls: 'btn-logout', cls: 'logout_button1', 
+                              itemId: 'logout', handler: 'logout'},
+
+                               {text:'Change Password', handler:'changePassword'}
+
+                          ]
+
+                       })
                     }]
             }
         ]

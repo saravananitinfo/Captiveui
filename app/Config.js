@@ -69,6 +69,7 @@ Ext.define('CaptivePortal.Config', {
         EDIT_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/',
         DELETE_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/',
         UPDATE_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/',
+        UPLOAD_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/access_point_csv.json',
 
         //access time policy
         GET_ACCESS_TIME_POLICY:CaptivePortal.util.Utility.BASE_URL + 'time_policies.json',
@@ -120,7 +121,7 @@ Ext.define('CaptivePortal.Config', {
         EDIT_SPLASH_TEMPLATE:'http://192.168.0.220:3001/' + 'splash_templates/',
         UPDATE_SPLASH_TEMPLATE:'http://192.168.0.220:3001/' + 'splash_templates/',
 
-
+        CHANGE_PASSWORD : CaptivePortal.util.Utility.BASE_URL + 'change_password.json',
 
         //Editor
         PREVIEW: CaptivePortal.util.Utility.BASE_URL + 'preview/',

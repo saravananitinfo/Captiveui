@@ -73,6 +73,10 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                 })
             }
         });
+        panel.add({
+                    xtype: 'change_password_view',
+                    itemId: 'change_password_main'
+                });
 
         // panel.add({
         //     xtype: 'splash_template_main',

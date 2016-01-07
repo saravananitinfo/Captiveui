@@ -1,6 +1,27 @@
 Ext.define('CaptivePortal.view.access_point.AccessPointListController', {
 	extend: 'Ext.app.ViewController',
     alias: 'controller.access_point_list_controller',
+    createSites: function(){
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_SMSGATEWAY, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (resObj.success) {
+                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+                    var sitesCombo = Ext.ComponentQuery.query('#upload_access_point_frm')[0].down('#access_point_sites');
+                    sitesCombo.reset();
+                    sitesCombo.store.loadRawData(sitesAndTags);
+                }
+            }.bind(this), function (response) {
+                var resObj = Ext.decode(response.responseText);
+                if (!resObj.success && resObj.error.length) {
+                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                }
+            }, 'GET', false);
+    },
+    uploadAccessPoints: function(){
+        this.fireEvent('setAccessPointMainActiveItem', 3);
+        this.createSites();
+
+    },
     addAccessPoints: function(){
     	Ext.StoreManager.lookup('CaptivePortal.store.access_point.AddAccessPoint').loadData([{name: "", mac_id: "", site_id: "", uid: ""}],false);
     	this.fireEvent('setAccessPointMainActiveItem', 1)

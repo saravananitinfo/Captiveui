@@ -301,6 +301,21 @@ Ext.define('CaptivePortal.util.Utility', {
                 });
         })
     },
+    showInfo: function (title, msg) {
+
+        Ext.Msg.show({
+
+            title: title || 'Info',
+
+            message: msg,
+
+            buttons: Ext.Msg.OK,
+
+            icon: Ext.Msg.INFO
+
+        });
+
+    },
     showError: function (title, msg) {
         Ext.Msg.show({
             title: title || 'Error',

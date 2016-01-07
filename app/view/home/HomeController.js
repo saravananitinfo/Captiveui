@@ -14,6 +14,13 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         }
         }
     },
+    changePassword: function(){
+
+        this.getView().lookupReference('pan_mainnavigation').setActiveItem('change_password_main');
+
+       this.getView().lookupReference('lab_heading').setText('Change Password'); 
+
+   },
     onUserProfileSelect: function (menu, item) {
         Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(item.profileid);

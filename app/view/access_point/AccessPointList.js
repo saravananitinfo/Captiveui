@@ -30,6 +30,13 @@ Ext.define('CaptivePortal.view.access_point.AccessPointList',{
                 itemId:'btn_add_access_point',
                 handler: 'addAccessPoints'
             });
+            dockeditems.push({
+                xtype: 'button',
+                text: 'Upload Access Point',
+                cls: 'btn-add-module',             
+                itemId:'btn_upload_access_point',
+                handler: 'uploadAccessPoints'
+            });
         }
 
         this.dockedItems = [

@@ -111,6 +111,12 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                 }
                 // row['widgets'].push(col);
                 break;
+            case 'html_widget':
+                col["widget_type"] = block.xtype
+                col["attributes"] = {
+                    html_str: block.items.getAt(0).el.getHtml()
+                }
+                break;
             case 'img_widget':
                 var img = block.el.query('.img')[0]
                 // var col = {}

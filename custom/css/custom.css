@@ -286,6 +286,12 @@ position: relative;
             border: 0px solid black;
 
 }
+.icon_html{
+	background: url(../../resources/images/icons_HTML.png) no-repeat;
+    width: 92px;
+    height: 92px;
+    border: 0px solid black;
+}
 
 .galleryImage{
 	border: solid 1px #c5d2df!important;

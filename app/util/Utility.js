@@ -525,6 +525,12 @@ Ext.define('CaptivePortal.util.Utility', {
                         img_json: JSON.stringify(widget.attributes)
                     })
                     break;
+                case 'html_widget':
+                    items.push({
+                        xtype: 'html_widget',
+                        html_str: widget.attributes.html_str
+                    })
+                    break;
                 case 'dropPanel':
                     items.push({
                         xtype: 'dropPanel',

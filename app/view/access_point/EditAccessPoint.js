@@ -65,15 +65,20 @@ Ext.define('CaptivePortal.view.access_point.EditAccessPoint',{
                             },
                             {
                             	xtype: 'label',
-                                text: 'NAS Identifier',
+                                text: 'Vendors',
                                 cls: 'header_label_content'
                             },
                             {
-                            	xtype: 'textfield',
+                            	xtype:"combo",
+                                emptyText: "Vendors",
                                 allowBlank: false,
-                                name: 'uid',
-                                itemId: 'access_point_uid',
-                                value: this.uid ? this.uid : '',
+                                store: Ext.create("CaptivePortal.store.access_point.Vendors"),
+                                editable: false,
+                                queryMode: "remote",
+                                displayField: "name",
+                                valueField: "id",
+                                name:'vendor_type',
+                                value: this.vendor_type ? this.vendor_type : '',
                             },
                             {
                             	xtype: 'label',

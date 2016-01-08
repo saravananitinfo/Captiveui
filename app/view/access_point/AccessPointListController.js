@@ -112,7 +112,7 @@ Ext.define('CaptivePortal.view.access_point.AccessPointListController', {
             json['access_point']['mac_id'] = form_values.mac_id
             json['access_point']['site_id'] = form_values.site_id
             json['access_point']['name'] = form_values.name
-            json['access_point']['uid'] = form_values.uid
+            json['access_point']['vendor_type'] = form_values.vendor_type
             console.log(json)
             url = CaptivePortal.Config.SERVICE_URLS.UPDATE_ACCESSPOINT + guest_user_id + '.json', method = 'PUT';
 

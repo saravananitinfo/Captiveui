@@ -62,9 +62,20 @@ Ext.define('CaptivePortal.view.access_point.AccessPointList',{
                     return value;
                 }
             },
-            {
+            /*{
                 header: 'NAS Identifier',
                 dataIndex: 'uid',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value + '" ';
+                    return value;
+                }
+            },*/
+            {
+                header: 'Vendors',
+                dataIndex: 'vendor_type',
                 flex: 1,
                 cls: 'table-row',
                 tdCls: 'table-cell',

@@ -7,8 +7,8 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
 	controller: 'guest_user',
 	padding: 0,
 	height: 100,
-	scrollable: true,
-	width: '100%',
+	autoScroll: true,
+	width: '95%',
 	layout: {
 	    type: 'vbox',
 	    padding: '10 0 0 30'
@@ -21,7 +21,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
 		this.items = [
 		   {
                 xtype: 'panel',
-                width: '100%',
+                width: '95%',
                 padding: '20 0 0 0',
                 cls: 'form_trigger',
                 items: [
@@ -121,12 +121,22 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                     }
                                 ]
                             },
-                            {
+                            /*{
                                 xtype: 'label',
                                 text: 'Additional Details',
                                 cls: 'header_label_content'
-                            },
-                            {
+                            },*/
+                            {                                
+                                xtype: 'panel',
+                                title: 'Additional Details',
+                                collapsible: true,
+                                collapsed: true,
+                                layout: 'vbox',
+                                padding: '0 0 0 0',
+                                //margin:'20 20 0 0',
+                                height:300,
+                                width: '100%',
+                                items:[{
                                 xtype: 'container',
                                 itemId: 'additional_detail',
                                 width: '100%',
@@ -135,6 +145,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 items: [
                                     {
                                         xtype: 'container',
+                                        margin:'0 10 0 10',
                                         items: [
                                             {
                                                 xtype: 'label',
@@ -182,6 +193,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 items: [
                                     {
                                         xtype: 'container',
+                                        margin:'0 10 0 10',
                                         items: [
                                             {
                                                 xtype: 'label',
@@ -229,6 +241,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 items: [
                                     {
                                         xtype: 'container',
+                                        margin:'0 10 0 10',
                                         items: [
                                             {
                                                 xtype: 'label',
@@ -267,7 +280,9 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                         ]
                                     }
                                 ]
+                            },]
                             },
+                            
                  			{
                                 xtype: 'container',
                                 layout: 'hbox',

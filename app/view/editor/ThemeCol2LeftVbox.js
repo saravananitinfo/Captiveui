@@ -1,6 +1,9 @@
 Ext.define("CaptivePortal.view.editor.ThemeCol2LeftVbox",{
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.theme_col_2_left_vbox',
+    requires: [
+        'CaptivePortal.view.editor.VPanel'
+    ],
 	width: '100%',
     height: 200,
     layout: "hbox",
@@ -70,29 +73,32 @@ Ext.define("CaptivePortal.view.editor.ThemeCol2LeftVbox",{
     },
     cls: 'dpanel',
     items: [
+        // {
+        //     verticle_divide: true,
+        //     height: '100%',
+        //     margin: 5,
+        //     cls: "dropPanel dpanel",
+        //     // id: 'dpanel',   
+        //     layout: 'vbox',
+        //     defaults: {
+        //         ddGroup: "widgetGroup",
+        //         flex: 1,
+        //         width: '100%',
+        //         height: '50%'
+        //     },
+        //     bodyStyle: "background: transparent",
+        //     items:[{
+        //         xtype: "dropPanel",
+        //         cls: "dropPanel"
+        //         // style: 'border: 1px dashed #03142a;border-bottom: none;background: transparent',
+        //     },
+        //     {
+        //         xtype: "dropPanel",
+        //         cls: "dropPanel"
+        //     }]
+        // },
         {
-            verticle_divide: true,
-            height: '100%',
-            margin: 5,
-            cls: "dropPanel dpanel",
-            // id: 'dpanel',   
-            layout: 'vbox',
-            defaults: {
-                ddGroup: "widgetGroup",
-                flex: 1,
-                width: '100%',
-                height: '50%'
-            },
-            bodyStyle: "background: transparent",
-            items:[{
-                xtype: "dropPanel",
-                cls: "dropPanel"
-                // style: 'border: 1px dashed #03142a;border-bottom: none;background: transparent',
-            },
-            {
-                xtype: "dropPanel",
-                cls: "dropPanel"
-            }]
+            xtype: 'v_panel'
         },
         {
             xtype: "dropPanel",

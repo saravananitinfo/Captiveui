@@ -477,6 +477,38 @@ Ext.define('CaptivePortal.util.Utility', {
                         items: me.getItems(row)
                     });
                     break;
+                case 'theme_col_2_left_vbox':
+                    var items = me.getItems(row);
+                    console.log(items[2]);
+                    editor_canvas.add({
+                        xtype: 'theme_col_2_left_vbox',
+                        height: row.height,
+                        bodyStyle: 'background:'+row.background,
+                        items: [
+                            {
+                                xtype: 'v_panel',
+                                items: items.splice(0,2)
+                            },
+                            items[0]
+                        ]
+                    });
+                    break;
+                case 'theme_col_2_right_vbox':
+                    var items = me.getItems(row);
+                    editor_canvas.add({
+                        xtype: 'theme_col_2_right_vbox',
+                        height: row.height,
+                        bodyStyle: 'background:'+row.background,
+                        items: [
+                            items[0],
+                            {
+                                xtype: 'v_panel',
+                                items: items.splice(1,3)
+                            }
+                            
+                        ]
+                    });
+                    break;
             }
         });
 

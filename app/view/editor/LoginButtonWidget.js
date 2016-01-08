@@ -12,7 +12,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     
     button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
     link_json: '{"type":"Link","connect":"fb","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50}',
-    form_json: '{email: {enable: false, optional: false},first_name: {enable: false, optional: false},last_name: {enable: false, optional: false},gender: {enable: false, optional: false},birth_day: {enable: false, optional: false},mobile_number: {enable: false, optional: false},password: {enable: false, optional: false},verify_email: {enable: false, optional: false}}',
+    form_json: '{email: {enable: false, optional: false},first_name: {enable: false, optional: false},last_name: {enable: false, optional: false},gender: {enable: false, optional: false},birth_day: {enable: false, optional: false},mobile_number: {enable: false, optional: false},password: {enable: false, optional: false},verify_email: {enable: false, optional: false}, verify_mobile_number: {enable: false, optional: false}}',
     trigger_type: 'Button',
     header: {
         titlePosition: 0,

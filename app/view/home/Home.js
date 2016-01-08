@@ -64,13 +64,14 @@ Ext.define('CaptivePortal.view.home.Home', {
                         hidden: userObj.userName ? false : true,
                         itemId: 'user_name'                       
                     }, {
-                        xtype: 'splitbutton',
+                        xtype: 'button',
+                        width:20,
 
                   //iconCls: 'btn-logout',
 
-                      //cls: 'logout_button1',
+                    //  cls: 'logout_button-test',
 
-                     text: 'Settings',
+                     //text: 'Settings',
 
                      //itemId: 'logout',
 

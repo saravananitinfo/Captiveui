@@ -4,6 +4,6 @@ Ext.define('CaptivePortal.store.access_point.AddAccessPoint',{
 	requires:['CaptivePortal.model.access_point.AccessPoint'],
 	model:'CaptivePortal.model.access_point.AccessPoint',
 	data: [
-		{name: "", mac_id: "", site_id: "", uid: ""}
+		{name: "", mac_id: "", site_id: "", vendor_type: ""}
 	]
 });

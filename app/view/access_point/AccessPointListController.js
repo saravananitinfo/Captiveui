@@ -2,10 +2,10 @@ Ext.define('CaptivePortal.view.access_point.AccessPointListController', {
 	extend: 'Ext.app.ViewController',
     alias: 'controller.access_point_list_controller',
     createSites: function(){
-        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_SMSGATEWAY, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_ACCESSPOINT, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+                    var sitesAndTags = resObj.data.site || [];
                     var sitesCombo = Ext.ComponentQuery.query('#upload_access_point_frm')[0].down('#access_point_sites');
                     sitesCombo.reset();
                     sitesCombo.store.loadRawData(sitesAndTags);
@@ -112,7 +112,7 @@ Ext.define('CaptivePortal.view.access_point.AccessPointListController', {
             json['access_point']['mac_id'] = form_values.mac_id
             json['access_point']['site_id'] = form_values.site_id
             json['access_point']['name'] = form_values.name
-            json['access_point']['uid'] = form_values.uid
+            json['access_point']['vendor_type'] = form_values.vendor_type
             console.log(json)
             url = CaptivePortal.Config.SERVICE_URLS.UPDATE_ACCESSPOINT + guest_user_id + '.json', method = 'PUT';
 

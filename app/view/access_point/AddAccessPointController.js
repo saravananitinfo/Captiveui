@@ -18,7 +18,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
     	Ext.getCmp('viewport').setLoading(true);
     	console.log('...................call save');
     	var store = Ext.StoreManager.lookup('CaptivePortal.store.access_point.AddAccessPoint')
-    	data = store.getRange().map(function(ele){ return {name: ele.data.name, mac_id: ele.data.mac_id, site_id: ele.data.site_id, uid: ele.data.uid}});
+    	data = store.getRange().map(function(ele){ return {name: ele.data.name, mac_id: ele.data.mac_id, site_id: ele.data.site_id, vendor_type: ele.data.vendor_type}});
     	console.log(data)
 
     	var json = {access_point: data}

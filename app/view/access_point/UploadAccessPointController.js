@@ -11,7 +11,6 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPointController', {
     	var me = this;
         var form = this.getView().down('form');
         if(form.isValid()){
-        	Ext.getCmp('viewport').setLoading(true);
             form_values = form.getValues();
             var json = {access_point: {}};
             json['access_point']['site_id'] = form_values.associated_resource;

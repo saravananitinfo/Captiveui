@@ -35,11 +35,6 @@ Ext.define('CaptivePortal.view.editor.Main', {
             margin: '0 0 0 5',
 	    cls: "btn btn-cancel",	    
             handler: 'closeEditor'
-        },{
-            xtype:'button',
-            text: 'Test',
-            margin: '0 0 0 5',
-            handler: 'buildHtml'
         }]
     },
     initComponent: function () {

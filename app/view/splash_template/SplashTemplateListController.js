@@ -98,7 +98,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                                 items: [{
                                     xtype: 'component',
                                     style: 'margin: 0 auto;',
-                                    width: '60%',
+                                    width: 786,
                                     height: '100%',
                                     html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
                                 }]
@@ -109,7 +109,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                                 items: [{
                                     xtype: 'component',
                                     style: 'margin: 0 auto;',
-                                    width: '25%',
+                                    width: 320,
                                     height: '100%',
                                     html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
                                 }]

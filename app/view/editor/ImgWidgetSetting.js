@@ -69,7 +69,12 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                                     img_panel.el.dom.style.background = 'none';
                                     var img = img_panel.down('#img_panel').el.query('.img')[0]
                                     img.removeAttribute('width');img.removeAttribute('height');
-                                    img.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.medium_image_url;
+                                    img.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.original_image_url;
+                                    img.style.display = 'block';
+
+                                    var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
+                                    img_widget_setting.down('#img_height_field').setValue(img.height);
+                                    img_widget_setting.down('#img_width_field').setValue(img.width);
 
                                 }
                             }.bind(this),function(response){
@@ -181,7 +186,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                         ddGroup:"galleryImage",
                         dataA: [],
                         store: Ext.StoreManager.lookup('CaptivePortal.store.editor.ImageGallery').load(),
-                        customTpl:['<tpl for=".">','<div data-imgurl="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}" class="dragItem">','<div style="line-height: 1px;" class="{name}" data-drag="{name} data-qtip="{name}">','<img class="galleryImage" src="'+CaptivePortal.util.Utility.BASE_URL+'{medium_image_url}">',"</div>","</div>","</tpl>"]
+                        customTpl:['<tpl for=".">','<div data-imgurl="'+CaptivePortal.util.Utility.BASE_URL+'{original_image_url}" class="dragItem">','<div style="line-height: 1px;" class="{name}" data-drag="{name} data-qtip="{name}">','<img class="galleryImage" src="'+CaptivePortal.util.Utility.BASE_URL+'{original_image_url}">',"</div>","</div>","</tpl>"]
                     }
                 ]
             }

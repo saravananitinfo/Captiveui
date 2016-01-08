@@ -24,7 +24,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
             var row = {}
             row["col_type"] = theme.xtype
             row['background'] = theme.body.dom.style.background;
-            row['height'] = theme.height;
+            row['height'] = theme.height - 36;
             row['widgets'] = [];
             theme.items.each(function(block){
                 console.log(block.xtype);
@@ -166,7 +166,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                                 items: [{
                                     xtype: 'component',
                                     style: 'margin: 0 auto;',
-                                    width: '60%',
+                                    width: 786,
                                     height: '100%',
                                     html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
                                 }]
@@ -177,7 +177,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                                 items: [{
                                     xtype: 'component',
                                     style: 'margin: 0 auto;',
-                                    width: '25%',
+                                    width: 320,
                                     height: '100%',
                                     html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
                                 }]

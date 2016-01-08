@@ -61,7 +61,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
            				emptyCellText: '<span style="color:#aaaaaa;">' + "Name" + "</span>",
            			},
                     {
-                        header: 'Vendors',
+                        header: 'Vendor',
                         dataIndex: 'vendor_type',
                         flex: 1,
                         width: 160,
@@ -69,7 +69,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
                         tdCls: 'table-cell',
                         editor: {
                             xtype:"combo",
-                            emptyText: "Vendors",
+                            emptyText: "Vendor",
                             allowBlank: false,
                             store: Ext.create("CaptivePortal.store.access_point.Vendors"),
                             editable: false,
@@ -80,7 +80,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
                         emptyCellText: '<span style="color:#aaaaaa;">' + "Vendors" + "</span>",
                     },
            			{
-            			header: 'Mac Id',
+            			header: 'MAC Address',
             			dataIndex: 'mac_id',
             			flex: 1,
             			width: 160,
@@ -88,7 +88,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
                         tdCls: 'table-cell',
             			editor: {
                 			xtype:"textfield",
-                			emptyText: "Mac Id",
+                			emptyText: "MAC Address",
             				hasFocus:true,
             				enableKeyEvents:true,
                 			allowBlank: false
@@ -103,8 +103,6 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
             			cls: 'table-row',
                         tdCls: 'table-cell',
                         renderer: function(value){
-                        	console.log("...........test ......")
-                        	console.log(value)
                         	if(value){
                         	  var name = Ext.StoreManager.lookup('CaptivePortal.store.access_point.Sites').getById(value).data.name;
 				              return name

@@ -90,7 +90,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 xtype: 'combo',
                                 allowBlank: false,
                                 reference: 'cmb_timezone',
-                                valueField: 'name',
+                                valueField: 'id',
                                 displayField: 'name',
                                 queryMode: 'local',
                                 width: 500,

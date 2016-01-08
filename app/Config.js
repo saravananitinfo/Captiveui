@@ -124,7 +124,7 @@ Ext.define('CaptivePortal.Config', {
         CHANGE_PASSWORD : CaptivePortal.util.Utility.BASE_URL + 'change_password.json',
 
         //Editor
-        PREVIEW: 'http://192.168.0.220:3001/' + 'preview/',
+        PREVIEW: CaptivePortal.util.Utility.BASE_URL + 'preview/',
 	},
     TEMPLATES: {
         template1: {"rows":[{"col_type":"theme_col_2","background":"rgb(252, 250, 243)","height":204,"widgets":[{"widget_type":"text_widget","attributes":{"html_str":"<font color=\"#339966\"><font size=\"3\">​Contributions are most welcome. Premailer was rotting away in a private SVN repository for too long and could use some.</font><span style=\"font-size: medium;\">Contributions are most welcome. Premailer was rotting away in a private SVN repository for too long and could use some.</span></font>"}},{"widget_type":"img_widget","attributes":{"src":"http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/56794b0d736d735e0c000000/medium.jpg?1450789644","height":161,"width":222,"top":0,"left":106}}]}]},

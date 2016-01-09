@@ -110,6 +110,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
 				            	return ''
 				            }
 				        },
+                        emptyCellText: '<span style="color:#aaaaaa;">' + "Select Site" + "</span>",
             			editor: {
                 			xtype: "combobox",
 				            store: Ext.create("CaptivePortal.store.access_point.Sites"),
@@ -117,6 +118,10 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
 				            queryMode: "remote",
 				            displayField: "name",
 				            valueField: "id",
+                            emptyCellText: '<span style="color:#aaaaaa;">' + "Select Site" + "</span>",
+                            listConfig:{
+                                        getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIconForSite
+                            },
 				            listeners: {
 				            	select: function(l, k, p) {
 				            		console.log("..........l k p");

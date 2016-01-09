@@ -66,27 +66,33 @@ Ext.define('CaptivePortal.view.home.Home', {
                     }, {
                         xtype: 'button',
                         width:20,
-
-                  //iconCls: 'btn-logout',
-
-                    //  cls: 'logout_button-test',
-
-                     //text: 'Settings',
-
-                     //itemId: 'logout',
-
-                      //handler: 'logout'
-
-                     menu:new Ext.menu.Menu({
-
+                        cls:'menu_bar',
+                        menu:new Ext.menu.Menu({
+                            listeners:{
+                                show: function(m){
+                                    var toolbarBtn = m.up('button'), newX, btnPos = [], newY;
+                                    if(toolbarBtn){
+                                        btnPos = toolbarBtn.getXY();
+                                        newX = (btnPos && btnPos[0]) ? (btnPos[0] - m.getWidth() + 20) : 0 ;
+                                        newY = (btnPos && btnPos[1]) ? (btnPos[1] + 25) : 0 ;
+                                        setTimeout(function(){
+                                            m.setX(newX);
+                                            m.setY(newY);
+                                        }.bind(this), 1);
+                                        
+                                    }
+                                }
+                            },
+                            width:30,
                            items:[
-
-                              {text:'Logout', 
-                              //iconCls: 'btn-logout', cls: 'logout_button1', 
-                              itemId: 'logout', handler: 'logout'},
-
-                               {text:'Change Password', handler:'changePassword'}
-
+                              {
+                                text:'Logout',
+                                itemId: 'logout', 
+                                handler: 'logout'
+                             },{
+                                text:'Change Password', 
+                                handler:'changePassword'
+                            }
                           ]
 
                        })

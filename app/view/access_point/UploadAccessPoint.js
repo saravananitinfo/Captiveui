@@ -49,7 +49,10 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
                             emptyText: "Select Site / Tag",
                             valueField: 'id',
                             displayField: 'name',
-                            store: emptySiteStore
+                            store: emptySiteStore,
+                            listConfig:{
+                                        getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIconForSite
+                            },
                         },
                         {
                         	xtype: 'label',

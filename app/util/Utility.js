@@ -53,6 +53,10 @@ Ext.define('CaptivePortal.util.Utility', {
             fields:['name', 'id', 'isSite','iconCss'], data:[]
         })
     },
+    getSiteTemplateIconForSite: function(){
+        var tpl = '<div class="site-icon"></div>&nbsp;&nbsp;&nbsp;<span class="site-icon-cls">{name}</span>';
+        return tpl;
+    },
     getSiteTemplateIcon: function(){
         var tpl = '<div class={iconCss}></div>&nbsp;&nbsp;&nbsp;<span class="site-icon-cls">{name}</span>';
         return tpl;
@@ -358,14 +362,34 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
-                Ext.isFunction(successCallback) && successCallback.call(null, response);
-                CaptivePortal.util.Utility.appLoadMask(null, null, false);
+                CaptivePortal.util.Utility.postManipulateResponse(response, successCallback);
             },
             failure: function (response) {
-                Ext.isFunction(failureCallback) && failureCallback.call(null, response);
-                CaptivePortal.util.Utility.appLoadMask(null, null, false);
+                CaptivePortal.util.Utility.postManipulateResponse(response, failureCallback);
             }
         });
+    },
+
+    postManipulateResponse: function(response, callback){
+        var status = response.status;
+        switch(status){
+            case 401:
+            case 403:
+                CaptivePortal.util.Utility.logoutForSession();
+            break;
+            case 500:
+                CaptivePortal.util.Utility.showError('Error', 'There is an issue with the service, please try after some time');
+            break;
+            case 422:
+                CaptivePortal.util.Utility.showError('Error', 'Cannot process data. Looks like some issue with the data, please check the data fields');
+            break;
+            case 404:
+                CaptivePortal.util.Utility.showError('Error', 'The record you are trying to get does not exisit');
+            break;
+        }
+        Ext.isFunction(callback) && callback.call(null, response);
+        CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+        Ext.getCmp('viewport').setLoading(false);
     },
 
     logoutForSession: function(){
@@ -393,20 +417,10 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
-                if(response.status === 401){
-                    CaptivePortal.util.Utility.logoutForSession();
-                } else{
-                    CaptivePortal.util.Utility.appLoadMask(null, null, false); 
-                }
-                Ext.isFunction(successCallback) && successCallback.call(null, response);
+                CaptivePortal.util.Utility.postManipulateResponse(response, successCallback);
             },
             failure: function (response) {
-                if(response.status === 401){
-                    CaptivePortal.util.Utility.logoutForSession();
-                } else{
-                    CaptivePortal.util.Utility.appLoadMask(null, null, false); 
-                }
-                Ext.isFunction(failureCallback) && failureCallback.call(null, response);
+                CaptivePortal.util.Utility.postManipulateResponse(response, failureCallback);
             }
         });
     }, capitalizeFirstLetter: function (str) {

@@ -122,6 +122,7 @@ Ext.define('CaptivePortal.Config', {
         NEW_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/new.json',
         EDIT_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
         UPDATE_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
+        DUPLICATE_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
 
         CHANGE_PASSWORD : CaptivePortal.util.Utility.BASE_URL + 'change_password.json',
 

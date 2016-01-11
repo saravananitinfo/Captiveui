@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
             } else if (action == "delete"){
                 this.deleteSplashJorney(view, record, item, index, e, eOpts);
             } else if (action == "duplicate"){                
-                // this.fireEvent('duplicateTemplate', 1, record.data.id);
+                this.duplicateTemplate(view, record, item, index, e, eOpts);
             } else if (action == "preview"){
                 this.preview(view, record, item, index, e, eOpts)
             }
@@ -34,6 +34,32 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                         }
                     }.bind(this), function (response) {
                     }, 'DELETE');
+                } else if (btn === 'no') {
+
+                }
+            }.bind(this)
+        });
+    },
+    duplicateTemplate: function(view, record, item, index, e, eOpts) {
+        var me = this;
+        Ext.Msg.show({
+            title: 'Duplicate Template',
+            message: 'Do you want to create copy?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var url = CaptivePortal.Config.SERVICE_URLS.DUPLICATE_SPLASH_TEMPLATE + record.data.id + '/duplicate_template.json';
+                    CaptivePortal.util.Utility.doAjax(url, {save: "yes"}, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
+                        var resObj = Ext.decode(response.responseText);
+                        if (resObj.success) {
+                            console.log("..................akshy");
+                            console.log(resObj);
+                            me.getSplashTemplateList();
+                            me.fireEvent('setSplashPageActiveItem',0);
+                        }
+                    }.bind(this), function (response) {
+                    }, 'GET');
                 } else if (btn === 'no') {
 
                 }

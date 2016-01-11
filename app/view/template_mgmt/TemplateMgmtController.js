@@ -64,7 +64,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             }
         }            
         var wrapNode = parentNode(event.target);
-        wrapNode.style.backgroundColor="black";
+        wrapNode.style.backgroundColor="#1FA1EB";
         this.getView().down('form').down('#splash_template_id').setValue(wrapNode.getAttribute('data-id'));
         this.getSMSGatewayDetails(wrapNode);
     },
@@ -185,7 +185,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             var currentTemplateId = this.getView().down('form').down('#splash_template_id').getValue();
             if(currentTemplateId){
                 var existingDiv = document.querySelector("div[data-id='" + currentTemplateId +"']");
-                if(existingDiv) existingDiv.style.backgroundColor="black";
+                if(existingDiv) existingDiv.style.backgroundColor="#1FA1EB";
             } 
         }
     },

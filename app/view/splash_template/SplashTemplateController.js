@@ -73,6 +73,9 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
     },
     loadDataToSplashTemplateForm:function(data, btnText){
         var form = this.getView().down('form');
+
+        this.getView().down('#btn_saveSplashTemplate').setText('Update');
+
         var splash_template = data.splash_template;
         splash_template.splash_template_id = splash_template.id
         var model = Ext.create('CaptivePortal.model.splash_template.SplashTemplate', splash_template);

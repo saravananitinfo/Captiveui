@@ -33,12 +33,18 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                     console.log("______________");
                     block = block.items.each(function(blc){
                         console.log(",,,,,,,,,,,,,,"+blc.xtype);
-                        var col = me.getWidgetJSON(blc);
+                        var widgetJSON = me.getWidgetJSON(blc);
+                        var col = widgetJSON.col;
                         row['widgets'].push(col);
+                        html["verify_email"] = widgetJSON.verify_email
+                        html["verify_mobile_number"] = widgetJSON.verify_mobile_number
                     });
                 }else{
-                    var col = me.getWidgetJSON(block);
+                    var widgetJSON = me.getWidgetJSON(block);
+                    var col = widgetJSON.col;
                     row['widgets'].push(col);
+                    html["verify_email"] = widgetJSON.verify_email
+                    html["verify_mobile_number"] = widgetJSON.verify_mobile_number
                 }
                 
             });
@@ -52,7 +58,9 @@ Ext.define("CaptivePortal.view.editor.MainController",{
         return html;
     },
     getWidgetJSON: function(block){
-        var col = {}
+        var col = {};
+        var verify_email = false;
+        var verify_mobile_number = false;
         switch(block.xtype){
             case 'text_widget':
                 // var col = {}
@@ -92,7 +100,14 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                 var json = Ext.decode(block.trigger_type === 'Button' ? block.button_json : block.link_json)
                 col["attributes"] = json;
                 if(json.connect === 'form'){
-                    col["attributes"]["form_fields"] = Ext.decode(block.form_json)
+                    var form_json  = Ext.decode(block.form_json)
+                    col["attributes"]["form_fields"] = form_json
+                    if(form_json.verify_email.enable){
+                        verify_email = true
+                    }
+                    if(form_json.verify_mobile_number.enable){
+                        verify_mobile_number = true
+                    }
                 }
                 // row['widgets'].push(col);
                 break;
@@ -103,7 +118,11 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                 // row['widgets'].push(col);
                 break;
         }
-        return col;
+        return {
+                 col: col,
+                 verify_email: verify_email,
+                 verify_mobile_number: verify_mobile_number
+                }
     },
     closeEditor: function(){
         var home_panel = Ext.ComponentQuery.query('#pan_apphome')[0];

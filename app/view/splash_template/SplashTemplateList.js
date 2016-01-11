@@ -70,10 +70,15 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         if (write) {
             grid_colunms.push({
                 header: 'Action',
+                dataIndex: 'admin_tempalte',
                 flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                    if(value){
+                        return '<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                    }else{
+                        return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                    }
                 }
             })
         }

@@ -80,7 +80,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         contentDiv.setAttribute('data-id', details.id);
         contentDiv.setAttribute('class', 'splash-block-content-wrap');
         var imgTag = document.createElement('img');
-        imgTag.setAttribute('src', details.preveiew_URL || 'http://' + location.host + '/custom/css/images/Splash_page.png');
+        imgTag.setAttribute('src', CaptivePortal.util.Utility.BASE_URL + details.snap_shot);
         imgTag.setAttribute('height', 120);
         imgTag.setAttribute('width', 138);
         imgTag.setAttribute('class','splash-block-img');
@@ -115,6 +115,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 divs = this.generateSplashPageContent(resObj.data);
+                dom.innerHTML = "";
                 if(divs.length){
                     view.down('#site-tag-err-lab').hide();
                     Ext.Array.each(divs,function(div, index){
@@ -125,7 +126,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
                 } else {
                     view.down('#site-tag-err-lab').show();
                     view.down('#site-tag-err-lab').setText('No splash template for this site/tag');
-                    dom.innerHTML = "";
+                    
                     dom.style['border-width'] = '0px';
                 }
                 

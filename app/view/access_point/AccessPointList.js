@@ -85,7 +85,7 @@ Ext.define('CaptivePortal.view.access_point.AccessPointList',{
                 }
             },
             {
-                header: 'Mac Id',
+                header: 'MAC Address',
                 dataIndex: 'mac_id',
                 flex: 1,
                 cls: 'table-row',

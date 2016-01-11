@@ -46,7 +46,7 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 									itemId:this.itemIdPrefix + 'name'
 								},{
 	                                xtype: 'label',
-	                                text: 'Splash Template',
+	                                text: 'Splash Journey',
 	                                cls: 'header_label_content'
 		                        },{
 									xtype:'container',
@@ -61,7 +61,7 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 		                                width:300,
 		                                valueField: 'id',
 		                                displayField: 'name',
-		                                emptyText: 'Select Splash',
+		                                emptyText: 'Select Splash Journey',
 		                                store: store,
 		                                filterPickList: true,
 		                                itemId:this.itemIdPrefix + 'splash'

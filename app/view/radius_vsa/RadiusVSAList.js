@@ -79,7 +79,6 @@ Ext.define('CaptivePortal.view.radius_vsa.RadiusVSAList', {
         this.items = [{
                 xtype: 'gridpanel',
                 reference: 'grd_radius_vsa_list',
-                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 store: 'CaptivePortal.store.radius_vsa.RadiusVSA',
                 columnLines: true,
                 viewConfig: {

@@ -30,7 +30,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
                         xtype: 'form',
                         itemId: 'accesstimepolicyform',
                         defaults: {
-                            width: 700,
+                            width: '60%',
                             //height: 30,
                             padding: '10 0 15 0',
                             maxLength: 50

@@ -87,6 +87,7 @@ Ext.define('CaptivePortal.Config', {
         EDIT_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
         UPDATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
         DUPLICATE_SPLASH_JOURNEY:CaptivePortal.util.Utility.BASE_URL + 'splash_journeys/',
+        GET_SPLASH_TEMPLATE_SMS_GATEWAY:CaptivePortal.util.Utility.BASE_URL + 'templates_and_gateways/',
         GET_SPLASH_TEMPLATE_DETAILS:CaptivePortal.util.Utility.BASE_URL + 'templates/',
 
         // Radius config

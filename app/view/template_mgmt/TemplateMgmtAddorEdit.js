@@ -35,11 +35,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                              xtype: 'hiddenfield',
 											  name: 'tenant_id',
 											  itemId:'tenant_id'
-						                     },{
-				                              xtype: 'hiddenfield',
-											  name: 'sms_gateway_management_id',
-											  itemId:'sms_gateway_management_id'
-						                     },{
+						                     }, {
 				                              xtype: 'hiddenfield',
 											  name: 'splash_template_id',
 											  itemId:'splash_template_id'
@@ -330,11 +326,23 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                        border:5,
 				                                        layout:'vbox',
 			                                        	items:[{
-					                                        	xtype:'label',
-					                                        	text:'Please select site / tag from above dropdown',
-					                                        	cls:'header_label_content',
-					                                        	margin: '10 0 0 0'
-					                                        }]
+																xtype:'label',
+																padding: '10 0 15 0',
+																text:'SMS Gateway',							
+																cls:'header_label_content'
+															 },{
+																xtype:'combo',	
+																padding: '0 0 15 0',										
+								                                allowBlank: true,
+								                                editable:false,
+																name:'sms_gateway_management_id',
+																itemId:'sms_gateway_management_id',
+																queryMode: 'local',												
+								                                forceSelection:true,
+								                                valueField: 'id',
+								                                displayField: 'name',
+								                                emptyText: 'Select SMS Gateway',
+															}]
 				                                    }
 				                                ]
 				                            }, {

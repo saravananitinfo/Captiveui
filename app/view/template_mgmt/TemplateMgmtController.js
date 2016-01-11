@@ -10,29 +10,72 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             }
     	}
     },
+    loadSMSGatewayDetails: function(siteId, smsID){
+        siteId && CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATE_SMS_GATEWAY + siteId + '.json' ,{},"Loading...", this.getView(),function(response){
+            var res = Ext.decode(response.responseText);
+                var store = Ext.create('Ext.data.Store',{
+                    fields:['id', 'name'],
+                    data:res.data.sms_gateways || []
+                });
+                this.getView().down('#sms-gateway-tab').tab.show();
+                this.getView().down('#sms_gateway_management_id').reset();
+                this.getView().down('#sms_gateway_management_id').setStore(store);
+                smsID && this.getView().down('#sms_gateway_management_id').setValue(smsID);
+            }.bind(this),function(response){
+                var resObj = Ext.decode(response.responseText);
+                if(!resObj.success && resObj.error.length){
+                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                }          
+            }.bind(this),'GET');
+    },
+    getSMSGatewayDetails: function(domEle){
+        var view = this.getView();        
+        var smsFlag = domEle.getAttribute('data-verify_mobile_number'), siteId;
+        if(smsFlag == 'true'){
+            siteId = this.getView().down('form').down('#site_combo').getValue();
+            this.loadSMSGatewayDetails(siteId);
+        } else {
+            view.down('#sms-gateway-tab').tab.hide();
+            view.down('#sms_gateway_management_id').reset();
+        }
+    },
+    previewClick: function(event){
+        var previewId = event.target.getAttribute('data-preview-id');
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.PREVIEW,{},"Loading...", this.getView(),function(response){
+            var resObj = response.responseText;
+        },function(response){
+            var resObj = Ext.decode(response.responseText);
+            if(!resObj.success && resObj.error.length){
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+            }          
+        },'POST');
+    },
+    wrapperClick: function(event){
+        var currentTemplateId = this.getView().down('form').down('#splash_template_id').getValue();
+        if(currentTemplateId){
+            var existingDiv = document.querySelector("div[data-id='" + currentTemplateId +"']");
+            if(existingDiv) existingDiv.style.backgroundColor="white";
+        }            
+        var parentNode = function(node){
+            if(node.className !='splash-block-wrap'){
+                return parentNode(node.parentNode);
+            } else {
+                return node;    
+            }
+        }            
+        var wrapNode = parentNode(event.target);
+        wrapNode.style.backgroundColor="black";
+        this.getView().down('form').down('#splash_template_id').setValue(wrapNode.getAttribute('data-id'));
+        this.getSMSGatewayDetails(wrapNode);
+    },
     generateSplashBlock: function(details){
         var wrapperDiv = document.createElement('div');
         wrapperDiv.setAttribute('data-id', details.id);
+        wrapperDiv.setAttribute('data-verify_mobile_number', details.verify_mobile_number != undefined ? details.verify_mobile_number : true);
         wrapperDiv.setAttribute('class', 'splash-block-wrap');
+        wrapperDiv.addEventListener('click',this.wrapperClick.bind(this));
         var topWrapperDiv = document.createElement('div');
         topWrapperDiv.setAttribute('class', 'splash-block-wrap-top');
-        wrapperDiv.addEventListener('click', function(event){
-            var currentTemplateId = this.getView().down('form').down('#splash_template_id').getValue();
-            if(currentTemplateId){
-                var existingDiv = document.querySelector("div[data-id='" + currentTemplateId +"']");
-                if(existingDiv) existingDiv.style.backgroundColor="white";
-            }            
-            var parentNode = function(node){
-                if(node.className !='splash-block-wrap'){
-                    return parentNode(node.parentNode);
-                } else {
-                    return node;    
-                }
-            }            
-            var wrapNode = parentNode(event.target);
-            wrapNode.style.backgroundColor="black";
-            this.getView().down('form').down('#splash_template_id').setValue(wrapNode.getAttribute('data-id'));
-        }.bind(this))
         var contentDiv = document.createElement('div');
         contentDiv.setAttribute('data-id', details.id);
         contentDiv.setAttribute('class', 'splash-block-content-wrap');
@@ -48,17 +91,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         preview.setAttribute('class', 'splash-block-wrap-lab splash-block-wrap-lab-prev');
         preview.setAttribute('data-preview-id', details.id);
         preview.innerHTML = 'Preview';
-        preview.addEventListener('click', function(event){
-            var previewId = event.target.getAttribute('data-preview-id');
-            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.PREVIEW,{},"Loading...", this.getView(),function(response){
-                var resObj = response.responseText;
-            },function(response){
-                var resObj = Ext.decode(response.responseText);
-                if(!resObj.success && resObj.error.length){
-                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
-                }          
-            },'POST');
-        }.bind(this))
+        preview.addEventListener('click',this.previewClick.bind(this));
         contentDiv.appendChild(preview);        
         contentDiv.appendChild(imgTag);        
         wrapperDiv.appendChild(contentDiv);
@@ -131,6 +164,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
     },
     loadDataToTemplateMgmtForm:function(data, btnText){
         var form = this.getView().down('form');
+        
         var model = Ext.create('CaptivePortal.model.template_mgmt.TemplateMgmt', data.splash_journey);
         form.loadRecord(model);
         if(data.splash_journey.site_info && data.splash_journey.site_info.id){
@@ -140,6 +174,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         if(data.splash_journey.splash_template && data.splash_journey.splash_template.id){
             form.down('#splash_template_id').setValue(data.splash_journey.splash_template.id);
         }
+        if(data.splash_journey.sms_gateway_management_id){
+            this.loadSMSGatewayDetails(form.down('#site_combo').getValue(), data.splash_journey.sms_gateway_management_id);
+        }
+        
         if(data && data.splash_journey && data.splash_journey.associated_resource){
             //CaptivePortal.util.Utility.getSiteAndTagDetails(form.down('#site_combo'),form.down('#site_combo').getSelectedRecord());
             this.site_change(form.down('#site_combo'));

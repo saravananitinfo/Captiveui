@@ -20,6 +20,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
     newGuestUser: function(){
         Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
     	this.fireEvent('setGuestUsersMainActiveItem', 1);
+	Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New Guest User');
         Ext.ComponentQuery.query('#btn_save_guest_user')[0].setText('Create');
         var form = Ext.ComponentQuery.query('#guest_user_form')[0];
         form.reset(true);
@@ -31,6 +32,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
 
         //Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
         this.fireEvent('setGuestUsersMainActiveItem', 1);
+	Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Edit Guest User');
         this.createSites('guest_user_form');
         var form  = Ext.ComponentQuery.query('#guest_user_form')[0];
         record = this.createGuestUser(obj);
@@ -102,6 +104,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
     },
     uploadGuestUser: function(){
         this.fireEvent('setGuestUsersMainActiveItem', 2);
+	Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Upload Guest User CSV');
         this.createSites('upload_guest_user_frm');
     },
     getGuestUsers: function(){

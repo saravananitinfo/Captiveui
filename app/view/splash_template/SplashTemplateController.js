@@ -52,7 +52,12 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
     saveSplashTemplateForm: function(){
     	var home_panel = Ext.ComponentQuery.query('#pan_apphome')[0]
     	home_panel.hide();
-    	Ext.getCmp('viewport').add(Ext.create('CaptivePortal.view.editor.Main'));
+
+        var form = Ext.ComponentQuery.query('#splashTemplateForm')[0]
+        var form_val = form.getValues()
+    	Ext.getCmp('viewport').add(Ext.create('CaptivePortal.view.editor.Main',{
+            template_name: form_val.name
+        }));
 
     	var form = Ext.ComponentQuery.query('#splashTemplateForm')[0]
     	var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
@@ -63,6 +68,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
     },
     cancelSplashTemplate: function(){
     	this.fireEvent('setSplashPageActiveItem',0);
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Splash Template');
     },
     initiateSplashTemplateForm: function(data){
     	console.log("......initiateSplashTemplateForm..");

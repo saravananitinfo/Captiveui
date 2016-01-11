@@ -44,20 +44,20 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                     return value;
                 }
             },
-           /* {
-                header: 'Site Name',
-                dataIndex: 'site_info',
-                flex: 1,
-                cls: 'table-row',
-                tdCls: 'table-cell',
-                renderer: function (value, metaData, rec, view) {
-                    metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';
-                    return value ? value.name : '';
-                }
-            },*/
+            // {
+            //     header: 'Category',
+            //     dataIndex: 'category',
+            //     flex: 1,
+            //     cls: 'table-row',
+            //     tdCls: 'table-cell',
+            //     renderer: function (value, metaData, rec, view) {
+            //        metaData.tdAttr = 'data-qtip="' + value + '" ';
+            //         return value;
+            //     }
+            // },
             {
-                header: 'Category',
-                dataIndex: 'category',
+                header: 'Site/Tag',
+                dataIndex: 'site_info',
                 flex: 1,
                 cls: 'table-row',
                 tdCls: 'table-cell',

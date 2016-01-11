@@ -11,7 +11,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
     controller: 'editor_main_controller',
     cls: "speditor",
     header: {
-	cls: "editor_top_panel",
+	    cls: "editor_top_panel",
         items: [{
             xtype:'button',
             text: 'Preview',
@@ -27,17 +27,18 @@ Ext.define('CaptivePortal.view.editor.Main', {
             xtype:'button',
             text: 'Save',
             margin: '0 0 0 5',
-	    cls: "btn",
+	        cls: "btn",
             handler: "saveEditorHtml"
         },{
             xtype:'button',
             text: 'Cancel',
             margin: '0 0 0 5',
-	    cls: "btn btn-cancel",	    
+	        cls: "btn btn-cancel",	    
             handler: 'closeEditor'
         }]
     },
     initComponent: function () {
+        this.title = this.template_name;
         this.items = [
         	// {
         	// 	xtype: "dragPanel",

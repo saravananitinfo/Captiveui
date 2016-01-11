@@ -194,26 +194,32 @@ h3.splash-block-wrap-lab{
 }
 
 .tag-icon{
-	background-image:url(images/tag16.png);
-	background-repeat: no-repeat;
-	height:16px;
-	width:16px;
-	float:left;
+        background-image:url(images/tag16.png);
+        background-repeat: no-repeat;
+        float:left;
+        height:12px;
+        width:12px;
+        float:left;
+        position: relative;
+        top: 6px;
+
 }
 
- .site-icon-cls{
- 	margin-left: -10px;
+.site-icon-cls{
+        margin-left: -7px;
  }
 
  .site-icon{
-	background-image:url(images/site16.png);
-	background-repeat: no-repeat;
-	height:16px;
-	width:16px;
-	float:left;
-	top: 3px;
-    position: relative;
+        background-image:url(images/site16.png);
+        background-repeat: no-repeat;
+        height:12px;
+        width:12px;
+        float:left;
+        top: 5px;
+        position: relative;
 }
+
+
 
 .duplicate-icon{
 	background-image:url(images/duplicate.png);

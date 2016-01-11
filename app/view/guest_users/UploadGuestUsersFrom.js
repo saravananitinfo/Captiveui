@@ -40,16 +40,19 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
                             cls: 'header_label_content'
                         },
                         {
-                        	xtype: 'combobox',
-                            allowBlank: false,
-                            editable: false,
-                            name: 'associated_resource',
-                            queryMode: 'local',
-                            itemId: 'gateway_sites',
-                            emptyText: "Select Site / Tag",
-                            valueField: 'id',
-                            displayField: 'name',
-                            store: emptySiteStore
+			   xtype: 'combobox',
+                           allowBlank: false,
+                           editable: false,
+			   name: 'associated_resource',
+			   queryMode: 'local',
+			   itemId: 'gateway_sites',
+			   emptyText: "Select Site / Tag",
+			   valueField: 'id',
+			   displayField: 'name',
+			   store: CaptivePortal.util.Utility.getEmptySiteStore(),
+			   listConfig:{
+				getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                }
                         },
                         {
                         	xtype: 'label',
@@ -59,10 +62,12 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
                         {
                         	xtype: 'filefield',
                         	name: 'file_data',
-                        	emptyText: "Select File",
+                        	emptyText: "Guest Users",
                         	width: 400,
-        					hideLabel: true,
-        					itemId: 'upload_field'
+        			hideLabel: true,
+        			itemId: 'upload_field',
+				buttonText: 'Select File...',
+				cls: 'cp-upload-file'
                         },
                         {
                             xtype: 'container',

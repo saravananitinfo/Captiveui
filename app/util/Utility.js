@@ -377,6 +377,7 @@ Ext.define('CaptivePortal.util.Utility', {
             case 403:
                 CaptivePortal.util.Utility.logoutForSession();
             break;
+            case 0:
             case 500:
                 CaptivePortal.util.Utility.showError('Error', 'There is an issue with the service, please try after some time');
             break;
@@ -387,7 +388,7 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.showError('Error', 'The record you are trying to get does not exisit');
             break;
         }
-        Ext.isFunction(callback) && callback.call(null, response);
+        response.responseText && Ext.isFunction(callback) && callback.call(null, response);
         CaptivePortal.util.Utility.appLoadMask(null, null, false); 
         Ext.getCmp('viewport').setLoading(false);
     },

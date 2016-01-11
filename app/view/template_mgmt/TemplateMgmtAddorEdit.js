@@ -36,6 +36,14 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 											  name: 'tenant_id',
 											  itemId:'tenant_id'
 						                     },{
+				                              xtype: 'hiddenfield',
+											  name: 'sms_gateway_management_id',
+											  itemId:'sms_gateway_management_id'
+						                     },{
+				                              xtype: 'hiddenfield',
+											  name: 'splash_template_id',
+											  itemId:'splash_template_id'
+						                     },{
 												xtype:'label',
 												text:'Name',							
 												cls:'header_label_content'
@@ -85,7 +93,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                	getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
 				                                },
 				                                listeners:{
-				                                	select:CaptivePortal.util.Utility.getSiteAndTagDetails
+				                                	//select:CaptivePortal.util.Utility.getSiteAndTagDetails
+				                                	select:'site_change'
 				                                },margin:'0 0 0 0'
 			                            	},
 			                            	CaptivePortal.util.Utility.generateSiteTagRefLabel(),
@@ -117,7 +126,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                            	xtype: 'tabpanel',
 				                            	id:'template_mgmt_form_custom_tab_panel',
 				                                margin: '0 0 20 0',
-				                                width: '90%',
+				                                width: '100%',
 											    height: 380,
 											    activeTab: 0,
 											    border:5,
@@ -126,18 +135,36 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 				                                        title:'Splash Page',
 				                                        margin:'0 10 0 0',
 				                                        padding:15,
+				                                        width: '100%',
 				                                        cls :'customTab header_label_content',
 				                                        border:5,
 				                                        items:[{
 				                                        	xtype:'container',
+				                                        	width: '97%',
 				                                        	margin:15,
 				                                        	layout:'vbox',
 			                                        		items:[{
 										                        xtype: 'image',
+										                        hidden:true,
 										                        src: 'custom/css/images/Splash_page.png',
 										                        margin:'0',
 										                        height:155
-										                    }]
+										                    }, {
+					                                        	xtype:'label',
+					                                        	text:'Please select site / tag from above dropdown',
+					                                        	cls:'header_label_content',
+					                                        	itemId:'site-tag-err-lab',
+					                                        	margin: '0 0 0 0'
+					                                        },{
+					                                        	xtype:'label',
+					                                        	itemId:'splash-page-details',
+					                                        	html:'',
+					                                        	autoEl: 'div',
+					                                        	width: '100%',
+					                                        	height:260,
+					                                        	cls:'',
+					                                        	style:'border:0px solid #1FA1EB;width:100%;height:100%;overflow:auto;float:left;'
+					                                        }]
 				                                        	
 				                                        }]
 				                                    }, {
@@ -293,9 +320,24 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 																name:'default_error_url'
 															}
 			                                        	]
+				                                    },
+				                                    {
+				                                        title:'SMS Gateway',
+				                                        itemId:'sms-gateway-tab',
+				                                        margin:'0 10 0 0',
+				                                        padding:15,
+				                                        componentCls :'customTab',
+				                                        border:5,
+				                                        layout:'vbox',
+			                                        	items:[{
+					                                        	xtype:'label',
+					                                        	text:'Please select site / tag from above dropdown',
+					                                        	cls:'header_label_content',
+					                                        	margin: '10 0 0 0'
+					                                        }]
 				                                    }
 				                                ]
-				                            },{
+				                            }, {
 			                                xtype: 'container',
 			                                layout: 'hbox',
 			                                width: '100%',

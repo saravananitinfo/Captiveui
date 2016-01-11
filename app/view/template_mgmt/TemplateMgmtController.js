@@ -10,6 +10,100 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             }
     	}
     },
+    generateSplashBlock: function(details){
+        var wrapperDiv = document.createElement('div');
+        wrapperDiv.setAttribute('data-id', details.id);
+        wrapperDiv.setAttribute('class', 'splash-block-wrap');
+        var topWrapperDiv = document.createElement('div');
+        topWrapperDiv.setAttribute('class', 'splash-block-wrap-top');
+        wrapperDiv.addEventListener('click', function(event){
+            var currentTemplateId = this.getView().down('form').down('#splash_template_id').getValue();
+            if(currentTemplateId){
+                var existingDiv = document.querySelector("div[data-id='" + currentTemplateId +"']");
+                if(existingDiv) existingDiv.style.backgroundColor="white";
+            }            
+            var parentNode = function(node){
+                if(node.className !='splash-block-wrap'){
+                    return parentNode(node.parentNode);
+                } else {
+                    return node;    
+                }
+            }            
+            var wrapNode = parentNode(event.target);
+            wrapNode.style.backgroundColor="black";
+            this.getView().down('form').down('#splash_template_id').setValue(wrapNode.getAttribute('data-id'));
+        }.bind(this))
+        var contentDiv = document.createElement('div');
+        contentDiv.setAttribute('data-id', details.id);
+        contentDiv.setAttribute('class', 'splash-block-content-wrap');
+        var imgTag = document.createElement('img');
+        imgTag.setAttribute('src', details.preveiew_URL || 'http://' + location.host + '/custom/css/images/Splash_page.png');
+        imgTag.setAttribute('height', 120);
+        imgTag.setAttribute('width', 138);
+        imgTag.setAttribute('class','splash-block-img');
+        var label = document.createElement('h3');
+        label.setAttribute('class', 'splash-block-wrap-lab');
+        label.innerHTML = details.name;
+        var preview = document.createElement('h3');
+        preview.setAttribute('class', 'splash-block-wrap-lab splash-block-wrap-lab-prev');
+        preview.setAttribute('data-preview-id', details.id);
+        preview.innerHTML = 'Preview';
+        preview.addEventListener('click', function(event){
+            var previewId = event.target.getAttribute('data-preview-id');
+            CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.PREVIEW,{},"Loading...", this.getView(),function(response){
+                var resObj = response.responseText;
+            },function(response){
+                var resObj = Ext.decode(response.responseText);
+                if(!resObj.success && resObj.error.length){
+                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                }          
+            },'POST');
+        }.bind(this))
+        contentDiv.appendChild(preview);        
+        contentDiv.appendChild(imgTag);        
+        wrapperDiv.appendChild(contentDiv);
+        topWrapperDiv.appendChild(wrapperDiv);
+        topWrapperDiv.appendChild(label);
+        return topWrapperDiv;
+    },
+    generateSplashPageContent: function(data){
+        var splash_templates = data.splash_templates, dynDivs = [];
+        if(splash_templates && splash_templates.length){
+            Ext.Array.each(splash_templates,function(d, index){
+                dynDivs.push(this.generateSplashBlock(d));    
+            }.bind(this))            
+        }
+        return dynDivs;
+    },
+    site_change: function(combo){
+        var resId = combo.getValue(),
+            view  = this.getView(), divs = [], dom = view.down('#splash-page-details').el.dom;
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATE_DETAILS + resId + '.json' , {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+            var resObj = Ext.decode(response.responseText);
+            if (resObj.success) {
+                divs = this.generateSplashPageContent(resObj.data);
+                if(divs.length){
+                    view.down('#site-tag-err-lab').hide();
+                    Ext.Array.each(divs,function(div, index){
+                        dom.appendChild(div);
+                    }.bind(this));
+                    dom.style['border-width'] = '2px';                   
+                    
+                } else {
+                    view.down('#site-tag-err-lab').show();
+                    view.down('#site-tag-err-lab').setText('No splash template for this site/tag');
+                    dom.innerHTML = "";
+                    dom.style['border-width'] = '0px';
+                }
+                
+            }
+        }.bind(this), function (response) {
+            var resObj = Ext.decode(response.responseText);
+            if (!resObj.success && resObj.error.length) {
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+            }
+        }, 'GET', false);
+    },
     privacyChange: function(checkbox, newValue){
         if(newValue){
             checkbox.up('tabpanel').down('#template_mgmt_form-custom_privacy_policies_container').show();
@@ -43,16 +137,34 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             form.down('#site_combo').setValue(data.splash_journey.site_info.id);
         }
         this.getView().down('#btn_addtemplate').setText(btnText ? btnText : 'Update');
+        if(data.splash_journey.splash_template && data.splash_journey.splash_template.id){
+            form.down('#splash_template_id').setValue(data.splash_journey.splash_template.id);
+        }
         if(data && data.splash_journey && data.splash_journey.associated_resource){
-            CaptivePortal.util.Utility.getSiteAndTagDetails(form.down('#site_combo'),form.down('#site_combo').getSelectedRecord());
+            //CaptivePortal.util.Utility.getSiteAndTagDetails(form.down('#site_combo'),form.down('#site_combo').getSelectedRecord());
+            this.site_change(form.down('#site_combo'));
+            var currentTemplateId = this.getView().down('form').down('#splash_template_id').getValue();
+            if(currentTemplateId){
+                var existingDiv = document.querySelector("div[data-id='" + currentTemplateId +"']");
+                if(existingDiv) existingDiv.style.backgroundColor="black";
+            } 
         }
     },
     cancelTemplateMgmt: function(){
     	this.fireEvent('setTemplateMgmtActiveItem', 0);
     },
+    resetSplashPageContent: function(){
+        var view = this.getView();
+        view.down('#sms-gateway-tab').tab.hide();
+        view.down('#site-tag-err-lab').show();
+        view.down('#site-tag-err-lab').setText('Please select site / tag from above dropdown');
+        view.down('#splash-page-details').el.dom.innerHTML = "";
+        view.down('#splash-page-details').el.dom.style['border-width'] = '0px';
+    },
     initiateTemplateMgmtForm: function(data){
         CaptivePortal.util.Utility.hideSiteTagRefLabel(this.getView());
     	this.resetForm();
+        this.resetSplashPageContent();
     	this.loadSitesDataToTemplateForm(data);
     	this.getView().down('tabpanel').setActiveItem(0);
         this.getView().down('#btn_addtemplate').setText('Create');

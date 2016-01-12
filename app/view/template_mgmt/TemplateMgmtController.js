@@ -71,6 +71,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         this.getSMSGatewayDetails(wrapNode);
     },
     generateSplashBlock: function(details){
+        var me = this;
         var wrapperDiv = document.createElement('div');
         wrapperDiv.setAttribute('data-id', details.id);
         wrapperDiv.setAttribute('data-verify_mobile_number', details.verify_mobile);
@@ -84,6 +85,18 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
 
         var preview = document.createElement('span');
         preview.setAttribute('class', 'rollover');
+        preview.setAttribute('data-id', details.id);
+
+        var img = document.createElement('img');
+        img.setAttribute('src', "../../resources/images/preview.png");
+        img.setAttribute('data-id', details.id);
+        img.setAttribute('style', "display:block; margin-left: auto; margin-right:auto; margin-top: 60px;");
+        img.onclick = function(e){
+                e.preventDefault();
+                console.log(this.dataset.id);
+                me.preview(this.dataset.id);
+            };
+        preview.appendChild(img);
 
         var imgTag = document.createElement('img');
         imgTag.setAttribute('src', details.snap_shot);
@@ -309,6 +322,96 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
 		        }, 'POST');
     		}
     	}
+    },
+    preview: function(id){
+        var json = {"id": id};
+        Ext.getCmp('viewport').setLoading(true);
+        console.log(json);
+        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW, method = 'POST';
+        CaptivePortal.util.Utility.doAjaxJSON(url,json,"Loading...", this.getView(),function(response){
+            var resObj = response.responseText;
+            // if(resObj.success){
+                Ext.getCmp('viewport').setLoading(false);
+                console.log(resObj);
+                var panel = new Ext.panel.Panel({
+                    title: 'Preview',
+                    floating: true,
+                    closable : true,
+                    width: '100%',
+                    height: '100%',
+                    default: '',
+                    frame: true,
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'tabpanel',
+                        tabBar: {
+                            layout: { pack: 'center' }
+                        },
+                        items:[
+                            {
+                                title: "Desktop",
+                                height: '100%',
+                                items: [{
+                                    xtype: 'component',
+                                    style: 'margin: 0 auto;',
+                                    width: '85%',
+                                    height: '100%',
+                                    html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
+                                }]
+                            },
+                            {
+                                title: "Tab",
+                                height: '100%',
+                                items: [{
+                                    xtype: 'component',
+                                    style: 'margin: 0 auto;',
+                                    width: 786,
+                                    height: '100%',
+                                    html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
+                                }]
+                            },
+                            {
+                                title: "Mobile",
+                                height: '100%',
+                                items: [{
+                                    xtype: 'component',
+                                    style: 'margin: 0 auto;',
+                                    width: 320,
+                                    height: '100%',
+                                    html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
+                                }]
+                            }
+                        ],
+                        listeners:{
+                            tabchange: function(tabPanel, newCard, oldCard, eOpts){
+                                console.log("...................");
+                                var iframe = newCard.el.query('iframe')[0]
+                                iframe.contentWindow.document.body.innerHTML = "";
+                                iframe.contentWindow.document.write(resObj);
+                            }
+                        }
+                    }],
+                    listeners:{
+                        afterrender: function(panel){
+                            var iframe = panel.down('panel').items.items[0].el.query('iframe')[0]
+                            iframe.contentWindow.document.write(resObj);
+                            // panel.down('panel').items.items.forEach(function(tab){
+                            //     window.tbp = tab
+                            //     // var iframe = tab.el.query('iframe')[0]
+                            //     // iframe.contentWindow.document.write(resObj);
+                            // })
+                        }
+                    }
+                });
+                panel.show();
+                panel.center();
+            // }
+        }.bind(this),function(response){
+            var resObj = Ext.decode(response.responseText);
+            if(!resObj.success && resObj.error.length){
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+            }          
+        },method);
     }
     
 })

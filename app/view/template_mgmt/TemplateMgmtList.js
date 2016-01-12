@@ -94,6 +94,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
         this.callParent(arguments);
     },
     listeners: {
-        render: 'getTemplateMgmtList'
+        render: 'getTemplateMgmtList',
+        // afterrender: 'afterRender'
     }
 });

@@ -143,8 +143,11 @@ Ext.define("CaptivePortal.view.editor.MainController",{
     },
     preview: function(){
         var json = {"splash_content": this.getEditorHtml()};
+        if(!json.splash_content.hasOwnProperty('rows')){
+            return Ext.MessageBox.alert('', 'Please add Content..');
+        }
         if(json.splash_content.rows.length === 0){
-            return
+            return Ext.MessageBox.alert('', 'Please add Content..');
         }
         Ext.getCmp('viewport').setLoading(true);
         var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW, method = 'POST';

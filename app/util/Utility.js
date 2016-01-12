@@ -394,7 +394,8 @@ Ext.define('CaptivePortal.util.Utility', {
         }
         var resStr = response.responseText;
         if(resStr){
-            var resObj = Ext.decode(response.responseText);
+            // var resObj = Ext.decode(response.responseText);
+            var resObj = response.responseText
             var errs = resObj.message || resObj.error;
             if((resObj.success === false || errFlag) && errs  && errs.length){
                 var errorText = '';

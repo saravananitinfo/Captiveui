@@ -79,10 +79,13 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
         var index = store.findExact('id', record.data.id);
         var splash_content = store.getAt(index).data.splash_content;
 
-
+        console.log(splash_content);
         var json = {"splash_content": splash_content};
+        if(!json.splash_content.hasOwnProperty('rows')){
+            return Ext.MessageBox.alert('', 'Please add Content..');
+        }
         if(json.splash_content.rows.length === 0){
-            return
+            return Ext.MessageBox.alert('', 'Please add Content..');
         }
         Ext.getCmp('viewport').setLoading(true);
         console.log(json);

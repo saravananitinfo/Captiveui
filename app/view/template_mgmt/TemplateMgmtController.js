@@ -78,21 +78,29 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         topWrapperDiv.setAttribute('class', 'splash-block-wrap-top');
         var contentDiv = document.createElement('div');
         contentDiv.setAttribute('data-id', details.id);
-        contentDiv.setAttribute('class', 'splash-block-content-wrap');
+        // contentDiv.setAttribute('class', 'splash-block-content-wrap');
+
+        var preview = document.createElement('span');
+        preview.setAttribute('class', 'rollover');
+
         var imgTag = document.createElement('img');
-        imgTag.setAttribute('src', CaptivePortal.util.Utility.BASE_URL + details.snap_shot);
-        imgTag.setAttribute('height', 120);
-        imgTag.setAttribute('width', 138);
+        imgTag.setAttribute('src', details.snap_shot);
+        imgTag.setAttribute('height', 145);
+        imgTag.setAttribute('width', 145);
         imgTag.setAttribute('class','splash-block-img');
+
         var label = document.createElement('h3');
         label.setAttribute('class', 'splash-block-wrap-lab');
         label.innerHTML = details.name;
-        var preview = document.createElement('h3');
-        preview.setAttribute('class', 'splash-block-wrap-lab splash-block-wrap-lab-prev');
-        preview.setAttribute('data-preview-id', details.id);
-        preview.innerHTML = 'Preview';
-        preview.addEventListener('click',this.previewClick.bind(this));
-        contentDiv.appendChild(preview);        
+
+        // var preview = document.createElement('h3');
+        // preview.setAttribute('class', 'splash-block-wrap-lab splash-block-wrap-lab-prev');
+        // preview.setAttribute('data-preview-id', details.id);
+        // preview.innerHTML = 'Preview';
+        // preview.addEventListener('click',this.previewClick.bind(this));
+        // contentDiv.appendChild(preview);
+
+        contentDiv.appendChild(preview);  
         contentDiv.appendChild(imgTag);        
         wrapperDiv.appendChild(contentDiv);
         topWrapperDiv.appendChild(wrapperDiv);

@@ -35,6 +35,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
             items: dockeditems
         }]
 
+        var timezones = Ext.StoreManager.lookup('CaptivePortal.store.common.TimezoneStore')
         var grid_colunms = [
                     {
                         header: 'Name',
@@ -66,7 +67,8 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                          cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
-                            return value;
+                            var record = timezones.findRecord('id', value);
+                            return record ? record.data.name : value;
                         }
                     },
                     {

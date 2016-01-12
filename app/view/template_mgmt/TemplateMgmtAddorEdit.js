@@ -104,7 +104,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 defaults: {
                                                     width: 100
                                                 },
-                                                margin: '0 0 20 0',
+                                                // margin: '0 0 20 0',
                                                 layout: 'hbox',
                                                 items: [
                                                     {
@@ -129,7 +129,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 items: [
                                                     {
                                                         title:'Splash Page',
-                                                        margin:'0 10 0 0',
+                                                        margin:'0 30 0 0',
                                                         // padding:15,
                                                         width: '100%',
                                                         cls :'customTab header_label_content',
@@ -165,8 +165,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                         }]
                                                     }, {
                                                         title:'Custom Terms',
-                                                        margin:'0 10 0 0',
-                                                        // padding:15,
+                                                        margin:'0 30 0 0',
+                                                        padding:'7 15 15 15',
                                                         componentCls :'customTab',
                                                         // border:5,
                                                         layout:'vbox',
@@ -225,8 +225,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                         ]
                                                     },{
                                                         title:'Privacy Policy',
-                                                        margin:'0 10 0 0',
-                                                        // padding:15,
+                                                        margin:'0 30 0 0',
+                                                        padding:'7 15 15 15',
                                                         componentCls :'customTab',
                                                         // border:5,
                                                         layout:'vbox',
@@ -285,8 +285,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                         ]
                                                     }, {
                                                         title:'Redirects',
-                                                        margin:'0 10 0 0',
-                                                        // padding:15,
+                                                        margin:'0 30 0 0',
+                                                        padding:'2 15 15 15',
                                                         componentCls :'customTab',
                                                         // border:5,
                                                         layout:'vbox',
@@ -320,8 +320,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                     {
                                                         title:'SMS Gateway',
                                                         itemId:'sms-gateway-tab',
-                                                        margin:'0 10 0 0',
-                                                        // padding:15,
+                                                        margin:'0 30 0 0',
+                                                        padding:'2 15 15 15',
                                                         componentCls :'customTab',
                                                         // border:5,
                                                         layout:'vbox',

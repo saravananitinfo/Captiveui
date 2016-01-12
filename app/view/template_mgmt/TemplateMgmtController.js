@@ -73,7 +73,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
     generateSplashBlock: function(details){
         var wrapperDiv = document.createElement('div');
         wrapperDiv.setAttribute('data-id', details.id);
-        wrapperDiv.setAttribute('data-verify_mobile_number', details.verify_mobile != undefined ? details.verify_mobile : true);
+        wrapperDiv.setAttribute('data-verify_mobile_number', details.verify_mobile);
         wrapperDiv.setAttribute('class', 'splash-block-wrap');
         wrapperDiv.addEventListener('click',this.wrapperClick.bind(this));
         var topWrapperDiv = document.createElement('div');
@@ -136,7 +136,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
                     data:resObj.data.sms_gateways || []
                 });
                 view.down('#sms_gateway_management_id').setStore(store);
-                if(sms_mgmt_id){
+                this.getView().down('#sms-gateway-tab').tab.hide();
+                if(sms_mgmt_id && !sms_mgmt_id.data){
                     view.down('#sms_gateway_management_id').setValue(sms_mgmt_id);
                     this.getView().down('#sms-gateway-tab').tab.show();
                 } else {

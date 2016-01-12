@@ -371,35 +371,42 @@ Ext.define('CaptivePortal.util.Utility', {
     },
 
     postManipulateResponse: function(response, callback){
-        var status = response.status;
+        var status = response.status, errFlag = false;
         switch(status){
             case 401:
             case 403:
                 CaptivePortal.util.Utility.logoutForSession();
+                errFlag = true;
             break;
             case 0:
             case 500:
                 CaptivePortal.util.Utility.showError('Error', 'There is an issue with the service, please try after some time');
+                errFlag = true;
             break;
             case 422:
                 CaptivePortal.util.Utility.showError('Error', 'Cannot process data. Looks like some issue with the data, please check the data fields');
+                errFlag = true;
             break;
             case 404:
                 CaptivePortal.util.Utility.showError('Error', 'The record you are trying to get does not exisit');
+                errFlag = true;
             break;
         }
         var resStr = response.responseText;
         if(resStr){
             var resObj = Ext.decode(response.responseText);
-            if(resObj.success === false && resObj.message && resObj.message.length){
+            var errs = resObj.message || resObj.error;
+            if((resObj.success === false || errFlag) && errs  && errs.length){
                 var errorText = '';
-                if(Ext.Array.each(resObj.message, function(rec, index){
-                    errorText += rec + '\n'; 
+                if(Ext.Array.each(errs, function(rec, index){
+                    errorText += rec + "\n"; 
                 }.bind(this)));
                 CaptivePortal.util.Utility.showError('Error', errorText);
-            } else {
-                resStr && Ext.isFunction(callback) && callback.call(null, response);
-            }
+                CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+                Ext.getCmp('viewport').setLoading(false);
+                return;
+            }             
+            resStr && Ext.isFunction(callback) && callback.call(null, response);
         }        
         CaptivePortal.util.Utility.appLoadMask(null, null, false); 
         Ext.getCmp('viewport').setLoading(false);

@@ -44,9 +44,9 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                     return value;
                 }
             },
-           /* {
+           {
                 header: 'Site Name',
-                dataIndex: 'site_info',
+                dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',
                 tdCls: 'table-cell',
@@ -54,8 +54,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                     metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';
                     return value ? value.name : '';
                 }
-            },*/
-            {
+            },
+            /*{
                 header: 'Category',
                 dataIndex: 'category',
                 flex: 1,
@@ -65,7 +65,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                    metaData.tdAttr = 'data-qtip="' + value + '" ';
                     return value;
                 }
-            }
+            }*/
         ];
         if (write) {
             grid_colunms.push({

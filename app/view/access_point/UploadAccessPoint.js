@@ -68,6 +68,10 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
         					itemId: 'upload_field'
                         },
                         {
+                            xtype: 'label',
+                            html:'<a href="custom/images/sample_access_point.csv">Click here to download sample access point csv file'
+                        },
+                        {
                             xtype: 'container',
                             layout: 'hbox',
                             width: '100%',

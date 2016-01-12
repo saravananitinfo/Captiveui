@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             }
     	}
     },
-    loadSMSGatewayDetails: function(siteId, smsID){
+    /*loadSMSGatewayDetails: function(siteId, smsID){
         siteId && CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATE_SMS_GATEWAY + siteId + '.json' ,{},"Loading...", this.getView(),function(response){
             var res = Ext.decode(response.responseText);
                 var store = Ext.create('Ext.data.Store',{
@@ -27,13 +27,15 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }          
             }.bind(this),'GET');
-    },
+    },*/
     getSMSGatewayDetails: function(domEle){
         var view = this.getView();        
         var smsFlag = domEle.getAttribute('data-verify_mobile_number'), siteId;
         if(smsFlag == 'true'){
             siteId = this.getView().down('form').down('#site_combo').getValue();
-            this.loadSMSGatewayDetails(siteId);
+ //           this.loadSMSGatewayDetails(siteId);
+            this.getView().down('#sms-gateway-tab').tab.show();
+            this.getView().down('#sms_gateway_management_id').reset();
         } else {
             view.down('#sms-gateway-tab').tab.hide();
             view.down('#sms_gateway_management_id').reset();
@@ -71,7 +73,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
     generateSplashBlock: function(details){
         var wrapperDiv = document.createElement('div');
         wrapperDiv.setAttribute('data-id', details.id);
-        wrapperDiv.setAttribute('data-verify_mobile_number', details.verify_mobile_number != undefined ? details.verify_mobile_number : true);
+        wrapperDiv.setAttribute('data-verify_mobile_number', details.verify_mobile);
         wrapperDiv.setAttribute('class', 'splash-block-wrap');
         wrapperDiv.addEventListener('click',this.wrapperClick.bind(this));
         var topWrapperDiv = document.createElement('div');
@@ -85,6 +87,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
 
         var imgTag = document.createElement('img');
         imgTag.setAttribute('src', details.snap_shot);
+
         imgTag.setAttribute('height', 145);
         imgTag.setAttribute('width', 145);
         imgTag.setAttribute('class','splash-block-img');
@@ -116,10 +119,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         }
         return dynDivs;
     },
-    site_change: function(combo){
+    site_change: function(combo, sms_mgmt_id){
         var resId = combo.getValue(),
             view  = this.getView(), divs = [], dom = view.down('#splash-page-details').el.dom;
-        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATE_DETAILS + resId + '.json' , {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+        CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATE_SMS_GATEWAY + resId + '.json' , {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
                 divs = this.generateSplashPageContent(resObj.data);
@@ -136,6 +139,18 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
                     view.down('#site-tag-err-lab').setText('No splash template for this site/tag');
                     
                     dom.style['border-width'] = '0px';
+                }
+                var store = Ext.create('Ext.data.Store',{
+                    fields:['id', 'name'],
+                    data:resObj.data.sms_gateways || []
+                });
+                view.down('#sms_gateway_management_id').setStore(store);
+                this.getView().down('#sms-gateway-tab').tab.hide();
+                if(sms_mgmt_id && !sms_mgmt_id.data){
+                    view.down('#sms_gateway_management_id').setValue(sms_mgmt_id);
+                    this.getView().down('#sms-gateway-tab').tab.show();
+                } else {
+                    view.down('#sms_gateway_management_id').reset();
                 }
                 
             }
@@ -184,12 +199,12 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
             form.down('#splash_template_id').setValue(data.splash_journey.splash_template.id);
         }
         if(data.splash_journey.sms_gateway_management_id){
-            this.loadSMSGatewayDetails(form.down('#site_combo').getValue(), data.splash_journey.sms_gateway_management_id);
+            //this.loadSMSGatewayDetails(form.down('#site_combo').getValue(), data.splash_journey.sms_gateway_management_id);
         }
         
         if(data && data.splash_journey && data.splash_journey.associated_resource){
             //CaptivePortal.util.Utility.getSiteAndTagDetails(form.down('#site_combo'),form.down('#site_combo').getSelectedRecord());
-            this.site_change(form.down('#site_combo'));
+            this.site_change(form.down('#site_combo'), data.splash_journey.sms_gateway_management_id);
             var currentTemplateId = this.getView().down('form').down('#splash_template_id').getValue();
             if(currentTemplateId){
                 var existingDiv = document.querySelector("div[data-id='" + currentTemplateId +"']");

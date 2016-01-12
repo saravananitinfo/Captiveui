@@ -70,6 +70,10 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
 				cls: 'cp-upload-file'
                         },
                         {
+                            xtype: 'label',
+                            html:'<a href="custom/images/sample_guest.csv">Click here to download sample guest csv file'
+                        },
+                        {
                             xtype: 'container',
                             layout: 'hbox',
                             width: '100%',

@@ -113,15 +113,15 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                     {
                                         boxLabel: 'Enable',
                                         name: 'status',
-                                        inputValue: 'active',
+                                        inputValue: 'enable',
                                         itemId: 'user_enable',
                                         checked: true
                                     }, {
                                         boxLabel: 'Disable',
                                         name: 'status',
-                                        inputValue: 'inactive',
+                                        inputValue: 'disable',
                                         itemId: 'user_disable',
-                                        checked: this.status == 'inactive' ? true : false
+                                        checked: this.status == 'disable' ? true : false
                                     }
                                 ]
                             },

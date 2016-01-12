@@ -142,9 +142,9 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                                 overflowY: "auto",
                                                 itemSelector: "div.dragItem",
                                                 // data: [{name: "test1"},{name: "test2"}],
-                                                dataA: [{name: 'template1'},{name: 'template2'},{name: 'template3'},{name: 'template4'},{name: 'template5'}],
+                                                dataA: [{name: 'template1', cls: "sec pre-created-sec1" },{name: 'template2',cls:"sec pre-created-sec2"},{name: 'template3',cls: "sec pre-created-sec3"},{name: 'template4',cls: "sec pre-created-sec4"},{name: 'template5',cls:"sec pre-created-sec5"}],
                                                 // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
-                                                customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-drag="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
+                                                customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name} {cls}" data-name="{name}" data-drag="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
                                                 // listeners: {
                                                 //     afterrender: function(panel){
                                                 //         panel.getEl().query('div.template_img').forEach(function(ele){

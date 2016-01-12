@@ -45,7 +45,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                 }
             },
            {
-                header: 'Site Name',
+                header: 'Site/Tag',
                 dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',

@@ -57,13 +57,13 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
             // },
             {
                 header: 'Site/Tag',
-                dataIndex: 'site_info',
+		dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
-                   metaData.tdAttr = 'data-qtip="' + value + '" ';
-                    return value;
+                    metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';
+                    return value ? value.name : '';
                 }
             }
         ];

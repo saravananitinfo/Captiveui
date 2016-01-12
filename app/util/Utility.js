@@ -388,7 +388,19 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.showError('Error', 'The record you are trying to get does not exisit');
             break;
         }
-        response.responseText && Ext.isFunction(callback) && callback.call(null, response);
+        var resStr = response.responseText;
+        if(resStr){
+            var resObj = Ext.decode(response.responseText);
+            if(resObj.success === false && resObj.message && resObj.message.length){
+                var errorText = '';
+                if(Ext.Array.each(resObj.message, function(rec, index){
+                    errorText += rec + '\n'; 
+                }.bind(this)));
+                CaptivePortal.util.Utility.showError('Error', errorText);
+            } else {
+                resStr && Ext.isFunction(callback) && callback.call(null, response);
+            }
+        }        
         CaptivePortal.util.Utility.appLoadMask(null, null, false); 
         Ext.getCmp('viewport').setLoading(false);
     },

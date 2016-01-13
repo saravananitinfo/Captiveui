@@ -24,7 +24,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
             var row = {}
             row["col_type"] = theme.xtype
             row['background'] = theme.body.dom.style.background;
-            row['height'] = theme.height - 36;
+            row['height'] = theme.height;// - 36;
             row['widgets'] = [];
             theme.items.each(function(block){
                 console.log(block.xtype);

@@ -10,7 +10,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         render: "onRender"
     },
     ddGroup: "galleryImage",
-    img_json: '{src: "#", width: 0, height: 0, top: 0, left: 0}',
+    img_json: '{src: "#", width: 0, height: 0, top: 0, left: 0,align: "center",valign: "middle"}',
 	width: '100%',
     height: '100%',
     cls: 'img_widget',
@@ -109,36 +109,58 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         console.log("..................................test............................")
         console.log(img_json);
         var me= this;
+        // this.items = [{
+        //     xtype: 'component',
+
+        //     autoEl: {
+        //         tag: "div",
+        //         style: {
+        //             display: 'inline-block',
+        //             textAlign: 'center',
+        //             top: img_json.top+"px",
+        //             left: img_json.left+"px"
+        //         }
+        //     },
+        //     draggable: {
+        //         constrain: true,
+        //         constrainTo: me.el,
+        //         listeners: {
+        //             'dragend': function( ths, e, eOpts ){
+        //                 var img_json = Ext.decode(me.img_json);
+        //                 img_json.top = ths.dragTarget.offsetTop;;
+        //                 img_json.left = ths.dragTarget.offsetLeft;;
+        //                 me.img_json = JSON.stringify(img_json);
+        //             }
+        //         }
+        //     },
+
+            
+        //     itemId: "img_panel",
+        //     html: '<img class="img" style="'+stl+'" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
+        // }]
+        this.layout = {
+            type : 'table',
+            columns : 1, 
+            tableAttrs : {
+                style : {
+                    width : '100%',
+                    height : '100%'                                 
+                }
+            },
+            tdAttrs : {
+                align : img_json.align,
+                valign : img_json.valign,
+            },
+        }
         this.items = [{
             xtype: 'component',
-
             autoEl: {
                 tag: "div",
                 style: {
                     display: 'inline-block',
-                    textAlign: 'center',
-                    top: img_json.top+"px",
-                    left: img_json.left+"px"
                 }
             },
-            draggable: {
-                constrain: true,
-                constrainTo: me.el,
-                listeners: {
-                    'dragend': function( ths, e, eOpts ){
-                        // me.img_json.top = ths.dragTarget.offsetTop;
-                        // me.img_json.left= ths.dragTarget.offsetLeft;
-                        var img_json = Ext.decode(me.img_json);
-                        img_json.top = ths.dragTarget.offsetTop;;
-                        img_json.left = ths.dragTarget.offsetLeft;;
-                        me.img_json = JSON.stringify(img_json);
-                    }
-                }
-            },
-
-            
             itemId: "img_panel",
-            // padding: 10,
             html: '<img class="img" style="'+stl+'" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
         }]
         this.callParent();

@@ -9,7 +9,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
     cls: 'button_widget',
     bodyStyle: "background: transparent;",
     // layout: 'hbox',
-    button_json: '{"text":"Default","url":"https://","padding_val":5,"font_size":13,txt_color:"000000",bg_color:"DDDDDD",border_radius: 0,top:50,left:50}',
+    button_json: '{"text":"Default","url":"https://","padding_val":5,"font_size":13,txt_color:"000000",bg_color:"DDDDDD",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}',
     // style: 'border: solid 1px gray',
     // ddGroup:"akshay",
     header: {
@@ -148,60 +148,69 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
     }],
     border: true,
     initComponent: function () {
-         var me= this;
-         var button_json = Ext.decode(me.button_json);
+        var me= this;
+        var button_json = Ext.decode(me.button_json);
 
-         var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;'
+        var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;'
 
-         this.items = [
-            // {
-            //     xtype: 'component',
-            //     style: "text-align: center;",
-            //     height: '100%',
-            //     itemId: "button_panel",
-            //     padding: 10,
-            //     html: '<button type="button" class="edtBtn btn-default">Default</button>'
-            // }
+        // this.items = [
+        //    {
+        //        xtype: 'component',
+        //        text: 'Default',
+        //        autoEl: {
+        //            tag: "div",
+        //            style: {
+        //                display: 'inline-block',
+        //                top: button_json['top']+"px",
+        //                left: button_json['left']+"px"
+        //            }
+        //        },
+        //        draggable: {
+        //            constrain: true,
+        //            constrainTo: me.el,
+        //            listeners: {
+        //                'dragend': function( ths, e, eOpts ){
+        //                    var button_json = Ext.decode(me.button_json);
+        //                    button_json['top'] = ths.dragTarget.offsetTop;
+        //                    button_json['left'] = ths.dragTarget.offsetLeft;
+        //                    me.button_json = JSON.stringify(button_json);
+        //                }
+        //            }
+        //        },
+        //        itemId: "button_panel",
+        //        html: '<a href="#"><button '+'style="'+stl+'"type="button" class="edtBtn btn-default">'+button_json.text+'</button></a>'
+        //    }
+
+        // ]
+        this.layout = {
+            type : 'table',
+            columns : 1, 
+            tableAttrs : {
+                style : {
+                    width : '100%',
+                    height : '100%'                                 
+                }
+            },
+            tdAttrs : {
+                align : button_json.align,
+                valign : button_json.valign,
+            },
+        }
+        this.items = [
             {
                 xtype: 'component',
                 text: 'Default',
-                // width: 50,
-                // style: "text-align: center;",
                 autoEl: {
                     tag: "div",
-                    // cls: "edtBtn",
-                    // style: 'display: inline-block;top: 10px;left: 50px;'
                     style: {
                         display: 'inline-block',
-                        top: button_json['top']+"px",
-                        left: button_json['left']+"px"
-                    }
-                    // html: "<span>Default</spam>"
-                },
-                // itemSelector: "button.edtBtn",
-                // draggable: true,
-                draggable: {
-                    // delegate: "button",
-                    constrain: true,
-                    constrainTo: me.el,
-                    listeners: {
-                        'dragend': function( ths, e, eOpts ){
-                            var button_json = Ext.decode(me.button_json);
-                            button_json['top'] = ths.dragTarget.offsetTop;
-                            button_json['left'] = ths.dragTarget.offsetLeft;
-                            me.button_json = JSON.stringify(button_json);
-                        }
                     }
                 },
-                // ddGroup:"akshay",
-                // height: '100%',
                 itemId: "button_panel",
-                // padding: 10,
                 html: '<a href="#"><button '+'style="'+stl+'"type="button" class="edtBtn btn-default">'+button_json.text+'</button></a>'
             }
-
-         ]
-         this.callParent(arguments);
+        ]
+        this.callParent(arguments);
     },
     listeners: {
         afterrender: function(panel) {

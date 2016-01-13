@@ -10,8 +10,8 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     bodyStyle: "background: transparent;",
     // button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
     
-    button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
-    link_json: '{"type":"Link","connect":"fb","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50}',
+    button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}',
+    link_json: '{"type":"Link","connect":"fb","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50,align:"center",valign:"middle"}',
     form_json: '{email: {enable: false, optional: false},first_name: {enable: false, optional: false},last_name: {enable: false, optional: false},gender: {enable: false, optional: false},birth_day: {enable: false, optional: false},mobile_number: {enable: false, optional: false},password: {enable: false, optional: false},verify_email: {enable: false, optional: false}, verify_mobile_number: {enable: false, optional: false}}',
     trigger_type: 'Button',
     header: {
@@ -108,6 +108,48 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
             var htm = '<a style="text-decoration: none;'+stl+'" href="#">'+link_json.text+'</a>'
         }
 
+        // this.items = [
+        //     {
+        //         xtype: 'component',
+        //         text: 'Default',
+        //         autoEl: {
+        //             tag: "div",
+        //             style: {
+        //                 display: 'inline-block',
+        //                 top: button_json['top']+"px",
+        //                 left: button_json['left']+"px"
+        //             }
+        //         },
+        //         draggable: {
+        //             constrain: true,
+        //             constrainTo: me.el,
+        //             listeners: {
+        //                 'dragend': function( ths, e, eOpts ){
+        //                     var button_json = Ext.decode(me.button_json);
+        //                     button_json['top'] = ths.dragTarget.offsetTop;
+        //                     button_json['left'] = ths.dragTarget.offsetLeft;
+        //                     me.button_json = JSON.stringify(button_json);
+        //                 }
+        //             }
+        //         },
+        //         itemId: "button_panel",
+        //         html: htm
+        //     }
+        // ]
+        this.layout = {
+            type : 'table',
+            columns : 1, 
+            tableAttrs : {
+                style : {
+                    width : '100%',
+                    height : '100%'
+                }
+            },
+            tdAttrs : {
+                align : button_json.align,
+                valign : button_json.valign,
+            },
+        }
         this.items = [
             {
                 xtype: 'component',
@@ -115,21 +157,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
                 autoEl: {
                     tag: "div",
                     style: {
-                        display: 'inline-block',
-                        top: button_json['top']+"px",
-                        left: button_json['left']+"px"
-                    }
-                },
-                draggable: {
-                    constrain: true,
-                    constrainTo: me.el,
-                    listeners: {
-                        'dragend': function( ths, e, eOpts ){
-                            var button_json = Ext.decode(me.button_json);
-                            button_json['top'] = ths.dragTarget.offsetTop;
-                            button_json['left'] = ths.dragTarget.offsetLeft;
-                            me.button_json = JSON.stringify(button_json);
-                        }
+                        display: 'inline-block'
                     }
                 },
                 itemId: "button_panel",

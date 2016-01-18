@@ -367,10 +367,12 @@ position: relative;
 }
 
 .galleryImage{
-	border: solid 1px #c5d2df!important;
+	border: solid 1px #cecece!important;
 	background-color: #f3f9fe!important;
-	width: 45px;
-	height: 45px;
+	width: 50px;
+	height: 50px;
+	border-radius: 2px;
+    margin-right: 1px;
 }
 .edtBtn{
 	border: 1px solid transparent;
@@ -435,23 +437,29 @@ span.rollover:hover {
 }
 
 .editor_setting_panel .align_left{
-    background-image: url("../../resources/images/align_horizontal_left.png") !important; 
+    background-image: url("../../resources/images/align_horizontal_left.png") !important;
+    width: 24px !important;
 }
 .editor_setting_panel .align_center{
-    background-image: url("../../resources/images/align_horizontal_centre.png") !important; 
+    background-image: url("../../resources/images/align_horizontal_centre.png") !important;
+    width: 24px !important;
 }
 .editor_setting_panel .align_right{
     background-image: url("../../resources/images/align_horizontal_right.png") !important; 
+    width: 24px !important;
 }
 
 .editor_setting_panel .valign_top{
 	background-image: url("../../resources/images/align_vertical_top.png") !important;
+	width: 24px !important;
 }
 .editor_setting_panel .valign_middle{
 	background-image: url("../../resources/images/align_vertical_middle.png") !important;
+	width: 24px !important;
 }
 .editor_setting_panel .valign_bottom{
 	background-image: url("../../resources/images/align_vertical_bottom.png") !important;
+	width: 24px !important;
 }
 
 .editor_setting_panel .x-btn-default-large{
@@ -460,6 +468,16 @@ span.rollover:hover {
     border-radius: 3px !important;
     background-color: #ffffff !important;
     box-shadow: none !important;
+}
+
+/*Img setting css */
+.img_widget_setting .x-form-trigger-wrap{
+  margin-top: 5px !important;
+}
+/*end*/
+
+.x-form-spinner-up-default{
+	margin-top: 4px !important;
 }
 
 

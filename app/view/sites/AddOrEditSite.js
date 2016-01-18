@@ -48,8 +48,8 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'combo',
-                                allowBlank: true,
-                                editable:false,
+                                allowBlank: false,
+                                //editable:false,
                                 reference: 'cmb_tenant',
                                 valueField: 'id',
                                 displayField: 'name',
@@ -122,7 +122,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 title: 'Contact Details',
                                 collapsible: true,
                                 collapsed: true,
-                                margin: '20 0 0 0',
+                                margin: '20 0 20 0',
                                 width: '100%',
                                 layout: 'vbox',
                                 items: [{
@@ -308,7 +308,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 collapsible: true,
                                 collapsed: true,
                                 layout: 'vbox',
-                                padding: '20 0 0 0',
+                                // padding: '20 0 0 0',
                                 width: '100%',
                                 items: [{
                                         xtype: 'container',

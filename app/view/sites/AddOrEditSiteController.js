@@ -280,6 +280,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         } else {
             var combo = this.getView().lookupReference('cmb_tenant');
             combo.setVisible(false);
+            Ext.apply(combo, {allowBlank: true}, {});
             combo.previousNode('label').setVisible(false);
             combo.setValue(CaptivePortal.app.getUserTenantID())
         }

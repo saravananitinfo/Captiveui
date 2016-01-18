@@ -4,6 +4,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
 	title: 'Image Settings',
     closable : true,
     cls: 'img_widget_setting',
+    bodyCls: 'img_widget_setting',
     itemId: 'img_widget_setting',
     layout: 'vbox',
     listeners: {
@@ -21,8 +22,9 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
           width: '100%',
           items: [
             {
+                padding:'10 0 0 0',
             	items: [
-    		      	{
+    		      {
     	          	xtype: 'label',
     	            text: 'Upload File',
     	            margin: '10 10 10 10',
@@ -33,8 +35,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
     	          	name: 'file_data',
     	          	emptyText: "Select Image",
     	          	width: '92%',
-    							hideLabel: true,
-    							itemId: 'upload_field'
+					hideLabel: true,
+					itemId: 'upload_field'
     	          }
     	        ]
             },
@@ -101,7 +103,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '0 10 0 10',
                         text: 'Alignment'
                     },
                     {
@@ -297,7 +299,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Width'
                     },
                     {
@@ -334,13 +336,13 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Height'
                     },
                     {
                         xtype: 'numberfield',
                         itemId: 'img_height_field',
-                        margin: '0 10 0 10',
+                        margin: '0 10 15 10',
                         width: '100%',
                         minValue: 0,
                         value: image.height,
@@ -379,6 +381,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                     {
                         xtype: "dragPanel",
                         // itemId: "editor_widgets",
+                        padding: 8,
                         itemSelector: "div.dragItem",
                         width: '100%',
                         ddGroup:"galleryImage",

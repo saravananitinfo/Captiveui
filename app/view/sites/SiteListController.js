@@ -40,6 +40,26 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         form.down('#state').clearInvalid();
         form.down('#site_id').setValue('');
         form.down('#site_id').clearInvalid();
+
+        form.down('#phone').setValue('');
+        form.down('#phone').clearInvalid();
+        form.down('#address').setValue('');
+        form.down('#address').clearInvalid();
+        form.down('#street').setValue('');
+        form.down('#street').clearInvalid();
+        form.down('#city').setValue('');
+        form.down('#city').clearInvalid();
+        form.down('#state').setValue('');
+        form.down('#state').clearInvalid();
+        form.down('#country').setValue('');
+        form.down('#country').clearInvalid();
+        form.down('#zipcode').setValue('');
+        form.down('#zipcode').clearInvalid();
+        form.down('#latitude').setValue('');
+        form.down('#latitude').clearInvalid();
+        form.down('#longitude').setValue('');
+        form.down('#longitude').clearInvalid();
+
     },
     deleteSite: function (view, record, item, index, e, eOpts) {
         var me = this;

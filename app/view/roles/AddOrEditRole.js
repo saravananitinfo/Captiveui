@@ -94,7 +94,7 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 														}
 													},
 													{
-														header:'Wrie', 
+														header:'Write', 
 														dataIndex:'write', 
 														width:'20%',
 														cls: 'table-row',

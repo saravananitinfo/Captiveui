@@ -9,7 +9,7 @@ Ext.define('CaptivePortal.view.editor.Main', {
     alias: 'widget.editor_main',
     layout: 'hbox',
     controller: 'editor_main_controller',
-    cls: "speditor",
+    cls: "speditor", 
     header: {
 	    cls: "editor_top_panel",
         items: [{
@@ -91,70 +91,51 @@ Ext.define('CaptivePortal.view.editor.Main', {
                                 title: "Select Section",
                                 items:[
                                     {
-                                        xtype: "dragPanel",
-                                        itemSelector: "div.dragItem",
-                                        ddGroup:"themeGroup",
-                                        width: '100%',
-                                        // height: '100%',
-                                        overflowY: "auto",
-					                    dataA: [{dragData: "theme_col_1", themeDesc: "Theme Column 1", cls: "sec sec_1"},{dragData: "theme_col_2", themeDesc: "Theme Column 2", cls: "sec sec_2"},{dragData: "theme_col_3", themeDesc: "Theme Column 3", cls: "sec sec_3"},{dragData: "theme_col_4", themeDesc: "Theme Column 4",cls: "sec sec_4"},{dragData: "theme_col_2_left_vbox", themeDesc: "Theme Column 2 Left Vbox",cls: "sec sec_5"},{dragData: "theme_col_2_right_vbox", themeDesc: "Theme Column 2 Left Vbox",cls: "sec sec_6"}],
-                                        customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-drag="{dragData}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
-                                    },
-                                    {
                                         xtype: 'panel',
-                                        layout: 'vbox',
-                                        width: '100%',
+                                        layout: {
+                                            type: 'accordion',
+                                            animate: {
+                                                duration: 5000
+                                            }
+                                        },
                                         items: [
                                             {
-                                                xtype: 'label',
-                                                margin: '10 10 10 10',
-                                                text: 'Templates'
+                                                title: 'Sections',
+                                                items: [
+                                                    {
+                                                        xtype: "dragPanel",
+                                                        title: 'akshay',
+                                                        itemSelector: "div.dragItem",
+                                                        ddGroup:"themeGroup",
+                                                        width: '100%',
+                                                        overflowY: "auto",
+                                                        dataA: [{dragData: "theme_col_1", themeDesc: "Theme Column 1", cls: "sec sec_1"},{dragData: "theme_col_2", themeDesc: "Theme Column 2", cls: "sec sec_2"},{dragData: "theme_col_3", themeDesc: "Theme Column 3", cls: "sec sec_3"},{dragData: "theme_col_4", themeDesc: "Theme Column 4",cls: "sec sec_4"},{dragData: "theme_col_2_left_vbox", themeDesc: "Theme Column 2 Left Vbox",cls: "sec sec_5"},{dragData: "theme_col_2_right_vbox", themeDesc: "Theme Column 2 Left Vbox",cls: "sec sec_6"}],
+                                                        customTpl:['<tpl for=".">','<div class="dragItem">','<div class="dragImage {themeDesc} {cls}" data-drag="{dragData}" data-qtip="{themeDesc}">',"</div>","</div>","</tpl>"]
+                                                    }
+                                                ]
                                             },
-                                            // {
-                                            //     xtype: 'dataview',
-                                            //     itemId: 'template_gallery',
-                                            //     width: '100%',
-                                            //     margin: '10 0 0 0',
-                                            //     overflowY: "auto",
-                                            //     itemSelector: "div.dragItem",
-                                            //     // data: [{name: "test1"},{name: "test2"}],
-                                            //     data: [{name: 'template1'}],
-                                            //     // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
-                                            //     tpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name}" data-name="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
-                                            //     listeners: {
-                                            //         afterrender: function(panel){
-                                            //             panel.getEl().query('div.template_img').forEach(function(ele){
-                                            //                 ele.onclick = function(){
-                                            //                     CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[this.dataset.name]);
-
-                                            //                 };
-                                            //             });
-                                            //         }
-                                            //     }
-                                            // }
                                             {
-                                                xtype: 'dragPanel',
-                                                ddGroup:"themeGroup",
-                                                // itemId: 'template_gallery',
-                                                pre_filled_sec: true,
+                                                title: 'Modules',
+                                                layout: 'vbox',
                                                 width: '100%',
-                                                margin: '10 0 0 0',
-                                                overflowY: "auto",
-                                                itemSelector: "div.dragItem",
-                                                // data: [{name: "test1"},{name: "test2"}],
-                                                dataA: [{name: 'template1', cls: "sec pre-created-sec1" },{name: 'template2',cls:"sec pre-created-sec2"},{name: 'template3',cls: "sec pre-created-sec3"},{name: 'template4',cls: "sec pre-created-sec4"},{name: 'template5',cls:"sec pre-created-sec5"}],
-                                                // store: Ext.StoreManager.lookup('CaptivePortal.store.editor.TemplateGallery'),
-                                                customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name} {cls}" data-name="{name}" data-drag="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
-                                                // listeners: {
-                                                //     afterrender: function(panel){
-                                                //         panel.getEl().query('div.template_img').forEach(function(ele){
-                                                //             ele.onclick = function(){
-                                                //                 CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[this.dataset.name]);
-
-                                                //             };
-                                                //         });
-                                                //     }
-                                                // }
+                                                items: [
+                                                    {
+                                                        xtype: 'label',
+                                                        margin: '10 10 10 10',
+                                                        text: 'Templates'
+                                                    },
+                                                    {
+                                                        xtype: 'dragPanel',
+                                                        ddGroup:"themeGroup",
+                                                        pre_filled_sec: true,
+                                                        width: '100%',
+                                                        margin: '10 0 0 0',
+                                                        overflowY: "auto",
+                                                        itemSelector: "div.dragItem",
+                                                        dataA: [{name: 'template1', cls: "sec pre-created-sec1" },{name: 'template2',cls:"sec pre-created-sec2"},{name: 'template3',cls: "sec pre-created-sec3"},{name: 'template4',cls: "sec pre-created-sec4"},{name: 'template5',cls:"sec pre-created-sec5"}],
+                                                        customTpl: ['<tpl for=".">','<div class="dragItem">','<div class="template_img dragImage {name} {cls}" data-name="{name}" data-drag="{name}" data-qtip="{name}">',"</div>","</div>","</tpl>"],
+                                                    }
+                                                ]
                                             }
                                         ]
                                     }
@@ -182,7 +163,8 @@ Ext.define('CaptivePortal.view.editor.Main', {
                     },
                     {   
                         xtype: 'panel',
-                        itemId: "editor_setting_panel"
+                        itemId: "editor_setting_panel",
+                        bodyCls: 'editor_setting_panel'
                     }
                 ]
 

@@ -434,4 +434,32 @@ span.rollover:hover {
 	box-shadow: 0px 0px 4px #000;
 }
 
+.editor_setting_panel .align_left{
+    background-image: url("../../resources/images/align_horizontal_left.png") !important; 
+}
+.editor_setting_panel .align_center{
+    background-image: url("../../resources/images/align_horizontal_centre.png") !important; 
+}
+.editor_setting_panel .align_right{
+    background-image: url("../../resources/images/align_horizontal_right.png") !important; 
+}
+
+.editor_setting_panel .valign_top{
+	background-image: url("../../resources/images/align_vertical_top.png") !important;
+}
+.editor_setting_panel .valign_middle{
+	background-image: url("../../resources/images/align_vertical_middle.png") !important;
+}
+.editor_setting_panel .valign_bottom{
+	background-image: url("../../resources/images/align_vertical_bottom.png") !important;
+}
+
+.editor_setting_panel .x-btn-default-large{
+	padding: 0px !important;
+    border-width: 0px !important;
+    border-radius: 3px !important;
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+}
+
 

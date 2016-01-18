@@ -102,116 +102,191 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                     {
                         xtype: 'label',
                         margin: '10 10 10 10',
-                        text: 'Horizontal Align'
+                        text: 'Alignment'
                     },
                     {
                         xtype: 'panel',
                         margin: '0 10 0 10',
-                        layout: 'hbox',
+                        layout: 'vbox',
                         items: [
                             {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Left',
-                                handler: function(){
-                                    var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
-                                    img_panel.layout.tdAttrs.align = "left";
-                                    img_panel.doLayout();
-                                    var img_json = Ext.decode(img_panel.img_json, true);
-                                    img_json['align'] = "left";
-                                    img_panel.img_json = JSON.stringify(img_json);
-                                }
+                                items:[{
+                                    xtype: 'button',
+    
+                                    iconCls : 'align_left',
+                                    scale: 'large',
+                                    autoWidth : true,
+                                    autoHeight : true,
+                                    tooltip : 'Align Left',
+                                    margin: '0 10 0 0',
+                                    // text: 'Left',
+                                    handler: function(){
+                                        var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+                                        img_panel.layout.tdAttrs.align = "left";
+                                        img_panel.doLayout();
+                                        var img_json = Ext.decode(img_panel.img_json, true);
+                                        img_json['align'] = "left";
+                                        img_panel.img_json = JSON.stringify(img_json);
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls : 'align_center',
+                                    scale: 'large',
+                                    autoWidth : true,
+                                    autoHeight : true,
+                                    tooltip : 'Align Center',
+                                    margin: '0 10 0 0',
+                                    // text: 'Center',
+                                    handler: function(){
+                                        var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+                                        img_panel.layout.tdAttrs.align = "center";
+                                        img_panel.doLayout();
+                                        var img_json = Ext.decode(img_panel.img_json, true);
+                                        img_json['align'] = "center";
+                                        img_panel.img_json = JSON.stringify(img_json);
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls : 'align_right',
+                                    scale: 'large',
+                                    autoWidth : true,
+                                    autoHeight : true,
+                                    tooltip : 'Align Right',
+                                    margin: '0 50 0 0',
+                                    // text: 'Right',
+                                    handler: function(){
+                                        var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+                                        img_panel.layout.tdAttrs.align = "right";
+                                        img_panel.doLayout();
+                                        var img_json = Ext.decode(img_panel.img_json, true);
+                                        img_json['align'] = "right";
+                                        img_panel.img_json = JSON.stringify(img_json);
+                                    }
+                                }]
                             },
+
                             {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Center',
-                                handler: function(){
-                                    var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
-                                    img_panel.layout.tdAttrs.align = "center";
-                                    img_panel.doLayout();
-                                    var img_json = Ext.decode(img_panel.img_json, true);
-                                    img_json['align'] = "center";
-                                    img_panel.img_json = JSON.stringify(img_json);
-                                }
-                            },
-                            {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Right',
-                                handler: function(){
-                                    var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
-                                    img_panel.layout.tdAttrs.align = "right";
-                                    img_panel.doLayout();
-                                    var img_json = Ext.decode(img_panel.img_json, true);
-                                    img_json['align'] = "right";
-                                    img_panel.img_json = JSON.stringify(img_json);
-                                }
+                                items:[{
+                                    xtype: 'button',
+                                    iconCls : 'valign_top',
+                                    scale: 'large',
+                                    autoWidth : true,
+                                    autoHeight : true,
+                                    tooltip : 'Align Top',
+                                    margin: '0 10 0 0',
+                                    // text: 'Top',
+                                    handler: function(){
+                                        var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+                                        img_panel.layout.tdAttrs.valign = "top";
+                                        img_panel.doLayout();
+                                        var img_json = Ext.decode(img_panel.img_json, true);
+                                        img_json['valign'] = "top";
+                                        img_panel.img_json = JSON.stringify(img_json);
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls : 'valign_middle',
+                                    scale: 'large',
+                                    autoWidth : true,
+                                    autoHeight : true,
+                                    tooltip : 'Align Middle',
+                                    margin: '0 10 0 0',
+                                    // text: 'Middle',
+                                    handler: function(){
+                                        var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+                                        img_panel.layout.tdAttrs.valign = "middle";
+                                        img_panel.doLayout();
+                                        var img_json = Ext.decode(img_panel.img_json, true);
+                                        img_json['valign'] = "middle";
+                                        img_panel.img_json = JSON.stringify(img_json);
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls : 'valign_bottom',
+                                    scale: 'large',
+                                    autoWidth : true,
+                                    autoHeight : true,
+                                    tooltip : 'Align Bottom',
+                                    margin: '0 10 0 0',
+                                    // text: 'Bottom',
+                                    handler: function(){
+                                        var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+                                        img_panel.layout.tdAttrs.valign = "bottom";
+                                        img_panel.doLayout();
+                                        var img_json = Ext.decode(img_panel.img_json, true);
+                                        img_json['valign'] = "bottom";
+                                        img_panel.img_json = JSON.stringify(img_json);
+                                    }
+                                }]
                             }
                         ]
 
                     }
                 ]
             },
-            {
-                xtype: 'panel',
-                layout: 'vbox',
-                width: '100%',
-                items: [
-                    {
-                        xtype: 'label',
-                        margin: '10 10 10 10',
-                        text: 'Vertical Align'
-                    },
-                    {
-                        xtype: 'panel',
-                        margin: '0 10 0 10',
-                        layout: 'hbox',
-                        items: [
-                            {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Top',
-                                handler: function(){
-                                    var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
-                                    img_panel.layout.tdAttrs.valign = "top";
-                                    img_panel.doLayout();
-                                    var img_json = Ext.decode(img_panel.img_json, true);
-                                    img_json['valign'] = "top";
-                                    img_panel.img_json = JSON.stringify(img_json);
-                                }
-                            },
-                            {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Middle',
-                                handler: function(){
-                                    var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
-                                    img_panel.layout.tdAttrs.valign = "middle";
-                                    img_panel.doLayout();
-                                    var img_json = Ext.decode(img_panel.img_json, true);
-                                    img_json['valign'] = "middle";
-                                    img_panel.img_json = JSON.stringify(img_json);
-                                }
-                            },
-                            {
-                                xtype: 'button',
-                                margin: '0 20 0 0',
-                                text: 'Bottom',
-                                handler: function(){
-                                    var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
-                                    img_panel.layout.tdAttrs.valign = "bottom";
-                                    img_panel.doLayout();
-                                    var img_json = Ext.decode(img_panel.img_json, true);
-                                    img_json['valign'] = "bottom";
-                                    img_panel.img_json = JSON.stringify(img_json);
-                                }
-                            }
-                        ]
+            // {
+            //     xtype: 'panel',
+            //     layout: 'vbox',
+            //     width: '100%',
+            //     items: [
+            //         {
+            //             xtype: 'label',
+            //             margin: '10 10 10 10',
+            //             text: 'Vertical Align'
+            //         },
+            //         {
+            //             xtype: 'panel',
+            //             margin: '0 10 0 10',
+            //             layout: 'hbox',
+            //             items: [
+            //                 {
+            //                     xtype: 'button',
+            //                     margin: '0 20 0 0',
+            //                     text: 'Top',
+            //                     handler: function(){
+            //                         var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+            //                         img_panel.layout.tdAttrs.valign = "top";
+            //                         img_panel.doLayout();
+            //                         var img_json = Ext.decode(img_panel.img_json, true);
+            //                         img_json['valign'] = "top";
+            //                         img_panel.img_json = JSON.stringify(img_json);
+            //                     }
+            //                 },
+            //                 {
+            //                     xtype: 'button',
+            //                     margin: '0 20 0 0',
+            //                     text: 'Middle',
+            //                     handler: function(){
+            //                         var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+            //                         img_panel.layout.tdAttrs.valign = "middle";
+            //                         img_panel.doLayout();
+            //                         var img_json = Ext.decode(img_panel.img_json, true);
+            //                         img_json['valign'] = "middle";
+            //                         img_panel.img_json = JSON.stringify(img_json);
+            //                     }
+            //                 },
+            //                 {
+            //                     xtype: 'button',
+            //                     margin: '0 20 0 0',
+            //                     text: 'Bottom',
+            //                     handler: function(){
+            //                         var img_panel = Ext.ComponentQuery.query('#'+this.up('.img_widget_setting').img_widget_id)[0]
+            //                         img_panel.layout.tdAttrs.valign = "bottom";
+            //                         img_panel.doLayout();
+            //                         var img_json = Ext.decode(img_panel.img_json, true);
+            //                         img_json['valign'] = "bottom";
+            //                         img_panel.img_json = JSON.stringify(img_json);
+            //                     }
+            //                 }
+            //             ]
 
-                    }
-                ]
-            },
+            //         }
+            //     ]
+            // },
 
 
 

@@ -150,7 +150,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
     initComponent: function () {
         var me= this;
         var button_json = Ext.decode(me.button_json);
-
+        console.log("...........test1............");
         var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;'
 
         // this.items = [
@@ -196,6 +196,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
                 valign : button_json.valign,
             },
         }
+        console.log("...........test2............");
         this.items = [
             {
                 xtype: 'component',
@@ -210,6 +211,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
                 html: '<a href="#"><button '+'style="'+stl+'"type="button" class="edtBtn btn-default">'+button_json.text+'</button></a>'
             }
         ]
+        console.log("...........test3............");
         this.callParent(arguments);
     },
     listeners: {

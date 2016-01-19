@@ -23,7 +23,6 @@ Ext.define("CaptivePortal.view.editor.DropPanelViewController",{
         c.notifyEnter = this.notifyEnter;
         c.onInvalidDrop = this.onInvalidDrop;
         // c.notifyOver = this.notifyOver;
-        c.getChart = this.getChart
 
         this.fireEvent('saveEditorHtml');
     },

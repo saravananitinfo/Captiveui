@@ -151,7 +151,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                 align : img_json.align,
                 valign : img_json.valign,
             },
-        }
+        };
+        console.log("...........test1............");
         this.items = [{
             xtype: 'component',
             autoEl: {
@@ -162,8 +163,10 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
             },
             itemId: "img_panel",
             html: '<img class="img" style="'+stl+'" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
-        }]
+        }];
+        console.log(".............test2................");
         this.callParent();
+        console.log("...............test3...............");
     }
     // items: [{
     //     xtype: 'component',

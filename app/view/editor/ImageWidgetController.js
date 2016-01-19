@@ -4,15 +4,15 @@ Ext.define("CaptivePortal.view.editor.ImageWidgetController",{
 	onRender: function(d){
 		console.log(".........calllll.........."+d.ddGroup);
 		console.log(d);
-		var c = new Ext.dd.DropTarget(this.getView().el, {
+		var dt = new Ext.dd.DropTarget(this.getView().el, {
             ddGroup: "galleryImage"
         });
-        c.dataView = this.getView();
-        c.notifyDrop = this.notifyDrop;
-        c.notifyEnter = this.notifyEnter;
-        c.onInvalidDrop = this.onInvalidDrop;
-        // c.notifyOver = this.notifyOver;
-        c.getChart = this.getChart
+        dt.dataView = this.getView();
+        dt.notifyDrop = this.notifyDrop;
+        dt.notifyEnter = this.notifyEnter;
+        dt.onInvalidDrop = this.onInvalidDrop;
+        // dt.notifyOver = this.notifyOver;
+        dt.getChart = this.getChart
 	},
 	notifyDrop: function(m, o, n) {
         console.log(".........notifyDrop..........");

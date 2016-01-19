@@ -2,8 +2,7 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.button_widget',
     requires: [
-        'CaptivePortal.view.editor.EditorButtonSetting',
-        'CaptivePortal.view.editor.DropPanel'
+        'CaptivePortal.view.editor.EditorButtonSetting'
     ],
 	width: '100%',
     height: '100%',

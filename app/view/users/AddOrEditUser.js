@@ -63,6 +63,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 name: 'email',
                                 itemId: 'email',
                                 vtype: 'email',
+                                allowBlank: false,
                                 emptyText: 'Email',
                                 readOnly: (this.user_id) ? true : false
                             }, {
@@ -76,6 +77,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 queryMode: 'local',
                                 itemId: 'tenant',
                                 valueField: 'id',
+                                forceSelection:true,
                                 displayField: 'name',
                                 reference: 'cmb_tenant',
                                 emptyText: 'Select Tenant',
@@ -95,6 +97,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 multiSelect: true,
                                 name: 'associated_resources',
                                 itemId: 'site',
+                                forceSelection:true,
                                 valueField: 'id',
                                 displayField: 'name',
                                 emptyText: 'Select Sites / Tags',
@@ -116,6 +119,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 allowBlank: false,
                                 valueField: 'id',
                                 displayField: 'name',
+                                forceSelection:true,
                                 emptyText: 'Select Role',
                                 store: 'CaptivePortal.store.users.Role',
                                 listeners: {

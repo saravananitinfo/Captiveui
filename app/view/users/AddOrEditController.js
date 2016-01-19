@@ -58,6 +58,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             // do nothing
         } else {
             combo.setVisible(false);
+            Ext.apply(combo, {allowBlank: true}, {});
             combo.previousNode('label').setVisible(false);
             combo.setValue(CaptivePortal.app.getUserTenantID())
         }

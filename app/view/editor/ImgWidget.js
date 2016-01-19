@@ -3,8 +3,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
 	alias: 'widget.img_widget',
     requires: [
         'CaptivePortal.view.editor.ImgWidgetSetting',
-        'CaptivePortal.view.editor.ImageWidgetController',
-        'CaptivePortal.view.editor.DropPanel'
+        'CaptivePortal.view.editor.ImageWidgetController'
     ],
     controller: "image_widget_controller",
     listeners: {

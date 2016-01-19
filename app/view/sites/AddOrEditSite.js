@@ -53,6 +53,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 reference: 'cmb_tenant',
                                 valueField: 'id',
                                 displayField: 'name',
+                                forceSelection:true,
                                 queryMode: 'local',
                                 width: 500,
                                 emptyText: 'Tenant',
@@ -74,6 +75,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 queryMode: 'local',
                                 width: 500,
                                 multiSelect: true,
+                                forceSelection:true,
                                 name: 'user_profile_ids',
                                 itemId: 'user_profile_ids',
                                 emptyText: 'Select Users',
@@ -89,6 +91,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                             }, {
                                 xtype: 'combo',
                                 allowBlank: false,
+                                forceSelection:true,
                                 reference: 'cmb_timezone',
                                 valueField: 'id',
                                 displayField: 'name',

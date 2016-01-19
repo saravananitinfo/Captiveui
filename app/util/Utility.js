@@ -1,6 +1,7 @@
 Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
     BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
+    // BASE_URL: 'http://192.168.0.220:3001/',
     config: {
         myMask: null
     },
@@ -476,76 +477,77 @@ Ext.define('CaptivePortal.util.Utility', {
             editor_canvas.body.dom.style.background = jsn.style.background;
         }
         
-
-        jsn["rows"].forEach(function(row){
-            // var key = Object.keys(row)[0];
-            switch(row.col_type){
-                case 'theme_col_1':
-                    editor_canvas.add({
-                        xtype: 'theme_col_1',
-                        height: row.height,
-                        bodyStyle: 'background:'+row.background,
-                        items: me.getItems(row)
-                    });
-                    break;
-                case 'theme_col_2':
-                    editor_canvas.add({
-                        xtype: 'theme_col_2',
-                        height: row.height,
-                        bodyStyle: 'background:'+row.background,
-                        items: me.getItems(row)
-                    });
-                    break;
-                case 'theme_col_3':
-                    editor_canvas.add({
-                        xtype: 'theme_col_3',
-                        height: row.height,
-                        bodyStyle: 'background:'+row.background,
-                        items: me.getItems(row)
-                    });
-                    break;
-                case 'theme_col_4':
-                    editor_canvas.add({
-                        xtype: 'theme_col_4',
-                        height: row.height,
-                        bodyStyle: 'background:'+row.background,
-                        items: me.getItems(row)
-                    });
-                    break;
-                case 'theme_col_2_left_vbox':
-                    var items = me.getItems(row);
-                    console.log(items[2]);
-                    editor_canvas.add({
-                        xtype: 'theme_col_2_left_vbox',
-                        height: row.height,
-                        bodyStyle: 'background:'+row.background,
-                        items: [
-                            {
-                                xtype: 'v_panel',
-                                items: items.splice(0,2)
-                            },
-                            items[0]
-                        ]
-                    });
-                    break;
-                case 'theme_col_2_right_vbox':
-                    var items = me.getItems(row);
-                    editor_canvas.add({
-                        xtype: 'theme_col_2_right_vbox',
-                        height: row.height,
-                        bodyStyle: 'background:'+row.background,
-                        items: [
-                            items[0],
-                            {
-                                xtype: 'v_panel',
-                                items: items.splice(1,3)
-                            }
-                            
-                        ]
-                    });
-                    break;
-            }
-        });
+        if(jsn.hasOwnProperty('rows')){
+            jsn["rows"].forEach(function(row){
+                // var key = Object.keys(row)[0];
+                switch(row.col_type){
+                    case 'theme_col_1':
+                        editor_canvas.add({
+                            xtype: 'theme_col_1',
+                            height: row.height,
+                            bodyStyle: 'background:'+row.background,
+                            items: me.getItems(row)
+                        });
+                        break;
+                    case 'theme_col_2':
+                        editor_canvas.add({
+                            xtype: 'theme_col_2',
+                            height: row.height,
+                            bodyStyle: 'background:'+row.background,
+                            items: me.getItems(row)
+                        });
+                        break;
+                    case 'theme_col_3':
+                        editor_canvas.add({
+                            xtype: 'theme_col_3',
+                            height: row.height,
+                            bodyStyle: 'background:'+row.background,
+                            items: me.getItems(row)
+                        });
+                        break;
+                    case 'theme_col_4':
+                        editor_canvas.add({
+                            xtype: 'theme_col_4',
+                            height: row.height,
+                            bodyStyle: 'background:'+row.background,
+                            items: me.getItems(row)
+                        });
+                        break;
+                    case 'theme_col_2_left_vbox':
+                        var items = me.getItems(row);
+                        console.log(items[2]);
+                        editor_canvas.add({
+                            xtype: 'theme_col_2_left_vbox',
+                            height: row.height,
+                            bodyStyle: 'background:'+row.background,
+                            items: [
+                                {
+                                    xtype: 'v_panel',
+                                    items: items.splice(0,2)
+                                },
+                                items[0]
+                            ]
+                        });
+                        break;
+                    case 'theme_col_2_right_vbox':
+                        var items = me.getItems(row);
+                        editor_canvas.add({
+                            xtype: 'theme_col_2_right_vbox',
+                            height: row.height,
+                            bodyStyle: 'background:'+row.background,
+                            items: [
+                                items[0],
+                                {
+                                    xtype: 'v_panel',
+                                    items: items.splice(1,3)
+                                }
+                                
+                            ]
+                        });
+                        break;
+                }
+            });
+        }
 
     },
     getItems: function(row){

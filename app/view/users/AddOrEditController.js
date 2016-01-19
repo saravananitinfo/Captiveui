@@ -265,6 +265,10 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 form.updateRecord(userModel);
             }
 
+            if(formValues.associated_resources === ""){
+                formValues.associated_resources = []
+            }
+
             var permissionGrid = form.down('grid');
             var permissions = [];
             permissionGrid.store.each(function (rec) {
@@ -288,7 +292,6 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 url = CaptivePortal.Config.SERVICE_URLS.UPDATE_USER + formValues.user_id + '.json';
                 method = "PUT";
             }
-            console.log(Ext.JSON.encode(saveJson))
             CaptivePortal.util.Utility.doAjaxJSON(url, saveJson, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success != 'false') {

@@ -474,6 +474,15 @@ span.rollover:hover {
 .img_widget_setting .x-form-trigger-wrap{
   margin-top: 5px !important;
 }
+.editor_button_setting .x-form-trigger-wrap{
+  margin-top: 5px !important;
+}
+.login_button_setting_partial .x-form-trigger-wrap{
+  margin-top: 5px !important;
+}
+.login_link_setting_partial .x-form-trigger-wrap{
+  margin-top: 5px !important;
+}
 /*end*/
 
 .x-form-spinner-up-default{

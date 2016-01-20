@@ -58,7 +58,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 5 10',
                         text: 'Login Type'
                     },
                     {
@@ -153,7 +153,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Alignment'
                     },
                     {

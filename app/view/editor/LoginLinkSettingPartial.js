@@ -13,7 +13,7 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Text'
                     },
                     {
@@ -41,7 +41,7 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Font Size'
                     },
                     {
@@ -71,7 +71,7 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Font Color'
                     },
                     // {
@@ -96,7 +96,7 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                         labelWidth: 75,
                         value: link_json["txt_color"],
                         width: '92%',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         listeners: {
                             change: function(picker){
                                 var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]

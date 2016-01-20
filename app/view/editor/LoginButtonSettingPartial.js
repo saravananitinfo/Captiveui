@@ -13,7 +13,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSettingPartial",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Text'
                     },
                     {
@@ -41,7 +41,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSettingPartial",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Font Size'
                     },
                     {
@@ -71,7 +71,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSettingPartial",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Radius'
                     },
                     {
@@ -101,7 +101,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSettingPartial",{
                 items: [
                     {
                         xtype: 'label',
-                        margin: '10 10 10 10',
+                        margin: '10 10 0 10',
                         text: 'Size'
                     },
                     {

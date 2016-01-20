@@ -127,11 +127,11 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 collapsible: true,
                                 collapsed: true,
                                 margin: '20 0 20 0',
-                                width: '100%',
+                                width: '95%',
                                 layout: 'vbox',
                                 items: [{
                                         xtype: 'container',
-                                        width: '100%',
+                                        width: '95%',
                                         layout: {
                                             type: 'hbox'
                                         },
@@ -313,7 +313,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 collapsed: true,
                                 layout: 'vbox',
                                 // padding: '20 0 0 0',
-                                width: '100%',
+                                width: '95%',
                                 items: [{
                                         xtype: 'container',
                                         layout: 'hbox',
@@ -360,7 +360,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 xtype: 'container',
                                 margin: '20 0 0 0',
                                 layout: 'hbox',
-                                width: '100%',
+                                width: '95%',
                                 height: 30,
                                 items: [
                                     {

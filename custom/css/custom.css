@@ -491,4 +491,18 @@ span.rollover:hover {
 	}
 /**/
 
+.x-tagfield-item-close{
+	top: 6px !important;
+}
+.x-tagfield-item-text{
+	line-height: 23px !important;
+}
+.x-tagfield-input input, .x-tagfield-input div{
+ 	line-height: 26px !important;;
+ }
+
+ .x-grid-with-col-lines .x-grid-cell:last-child{
+ 	border-right: 0px !important;
+ }
+
 

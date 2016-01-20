@@ -127,6 +127,10 @@ Ext.define('CaptivePortal.view.access_point.AccessPointList',{
                 reference: 'grd_access_point_list',
                 style: 'border: 1px solid #e2e2e2',
                 store: 'CaptivePortal.store.access_point.AccessPoints',
+                columnLines: true,
+                viewConfig: {
+                    loadMask: false
+                },
                 listeners: {
                     itemclick: 'userItemClick'
                 },

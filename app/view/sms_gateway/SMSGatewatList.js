@@ -96,6 +96,10 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatList',{
                 reference: 'grd_smsgatewaylist',
                 style: 'border: 1px solid #e2e2e2',
                 store: 'CaptivePortal.store.sms_gateway.SMSGateways',
+                columnLines: true,
+                viewConfig: {
+                    loadMask: false
+                },
                 listeners: {
                     itemclick: 'userItemClick'
                 },

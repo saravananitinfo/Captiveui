@@ -9,7 +9,7 @@ Ext.define('CaptivePortal.view.change_password.ChangePassword', {
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
-                padding: '20 0 0 0',
+                padding: '25 0 0 10',
                 cls: 'form_trigger',
                 items: [{
                         xtype: 'form',

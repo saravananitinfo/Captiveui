@@ -114,6 +114,10 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                 reference: 'grd_sitelist',
                 style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 store: 'CaptivePortal.store.site.Site',
+                columnLines: true,
+                viewConfig: {
+                    loadMask: false
+                },
                 columns: grid_colunms,
                 listeners: {
                     itemclick: 'editSiteItemClick'                    

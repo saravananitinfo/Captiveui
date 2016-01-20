@@ -115,6 +115,10 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
                 reference: 'grd_guest_users_list',
                 style: 'border: 1px solid #e2e2e2',
                 store: 'CaptivePortal.store.guest_user.GuestUsers',
+                columnLines: true,
+                viewConfig: {
+                    loadMask: false
+                },
                 listeners: {
                     itemclick: 'userItemClick'
                 },

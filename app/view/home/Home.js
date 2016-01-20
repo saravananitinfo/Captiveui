@@ -84,6 +84,7 @@ Ext.define('CaptivePortal.view.home.Home', {
                                 }
                             },
                             width:30,
+			    cls: "cp-profile-menu",
                            items:[
                               {
                                 text:'Logout',

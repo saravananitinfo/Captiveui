@@ -480,4 +480,15 @@ span.rollover:hover {
 	margin-top: 4px !important;
 }
 
+/* page list CSS*/
+	.page_list_grid{
+		padding: 15px 30px 30px 30px;
+	}
+/* end */
+/* form panel CSS */
+	.form_panel{
+		padding: 15px 0px 0px 0px;
+	}
+/**/
+
 

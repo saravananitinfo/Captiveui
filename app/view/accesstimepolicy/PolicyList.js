@@ -4,7 +4,8 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyList', {
     alias: 'widget.policylist',
     border: true,
     layout: 'fit',
-    bodyPadding: '15 30 15 30',
+    // bodyPadding: '15 30 30 30',
+    bodyCls: 'page_list_grid',
     controller: 'policylistcontroller',
     initComponent: function () {
         var dockeditems = [{
@@ -26,7 +27,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyList', {
         }
         this.dockedItems = [{
                 xtype: 'toolbar',
-                padding: '30 30 0 30',
+                padding: '30 23 0 30',
                 dock: 'top',
                 items: dockeditems
             }]

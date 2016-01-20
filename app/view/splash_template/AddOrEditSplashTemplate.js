@@ -18,7 +18,8 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
 		   {
                 xtype: 'panel',
                 width: '100%',
-                padding: '20 0 0 0',
+                // padding: '15 0 0 0',
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [
         			{

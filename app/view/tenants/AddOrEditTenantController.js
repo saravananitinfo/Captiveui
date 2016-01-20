@@ -33,6 +33,8 @@ Ext.define('CaptivePortal.view.tenants.AddOrEditTenantController', {
                     tenantStr.reload();
                     this.fireEvent('setTenantMainActiveItem', 0);
                     console.log("save.........save..........save");
+                    Ext.StoreManager.lookup('CaptivePortal.store.site.Site').reload();
+                    Ext.StoreManager.lookup('CaptivePortal.store.user.User').reload();
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);

@@ -4,7 +4,8 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
     alias: 'widget.sitelist',
     border: true,
     layout: 'fit',
-    bodyPadding: '15 30 15 30',
+    // bodyPadding: '15 30 30 30',
+    bodyCls: 'page_list_grid',
     controller: 'sitelistcontroller',
     listeners:{
       render:'getSite'  
@@ -30,7 +31,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
         }
         this.dockedItems= [{
             xtype: 'toolbar',
-            padding: '30 30 0 30',
+            padding: '30 23 0 30',
             dock: 'top',
             items: dockeditems
         }]

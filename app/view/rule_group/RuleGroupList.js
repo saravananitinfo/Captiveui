@@ -4,7 +4,8 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupList', {
     alias: 'widget.rule_group_list',
     border: true,
     layout: 'fit',
-    bodyPadding: '15 30 15 30',
+    // bodyPadding: '15 30 30 30',
+    bodyCls: 'page_list_grid',
     controller: 'rule_group_list_controller',
     initComponent: function () {
         var dockeditems = [{
@@ -28,7 +29,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupList', {
         }
         this.dockedItems = [{
                 xtype: 'toolbar',
-                padding: '30 30 0 30',
+                padding: '30 23 0 30',
                 dock: 'top',
                 items: dockeditems
             }]

@@ -15,7 +15,7 @@ Ext.define('CaptivePortal.view.radius_vsa.RadiusVSAAddorEdit', {
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
-                padding: '20 0 0 0',
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [{
                         xtype: 'form',

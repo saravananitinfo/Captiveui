@@ -4,7 +4,8 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
     alias: 'widget.template_mgmt_list',
     border: true,
     layout: 'fit',
-    bodyPadding: '15 30 15 30',
+    // bodyPadding: '15 30 30 30',
+    bodyCls: 'page_list_grid',
     controller: 'template_mgmt_list_controller',
     initComponent: function () {
         var dockeditems = [{
@@ -27,7 +28,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
         }
         this.dockedItems = [{
                 xtype: 'toolbar',
-                padding: '30 30 0 30',
+                padding: '30 23 0 30',
                 dock: 'top',
                 items: dockeditems
             }]

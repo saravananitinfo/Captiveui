@@ -10,13 +10,14 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
   deletedAttrs:[],
 	layout: {
 	    type: 'vbox',
-	    padding: '10 0 0 30'
+	    padding: '10 20 0 30'
 	},
   initComponent: function () {
         this.items = [{
                 xtype: 'panel',
                 width: '100%',
-                padding: '20 0 0 0',
+                // padding: '20 0 0 0',
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [{
                         xtype: 'form',
@@ -75,7 +76,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 										margin:'10 10 10 0',										
 										id:this.itemIdPrefix + 'grid',
 										width:'100%',
-						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; ',
+						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
 						                store: Ext.create('CaptivePortal.store.rule_group.Rule'),
 						                columns: [						                	
 						           			{

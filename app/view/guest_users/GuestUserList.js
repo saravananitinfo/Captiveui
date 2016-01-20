@@ -7,7 +7,8 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
 	controller: 'guest_user_listcontroller',
 	border: true,
     layout: 'fit',
-    bodyPadding: '15 30 15 30',
+    // bodyPadding: '15 30 30 30',
+    bodyCls: 'page_list_grid',
     initComponent: function () {
         // Adding Docked Items..........
         var dockeditems = [
@@ -43,7 +44,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
         this.dockedItems = [
             {
                 xtype: 'toolbar',
-                padding: '30 30 0 30',
+                padding: '30 23 0 30',
                 dock: 'top',
                 items: dockeditems
             }

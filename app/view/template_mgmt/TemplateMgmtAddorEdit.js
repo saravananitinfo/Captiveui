@@ -16,6 +16,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                         {
                             xtype: 'panel',
                             width: '100%',
+                            bodyCls: 'form_panel',
                             cls: 'form_trigger',
                             items: [
                                     {

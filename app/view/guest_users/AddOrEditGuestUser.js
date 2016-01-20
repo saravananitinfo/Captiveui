@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
 		   {
                 xtype: 'panel',
                 width: '95%',
-                padding: '20 0 0 0',
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [
         			{

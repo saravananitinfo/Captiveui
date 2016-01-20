@@ -62,6 +62,8 @@ Ext.define('CaptivePortal.view.tenants.TenantListController', {
                         var resObj = Ext.decode(response.responseText);
                         if (resObj.success) {
                             this.getTenantList();
+                            Ext.StoreManager.lookup('CaptivePortal.store.site.Site').reload();
+                            Ext.StoreManager.lookup('CaptivePortal.store.user.User').reload();
                         }
                     }.bind(this), function (response) {
                     }, 'DELETE');

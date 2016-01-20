@@ -14,13 +14,14 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                 xtype: 'panel',
                 width: '100%',
                 scrollable: true,
-                bodyPadding: 30,
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [{
                         xtype: 'form',
                         itemId: 'site_form',
                         layout: {
-                            type: 'vbox'
+                            type: 'vbox',
+                            padding: '10 30 0 30'
                         },
                         items: [{
                                 xtype: 'label',

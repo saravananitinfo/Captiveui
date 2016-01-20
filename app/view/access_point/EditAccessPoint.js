@@ -18,7 +18,7 @@ Ext.define('CaptivePortal.view.access_point.EditAccessPoint',{
 		   {
                 xtype: 'panel',
                 width: '100%',
-                padding: '20 0 0 0',
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [
         			{

@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
 			{
 				xtype: 'panel',
                 width: '100%',
-                padding: '20 0 0 0',
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [{
                 	xtype: 'form',
@@ -30,7 +30,7 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
             		defaults: {
                 		width: 400,
                 		height: 30,
-                		padding: '10 0 15 20',
+                		padding: '10 0 15 0',
                 		maxLength: 50,
             		},
             		items: [

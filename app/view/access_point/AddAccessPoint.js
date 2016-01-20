@@ -4,13 +4,14 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
 	requires: [
 		'CaptivePortal.view.access_point.AddAccessPointController'
 	],
-	bodyPadding: '15 30 15 30',
+	// bodyPadding: '15 30 15 30',
+    bodyCls: 'page_list_grid',
 	autoScroll: true,
 	controller: 'add_access_point_controller',
 	dockedItems: [
 		{
             xtype: 'toolbar',
-            padding: '30 30 0 30',
+            padding: '30 23 0 30',
             dock: 'top',
             items: [
                 {

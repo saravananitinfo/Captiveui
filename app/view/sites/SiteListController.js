@@ -110,6 +110,11 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
     getSite: function () {
         var store = this.getView().lookupReference('grd_sitelist').getStore();
         store.load();
+        Ext.StoreManager.lookup('CaptivePortal.store.user.User').reload();
+        Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates').reload();
+        Ext.StoreManager.lookup('CaptivePortal.store.template_mgmt.TemplateMgmt').reload();
+        Ext.StoreManager.lookup('CaptivePortal.store.rule_group.RuleGroup').reload();
+        Ext.StoreManager.lookup('CaptivePortal.store.access_point.AccessPoints').reload();
     }
 });
 

@@ -4,7 +4,8 @@ Ext.define('CaptivePortal.view.radius_vsa.RadiusVSAList', {
     alias: 'widget.radius_vsa_list',
     border: true,
     layout: 'fit',
-    bodyPadding: '15 30 15 30',
+    // bodyPadding: '15 30 30 30',
+    bodyCls: 'page_list_grid',
     controller: 'radius_vsa_list_controller',
     initComponent: function () {
         var dockeditems = [{
@@ -26,7 +27,7 @@ Ext.define('CaptivePortal.view.radius_vsa.RadiusVSAList', {
         }
         this.dockedItems = [{
                 xtype: 'toolbar',
-                padding: '30 30 0 30',
+                padding: '30 23 0 30',
                 dock: 'top',
                 items: dockeditems
             }]

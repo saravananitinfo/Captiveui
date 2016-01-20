@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
 			{
 				xtype: 'panel',
                 width: '100%',
-                padding: '20 0 0 0',
+                bodyCls: 'form_panel',
                 cls: 'form_trigger',
                 items: [{
                 	xtype: 'form',

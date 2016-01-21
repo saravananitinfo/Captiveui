@@ -115,6 +115,7 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         Ext.StoreManager.lookup('CaptivePortal.store.template_mgmt.TemplateMgmt').reload();
         Ext.StoreManager.lookup('CaptivePortal.store.rule_group.RuleGroup').reload();
         Ext.StoreManager.lookup('CaptivePortal.store.access_point.AccessPoints').reload();
+        Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways').reload();
     }
 });
 

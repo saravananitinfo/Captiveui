@@ -31,7 +31,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
             var resObj = Ext.decode(response.responseText);
             console.log("........success");
             console.log(resObj)
-            if(resObj.success == "true"){
+            if(resObj.success === true){
                 console.log("save.........save..........save...access_point");
                 Ext.StoreManager.lookup('CaptivePortal.store.access_point.AccessPoints').reload();
                 this.fireEvent('setAccessPointMainActiveItem', 0);
@@ -43,7 +43,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
             var resObj = Ext.decode(response.responseText);
             if(!resObj.success && resObj.error.length){
             	Ext.getCmp('viewport').setLoading(false);
-                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                CaptivePortal.util.Utility.showError('Error', resObj.error);
             }          
         },method);
     	

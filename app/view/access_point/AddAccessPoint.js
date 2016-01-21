@@ -118,6 +118,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
 				            editable: false,
 				            queryMode: "remote",
 				            displayField: "name",
+                            allowBlank: false,
 				            valueField: "id",
                             emptyCellText: '<span style="color:#aaaaaa;">' + "Select Site" + "</span>",
                             listConfig:{

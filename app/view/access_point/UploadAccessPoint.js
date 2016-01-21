@@ -36,7 +36,7 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
             		items: [
             			{
                         	xtype: 'label',
-                            text: 'Site / Tag',
+                            text: 'Site',
                             cls: 'header_label_content'
                         },
                         {

@@ -83,6 +83,20 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
         }
     }],
     border: true,
+    layout:{
+        type : 'table',
+        columns : 1, 
+        tableAttrs : {
+            style : {
+                width : '100%',
+                height : '100%'
+            }
+        },
+        tdAttrs : {
+            align : 'center',
+            valign : 'middle',
+        }
+    },
     initComponent: function () {
         var me= this;
         var button_json = Ext.decode(me.button_json);
@@ -136,20 +150,8 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
         //         html: htm
         //     }
         // ]
-        this.layout = {
-            type : 'table',
-            columns : 1, 
-            tableAttrs : {
-                style : {
-                    width : '100%',
-                    height : '100%'
-                }
-            },
-            tdAttrs : {
-                align : button_json.align,
-                valign : button_json.valign,
-            },
-        }
+        this.layout.tdAttrs.align = button_json.align
+        this.layout.tdAttrs.valign = button_json.valign
         this.items = [
             {
                 xtype: 'component',

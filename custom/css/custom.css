@@ -507,10 +507,10 @@ span.rollover:hover {
 	line-height: 23px !important;
 }
 .x-tagfield-input input, .x-tagfield-input div{
- 	line-height: 26px !important;;
+ 	line-height: 26px !important;
  }
 
- .x-grid-with-col-lines .x-grid-cell:last-child{
+.x-grid-with-col-lines .x-grid-cell:last-child{
  	border-right: 0px !important;
  }
 

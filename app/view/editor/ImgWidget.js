@@ -96,6 +96,20 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         }
     ],
     border: true,
+    layout:{
+        type : 'table',
+        columns : 1, 
+        tableAttrs : {
+            style : {
+                width : '100%',
+                height : '100%'                                 
+            }
+        },
+        tdAttrs : {
+            align : 'center',
+            valign : 'middle',
+        }
+    },
     initComponent: function(){
         // var stl = 'background: url("/resources/images/img_before.png") no-repeat center;background-size: 61px 44px;';
         var stl = '';
@@ -138,20 +152,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         //     itemId: "img_panel",
         //     html: '<img class="img" style="'+stl+'" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
         // }]
-        this.layout = {
-            type : 'table',
-            columns : 1, 
-            tableAttrs : {
-                style : {
-                    width : '100%',
-                    height : '100%'                                 
-                }
-            },
-            tdAttrs : {
-                align : img_json.align,
-                valign : img_json.valign,
-            },
-        };
+        this.layout.tdAttrs.align = img_json.align
+        this.layout.tdAttrs.valign = img_json.valign
         console.log("...........test1............");
         this.items = [{
             xtype: 'component',

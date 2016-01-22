@@ -70,7 +70,7 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
                             },
                             {
                                 xtype: 'label',
-                                text: 'Site',
+                                text: 'Site / Tag',
                                 cls: 'header_label_content',
                                 // hidden:CaptivePortal.app.getUserRole() == 'super_admin'
                             }, {

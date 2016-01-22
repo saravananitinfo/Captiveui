@@ -91,7 +91,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
             d['from'] = from ? Ext.Date.format(new Date(from),'H:i') : '';
             d['to'] = to ? Ext.Date.format(new Date(to),'H:i') : '';
             d['available'] = r.get('available');
-            d['date'] = date ? Ext.Date.format(new Date(date),'m/d/Y') : '';
+            d['date'] = date ? Ext.Date.format(new Date(date),'d/m/Y') : '';
             if(isEdit && !r.phantom) {
                 d['id'] = r.get('id');
             }
@@ -107,8 +107,8 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
             d['from'] = from ? Ext.Date.format(new Date(from),'H:i') : '';
             d['to'] = to ? Ext.Date.format(new Date(to),'H:i') : '';
             d['available'] = r.get('available');
-            d['start_date'] = start ? Ext.Date.format(new Date(start),'m/d/Y') : '';
-            d['end_date'] = end ? Ext.Date.format(new Date(end),'m/d/Y') : '';
+            d['start_date'] = start ? Ext.Date.format(new Date(start),'d/m/Y') : '';
+            d['end_date'] = end ? Ext.Date.format(new Date(end),'d/m/Y') : '';
             if(isEdit && !r.phantom) {
                 d['id'] = r.get('id');
             }
@@ -142,7 +142,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
                 d['from'] = from ? Ext.Date.format(new Date(from),'H:i') : '';
                 d['to'] = to ? Ext.Date.format(new Date(to),'H:i') : '';
                 d['available'] = r.get('available');
-                d['date'] = date ? Ext.Date.format(new Date(date),'m/d/Y') : '';
+                d['date'] = date ? Ext.Date.format(new Date(date),'d/m/Y') : '';
                 d['id'] = r.get('id');
                 d['_destroy'] = "true";
                 recs.push(d);
@@ -159,8 +159,8 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
                 d['from'] = from ? Ext.Date.format(new Date(from),'H:i') : '';
                 d['to'] = to ? Ext.Date.format(new Date(to),'H:i') : '';
                 d['available'] = r.get('available');
-                d['start_date'] = start ? Ext.Date.format(new Date(start),'m/d/Y') : '';
-                d['end_date'] = end ? Ext.Date.format(new Date(end),'m/d/Y') : '';
+                d['start_date'] = start ? Ext.Date.format(new Date(start),'d/m/Y') : '';
+                d['end_date'] = end ? Ext.Date.format(new Date(end),'d/m/Y') : '';
                 d['id'] = r.get('id');
                 d['_destroy'] = "true";
                 recs.push(d);

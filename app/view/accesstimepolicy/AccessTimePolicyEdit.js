@@ -220,11 +220,11 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										            				enableKeyEvents:true,
 										            				forceSelection:true,
 										                			allowBlank: false,
-										                			format:'m/d/Y'
+										                			format:'d/m/Y'
 									           					},
 									           					emptyCellText: '<span style="color:#aaaaaa;">' + "From Date" + "</span>",
 									           					renderer:function(value, metaData, record, row, col, store, gridView){
-										           					return value ? Ext.Date.format(new Date(value),'m/d/Y') : '';
+										           					return value ? Ext.Date.format(new Date(value),'d/m/Y') : '';
 										           				}
 									           				},
 									           				{
@@ -239,11 +239,11 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										            				enableKeyEvents:true,
 										            				forceSelection:true,
 										                			allowBlank: false,
-										                			format:'m/d/Y'
+										                			format:'d/m/Y'
 									           					},
 									           					emptyCellText: '<span style="color:#aaaaaa;">' + "To Date" + "</span>",
 									           					renderer:function(value, metaData, record, row, col, store, gridView){
-										           					return value ? Ext.Date.format(new Date(value),'m/d/Y') : '';
+										           					return value ? Ext.Date.format(new Date(value),'d/m/Y') : '';
 										           				}
 						                        			}
 						                        		]          			
@@ -372,11 +372,11 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 					            				forceSelection:true,
 					            				enableKeyEvents:true,
 					                			allowBlank: false,
-					                			format:'m/d/Y'			           					
+					                			format:'d/m/Y'			           					
 					           				},
 					           				emptyCellText: '<span style="color:#aaaaaa;">' + "Specific Day" + "</span>",
 					           				renderer:function(value, metaData, record, row, col, store, gridView){
-					           					return value ? Ext.Date.format(new Date(value),'m/d/Y') : '';
+					           					return value ? Ext.Date.format(new Date(value),'d/m/Y') : '';
 					           				}
 					           			},
 					           			{

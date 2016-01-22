@@ -8,7 +8,11 @@ Ext.define("CaptivePortal.view.editor.MainController",{
         'CaptivePortal.view.editor.DropPanel'
     ],
     saveEditorHtml: function(){
-        this.fireEvent('onSaveSplashTemplate', this.getEditorHtml());
+        var json = this.getEditorHtml()
+        if(json.rows.length === 0){
+            return Ext.MessageBox.alert('', 'Please add Content..');
+        }
+        this.fireEvent('onSaveSplashTemplate', json);
     },
     getEditorHtml: function(){
         var me = this;
@@ -19,6 +23,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
         html["rows"] = [];
         html["style"] = {};
         html["style"]["background"] = canvas.body.dom.style.background;
+
         canvas.items.each(function(theme){
             console.log(theme.xtype);
             var row = {}
@@ -143,12 +148,12 @@ Ext.define("CaptivePortal.view.editor.MainController",{
     },
     preview: function(){
         var json = {"splash_content": this.getEditorHtml()};
-        if(!json.splash_content.hasOwnProperty('rows')){
-            return Ext.MessageBox.alert('', 'Please add Content..');
-        }
-        if(json.splash_content.rows.length === 0){
-            return Ext.MessageBox.alert('', 'Please add Content..');
-        }
+        // if(!json.splash_content.hasOwnProperty('rows')){
+        //     return Ext.MessageBox.alert('', 'Please add Content..');
+        // }
+        // if(json.splash_content.rows.length === 0){
+        //     return Ext.MessageBox.alert('', 'Please add Content..');
+        // }
         Ext.getCmp('viewport').setLoading(true);
         var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW, method = 'POST';
         CaptivePortal.util.Utility.doAjaxJSON(url,json,"Loading...", this.getView(),function(response){

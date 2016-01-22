@@ -72,7 +72,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 itemId:this.itemIdPrefix + 'default'
                                             }, {
                                                 xtype: 'label',
-                                                text: 'Site',
+                                                text: 'Site / Tag',
                                                 cls: 'header_label_content',
                                                 hidden:CaptivePortal.app.getUserRole() == 'super_admin'
                                             }, {

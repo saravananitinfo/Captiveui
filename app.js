@@ -26,7 +26,8 @@ Ext.application({
         userTenantName: '',
         tempUserObj: '',
         waitMsg: 'Please Wait...',
-        loginMsg: 'Signing In...'
+        loginMsg: 'Signing In...',
+        assumeUserFlag:false
     },
     launch: function () {
         var vp = Ext.create('CaptivePortal.view.Viewport');

@@ -21,6 +21,21 @@ Ext.define('CaptivePortal.view.tenants.TenantListController', {
             console.log(record)
         })
     },
+    doAssumeUser: function(view, record, item, index, e, eOpts){        
+        /*var url = CaptivePortal.Config.SERVICE_URLS.ASSUME_USER_TENANT + record.data.id + '/get_users.json';
+        CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
+            var resObj = Ext.decode(response.responseText);
+            if (resObj.success) {
+                debugger;
+            }
+        }.bind(this), function (response) {
+        }, 'GET');*/
+        this.fireEvent('setTenantMainActiveItem', 2);
+        var laab = Ext.ComponentQuery.query('label#lab_appheading')[0];
+        laab.setText('Assumed Users');
+        this.fireEvent('getAssumeList', record);
+
+    },
     userItemClick: function (view, record, item, index, e, eOpts) {
         var me = this
         var action = e.target.getAttribute('action');
@@ -37,6 +52,8 @@ Ext.define('CaptivePortal.view.tenants.TenantListController', {
                     }
                 }.bind(this), function (response) {
                 }, 'GET');
+            } else if (action == "assume_user")  {
+                this.doAssumeUser(view, record, item, index, e, eOpts);
             } else {
                 this.deleteTenant(view, record, item, index, e, eOpts);
             }

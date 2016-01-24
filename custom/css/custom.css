@@ -253,7 +253,10 @@ h3.splash-block-wrap-lab{
         position: relative;
 }
 
-
+.assume_user{
+	cursor: pointer;
+	color:#157fcc;
+}
 
 .duplicate-icon{
 	background-image:url(images/duplicate.png);

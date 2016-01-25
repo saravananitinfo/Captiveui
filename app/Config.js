@@ -127,6 +127,7 @@ Ext.define('CaptivePortal.Config', {
         CHANGE_PASSWORD : CaptivePortal.util.Utility.BASE_URL + 'change_password.json',
 
         //Editor
+        // PREVIEW: 'http://192.168.0.220:3001/' + 'preview/',
         PREVIEW: CaptivePortal.util.Utility.BASE_URL + 'preview/',
 	},
     TEMPLATES: {

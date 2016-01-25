@@ -57,6 +57,18 @@ Ext.define('CaptivePortal.view.tenants.TenantList', {
                 }
             }
         ]
+        if(CaptivePortal.app.getUserRole() == 'super_admin'){
+            grid_colunms.push({
+                header: 'Assume User',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="Assume User" ';
+                    return "<div action=assume_user class=assume_user>Assume User</div>";
+                }
+            })
+        }
 
         if(write){
             grid_colunms.push({

@@ -3,6 +3,7 @@ Ext.define('CaptivePortal.view.tenants.Main',{
 	requires:[
 	  'CaptivePortal.view.tenants.TenantList',
 	  'CaptivePortal.view.tenants.AddOrEditTenant',
+	  'CaptivePortal.view.tenants.AssumeList',
 	  'CaptivePortal.view.tenants.MainController'
 	],
 	alias:'widget.tenantsmain',
@@ -17,6 +18,10 @@ Ext.define('CaptivePortal.view.tenants.Main',{
             }, {
                 xtype: 'tenants_addedit',
                 itemId:'card_addedittenant'
+        },
+        {
+                xtype: 'assumelist',
+                itemId:'card_assumeuser'
         }]
         this.callParent(arguments);
 	}

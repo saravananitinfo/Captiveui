@@ -5,7 +5,25 @@ Ext.define('CaptivePortal.util.Utility', {
     config: {
         myMask: null
     },
+    doAssumeUserLoginLogout: function(flag, record){
+        CaptivePortal.app.setAssumeUserFlag(flag);
+        var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
+        var cookieObj = Ext.decode(cookieVal);
+        if(flag){
+            cookieObj.profileId = record.data.id;
+        } else {
+            delete cookieObj.profileId;
+        }        
+        Ext.util.Cookies.set('CAP_SESSION', Ext.encode(cookieObj));
+        var lab = Ext.ComponentQuery.query('label#lab_appheading')[0];
+        Ext.getCmp('viewport').removeAll();
+        CaptivePortal.util.Utility.doLoginForLoggedUser();
+    },
     logout: function () {
+        if(CaptivePortal.app.getAssumeUserFlag() == true){
+            this.doAssumeUserLoginLogout(false);
+            return;
+        }
         CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
             Ext.getCmp('viewport').removeAll();
             Ext.util.Cookies.clear('CAP_SESSION');

@@ -21,6 +21,7 @@ Ext.define('CaptivePortal.Config', {
         GET_TENANT_USER: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
         UPDATE_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
         DELETE_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
+        ASSUME_USER_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
 
         //user 
         GET_NEW_USER: CaptivePortal.util.Utility.BASE_URL + 'user_profiles/new.json',

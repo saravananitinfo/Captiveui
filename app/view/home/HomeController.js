@@ -14,6 +14,12 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         }
         }
     },
+    switchToAdmin: function(){
+        if(CaptivePortal.app.getAssumeUserFlag() == true){
+            CaptivePortal.util.Utility.doAssumeUserLoginLogout(false);
+            return;
+        }
+    },
     changePassword: function(){
 
         this.getView().lookupReference('pan_mainnavigation').setActiveItem('change_password_main');

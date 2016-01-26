@@ -17,7 +17,7 @@ Ext.define('CaptivePortal.view.home.Home', {
     controller: 'home',
     padding: '2 80 10 80',
     bodyCls: 'custom_bg_background',   
-    initComponent: function () {      
+    initComponent: function () {    
         var userObj = this.user;
         this.items = [{
                 xtype: 'toolbar',
@@ -93,6 +93,10 @@ Ext.define('CaptivePortal.view.home.Home', {
                              },{
                                 text:'Change Password', 
                                 handler:'changePassword'
+                            }, {
+                                text:'Switch to Admin', 
+                                handler:'switchToAdmin',
+                                hidden:CaptivePortal.app.getAssumeUserFlag() !== true
                             }
                           ]
 

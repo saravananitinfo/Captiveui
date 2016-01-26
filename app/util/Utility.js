@@ -5,25 +5,31 @@ Ext.define('CaptivePortal.util.Utility', {
     config: {
         myMask: null
     },
+    updateAssumeFlag: function(cObj){
+        if(cObj.assumeUserFlag === true){
+            CaptivePortal.app.setAssumeUserFlag(true);
+        } else {
+            CaptivePortal.app.setAssumeUserFlag(false);
+        }
+    },
     doAssumeUserLoginLogout: function(flag, record){
         CaptivePortal.app.setAssumeUserFlag(flag);
         var cookieVal = Ext.util.Cookies.get('CAP_SESSION');
         var cookieObj = Ext.decode(cookieVal);
         if(flag){
             cookieObj.profileId = record.data.id;
+            cookieObj.assumeUserFlag = true;
         } else {
             delete cookieObj.profileId;
-        }        
+            cookieObj.assumeUserFlag = false;
+        }
         Ext.util.Cookies.set('CAP_SESSION', Ext.encode(cookieObj));
         var lab = Ext.ComponentQuery.query('label#lab_appheading')[0];
         Ext.getCmp('viewport').removeAll();
         CaptivePortal.util.Utility.doLoginForLoggedUser();
     },
     logout: function () {
-        if(CaptivePortal.app.getAssumeUserFlag() == true){
-            this.doAssumeUserLoginLogout(false);
-            return;
-        }
+        
         CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
             Ext.getCmp('viewport').removeAll();
             Ext.util.Cookies.clear('CAP_SESSION');
@@ -105,9 +111,15 @@ Ext.define('CaptivePortal.util.Utility', {
         }
     },
     setValuesForCookies: function (obj) {
+        var cookieStr = Ext.util.Cookies.get('CAP_SESSION'), cObj, assumeUserFlag = false;
+        if(cookieStr){
+            cObj = Ext.decode(cookieStr);
+            assumeUserFlag = (cObj.assumeUserFlag != undefined) ? cObj.assumeUserFlag : false;
+        }
         var currentTime = new Date();
         var expires = new Date(currentTime.getTime() + (7 * 24 * 60 * 60 * 1000));
         Ext.util.Cookies.clear('CAP_SESSION');
+        obj['assumeUserFlag'] = assumeUserFlag;
         Ext.util.Cookies.set('CAP_SESSION', Ext.encode(obj), expires);
         this.addHeader();
     },
@@ -180,6 +192,7 @@ Ext.define('CaptivePortal.util.Utility', {
             var profileId = cookieObj.profileId;
             var url = profileId ? CaptivePortal.Config.SERVICE_URLS.GET_USER_PROFILES + '/' + profileId + '.json' : CaptivePortal.Config.SERVICE_URLS.GET_CURRENT_USER_DETAILS;
             this.addHeader();
+            this.updateAssumeFlag(cookieObj);
             CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getLoginMsg(), Ext.getCmp('viewport'), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
@@ -200,7 +213,7 @@ Ext.define('CaptivePortal.util.Utility', {
             layout: 'vbox',
             user: {
                 langDesc: cookieObj.language,
-                userName: cookieObj.username
+                userName: resObj.data.user_details.email || cookieObj.username
             }
         });
         this.setSuperAdminSession(resObj.data.user_details, cookieObj.remember, cookieObj.token);

@@ -277,6 +277,15 @@ h3.splash-block-wrap-lab{
     position: relative;
 }
 
+.user_icon16{
+	background-image:url(images/user_icon16.png);
+	height:16px;
+	width:16px;
+	float:left;
+	cursor:pointer;
+	left: 10px;
+    position: relative;
+}
  .edit-icon{
 	background-image:url(images/edit-icon.png);
 	height:16px;

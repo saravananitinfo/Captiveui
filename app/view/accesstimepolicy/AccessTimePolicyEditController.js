@@ -75,6 +75,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
 
     cancelAccessTimePolicy: function(){
         this.fireEvent('setTimePolicyActiveItem', 0);
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Access Time Policy');
     },
     loadSitesCombo: function(data){
         this.getView().down('#site_combo').store.loadRawData(CaptivePortal.util.Utility.createSitesAndTags(data));

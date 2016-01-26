@@ -46,5 +46,6 @@ Ext.define('CaptivePortal.view.tenants.AddOrEditTenantController', {
     },
     cancelTenant: function () {       
         this.fireEvent('setTenantMainActiveItem', 0);
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Tenants');
     }
 });

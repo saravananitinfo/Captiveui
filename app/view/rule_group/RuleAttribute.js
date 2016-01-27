@@ -79,7 +79,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   			rec['vlan']['value'] = data['rule_value'].join();
   		break;
   		case "6":
-  			rec['userAgent']['value'] = data['rule_value'].join();
+  			rec['userAgent']['value'] = data['rule_value'];
   		break;
   		case "7":
         var time = data['rule_value'][0].split(':');
@@ -296,6 +296,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 		  			customType:this.ATTR_ENUM.USER_AGENT,
 		  			padding:'0 10 0 0',
 		            queryMode: 'local',
+                multiSelect:true,
 		            allowBlank: false,
 		            forceSelection:true,
 		            editable:false,
@@ -373,12 +374,15 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 	  this.userAgentStore = Ext.create('Ext.data.Store', {
         	fields:['id', 'name'], 
         	data : [
-        		{name: "Internet Explorer", id: "1"},
-				{name: "Chrome", id: "2"},
-				{name: "Mozilla", id: "3"},
-				{name: "Opera", id: "4"},
-				{name: "Android", id: "5"},
-				{name: "Apple", id: "6"}
+        		{name: "Windows(desktop)", id: "1"},
+				{name: "Windows(mobile/tablet)", id: "2"},
+				{name: "iOs(iPhone/iPod/iPad)", id: "3"},
+				{name: "Mac(desktop)", id: "4"},
+				{name: "Android(mobile/tablet)", id: "5"},
+				{name: "Blackberry", id: "6"},
+        {name: "Linux", id: "7"},
+        {name: "ChromeOS", id: "8"},
+        {name: "Others", id: "9"}
         	]
         });
 

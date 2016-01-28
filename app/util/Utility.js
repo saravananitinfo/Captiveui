@@ -633,6 +633,11 @@ Ext.define('CaptivePortal.util.Utility', {
                         html_str: widget.attributes.html_str
                     })
                     break;
+                case'login_form_widget':
+                    items.push({
+                        xtype: 'login_form_widget'
+                    })
+                    break;
                 case 'dropPanel':
                     items.push({
                         xtype: 'dropPanel',

@@ -116,6 +116,10 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                 }
                 // row['widgets'].push(col);
                 break;
+            case'login_form_widget':
+                col["widget_type"] = block.xtype
+                col["attributes"] = {};
+                break;
             case 'dropPanel':
                 // var col = {}
                 col["widget_type"] = block.xtype

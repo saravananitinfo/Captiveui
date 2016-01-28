@@ -12,7 +12,8 @@ Ext.define("CaptivePortal.view.editor.DropPanelViewController",{
         'CaptivePortal.view.editor.LoginButtonWidget',
         'CaptivePortal.view.editor.HtmlWidget',
         'CaptivePortal.view.editor.ThemeCol2LeftVbox',
-        'CaptivePortal.view.editor.ThemeCol2RightVbox'
+        'CaptivePortal.view.editor.ThemeCol2RightVbox',
+        'CaptivePortal.view.editor.LoginFormWidget'
     ],
 	onRender: function(d) {
         var c = new Ext.dd.DropTarget(this.getView().el, {

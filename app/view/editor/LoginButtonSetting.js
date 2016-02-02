@@ -176,8 +176,10 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                         // var btn = button_panel.down('#button_panel')
                                         // btn.el.dom.style.textAlign = 'left'
-                                        button_panel.layout.tdAttrs.align = "left";
-                                        button_panel.doLayout();
+
+                                        // button_panel.layout.tdAttrs.align = "left";
+                                        // button_panel.doLayout();
+                                        button_panel.body.query('td')[0].setAttribute('align', 'left');
                                         if(button_panel.trigger_type === 'Button'){
                                             var btn_json = Ext.decode(button_panel.button_json, true);
                                             btn_json['align'] = "left";
@@ -202,8 +204,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                         // var btn = button_panel.down('#button_panel')
                                         // btn.el.dom.style.textAlign = 'center'
-                                        button_panel.layout.tdAttrs.align = "center";
-                                        button_panel.doLayout();
+
+                                        // button_panel.layout.tdAttrs.align = "center";
+                                        // button_panel.doLayout();
+                                        button_panel.body.query('td')[0].setAttribute('align', 'center');
+
                                         if(button_panel.trigger_type === 'Button'){
                                             var btn_json = Ext.decode(button_panel.button_json, true);
                                             btn_json['align'] = "center";
@@ -228,8 +233,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                         // var btn = button_panel.down('#button_panel')
                                         // btn.el.dom.style.textAlign = 'right'
-                                        button_panel.layout.tdAttrs.align = "right";
-                                        button_panel.doLayout();
+
+                                        // button_panel.layout.tdAttrs.align = "right";
+                                        // button_panel.doLayout();
+                                        button_panel.body.query('td')[0].setAttribute('align', 'right');
+
                                         if(button_panel.trigger_type === 'Button'){
                                             var btn_json = Ext.decode(button_panel.button_json, true);
                                             btn_json['align'] = "right";
@@ -258,8 +266,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                         // var btn = button_panel.down('#button_panel')
                                         // btn.el.dom.style.textAlign = 'left'
-                                        button_panel.layout.tdAttrs.valign = "top";
-                                        button_panel.doLayout();
+
+                                        // button_panel.layout.tdAttrs.valign = "top";
+                                        // button_panel.doLayout();
+                                        button_panel.body.query('td')[0].setAttribute('valign', 'top');
+
                                         if(button_panel.trigger_type === 'Button'){
                                             var btn_json = Ext.decode(button_panel.button_json, true);
                                             btn_json['valign'] = "top";
@@ -284,8 +295,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                         // var btn = button_panel.down('#button_panel')
                                         // btn.el.dom.style.textAlign = 'center'
-                                        button_panel.layout.tdAttrs.valign = "middle";
-                                        button_panel.doLayout();
+
+                                        // button_panel.layout.tdAttrs.valign = "middle";
+                                        // button_panel.doLayout();
+                                        button_panel.body.query('td')[0].setAttribute('valign', 'middle');
+
                                         if(button_panel.trigger_type === 'Button'){
                                             var btn_json = Ext.decode(button_panel.button_json, true);
                                             btn_json['valign'] = "middle";
@@ -310,8 +324,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                         var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
                                         // var btn = button_panel.down('#button_panel')
                                         // btn.el.dom.style.textAlign = 'right'
-                                        button_panel.layout.tdAttrs.valign = "bottom";
-                                        button_panel.doLayout();
+
+                                        // button_panel.layout.tdAttrs.valign = "bottom";
+                                        // button_panel.doLayout();
+                                        button_panel.body.query('td')[0].setAttribute('valign', 'bottom');
+
                                         if(button_panel.trigger_type === 'Button'){
                                             var btn_json = Ext.decode(button_panel.button_json, true);
                                             btn_json['valign'] = "bottom";

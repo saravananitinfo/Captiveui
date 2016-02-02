@@ -91,11 +91,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
                 width : '100%',
                 height : '100%'
             }
-        },
-        tdAttrs : {
-            align : 'center',
-            valign : 'middle',
         }
+        // tdAttrs : {
+        //     align : 'center',
+        //     valign : 'middle',
+        // }
     },
     initComponent: function () {
         var me= this;
@@ -150,8 +150,10 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
         //         html: htm
         //     }
         // ]
-        this.layout.tdAttrs.align = button_json.align
-        this.layout.tdAttrs.valign = button_json.valign
+
+        // this.layout.tdAttrs.align = button_json.align
+        // this.layout.tdAttrs.valign = button_json.valign
+
         this.items = [
             {
                 xtype: 'component',
@@ -167,5 +169,13 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
             }
         ]
         this.callParent(arguments);
+    },
+    listeners: {
+        afterrender: function(panel) {
+            var button_json = Ext.decode(panel.button_json);
+
+            panel.body.query('td')[0].setAttribute('align', button_json.align);
+            panel.body.query('td')[0].setAttribute('valign', button_json.valign);
+        }
     }
 });

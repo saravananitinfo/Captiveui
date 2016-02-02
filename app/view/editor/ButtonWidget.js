@@ -156,10 +156,10 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
                 height : '100%'                                 
             }
         },
-        tdAttrs : {
-            align : 'center',
-            valign : 'middle',
-        }
+        // tdAttrs : {
+        //     align : 'center',
+        //     valign : 'middle',
+        // }
     },
     initComponent: function () {
         var me= this;
@@ -197,8 +197,8 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
 
         // ]
         
-        this.layout.tdAttrs.align = button_json.align
-        this.layout.tdAttrs.valign = button_json.valign
+        // me.layout.tdAttrs.align = button_json.align
+        // me.layout.tdAttrs.valign = button_json.valign
         console.log("...........test2............");
         this.items = [
             {
@@ -219,6 +219,10 @@ Ext.define("CaptivePortal.view.editor.ButtonWidget",{
     },
     listeners: {
         afterrender: function(panel) {
+            var button_json = Ext.decode(panel.button_json);
+
+            panel.body.query('td')[0].setAttribute('align', button_json.align);
+            panel.body.query('td')[0].setAttribute('valign', button_json.valign);
         //     var header = panel.getHeader();
         //     panel.getEl().on('mouseover', function() {
         //         // header.getTools().forEach(function(tool) {

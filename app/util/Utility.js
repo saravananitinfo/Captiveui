@@ -432,7 +432,7 @@ Ext.define('CaptivePortal.util.Utility', {
             if((resObj.success === false || errFlag) && errs  && errs.length){
                 var errorText = '';
                 if(Ext.Array.each(errs, function(rec, index){
-                    errorText += rec + "\n"; 
+                    errorText += rec + "<br>"; 
                 }.bind(this)));
                 CaptivePortal.util.Utility.showError('Error', errorText);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false); 

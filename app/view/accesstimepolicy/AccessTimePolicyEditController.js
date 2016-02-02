@@ -215,7 +215,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
                 }.bind(this), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (!resObj.success && resObj.error.length) {
-                        CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                        CaptivePortal.util.Utility.showError('Error', resObj.error.join('<br>'));
                     }
                 }, 'POST');
             } else {
@@ -228,7 +228,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
                 }.bind(this), function (response) {
                     var resObj = Ext.decode(response.responseText);
                     if (!resObj.success && resObj.error.length) {
-                        CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                        CaptivePortal.util.Utility.showError('Error', resObj.error.join('<br>'));
                     }
                 }, 'PUT');
             }

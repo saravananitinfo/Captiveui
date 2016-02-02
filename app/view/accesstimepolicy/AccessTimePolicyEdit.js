@@ -122,7 +122,9 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                			xtype:"timefield",
 						                			emptyText: "From Time",
 						                			forceSelection:true,
-                    								increment: 30                    								
+                    								increment: 30,
+                    								enableKeyEvents:true,
+                    								allowBlank: false            								
 						           				},
 						           				emptyCellText: '<span style="color:#aaaaaa;">' + "From Time" + "</span>",
 						           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -139,7 +141,9 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                			xtype:"timefield",
 						                			emptyText: "To Time",
 						                			forceSelection:true,
-						            				increment: 30   
+						            				increment: 30,
+                    								enableKeyEvents:true,
+                    								allowBlank: false
 						           				},
 						           				emptyCellText: '<span style="color:#aaaaaa;">' + "To Time" + "</span>",
 						           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -203,13 +207,13 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										width:'100%',
 						                store: Ext.create('CaptivePortal.store.accesstimepolicy.DateRange'),
 						                columns: [
-						                	{
-						            			header: 'Date Range',						            			
-						            			cls: 'table-row',
-						                        tdCls: 'table-cell',
-						                        columns:[
+						                	// {
+						            			// header: 'Date Range',						            			
+						            			// cls: 'table-row',
+						               //          tdCls: 'table-cell',
+						               //          columns:[
 									                        {
-									                        	header: 'From',
+									                        	header: 'Date From',
 										            			dataIndex: 'start_date',
 										            			width:200,
 										            			cls: 'table-row',
@@ -220,7 +224,8 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										            				enableKeyEvents:true,
 										            				forceSelection:true,
 										                			allowBlank: false,
-										                			format:'d/m/Y'
+										                			format:'d/m/Y',
+										                			minValue: new Date()
 									           					},
 									           					emptyCellText: '<span style="color:#aaaaaa;">' + "From Date" + "</span>",
 									           					renderer:function(value, metaData, record, row, col, store, gridView){
@@ -228,7 +233,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										           				}
 									           				},
 									           				{
-									                        	header: 'To',
+									                        	header: 'Date To',
 										            			dataIndex: 'end_date',
 										            			width:200,
 										            			cls: 'table-row',
@@ -239,15 +244,16 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										            				enableKeyEvents:true,
 										            				forceSelection:true,
 										                			allowBlank: false,
-										                			format:'d/m/Y'
+										                			format:'d/m/Y',
+										                			minValue: new Date()
 									           					},
 									           					emptyCellText: '<span style="color:#aaaaaa;">' + "To Date" + "</span>",
 									           					renderer:function(value, metaData, record, row, col, store, gridView){
 										           					return value ? Ext.Date.format(new Date(value),'d/m/Y') : '';
 										           				}
-						                        			}
-						                        		]          			
-						           			},
+						                        			},
+						                        		// ]          			
+						           			// },
 						           			{
 						            			header: 'From',
 						            			dataIndex: 'from',
@@ -289,21 +295,21 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						           				}
 						           			},
 						           			{
-						            			header: 'Availablity',
+						            			header: 'Availability',
 						            			dataIndex: 'available',
 						            			flex: 1,
 						            			cls: 'table-row',
 						                        tdCls: 'table-cell',
 						            			editor: {
 						                			xtype:"combo",
-						                			emptyText: "Availablity",
+						                			emptyText: "Availability",
 						                			store: avalStore,
 												    queryMode: 'local',
 												    displayField: 'name',
 												    valueField: 'value',
 						            				forceSelection:true
 						           				},
-						           				emptyCellText: '<span style="color:#aaaaaa;">' + "Availablity" + "</span>",
+						           				emptyCellText: '<span style="color:#aaaaaa;">' + "Availability" + "</span>",
 						           				renderer:function(value, metaData, record, row, col, store, gridView){
 						           					return value == false ? 'Unavailable' : 'Available';
 						           				}
@@ -372,7 +378,9 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 					            				forceSelection:true,
 					            				enableKeyEvents:true,
 					                			allowBlank: false,
-					                			format:'d/m/Y'			           					
+					                			format:'d/m/Y',
+										        minValue: new Date()
+
 					           				},
 					           				emptyCellText: '<span style="color:#aaaaaa;">' + "Specific Day" + "</span>",
 					           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -420,21 +428,21 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						           				}
 					           			},
 					           			{
-					            			header: 'Availablity',
+					            			header: 'Availability',
 					            			dataIndex: 'available',
 					            			flex: 1,
 					            			cls: 'table-row',
 					                        tdCls: 'table-cell',
 					            			editor: {
 					                			xtype:"combo",
-					                			emptyText: "Availablity",
+					                			emptyText: "Availability",
 					                			store: avalStore,
 											    queryMode: 'local',
 											    displayField: 'name',
 											    valueField: 'value',
 					            				forceSelection:true
 					           				},
-					           				emptyCellText: '<span style="color:#aaaaaa;">' + "Availablity" + "</span>",
+					           				emptyCellText: '<span style="color:#aaaaaa;">' + "Availability" + "</span>",
 					           				renderer:function(value, metaData, record, row, col, store, gridView){
 					           					return value == false ? 'Unavailable' : 'Available';
 					           				}

@@ -72,7 +72,7 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
                                 xtype: 'label',
                                 text: 'Site / Tag',
                                 cls: 'header_label_content',
-                                // hidden:CaptivePortal.app.getUserRole() == 'super_admin'
+                                hidden:CaptivePortal.app.getUserRole() == 'super_admin'
                             }, {
                                 xtype: 'combo',
                                 queryMode: 'local',
@@ -83,7 +83,8 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
                                 displayField: 'name',
                                 emptyText: 'Select Site / Tag',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),
-                                // hidden:CaptivePortal.app.getUserRole() == 'super_admin',
+                                hidden:CaptivePortal.app.getUserRole() == 'super_admin',
+                                allowBlank: false,
                                 listConfig:{
                                     getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
                                 },
@@ -146,7 +147,13 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
             }
         ]
 	    this.callParent();
-	}
-
-
+	},
+    listeners: {
+        afterrender: function(panel) {
+            if(CaptivePortal.app.getUserRole() == 'super_admin'){
+                var combo = panel.down('#site_combo');
+                Ext.apply(combo, {allowBlank: true}, {});
+            }
+        }
+    }
 });

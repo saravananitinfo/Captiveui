@@ -22,6 +22,11 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
     	json.splash_template.splash_content = html;
     	json.splash_template.category = form_val.category;
     	json.splash_template.associated_resource = form_val.associated_resource;
+
+        // if(form_val.associated_resource === ""){
+        //     json.splash_template.associated_resource = []
+        // }
+
     	json['splash_template']['status'] = 'published';
         console.log("................   json ........... ");
         console.log(json);

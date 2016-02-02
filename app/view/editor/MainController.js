@@ -197,7 +197,7 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                                 items: [{
                                     xtype: 'component',
                                     style: 'margin: 0 auto;',
-                                    width: 786,
+                                    width: 768,
                                     height: '100%',
                                     html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
                                 }]

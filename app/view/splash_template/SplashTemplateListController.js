@@ -74,7 +74,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
         var store = this.getView().lookupReference('grd_splash_template_list').getStore();
         store.load();
     },
-    preview: function(view, record, item, index, e, eOpts){
+    preview1: function(view, record, item, index, e, eOpts){
         var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
         var index = store.findExact('id', record.data.id);
         var splash_content = store.getAt(index).data.splash_content;
@@ -157,6 +157,70 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                         afterrender: function(panel){
                             var iframe = panel.down('panel').items.items[0].el.query('iframe')[0]
                             iframe.contentWindow.document.write(resObj);
+                            // panel.down('panel').items.items.forEach(function(tab){
+                            //     window.tbp = tab
+                            //     // var iframe = tab.el.query('iframe')[0]
+                            //     // iframe.contentWindow.document.write(resObj);
+                            // })
+                        }
+                    }
+                });
+                panel.show();
+                panel.center();
+            // }
+        }.bind(this),function(response){
+            var resObj = Ext.decode(response.responseText);
+            if(!resObj.success && resObj.error.length){
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+            }          
+        },method);
+    },
+    preview: function(view, record, item, index, e, eOpts){
+        var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
+        var index = store.findExact('id', record.data.id);
+        var splash_content = store.getAt(index).data.splash_content;
+
+        console.log(splash_content);
+        var json = {"splash_content": splash_content};
+        if(!json.splash_content.hasOwnProperty('rows')){
+            return Ext.MessageBox.alert('', 'Please add Content..');
+        }
+        if(json.splash_content.rows.length === 0){
+            return Ext.MessageBox.alert('', 'Please add Content..');
+        }
+        Ext.getCmp('viewport').setLoading(true);
+        console.log(json);
+        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW, method = 'POST';
+        CaptivePortal.util.Utility.doAjaxJSON(url,json,"Loading...", this.getView(),function(response){
+            var resObj = response.responseText;
+            // if(resObj.success){
+                Ext.getCmp('viewport').setLoading(false);
+                console.log(resObj);
+                var panel = new Ext.panel.Panel({
+                    title: 'Preview',
+                    floating: true,
+                    closable : true,
+                    width: '100%',
+                    height: '100%',
+                    default: '',
+                    frame: true,
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'panel',
+                        html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
+
+                    }],
+                    listeners:{
+                        afterrender: function(panel){
+                            // var iframe = panel.down('panel').items.items[0].el.query('iframe')[0]
+                            var iframe = panel.items.items[0].el.query('iframe')[0]
+                            iframe.src = "/preview.html"
+                            iframe.onload = function(){
+                                var inside_iframe = iframe.contentWindow.document.getElementsByTagName('iframe')[0]
+                                inside_iframe.contentWindow.document.write(resObj);
+                            }
+                            window.abc = iframe;
+                            // iframe.contentWindow.document.write(resObj);
                             // panel.down('panel').items.items.forEach(function(tab){
                             //     window.tbp = tab
                             //     // var iframe = tab.el.query('iframe')[0]

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
 <title>Responsive Grid</title>
 </head>
 
@@ -16,15 +16,14 @@
         <div class="slider_main" style="text-align:center;">
     		<img data-view="laptop" class="preview" src="/resources/preview_images/previewicon1.png" style="width:25px;"/>
             <img data-view="ipad" class="preview" src="/resources/preview_images/previewicon2.png" style="width:25px;"/>
-            <img data-view="ipad" class="preview" src="/resources/preview_images/previewicon3.png" style="width:25px;"/>
+            <img data-view="mobile_landscape" class="preview" src="/resources/preview_images/previewicon3.png" style="width:25px;"/>
           	<img data-view="mobile" class="preview" src="/resources/preview_images/previewicon4.png" style="width:25px;"/>
     	</div>
         
-        <div class="slider_btm">
-    		<!-- <img src="/resources/preview_images/slider.png" style="width:400px;"/> -->
-            <!-- <img src="/resources/preview_images/slider.png" style="width:180px;"/> -->
+        <!-- <div class="slider_btm">
+            <img src="/resources/preview_images/slider.png" style="width:180px;"/>
             <div id="slider-range-max" style="width:180px;margin: 0 auto;"></div>
-    	</div>
+    	</div> -->
     
     
     
@@ -46,39 +45,40 @@
     
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"></script> -->
 <script type="text/javascript">
     $(".preview").click(function(){
         var preview = $(this).data('view');
         if(preview === 'laptop'){
-            console.log("laptop");
-            $('iframe').css('width', '100%');
+            $('.slider_hori_align').text("This is for desktop (960px)");
+            $('iframe').css('width', '960px');
         }else if(preview === 'ipad'){
-            console.log("ipad");
+            $('.slider_hori_align').text("This is for tab (768px)");
             $('iframe').css('width', '768px');
-        }else if(preview === 'ipad'){
-            console.log("ipad");
-            $('iframe').css('width', '768px');
+        }else if(preview === 'mobile_landscape'){
+            $('.slider_hori_align').text("This is for mobile (568px)");
+            // $('iframe').css('width', '480px');
+            $('iframe').css('width', '568px');
         }else if(preview === 'mobile'){
-            console.log("mobile");
+            $('.slider_hori_align').text("This is for mobile (320px)");
             $('iframe').css('width', '320px');
         }
     });
-    $(function() {
-        $( "#slider-range-max" ).slider({
-          range: "max",
-          min: 300,
-          step: 100,
-          max: 1200,
-          value: 900,
-          slide: function( event, ui ) {
-            console.log(ui.value);
-            // $( "#amount" ).val( ui.value );
-            $('iframe').css('width', ui.value+'px');
-          }
-        });
-        // $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
-    });
+    // $(function() {
+    //     $( "#slider-range-max" ).slider({
+    //       range: "max",
+    //       min: 300,
+    //       step: 100,
+    //       max: 1200,
+    //       value: 900,
+    //       slide: function( event, ui ) {
+    //         console.log(ui.value);
+    //         // $( "#amount" ).val( ui.value );
+    //         $('iframe').css('width', ui.value+'px');
+    //       }
+    //     });
+    //     // $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+    // });
 
 </script>
 

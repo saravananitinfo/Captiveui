@@ -64,6 +64,9 @@ Ext.define('CaptivePortal.view.rule_group.RuleController', {
             Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Rule Group');
             }
         }
+    },
+    preview: function(){
+        var splash_journey_id = this.getView().down('combo').getValue();
+        CaptivePortal.util.Utility.splash_journey_preview(splash_journey_id);
     }
-    
 });

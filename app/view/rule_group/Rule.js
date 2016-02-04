@@ -66,11 +66,13 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
 		                                filterPickList: true,
 		                                itemId:this.itemIdPrefix + 'splash'
 	                            	},{
-	                                    xtype: 'label',
-	                                    style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
-	                                    margin:'0 0 0 20',
-	                                    padding:'10 0 0 0',
+	                                    xtype: 'button',
+	                                    // style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
+	                                    // style: 'margin-top: 2px;',
+	                                    margin:'3 0 0 20',
+	                                    // padding:'10 0 0 0',
 	                                    text: 'Preview',
+	                                    handler: 'preview'
 	                                }]
 								},{
 									xtype:'label',

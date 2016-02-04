@@ -86,7 +86,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 break;
             case "journeys":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_template_main');
-                this.getView().lookupReference('lab_heading').setText('Template Management');
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES);
                 this.fireEvent('setTemplateMgmtActiveItem',0);
                 break;
             case "radius_configuration":
@@ -96,12 +96,12 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 break;
             case "rule_group":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_rule_group_main');
-                this.getView().lookupReference('lab_heading').setText('Splash Display');                
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_RULES);                
                 this.fireEvent('setRuleGroupActiveItem',0);
                 break;
             case "templates":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
-                this.getView().lookupReference('lab_heading').setText('Splash Template');                
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);                
                 this.fireEvent('setSplashPageActiveItem',0);
                 break;
         }

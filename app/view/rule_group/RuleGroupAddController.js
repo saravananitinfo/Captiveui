@@ -77,7 +77,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
     },
     navigateToIndexPage:function(isReload){
         this.fireEvent('setRuleGroupActiveItem', 0);
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Splash Display');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_RULES);
         if(isReload){
             this.fireEvent('getRuleGroupList');
         }

@@ -30,7 +30,7 @@ Ext.define('CaptivePortal.view.splash_template.MainController',{
                 CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
             }
         }, 'GET');
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New Splash Template');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New '+CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
     },
     loadSplashTemplateRec: function(card, recId){
         this.getView().setActiveItem(card);
@@ -47,7 +47,7 @@ Ext.define('CaptivePortal.view.splash_template.MainController',{
                 CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
             }
         }, 'GET');
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Splash Template');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
     },
 });
     

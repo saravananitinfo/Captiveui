@@ -12,14 +12,14 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             name: 'Template',
             cls: 'nav-icon nav-icon-template',
             menuitem: [{
-                    name: 'Template',
+                    name: CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE,
                     itemname: 'templates'
                 }, {
-                    name: 'Rule Group',
+                    name: CaptivePortal.Constant.TEMPLATE.SPLASH_RULES,
                     itemname: 'rule_group'
                 },
 		{
-                    name: 'Journey',
+                    name: CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES,
                     itemname: 'journeys'
                 }
 	

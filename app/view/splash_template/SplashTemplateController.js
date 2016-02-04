@@ -73,7 +73,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
     },
     cancelSplashTemplate: function(){
     	this.fireEvent('setSplashPageActiveItem',0);
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Splash Template');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
     },
     initiateSplashTemplateForm: function(data){
     	console.log("......initiateSplashTemplateForm..");

@@ -227,7 +227,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
     },
     cancelTemplateMgmt: function(){
     	this.fireEvent('setTemplateMgmtActiveItem', 0);
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Template Management');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES);
     },
     resetSplashPageContent: function(){
         var view = this.getView();

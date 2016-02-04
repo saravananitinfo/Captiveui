@@ -31,7 +31,7 @@ Ext.define('CaptivePortal.view.template_mgmt.MainController',{
                 CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
             }
         }, 'GET');
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Template Management');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES);
     },
     loadTemplateMgmtRec: function(card, recId){
         this.getView().setActiveItem(card);
@@ -48,7 +48,7 @@ Ext.define('CaptivePortal.view.template_mgmt.MainController',{
                 CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
             }
         }, 'GET');
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Template Management');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES);
     },
     showTemplateMgmtForm: function(card){
     	this.getView().setActiveItem(card);
@@ -64,7 +64,7 @@ Ext.define('CaptivePortal.view.template_mgmt.MainController',{
                 CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
             }
         }, 'GET');
-		Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New Template Management');
+		Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New '+CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES);
     },
     setTemplateMgmtActiveItem:function(card){
     	this.getView().setActiveItem(card);

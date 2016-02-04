@@ -43,7 +43,7 @@ Ext.define('CaptivePortal.view.rule_group.MainController',{
                 CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
             }
         }, 'GET');
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New Rule Group');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New '+CaptivePortal.Constant.TEMPLATE.SPLASH_RULES);
     },
     setRuleGroupActiveItem:function(card){
         this.getView().setActiveItem(card);

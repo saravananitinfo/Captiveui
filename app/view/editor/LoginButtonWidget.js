@@ -10,7 +10,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
     bodyStyle: "background: transparent;",
     // button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50}',
     
-    button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}',
+    button_json: '{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"000000",bg_color:"DDDDDD",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}',
     link_json: '{"type":"Link","connect":"fb","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50,align:"center",valign:"middle"}',
     form_json: '{email: {enable: false, optional: false},first_name: {enable: false, optional: false},last_name: {enable: false, optional: false},gender: {enable: false, optional: false},birth_day: {enable: false, optional: false},mobile_number: {enable: false, optional: false},password: {enable: false, optional: false},verify_email: {enable: false, optional: false}, verify_mobile_number: {enable: false, optional: false}, tnc: {enable: false, optional: false}, remember_me: {enable: false, optional: false}}',
     trigger_type: 'Button',
@@ -115,7 +115,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
 
         var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
         if(trigger_type === 'Button'){
-            var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
+            var btn_stl = "";
+            if(button_json.connect == "form"){
+                btn_stl= 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';';
+            }
+            var stl = btn_stl+'border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
             var htm = '<a href="#"><button '+'style="'+stl+'type="button" class="'+button_json.connect+'Btn edtBtn btn-default"><span class="icon"><i class="fa fa-'+local[button_json.connect]+'"></i></span><span class="text" style="margin: 0 5px;">'+button_json.text+'</span></button></a>'
         }else if(trigger_type === 'Link'){
             var stl = 'font-size: '+link_json.font_size+'px;'

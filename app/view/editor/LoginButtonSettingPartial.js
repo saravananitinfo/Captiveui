@@ -129,5 +129,76 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSettingPartial",{
             }
     	]
     	this.callParent();
+    },
+    listeners: {
+        afterrender: function(panel){
+            console.log("..........out.......");
+            var btn_json = this.button_json;
+            if(btn_json.connect == "form"){
+                console.log("..........in.......");
+                panel.add({
+                    xtype: 'tabpanel',
+                    margin: '15 0 0 0',
+                    width: '100%',
+                    items: [
+                        {
+                            title: "Text",
+                            items: [
+                                {
+                                    xtype: 'colorfield',
+                                    fieldLabel: 'Color Field',
+                                    labelWidth: 75,
+                                    value: btn_json["txt_color"],
+                                    width: '92%',
+                                    margin: '10 10 10 10',
+                                    listeners: {
+                                        change: function(picker){
+
+                                            var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                                            var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
+                                            btn.style.color = '#'+picker.getValue();;
+
+                                            var btn_json = Ext.decode(button_panel.button_json, true);
+                                            btn_json['txt_color'] = picker.getValue();;
+                                            button_panel.button_json = JSON.stringify(btn_json);
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            title: "Button",
+                            items: [
+                                {
+                                    xtype: 'colorfield',
+                                    fieldLabel: 'Color Field',
+                                    labelWidth: 75,
+                                    value: btn_json["bg_color"],
+                                    width: '92%',
+                                    margin: '10 10 10 10',
+                                    listeners: {
+                                        change: function(picker){
+
+                                            var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0]
+                                            var btn = button_panel.down('#button_panel').el.query('.edtBtn')[0]
+                                            btn.style.background = '#'+picker.getValue();
+
+                                            var btn_json = Ext.decode(button_panel.button_json, true);
+                                            btn_json['bg_color'] = picker.getValue();
+                                            button_panel.button_json = JSON.stringify(btn_json);
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        }
     }
 });
+
+
+
+
+

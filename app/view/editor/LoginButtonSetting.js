@@ -98,6 +98,11 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
 
                                 if(button_panel.trigger_type === 'Button'){
                                     var login_button = button_panel.down('#button_panel').el.query('.edtBtn')[0];
+
+                                    if(record.id != 'form'){
+                                        login_button.style.color = "";
+                                        login_button.style.background = "";
+                                    }
                                     login_button.className = record.id+'Btn'+' edtBtn btn-default';
                                     button_panel.down('#button_panel').el.query('i')[0].className = "fa fa-"+local[record.id];
 
@@ -587,8 +592,14 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                 var button_json = Ext.decode(button_panel.button_json, true);
                                 button_panel.trigger_type = "Button"
 
+                                var btn_stl = "";
+                                if(button_json.connect === 'form'){
+                                    // login_button.style.color = "";
+                                    // login_button.style.background = "";
+                                    btn_stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';'
+                                }
 
-                                var stl = 'background: #'+button_json.bg_color+';color: #'+button_json.txt_color+';border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
+                                var stl = btn_stl+'border-radius: '+button_json.border_radius+'px'+';font-size: '+button_json.font_size+'px'+';padding: '+button_json.padding_val+'px '+button_json.padding_val*2+'px;';
                                 var htm = '<a href="#"><button '+'style="'+stl+'type="button" class="'+button_json.connect+'Btn edtBtn btn-default"><span class="icon"><i class="fa fa-'+local[button_json.connect]+'"></i></span><span class="text" style="margin: 0 5px;">'+button_json.text+'</span></button></a>'
 
                                 // button_json["type"] = "Button";
@@ -597,6 +608,9 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                 // button_json["font_size"] = 13;
 
                                 button_panel.button_json = JSON.stringify(button_json)
+
+                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+                                var btn = button_panel.down('#button_panel').update(htm);
 
                                 newCard.removeAll();
                                 newCard.add({
@@ -608,8 +622,8 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
 
                                 // var str = '<a href="#"><button type="button" class="'+connect_type.value+'Btn edtBtn btn-default"><span style="margin-right: 5px;" class="icon"><i class="fa fa-'+local[connect_type.value]+'"></i></span><span class="text">Login</span></button></a>'
                                 
-                                var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
-                                var btn = button_panel.down('#button_panel').update(htm);
+                                // var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+                                // var btn = button_panel.down('#button_panel').update(htm);
                                 break;
                         }
                     }

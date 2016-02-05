@@ -62,7 +62,7 @@ Ext.define('CaptivePortal.Config', {
 		UPDATE_GUESTUSER:CaptivePortal.util.Utility.BASE_URL + 'guest_users/',
         UPLOAD_GUESTUSERS:CaptivePortal.util.Utility.BASE_URL + 'guest_users/guest_user_csv.json',
 
-        // Access Point Url
+        // Inventory Url
 
         GET_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points.json',
         NEW_ACCESSPOINT:CaptivePortal.util.Utility.BASE_URL + 'access_points/new.json',

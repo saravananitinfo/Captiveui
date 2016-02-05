@@ -41,7 +41,7 @@ Ext.define('CaptivePortal.view.users.MainController', {
             }
         }, 'GET');
         this.getView().setActiveItem(card);
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New User Profile');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('New '+CaptivePortal.Constant.CONFIGURATION.ADMINS+' Profile');
         Ext.ComponentQuery.query('button#btn_newusersave')[0].setText('Create');
         this.fireEvent('refreshUserList');
     },

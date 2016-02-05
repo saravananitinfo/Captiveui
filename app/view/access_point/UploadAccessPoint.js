@@ -69,7 +69,7 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
                         },
                         {
                             xtype: 'label',
-                            html:'<a href="custom/images/sample_access_point.csv">Click here to download sample access point csv file'
+                            html:'<a href="custom/images/sample_access_point.csv">Click here to download sample Inventory csv file'
                         },
                         {
                             xtype: 'container',

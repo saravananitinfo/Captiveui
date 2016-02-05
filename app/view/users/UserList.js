@@ -25,7 +25,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
         if (write) {
             dockeditems.push({
                 xtype: 'button',
-                text: 'Add User',
+                text: 'Add Admin',
                 cls: 'btn-add-module',
                 itemId: 'btn_adduser'
             })

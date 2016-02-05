@@ -9,7 +9,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
     fields: ['id','name','menuitem'],
     data: [{
             id: 1,
-            name: 'Template',
+            name: 'Pages',
             cls: 'nav-icon nav-icon-template',
             menuitem: [{
                     name: CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE,
@@ -29,7 +29,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             name: 'Configuration',
             cls: 'nav-icon nav-icon-config',
             menuitem: [{
-                    name: 'User',
+                    name: CaptivePortal.Constant.CONFIGURATION.ADMINS,
                     itemname: 'users'
                 }, {
                     name: 'Sites',
@@ -64,7 +64,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                     name: CaptivePortal.Constant.MANAGEMENT.WIFIUSERS,
                     itemname: 'guests'
                 },{
-                    name: 'Access Points',
+                    name: CaptivePortal.Constant.MANAGEMENT.INVENTORY,
                     itemname: 'access_points'
                 }]
         }]

@@ -143,7 +143,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         var me = this;
         me.fireEvent('setActiveUserCard', 0);
         var heading = Ext.ComponentQuery.query('label#lab_appheading')[0];
-        heading.setText('Users');
+        heading.setText(CaptivePortal.Constant.CONFIGURATION.ADMINS);
     },
     createUserModel: function (user, idNeed) {
         var siteNames = [];
@@ -296,7 +296,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success != 'false') {
                     me.fireEvent('setActiveUserCard', 0);
-                    Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Users');
+                    Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.CONFIGURATION.ADMINS);
                     Ext.toast({
                         html: 'Data Saved',
                         title: 'Info',

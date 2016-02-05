@@ -154,7 +154,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                             }, {
                                 xtype: 'label',
                                 reference: 'lab_permittedroles',
-                                text: 'Permitted User Roles',
+                                text: 'Can Create Following Users',
                                 hidden: true,
                                 cls: 'header_label_content'
                             }, {

@@ -29,7 +29,7 @@ Ext.define('CaptivePortal.view.access_point.AccessPointListController', {
     deleteAccessPoint: function(view, record, item, index, e, eOpts){
     	console.log('............deleteAccessPoint');
         Ext.Msg.show({
-            title: 'Delete Access Point',
+            title: 'Delete Inventory',
             message: 'Do you want to delete?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,

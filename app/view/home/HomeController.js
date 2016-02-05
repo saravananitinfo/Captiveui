@@ -35,7 +35,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         switch (menu.itemname) {
             case "users":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
-                this.getView().lookupReference('lab_heading').setText('Users');
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.CONFIGURATION.ADMINS);
                 this.fireEvent('setActiveUserCard', 0);
                 break;
             case "tenants":
@@ -76,7 +76,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 break;
             case "access_points":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_access_point_main');
-                this.getView().lookupReference('lab_heading').setText('Access Point')
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.MANAGEMENT.INVENTORY)
                 this.fireEvent('setAccessPointMainActiveItem', 0);
                 break;
                 case "time_policy":
@@ -112,7 +112,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
     },
     createUsers: function () {
         this.getView().lookupReference('pan_mainnavigation').setActiveItem(1);
-        this.getView().lookupReference('lab_heading').setText('Users')
+        this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.CONFIGURATION.ADMINS)
         //CaptivePortal.util.Utility.replaceCommonContainer('CaptivePortal.view.user.ListUser', this);
         //CaptivePortal.util.Utility.setHeightForCommonContainer();	
     },

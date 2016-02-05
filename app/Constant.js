@@ -6,10 +6,12 @@ Ext.define('CaptivePortal.Constant', {
 		SPLASH_RULES: "Splash Rules"
 	},
 	CONFIGURATION:{
-		SITES: "sites"
+		SITES: "sites",
+		ADMINS: "Admin"
 	},
 	MANAGEMENT:{
-		WIFIUSERS: "WiFi users"
+		WIFIUSERS: "WiFi users",
+		INVENTORY: "Inventory"
 	}
 
 });

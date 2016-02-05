@@ -72,7 +72,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 itemId:this.itemIdPrefix + 'default'
                                             }, {
                                                 xtype: 'label',
-                                                text: 'Site / Tag',
+                                                text: 'Site / Group',
                                                 cls: 'header_label_content',
                                                 hidden:CaptivePortal.app.getUserRole() == 'super_admin'
                                             }, {
@@ -83,7 +83,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 forceSelection:true,
                                                 valueField: 'id',
                                                 displayField: 'name',
-                                                emptyText: 'Select Site / Tag',
+                                                emptyText: 'Select Site / Group',
                                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),
                                                 hidden:CaptivePortal.app.getUserRole() == 'super_admin',
                                                 listConfig:{
@@ -148,7 +148,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 height:155
                                                             }, {
                                                                 xtype:'label',
-                                                                text:'Please select site / tag from above dropdown',
+                                                                text:'Please select Site / Group from above dropdown',
                                                                 cls:'header_label_content',
                                                                 itemId:'site-tag-err-lab',
                                                                 margin: '0 0 0 0'

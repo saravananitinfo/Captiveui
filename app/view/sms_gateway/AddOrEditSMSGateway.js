@@ -58,7 +58,7 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                             },
                             {
                             	xtype: 'label',
-                                text: 'Select Site / Tag',
+                                text: 'Select Site / Group',
                                 cls: 'header_label_content'
                             },
                             {
@@ -68,7 +68,7 @@ Ext.define('CaptivePortal.view.sms_gateway.AddOrEditSMSGateway',{
                                 name: 'associated_resource',
                                 queryMode: 'local',
                                 itemId: 'gateway_sites',
-                                emptyText: "Select Site / Tag",
+                                emptyText: "Select Site / Group",
                                 valueField: 'id',
                                 displayField: 'name',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),

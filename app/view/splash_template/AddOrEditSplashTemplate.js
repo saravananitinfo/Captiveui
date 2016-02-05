@@ -70,7 +70,7 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
                             },
                             {
                                 xtype: 'label',
-                                text: 'Site / Tag',
+                                text: 'Site / Group',
                                 cls: 'header_label_content',
                                 hidden:CaptivePortal.app.getUserRole() == 'super_admin'
                             }, {
@@ -81,7 +81,7 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
                                 forceSelection:true,
                                 valueField: 'id',
                                 displayField: 'name',
-                                emptyText: 'Select Site / Tag',
+                                emptyText: 'Select Site / Group',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),
                                 hidden:CaptivePortal.app.getUserRole() == 'super_admin',
                                 allowBlank: false,

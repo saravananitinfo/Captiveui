@@ -44,7 +44,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 									itemId:this.itemIdPrefix + 'name'
 								},{
 	                                xtype: 'label',
-	                                text: 'Site / Tag',
+	                                text: 'Site / Group',
 	                                cls: 'header_label_content'
 	                            }, {
 	                                xtype: 'combo',
@@ -56,7 +56,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 	                                width:300,
 	                                valueField: 'id',
 	                                displayField: 'name',
-	                                emptyText: 'Select Site / Tag',
+	                                emptyText: 'Select Site / Group',
 	                                filterPickList: true,
 	                                itemId:this.itemIdPrefix + 'sites',
 	                                listeners:{

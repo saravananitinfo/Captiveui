@@ -52,7 +52,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 									value:this.policy_name ? this.policy_name : ''
 								}, {
 	                                xtype: 'label',
-	                                text: 'Site / Tag',
+	                                text: 'Site / Group',
 	                                cls: 'header_label_content'
 	                            }, {
 	                                xtype: 'combo',
@@ -65,7 +65,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 	                                multiSelect:false,
 	                                valueField: 'id',
 	                                displayField: 'name',
-	                                emptyText: 'Select Site / Tag',
+	                                emptyText: 'Select Site / Group',
 	                                store: CaptivePortal.util.Utility.getEmptySiteStore(),
 	                                listConfig:{
 	                                	getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon

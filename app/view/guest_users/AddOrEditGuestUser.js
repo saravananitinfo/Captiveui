@@ -45,7 +45,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
             				},
                             {
                             	xtype: 'label',
-                                text: 'Site / Tag',
+                                text: 'Site / Group',
                                 cls: 'header_label_content'
                             },
                             {
@@ -55,7 +55,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 name: 'associated_resource',
                                 queryMode: 'local',
                                 itemId: 'gateway_sites',
-                                emptyText: "Select Site / Tag",
+                                emptyText: "Select Site / Group",
                                 valueField: 'id',
                                 displayField: 'name',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),

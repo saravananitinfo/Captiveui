@@ -46,7 +46,7 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
                             name: 'associated_resource',
                             queryMode: 'local',
                             itemId: 'access_point_sites',
-                            emptyText: "Select Site / Tag",
+                            emptyText: "Select Site / Group",
                             valueField: 'id',
                             displayField: 'name',
                             store: emptySiteStore,

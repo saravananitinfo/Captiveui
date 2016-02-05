@@ -233,7 +233,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         var view = this.getView();
         view.down('#sms-gateway-tab').tab.hide();
         view.down('#site-tag-err-lab').show();
-        view.down('#site-tag-err-lab').setText('Please select site / tag from above dropdown');
+        view.down('#site-tag-err-lab').setText('Please select Site / Group from above dropdown');
         view.down('#splash-page-details').el.dom.innerHTML = "";
         view.down('#splash-page-details').el.dom.style['border-width'] = '0px';
     },

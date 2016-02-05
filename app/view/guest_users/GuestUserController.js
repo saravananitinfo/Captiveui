@@ -5,7 +5,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserController', {
         var me = this;
         me.fireEvent('setGuestUsersMainActiveItem', 0);
         Ext.StoreManager.lookup('CaptivePortal.store.guest_user.GuestUsers').reload();
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Guest Users Management');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.MANAGEMENT.WIFIUSERS);
     },
     saveGuestUser: function(){
     	var me = this;

@@ -61,7 +61,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                     name: 'SMS Gateway',
                     itemname: 'sms_gateway'
                 },{
-                    name: 'Guest Management',
+                    name: CaptivePortal.Constant.MANAGEMENT.WIFIUSERS,
                     itemname: 'guests'
                 },{
                     name: 'Access Points',

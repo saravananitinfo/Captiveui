@@ -61,7 +61,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 break;*/
             case "sites":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_sitelist');
-                this.getView().lookupReference('lab_heading').setText('Sites');
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.CONFIGURATION.SITES);
                 this.fireEvent('setActiveSiteCard', 0);
                 break;
             case "sms_gateway":
@@ -71,7 +71,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 break;
             case "guests":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_guest_usersmain');
-                this.getView().lookupReference('lab_heading').setText('Guest Users Management')
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.MANAGEMENT.WIFIUSERS)
                 this.fireEvent('setGuestUsersMainActiveItem', 0);
                 break;
             case "access_points":

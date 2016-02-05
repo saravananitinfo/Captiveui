@@ -7,7 +7,7 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFromController', {
     canceluploadGuestUsers: function() {
     	console.log(".....................cancel upload GuestUsers");
     	this.fireEvent('setGuestUsersMainActiveItem', 0);
-        Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Guest Users Management');
+        Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.MANAGEMENT.WIFIUSERS);
     },
     uploadGuestUsers: function(){
     	console.log("...................uploadGuestUsers");

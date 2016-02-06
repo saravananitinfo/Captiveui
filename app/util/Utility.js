@@ -659,41 +659,164 @@ Ext.define('CaptivePortal.util.Utility', {
         });
         return items;
     },
-    splash_journey_preview: function(id){
-        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW+'?journey_id='+id, method = 'GET';
 
-        CaptivePortal.util.Utility.doAjaxJSON(url,{},"Loading...", "",function(response){
-            var resObj = response.responseText;
+    setPreviewiDimention: function(iframeWidth){
+        var bodyObj = Ext.getBody();
+        var tempPlanel = Ext.getCmp('template-previewPanel');
+        if(tempPlanel){
+            var windowHeight = bodyObj.getHeight();
+            var headerHeight = tempPlanel.down('#iframe-header').getHeight();
+            var footerHeight = tempPlanel.down('#iframeFooter').getHeight();
+            var iframe = tempPlanel.down('#iframePanel');
+            iframe.setHeight(windowHeight - headerHeight - footerHeight);
+            var overAllWidth = bodyObj.getWidth();
+            iframeWidth = iframeWidth ? iframeWidth : (iframe.getWidth());
+            var marginReq = parseInt((overAllWidth - (iframeWidth))/2);
+            var margin = '5 0 5 ' + marginReq;
+            iframe.setWidth(iframeWidth);
+            iframe.setMargin(margin);
+        }
+    },
+
+    createPreviewPage: function(resObj){
+        var panelHeight = 40;
                 Ext.getCmp('viewport').setLoading(false);
-                console.log(resObj);
                 var panel = new Ext.panel.Panel({
                     title: 'Preview',
+                    header:false,
                     floating: true,
                     closable : true,
                     width: '100%',
                     height: '100%',
                     default: '',
                     frame: true,
-                    layout: 'fit',
+                    id:'template-previewPanel',
+                    layout: 'vbox',
                     items: [{
+                        xtype:'container',
+                        width:'100%',
+                        style:'',
+                        itemId:'iframe-header',
+                        cls:'preview-page-header',
+                        height:panelHeight,
+                        layout:{
+                            type:'hbox'
+                        },
+                        items:[{
+                            xtype:'label',
+                            text:'Preview',
+                            cls:'previewHeader',
+                            width:'44%'
+                        },{
+                            xtype:'container',
+                            width:'40%',
+                            height:panelHeight,
+                            layout:{
+                                type:'hbox'
+                            },
+                            items:[{
+                                xtype:'label',
+                                height:panelHeight,
+                                cls:'preview-icons',
+                                html:'<div class="container">' + 
+                                        '<div class="section">' +
+                                            '<div class="slider_main" style="text-align:center;">' +
+                                                '<img data-view="laptop" class="preview" src="/resources/preview_images/previewicon1.png" style="width:25px;cursor: pointer;"/>' + 
+                                                '<img data-view="ipad" class="preview" src="/resources/preview_images/previewicon2.png" style="margin-left:10px;width:25px;cursor: pointer;"/>' +
+                                                '<img data-view="mobile_landscape" class="preview" src="/resources/preview_images/previewicon3.png" style="margin-left:10px;width:25px;cursor: pointer;"/>' +
+                                                '<img data-view="mobile" class="preview" src="/resources/preview_images/previewicon4.png" style="margin-left:10px;width:25px;cursor: pointer;"/>' +
+                                            '</div>' +
+                                        '</div>'+
+                                    '</div>',
+                                listeners: {
+                                render: function(c){
+                                  c.getEl().on('click', function(ele){
+                                    var footer  = c.up('#template-previewPanel').down('#iframeFooter'), text ='';
+                                    var viewName = ele.target.getAttribute('data-view');
+                                    switch(viewName){
+                                        case 'laptop':
+                                            CaptivePortal.util.Utility.setPreviewiDimention(960);
+                                            text = 'This is for desktop (960px)';
+                                        break;
+                                        case 'ipad':
+                                            CaptivePortal.util.Utility.setPreviewiDimention(768);
+                                            text = 'This is for tab (768px)';
+                                        break;
+                                        case 'mobile_landscape':
+                                            CaptivePortal.util.Utility.setPreviewiDimention(568);
+                                            text = 'This is for mobile (568px)';
+                                        break;
+                                        case 'mobile':
+                                            CaptivePortal.util.Utility.setPreviewiDimention(320);
+                                            text = 'This is for mobile (320px)';
+                                        break;
+                                    }
+                                    footer.setText(text);
+                                  }, c);
+                                }
+                              }
+                            }]
+                        },{
+                            xtype:'container',
+                            width:'16%',
+                            margin:'0 10 0 0',
+                            height:panelHeight,
+                            layout:{
+                                type:'hbox',
+                                pack:'end'
+                            },
+                            items:[
+                            {
+                                xtype:'label',
+                                cls:'previewClose',
+                                height:panelHeight,
+                                html:'<img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="x-tool-img x-tool-close" role="presentation">',
+                                listeners: {
+                                render: function(c){
+                                  c.getEl().on('click', function(ele){
+                                    var topPanel  = c.up('#template-previewPanel');
+                                    topPanel.close();                                    
+                                  }, c);
+                                }
+                              }
+                            }
+                            ]
+                        }
+                        ]
+                    },{
                         xtype: 'panel',
+                        itemId:'iframePanel',
                         html: '<iframe style="width: 100%;height: 100%;border: none;"></iframe>'
-
+                    },{
+                        xtype: 'label',
+                        itemId:'iframeFooter',
+                        cls:'preview-page-header footer-content',
+                        width:'100%',
+                        height:40,
+                        text:'This is for desktop (960px)'
                     }],
                     listeners:{
                         afterrender: function(panel){
-                            var iframe = panel.items.items[0].el.query('iframe')[0]
-                            iframe.src = "/preview.html"
-                            iframe.onload = function(){
-                                var inside_iframe = iframe.contentWindow.document.getElementsByTagName('iframe')[0]
-                                inside_iframe.contentWindow.document.write(resObj);
-                            }
-                            window.abc = iframe;
+                            var iframe = panel.items.items[1].el.query('iframe')[0];
+                            iframe.contentWindow.document.write(resObj);
                         }
                     }
                 });
                 panel.show();
                 panel.center();
+                this.setPreviewiDimention(960);
+                window.addEventListener("resize", 
+                    function(){
+                        CaptivePortal.util.Utility.setPreviewiDimention();
+                    });
+    },
+
+
+    splash_journey_preview: function(id){
+        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW+'?journey_id='+id, method = 'GET';
+        CaptivePortal.util.Utility.doAjaxJSON(url,{},"Loading...", "",function(response){
+            var resObj = response.responseText;
+            CaptivePortal.util.Utility.createPreviewPage(resObj);
         }.bind(this),function(response){
             var resObj = Ext.decode(response.responseText);
             if(!resObj.success && resObj.error.length){

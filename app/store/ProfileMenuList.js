@@ -28,30 +28,29 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             id: 2,
             name: 'Configuration',
             cls: 'nav-icon nav-icon-config',
-            menuitem: [{
-                    name: CaptivePortal.Constant.CONFIGURATION.ADMINS,
-                    itemname: 'users'
-                }, {
+            menuitem: [ {
                     name: 'Sites',
                     itemname: 'sites'
+                },{
+                    name: CaptivePortal.Constant.MANAGEMENT.INVENTORY,
+                    itemname: 'access_points'
                 }, {
                     name: 'Role Template',
                     itemname: "site_roles"
                 }, {
                     name: 'Tenants',
                     itemname: 'tenants'
-                }, {
-                    name: 'Access Time Policy',
-                    itemname: 'time_policy'
-                }, {
+                },{
                     name: 'Radius VSA',
                     itemname: 'radius_configuration'
                 }]
         }, {
             id: 3,
-            name: 'On Board',
+            name: CaptivePortal.Constant.CONFIGURATION.ADMINS,
             cls: 'nav-icon nav-icon-onboard',
             menuitem: [{
+                    name: CaptivePortal.Constant.CONFIGURATION.ADMINS,
+                    itemname: 'users'
                 }]
         },{
             id: 4,
@@ -60,12 +59,13 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
             menuitem: [{
                     name: 'SMS Gateway',
                     itemname: 'sms_gateway'
+                },
+                {
+                    name: 'Access Time Policy',
+                    itemname: 'time_policy'
                 },{
                     name: CaptivePortal.Constant.MANAGEMENT.WIFIUSERS,
                     itemname: 'guests'
-                },{
-                    name: CaptivePortal.Constant.MANAGEMENT.INVENTORY,
-                    itemname: 'access_points'
                 }]
         }]
 })

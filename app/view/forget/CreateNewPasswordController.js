@@ -16,7 +16,11 @@ Ext.define('CaptivePortal.view.forget.CreateNewPasswordController', {
     onLoginLabelRender: function (label) {
         var me = this;
         label.el.on('click', function () {
-             CaptivePortal.util.Utility.changeView('CaptivePortal.view.login.Login', me);
+             if (Ext.getCmp('viewport')) {
+                Ext.getCmp('viewport').removeAll();
+                var view = Ext.create('CaptivePortal.view.login.Login');
+                Ext.getCmp('viewport').add(view);
+            }
         })
     },
     onSubmit: function () {

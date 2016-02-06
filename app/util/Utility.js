@@ -28,9 +28,9 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.getCmp('viewport').removeAll();
         CaptivePortal.util.Utility.doLoginForLoggedUser();
     },
-    logout: function () {
+    logout: function (callApi) {
         
-        CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+        var _clearLocalValues = function(){
             Ext.getCmp('viewport').removeAll();
             Ext.util.Cookies.clear('CAP_SESSION');
             Ext.util.Cookies.clear('USER_PROFILES');
@@ -39,8 +39,16 @@ Ext.define('CaptivePortal.util.Utility', {
             Ext.StoreManager.lookup('CaptivePortal.store.user.User').removeAll();
             Ext.StoreManager.lookup('CaptivePortal.store.role.Role').removeAll();
             Ext.getCmp('viewport').add(Ext.create('CaptivePortal.view.login.Login'));
-        }.bind(this), function () {
-        }, 'DELETE');
+        }.bind(this)
+
+        if(callApi === false){
+            _clearLocalValues();
+        } else {
+            CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.LOGOUT, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+                _clearLocalValues()
+                }.bind(this), function () {
+            }, 'DELETE');
+        }
     },
     hideSiteTagRefLabel: function(view){
         var lab = view.down('#sitetagdetails');
@@ -403,11 +411,12 @@ Ext.define('CaptivePortal.util.Utility', {
     },
 
     postManipulateResponse: function(response, callback){
-        var status = response.status, errFlag = false;
+        var status = response.status;
+        var errFlag = false;
         switch(status){
             case 401:
             case 403:
-                CaptivePortal.util.Utility.logoutForSession();
+                CaptivePortal.util.Utility.logoutForSession(false);
                 errFlag = true;
             break;
             case 0:
@@ -445,14 +454,14 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.getCmp('viewport').setLoading(false);
     },
 
-    logoutForSession: function(){
+    logoutForSession: function(callApi){
         Ext.Msg.show({
                         title: 'Session Expired',
                         message: 'Your session is expired. Please Login again',
                         buttons: Ext.Msg.YES,
                         icon: Ext.Msg.INFO,
                         fn: function (btn) {
-                            CaptivePortal.util.Utility.logout();
+                            CaptivePortal.util.Utility.logout(callApi);
                         }.bind(this)
                     });
     },

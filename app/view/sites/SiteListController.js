@@ -110,12 +110,30 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
     getSite: function () {
         var store = this.getView().lookupReference('grd_sitelist').getStore();
         store.load();
-        Ext.StoreManager.lookup('CaptivePortal.store.user.User').reload();
-        Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates').reload();
-        Ext.StoreManager.lookup('CaptivePortal.store.template_mgmt.TemplateMgmt').reload();
-        Ext.StoreManager.lookup('CaptivePortal.store.rule_group.RuleGroup').reload();
-        Ext.StoreManager.lookup('CaptivePortal.store.access_point.AccessPoints').reload();
-        Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.SMSGateways').reload();
+        var storeList = [
+        {key:'users', store:'CaptivePortal.store.user.User'},
+        {key:'templates', store:'CaptivePortal.store.splash_template.SplashTemplates'},
+        {key:'journeys', store:'CaptivePortal.store.template_mgmt.TemplateMgmt'},
+        {key:'rule_group', store:'CaptivePortal.store.rule_group.RuleGroup'},
+        {key:'access_points', store:'CaptivePortal.store.access_point.AccessPoints'},
+        {key:'sms_gateway', store:'CaptivePortal.store.sms_gateway.SMSGateways'}
+        ];
+
+        var accessPerList = CaptivePortal.app.getAccessPermissionList();
+        Ext.Array.each(storeList, function(rec) {
+          var itemFound = false;
+          Ext.Array.each(accessPerList, function(per) {
+            if(per.access_for == rec.key && per.read && per.write){
+                itemFound = true;
+                return false;
+            }
+          }, this);
+          if(itemFound){
+            Ext.StoreManager.lookup(rec.store).reload();
+          }
+        }, this);
+
+
     }
 });
 

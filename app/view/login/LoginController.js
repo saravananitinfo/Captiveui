@@ -35,7 +35,12 @@ Ext.define('CaptivePortal.view.login.LoginController', {
         }
     },
     createForget_password_view: function () {
-        CaptivePortal.util.Utility.changeView('CaptivePortal.view.forget.ForgetPassword', this);
+        //CaptivePortal.util.Utility.changeView('CaptivePortal.view.forget.ForgetPassword', this);
+        if (Ext.getCmp('viewport')) {
+            Ext.getCmp('viewport').removeAll();
+            var view = Ext.create('CaptivePortal.view.forget.ForgetPassword');
+            Ext.getCmp('viewport').add(view);
+        }  
     },
     render_forget_password: function (labelComp) {
         var ctrl = this;

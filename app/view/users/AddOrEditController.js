@@ -2,7 +2,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.users',
     id: 'vc_usersaddoreditcontroller',
-    requires: ['CaptivePortal.model.role.RoleAccess'],
+    requires: ['CaptivePortal.model.role.RoleAccess', 'CaptivePortal.view.users.UserAccess'],
     listen: {
         controller: {
             '#vc_users_maincontroller': {
@@ -14,7 +14,31 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 showUsersAccessPermission: 'showAccessPermission',
                 setEdit: 'setDataForEdit'
             }
+        },
+        component: {
+            'container#con_infoimg image#img_accessinfo': {
+                render: 'onInfoImgRender'
+            }
         }
+    },
+    config: {
+        accessStr: null
+    },
+    onInfoImgRender: function (img) {       
+        var me = this;
+        img.el.on('click', function () {
+            var win = Ext.create('Ext.Window', {
+                height: 548,
+                width: 400,
+                modal: true,
+                layout: 'fit',
+                items: [{
+                        xtype: 'users_useraccess',
+                        store: me.getAccessStr()
+                    }]
+            });
+            win.show();
+        });
     },
     bindStoreForNew: function (data) {
         var tagsAndSites = CaptivePortal.util.Utility.createSitesAndTags(data);
@@ -36,17 +60,17 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         this.getView().lookupReference('tf_site').store.loadRawData(tagsAndSites);
         var record = this.createUserModel(data.user_profile, true);
         var form = Ext.ComponentQuery.query('#userform')[0];
-        if(CaptivePortal.app.getUserRole() == 'super_admin'){
-            if(data && data.user_profile && data.user_profile.tenant && data.user_profile.tenant.id){
+        if (CaptivePortal.app.getUserRole() == 'super_admin') {
+            if (data && data.user_profile && data.user_profile.tenant && data.user_profile.tenant.id) {
                 this.getTagsForTenant(data.user_profile.tenant.id);
                 form.loadRecord(record);
-            } else{
+            } else {
                 form.loadRecord(record);
             }
-        } else{
+        } else {
             form.loadRecord(record);
         }
-        
+
     },
     setUserId: function (userid) {
         this.getView().lookupReference('hf_userid').setValue(userid);
@@ -74,7 +98,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             rolesStr.setData(roles)
             var accesspermissionStr = Ext.StoreManager.lookup('CaptivePortal.store.users.AccessPermission');
             var record = [];
-            Ext.Array.each(rolesStr.data.items, function (roledata, index) {             
+            Ext.Array.each(rolesStr.data.items, function (roledata, index) {
                 record.push({
                     id: roledata.data.id,
                     name: roledata.data.name,
@@ -141,6 +165,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
     },
     cancelUser: function () {
         var me = this;
+        me.getView().lookupReference('con_roleinfo').setVisible(false);
         me.fireEvent('setActiveUserCard', 0);
         var heading = Ext.ComponentQuery.query('label#lab_appheading')[0];
         heading.setText(CaptivePortal.Constant.CONFIGURATION.ADMINS);
@@ -154,7 +179,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             name: user.name,
             id: user.id,
             email: user.user.email,
-            associated_resources:user.associated_resources,
+            associated_resources: user.associated_resources,
             site_role_id: (!idNeed) ? user.site_role.name : user.site_role.id,
             tenant_id: (!idNeed) ? user.tenant.name : user.tenant.id,
             status: user.status
@@ -182,21 +207,21 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             }
         }, 'GET');
     },
-    getTagsForTenant:function(tenantId){
+    getTagsForTenant: function (tenantId) {
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SITES_FOR_TENANT + tenantId + '/get_sites_and_tags.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
-                var resObj = Ext.decode(response.responseText);
-                if (resObj.success) {
-                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
-                    var sitesCombo = this.getView().lookupReference('tf_site');
-                    sitesCombo.reset();
-                    sitesCombo.store.loadRawData(sitesAndTags);
-                }
-            }.bind(this), function (response) {
-                var resObj = Ext.decode(response.responseText);
-                if (!resObj.success && resObj.error.length) {
-                    CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
-                }
-            }, 'GET', false);
+            var resObj = Ext.decode(response.responseText);
+            if (resObj.success) {
+                var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+                var sitesCombo = this.getView().lookupReference('tf_site');
+                sitesCombo.reset();
+                sitesCombo.store.loadRawData(sitesAndTags);
+            }
+        }.bind(this), function (response) {
+            var resObj = Ext.decode(response.responseText);
+            if (!resObj.success && resObj.error.length) {
+                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+            }
+        }, 'GET', false);
     },
     selectTenant: function (combo, record, eopts) {
         var siteCombo = combo.nextNode('combo');
@@ -225,11 +250,17 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
     },
     selectRole: function (combo, record, eopts) {
         var me = this;
+        me.getView().lookupReference('con_roleinfo').setVisible(true);
         if (combo.getValue()) {
             CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.EDIT_ROLE + combo.getValue() + '/edit.json', {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                    var accesses = resObj.data.site_role.site_accesses;
+                    var accesses = resObj.data.site_role.site_accesses;                 
+                    var str = Ext.create('Ext.data.Store', {
+                        model: 'CaptivePortal.model.role.RoleAccess',
+                        data: accesses
+                    });
+                    me.setAccessStr(str);
                     var permittedRoles = [];
                     Ext.Array.each(accesses, function (rec) {
                         if (rec.access_for === "users") {
@@ -253,7 +284,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
         }
     },
     saveUser: function () {
-     
+
         var me = this;
         var form = this.getView().down('form');
         if (form.isValid()) {
@@ -265,7 +296,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                 form.updateRecord(userModel);
             }
 
-            if(formValues.associated_resources === ""){
+            if (formValues.associated_resources === "") {
                 formValues.associated_resources = []
             }
 
@@ -295,6 +326,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             CaptivePortal.util.Utility.doAjaxJSON(url, saveJson, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success != 'false') {
+                    me.getView().lookupReference('con_roleinfo').setVisible(false);
                     me.fireEvent('setActiveUserCard', 0);
                     Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.CONFIGURATION.ADMINS);
                     Ext.toast({

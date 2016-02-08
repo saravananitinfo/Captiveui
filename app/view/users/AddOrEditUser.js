@@ -77,7 +77,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 queryMode: 'local',
                                 itemId: 'tenant',
                                 valueField: 'id',
-                                forceSelection:true,
+                                forceSelection: true,
                                 displayField: 'name',
                                 reference: 'cmb_tenant',
                                 emptyText: 'Select Tenant',
@@ -97,14 +97,14 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 multiSelect: true,
                                 name: 'associated_resources',
                                 itemId: 'site',
-                                forceSelection:true,
+                                forceSelection: true,
                                 valueField: 'id',
                                 displayField: 'name',
                                 emptyText: 'Select Sites / Tags',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),
                                 filterPickList: true,
-                                listConfig:{
-                                   getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                listConfig: {
+                                    getInnerTpl: CaptivePortal.util.Utility.getSiteTemplateIcon
                                 }
                             }, {
                                 xtype: 'label',
@@ -119,14 +119,31 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 allowBlank: false,
                                 valueField: 'id',
                                 displayField: 'name',
-                                forceSelection:true,
+                                forceSelection: true,
                                 emptyText: 'Select Role',
                                 store: 'CaptivePortal.store.users.Role',
                                 listeners: {
                                     'select': 'selectRole'
                                 }
                             }, {
+                                xtype: 'container',                                
+                                padding: '0px 0px 0px 0px',
+                                hidden:true,
+                                itemId:'con_infoimg',
+                                reference:'con_roleinfo',
+                                margin: '-36px 0 0 0px',
+                                items: [{
+                                        xtype: 'image',
+                                        itemId:'img_accessinfo',
+                                        reference:'img_roleinfo',
+                                        margin: '-20px 0px 0px 410px',
+                                        src: 'resources/images/info.png',
+                                        height: 24,
+                                        width: 24
+                                    }]
+                            }, {
                                 xtype: 'label',
+                                margin: '10px 0 0 0',
                                 text: 'Access Status',
                                 cls: 'header_label_content'
                             }, {

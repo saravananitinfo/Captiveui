@@ -140,7 +140,6 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                                         ]
                                     });
                                 }else{
-                                    console.log("...............mwmwmw");
                                     window.abc = tabpanel;
                                     // var indx = tabpanel.items.indexOf(tabpanel.down('login_form_setting_panel').up('panel'));
                                     tabpanel.remove(tabpanel.items.items[2]);

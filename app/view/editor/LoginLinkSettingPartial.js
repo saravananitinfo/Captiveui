@@ -42,7 +42,7 @@ Ext.define("CaptivePortal.view.editor.LoginLinkSettingPartial",{
                     {
                         xtype: 'label',
                         margin: '10 10 0 10',
-                        text: 'Font Size'
+                        text: 'Font Size (In px)'
                     },
                     {
                         xtype: 'numberfield',

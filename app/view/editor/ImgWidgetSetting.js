@@ -300,7 +300,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                     {
                         xtype: 'label',
                         margin: '10 10 0 10',
-                        text: 'Width'
+                        text: 'Width (In px)'
                     },
                     {
                         xtype: 'numberfield',
@@ -337,7 +337,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                     {
                         xtype: 'label',
                         margin: '10 10 0 10',
-                        text: 'Height'
+                        text: 'Height (In px)'
                     },
                     {
                         xtype: 'numberfield',

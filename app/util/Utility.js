@@ -721,9 +721,9 @@ Ext.define('CaptivePortal.util.Utility', {
                                 html:'<div class="container">' + 
                                         '<div class="section">' +
                                             '<div class="slider_main" style="text-align:center;">' +
-                                                '<img data-view="laptop" class="preview" src="/resources/preview_images/previewicon1.png" style="width:25px;cursor: pointer;"/>' + 
+                                                '<img data-view="laptop" class="preview w_preview_img" src="/resources/preview_images/previewicon1.png" style="width:30px;cursor: pointer;"/>' + 
                                                 '<img data-view="ipad" class="preview" src="/resources/preview_images/previewicon2.png" style="margin-left:10px;width:25px;cursor: pointer;"/>' +
-                                                '<img data-view="mobile_landscape" class="preview" src="/resources/preview_images/previewicon3.png" style="margin-left:10px;width:25px;cursor: pointer;"/>' +
+                                                '<img data-view="mobile_landscape" class="preview" src="/resources/preview_images/previewicon3.png" style="margin-left:10px;width:30px;cursor: pointer;"/>' +
                                                 '<img data-view="mobile" class="preview" src="/resources/preview_images/previewicon4.png" style="margin-left:10px;width:25px;cursor: pointer;"/>' +
                                             '</div>' +
                                         '</div>'+
@@ -733,21 +733,31 @@ Ext.define('CaptivePortal.util.Utility', {
                                   c.getEl().on('click', function(ele){
                                     var footer  = c.up('#template-previewPanel').down('#iframeFooter'), text ='';
                                     var viewName = ele.target.getAttribute('data-view');
+                                    var imgs = document.getElementsByClassName('preview')
+                                    for(i=0; i<=imgs.length-1; i++){
+                                        imgs[i].classList.remove('l_preview_img');
+                                        imgs[i].classList.remove('w_preview_img');
+                                    }
+                                    
                                     switch(viewName){
                                         case 'laptop':
                                             CaptivePortal.util.Utility.setPreviewiDimention(960);
+                                            ele.target.className = ele.target.className+' w_preview_img'
                                             text = 'This is for desktop (960px)';
                                         break;
                                         case 'ipad':
                                             CaptivePortal.util.Utility.setPreviewiDimention(768);
+                                            ele.target.className = ele.target.className+' l_preview_img'
                                             text = 'This is for tab (768px)';
                                         break;
                                         case 'mobile_landscape':
                                             CaptivePortal.util.Utility.setPreviewiDimention(568);
+                                            ele.target.className = ele.target.className+' w_preview_img'
                                             text = 'This is for mobile (568px)';
                                         break;
                                         case 'mobile':
                                             CaptivePortal.util.Utility.setPreviewiDimention(320);
+                                            ele.target.className = ele.target.className+' l_preview_img'
                                             text = 'This is for mobile (320px)';
                                         break;
                                     }

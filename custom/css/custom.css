@@ -556,4 +556,14 @@ span.rollover:hover {
  	border-right: 0px !important;
  }
 
+ .w_preview_img{
+ 	border: 1px solid rgba(0, 1, 1, 0.09);
+    padding: 0px 2px;
+ }
+
+ .l_preview_img{
+ 	border: 1px solid rgba(0, 1, 1, 0.09);
+    padding: 2px 0px;
+ }
+
 

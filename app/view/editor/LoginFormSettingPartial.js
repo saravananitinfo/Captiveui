@@ -664,29 +664,29 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 												button_panel.form_json = JSON.stringify(form_json);
 											}
 										}
-									},
-									{
-										xtype: 'checkbox',
-										style: 'float: left;text-align: center;',
-										margin: '0 0 0 0',
-										value: form_json.verify_email.optional,
-										width: '25%',
-										listeners: {
-											'change': function(ths, newValue, oldValue, eOpts){
-												var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
-												// var form_json = Ext.decode(button_panel.form_json, true);
-
-												// var form_json = button_panel.form_json;
-												var form_json = Ext.decode(button_panel.form_json);
-
-												console.log(newValue)
-												form_json.verify_email.optional = newValue;
-
-												// button_panel.form_json = form_json;
-												button_panel.form_json = JSON.stringify(form_json);
-											}
-										}
 									}
+									// {
+									// 	xtype: 'checkbox',
+									// 	style: 'float: left;text-align: center;',
+									// 	margin: '0 0 0 0',
+									// 	value: form_json.verify_email.optional,
+									// 	width: '25%',
+									// 	listeners: {
+									// 		'change': function(ths, newValue, oldValue, eOpts){
+									// 			var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+									// 			// var form_json = Ext.decode(button_panel.form_json, true);
+
+									// 			// var form_json = button_panel.form_json;
+									// 			var form_json = Ext.decode(button_panel.form_json);
+
+									// 			console.log(newValue)
+									// 			form_json.verify_email.optional = newValue;
+
+									// 			// button_panel.form_json = form_json;
+									// 			button_panel.form_json = JSON.stringify(form_json);
+									// 		}
+									// 	}
+									// }
 								]
 							},
 							{
@@ -727,29 +727,29 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 												button_panel.form_json = JSON.stringify(form_json);
 											}
 										}
-									},
-									{
-										xtype: 'checkbox',
-										style: 'float: left;text-align: center;',
-										margin: '0 0 0 0',
-										value: form_json.verify_mobile_number.optional,
-										width: '25%',
-										listeners: {
-											'change': function(ths, newValue, oldValue, eOpts){
-												var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
-												// var form_json = Ext.decode(button_panel.form_json, true);
-
-												// var form_json = button_panel.form_json;
-												var form_json = Ext.decode(button_panel.form_json);
-
-												console.log(newValue)
-												form_json.verify_mobile_number.optional = newValue;
-
-												// button_panel.form_json = form_json;
-												button_panel.form_json = JSON.stringify(form_json);
-											}
-										}
 									}
+									// {
+									// 	xtype: 'checkbox',
+									// 	style: 'float: left;text-align: center;',
+									// 	margin: '0 0 0 0',
+									// 	value: form_json.verify_mobile_number.optional,
+									// 	width: '25%',
+									// 	listeners: {
+									// 		'change': function(ths, newValue, oldValue, eOpts){
+									// 			var button_panel = Ext.ComponentQuery.query('#'+this.up('.login_button_setting').button_id)[0];
+									// 			// var form_json = Ext.decode(button_panel.form_json, true);
+
+									// 			// var form_json = button_panel.form_json;
+									// 			var form_json = Ext.decode(button_panel.form_json);
+
+									// 			console.log(newValue)
+									// 			form_json.verify_mobile_number.optional = newValue;
+
+									// 			// button_panel.form_json = form_json;
+									// 			button_panel.form_json = JSON.stringify(form_json);
+									// 		}
+									// 	}
+									// }
 								]
 							}
 						]

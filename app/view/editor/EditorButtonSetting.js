@@ -103,7 +103,7 @@ Ext.define("CaptivePortal.view.editor.EditorButtonSetting",{
                     {
                         xtype: 'label',
                         margin: '10 10 0 10',
-                        text: 'Radius (In px)'
+                        text: 'Border Radius (In px)'
                     },
                     {
                         xtype: 'numberfield',

@@ -300,7 +300,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 xtype:'textfield',
                                                                 maxLength:300,
                                                                 margin: '10 0 20 0',
-                                                                allowBlank:false,
+                                                                allowBlank:true,
                                                                  width: 680,  
                                                                 name:'default_success_url'
                                                             },{
@@ -312,7 +312,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 xtype:'textfield',
                                                                 margin: '10 0 20 0',
                                                                 maxLength:300,
-                                                                allowBlank:false,
+                                                                allowBlank:true,
                                                                  width: 680,  
                                                                 name:'default_error_url'
                                                             }

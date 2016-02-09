@@ -57,7 +57,7 @@ Ext.define("CaptivePortal.view.editor.LoginFormWidget",{
                 itemId: "text_panel",
                 style: 'text-align: center;font-size: 22px;',
                 padding: 10,
-                html: "Login Form"
+                html: '<img src="/resources/images/login_form.png"/>'
             }
         ]
         this.callParent();

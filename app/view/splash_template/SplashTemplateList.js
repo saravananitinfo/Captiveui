@@ -71,7 +71,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         if (write) {
             grid_colunms.push({
                 header: 'Action',
-                dataIndex: 'admin_tempalte',
+                dataIndex: 'admin_template',
                 flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {

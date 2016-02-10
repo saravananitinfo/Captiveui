@@ -7,6 +7,6 @@ Ext.define('CaptivePortal.model.splash_template.SplashTemplate',{
 		{ name:'status', type:'string'},
 		{ name:'category', type:'string'},
 		{ name:'associated_resource'},
-		{ name:'admin_tempalte'}
+		{ name:'admin_template'}
 	]
 });

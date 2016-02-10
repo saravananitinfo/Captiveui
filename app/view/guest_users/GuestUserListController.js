@@ -92,7 +92,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
             guest_user_id: obj.data.guest_user.id,
             email: obj.data.guest_user.email,
             enabled: obj.data.guest_user.enabled,
-            expiry_date: obj.data.guest_user.expiry_date,
+            expiry_date: new Date(obj.data.guest_user.expiry_date),
             first_name: obj.data.guest_user.first_name,
             last_name: obj.data.guest_user.last_name,
             mobile_no: obj.data.guest_user.mobile_no,

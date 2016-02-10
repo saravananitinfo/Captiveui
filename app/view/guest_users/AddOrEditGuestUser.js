@@ -85,6 +85,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                             {
                                 xtype: 'textfield',
                                 name: 'password',
+                                inputType: 'password',
                                 itemId: 'guest_user_password',
                                 emptyText: "Password",
                                 allowBlank: false,
@@ -275,7 +276,8 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                                 width: 400,
                                                 itemId: 'guest_user_expiry_date',
                                                 allowBlank: true,
-                                                value: this.expiry_date ? this.expiry_date : ''
+                                                format: "d/m/Y",
+                                                value: this.expiry_date ? this.expiry_date : new Date()
                                             }
                                         ]
                                     }

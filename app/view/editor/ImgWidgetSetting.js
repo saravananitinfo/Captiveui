@@ -6,6 +6,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
     cls: 'img_widget_setting',
     bodyCls: 'img_widget_setting',
     itemId: 'img_widget_setting',
+    scrollable: 'y',
     layout: 'vbox',
     listeners: {
       'close': function() {
@@ -71,12 +72,22 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                                     img_panel.el.dom.style.background = 'none';
                                     var img = img_panel.down('#img_panel').el.query('.img')[0]
                                     img.removeAttribute('width');img.removeAttribute('height');
+                                    var newImg = new Image;
+                                    newImg.onload = function() {
+                                        img.src = this.src;
+                                        var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
+                                        img_widget_setting.down('#img_height_field').setValue(img.height);
+                                        img_widget_setting.down('#img_width_field').setValue(img.width);
+                                    }
+                                    newImg.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.original_image_url;
                                     img.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.original_image_url;
                                     img.style.display = 'block';
 
-                                    var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
-                                    img_widget_setting.down('#img_height_field').setValue(img.height);
-                                    img_widget_setting.down('#img_width_field').setValue(img.width);
+                                    
+
+                                    var img_json = Ext.decode(img_panel.img_json, true);
+                                    img_json['src'] = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.original_image_url;
+                                    img_panel.img_json = JSON.stringify(img_json);
 
                                 }
                             }.bind(this),function(response){
@@ -375,7 +386,9 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                 title: 'Gallery',
                 collapsible: true,
                 collapsed: true,
+                scrollable: 'y',
                 width: '100%',
+                height: 250,
                 layout: 'vbox',
                 items: [
                     {

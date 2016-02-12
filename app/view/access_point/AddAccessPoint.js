@@ -89,10 +89,20 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
                         tdCls: 'table-cell',
             			editor: {
                 			xtype:"textfield",
+                            vtype:'mac',
                 			emptyText: "MAC Address",
             				hasFocus:true,
             				enableKeyEvents:true,
-                			allowBlank: false
+                			allowBlank: false,
+                            listeners:{
+                                change:function(tf,val){   
+                                    var mac = val.split(":").join(""); 
+                                    if (mac.length > 0) {
+                                     mac = mac.match(new RegExp('.{1,2}', 'g')).join(":");
+                                       }
+                                    tf.setValue(mac);
+                                }
+                            }
            				},
            				emptyCellText: '<span style="color:#aaaaaa;">' + "Mac Id" + "</span>",
            			},
@@ -153,7 +163,10 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
 			            beforeedit: function(d, c) {
 			            	console.log("...........cellediting");
 			                // c.record.set("invalidRec", false);
-			            }
+			            },
+                        edit: function(editor, e) {   
+                            e.record.commit();
+                         }
 			        }
 			    },
 			    selType: "checkboxmodel",

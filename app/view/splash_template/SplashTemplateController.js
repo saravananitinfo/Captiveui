@@ -91,6 +91,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
         splash_template.splash_template_id = splash_template.id
         var model = Ext.create('CaptivePortal.model.splash_template.SplashTemplate', splash_template);
         form.loadRecord(model);
+        console.log(model);
         // if(data.splash_journey.site_info && data.splash_journey.site_info.id){
         //     form.down('#site_combo').setValue(data.splash_journey.site_info.id);
         // }

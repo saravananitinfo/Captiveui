@@ -60,5 +60,5 @@ Ext.define('CaptivePortal.view.home.Body', {
 //            itemId: 'card_sms_gatewaysmain'
 //        }]
 
-})
+});
 

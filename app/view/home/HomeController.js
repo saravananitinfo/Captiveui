@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.view.home.HomeController', {
     extend: 'Ext.app.ViewController',
-    requires:['CaptivePortal.view.contentbuilder.Main'],
+    requires: ['CaptivePortal.view.contentbuilder.Main'],
     alias: 'controller.home',
     id: 'vc_homecontroller',
     // requires:['CaptivePortal.view.login.Login'],
@@ -9,24 +9,24 @@ Ext.define('CaptivePortal.view.home.HomeController', {
             'gridpanel#grd_profilelist': {
                 cellclick: 'getProfileFromUser'
             },
-        global:{
-            logout:'logout'
-        }
+            global: {
+                logout: 'logout'
+            }
         }
     },
-    switchToAdmin: function(){
-        if(CaptivePortal.app.getAssumeUserFlag() == true){
+    switchToAdmin: function () {
+        if (CaptivePortal.app.getAssumeUserFlag() == true) {
             CaptivePortal.util.Utility.doAssumeUserLoginLogout(false);
             return;
         }
     },
-    changePassword: function(){
+    changePassword: function () {
 
         this.getView().lookupReference('pan_mainnavigation').setActiveItem('change_password_main');
 
-       this.getView().lookupReference('lab_heading').setText('Change Password'); 
+        this.getView().lookupReference('lab_heading').setText('Change Password');
 
-   },
+    },
     onUserProfileSelect: function (menu, item) {
         Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(item.profileid);
@@ -48,17 +48,17 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Roles')
                 this.fireEvent('setRoleMainActiveItem', 0);
                 break;
-            /*case "templates":
-               Ext.create('Ext.window.Window',{
-                   height:'100%',
-                   layout:'fit',
-                   title:'Content Builder',
-                   width:'100%',
-                   items:[{
-                           xtype:'contentbuilder'
-                   }]
-               }).show();
-                break;*/
+                /*case "templates":
+                 Ext.create('Ext.window.Window',{
+                 height:'100%',
+                 layout:'fit',
+                 title:'Content Builder',
+                 width:'100%',
+                 items:[{
+                 xtype:'contentbuilder'
+                 }]
+                 }).show();
+                 break;*/
             case "sites":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_sitelist');
                 this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.CONFIGURATION.SITES);
@@ -79,31 +79,40 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.MANAGEMENT.INVENTORY)
                 this.fireEvent('setAccessPointMainActiveItem', 0);
                 break;
-                case "time_policy":
-                    this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_time_policymain');
-                    this.getView().lookupReference('lab_heading').setText('Access Time Policy');
-                    this.fireEvent('setTimePolicyActiveItem',0);
+            case "time_policy":
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_time_policymain');
+                this.getView().lookupReference('lab_heading').setText('Access Time Policy');
+                this.fireEvent('setTimePolicyActiveItem', 0);
                 break;
             case "journeys":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_template_main');
                 this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES);
-                this.fireEvent('setTemplateMgmtActiveItem',0);
+                this.fireEvent('setTemplateMgmtActiveItem', 0);
                 break;
             case "radius_configuration":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_radius_vsa_main');
-                this.getView().lookupReference('lab_heading').setText('Radius VSA');                
-                this.fireEvent('setRadiusVSAActiveItem',0);
+                this.getView().lookupReference('lab_heading').setText('Radius VSA');
+                this.fireEvent('setRadiusVSAActiveItem', 0);
                 break;
             case "rule_group":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_rule_group_main');
-                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_RULES);                
-                this.fireEvent('setRuleGroupActiveItem',0);
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_RULES);
+                this.fireEvent('setRuleGroupActiveItem', 0);
                 break;
             case "templates":
-                this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
-                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);                
-                this.fireEvent('setSplashPageActiveItem',0);
+                this.getView().lookupReference(',').setActiveItem('card_splash_template_main');
+                this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
+                this.fireEvent('setSplashPageActiveItem', 0);
                 break;
+            case "reports":
+                if (menu.text === 'Active Session Report') {
+                    this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_activesessionreport');
+                    this.getView().lookupReference('lab_heading').setText('ActiveSession');
+                } else {
+
+                }                
+                break;
+
         }
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {

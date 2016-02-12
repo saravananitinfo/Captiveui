@@ -5,7 +5,7 @@ Ext.define('CaptivePortal.view.home.MainContainer',{
 	initComponent:function(){
 	this.items = [{
 		xtype:'usermain'
-	}]
+	}];
 	this.callParent(arguments);
 	}
 })

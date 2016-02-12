@@ -12,6 +12,5 @@ Ext.define('CaptivePortal.Constant', {
 	MANAGEMENT:{
 		WIFIUSERS: "WiFi users",
 		INVENTORY: "Inventory"
-	}
-
+            } 
 });

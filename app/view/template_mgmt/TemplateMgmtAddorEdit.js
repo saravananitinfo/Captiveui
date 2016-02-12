@@ -173,8 +173,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                         layout:'vbox',
                                                         items:[{
                                                                 xtype:'checkboxfield',
-                                                                name:'custom_tnc',
-                                                                checked:true,
+                                                                name:'custom_tnc',                                                                
                                                                 inputValue: true,
                                                                 boxLabel:'Enable custom terms',
                                                                 itemId:this.itemIdPrefix + 'custom_tnc',
@@ -233,8 +232,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                         layout:'vbox',
                                                         items:[{
                                                                 xtype:'checkboxfield',
-                                                                name:'custom_privacy_policies',
-                                                                checked:true,
+                                                                name:'custom_privacy_policies',                                                               
                                                                 inputValue: true,
                                                                 boxLabel:'Enable privacy policy terms',
                                                                 itemId:this.itemIdPrefix + 'custom_privacy_policies',
@@ -337,6 +335,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 allowBlank: true,
                                                                 editable:false,
                                                                 name:'sms_gateway_management_id',
+                                                                reference:'sms_gateway_management_id',
                                                                 itemId:'sms_gateway_management_id',
                                                                 queryMode: 'local',                                             
                                                                 forceSelection:true,

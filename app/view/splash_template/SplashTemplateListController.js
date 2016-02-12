@@ -51,7 +51,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                 if (btn === 'yes') {
                     var url = CaptivePortal.Config.SERVICE_URLS.DUPLICATE_SPLASH_TEMPLATE + record.data.id + '/duplicate_template.json';
                     CaptivePortal.util.Utility.doAjax(url, {save: "yes"}, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
-                        var resObj = Ext.decode(response.responseText);
+                        var resObj = Ext.decode(response.responseText);                        
                         if (resObj.success) {
                             console.log("..................akshy");
                             console.log(resObj);
@@ -59,6 +59,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                             me.fireEvent('setSplashPageActiveItem',0);
                         }
                     }.bind(this), function (response) {
+                       
                     }, 'GET');
                 } else if (btn === 'no') {
 

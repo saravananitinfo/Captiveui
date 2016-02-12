@@ -1,7 +1,7 @@
 Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
-    BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
-    // BASE_URL: 'http://192.168.0.220:3001/',
+    //BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
+     BASE_URL: 'http://192.168.0.220:3001/',
     config: {
         myMask: null
     },
@@ -28,8 +28,7 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.getCmp('viewport').removeAll();
         CaptivePortal.util.Utility.doLoginForLoggedUser();
     },
-    logout: function (callApi) {
-        
+    logout: function (callApi) {        
         var _clearLocalValues = function(){
             Ext.getCmp('viewport').removeAll();
             Ext.util.Cookies.clear('CAP_SESSION');
@@ -112,7 +111,7 @@ Ext.define('CaptivePortal.util.Utility', {
         }
         return sitesAndTags;
     },
-    showServerError: function(response){
+    showServerError: function(response){       
         var resObj = Ext.decode(response.responseText);
         if (!resObj.success && resObj.error.length) {
             CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
@@ -179,7 +178,7 @@ Ext.define('CaptivePortal.util.Utility', {
         CaptivePortal.app.setUserRole(profile.user_role);
         CaptivePortal.app.setAccessPermissionList(profile.access_permission_list);
         this.addRulegroupForAccess(profile.access_permission_list);
-        CaptivePortal.app.setUserPermittedList(profile.permitted_roles);
+        CaptivePortal.app.setUserPermittedList(profile.permitted_roles);       
         CaptivePortal.app.setUserAuthorisedIPs(profile.authorized_ips);
         CaptivePortal.app.setUserProfileID(profile.id);
         CaptivePortal.app.setUserTenantID(profile.tenant.id);
@@ -292,7 +291,7 @@ Ext.define('CaptivePortal.util.Utility', {
         var store = Ext.StoreManager.lookup('ProfileMenuList');
         var menu;
         Ext.Array.each(store.data.items, function (rec, index) {
-            menu = Ext.widget('menu');
+            menu = Ext.widget('menu');            
             Ext.Array.each(rec.data.menuitem, function (menuitem, index) {
                 Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
                     if (menuitem.itemname === permission.access_for) {
@@ -343,7 +342,7 @@ Ext.define('CaptivePortal.util.Utility', {
                     margin: '0 50 0 0',
                     menu: menu
                 });
-        })
+        });
     },
     showInfo: function (title, msg) {
 
@@ -414,14 +413,15 @@ Ext.define('CaptivePortal.util.Utility', {
         var status = response.status;
         var errFlag = false;
         switch(status){
-            case 401:
             case 403:
+            case 401:
                 CaptivePortal.util.Utility.logoutForSession(false);
                 errFlag = true;
             break;
             case 0:
             case 500:
-                CaptivePortal.util.Utility.showError('Error', 'There is an issue with the service, please try after some time');
+                 CaptivePortal.util.Utility.logoutForSession(false);
+               // CaptivePortal.util.Utility.showError('Error', 'There is an issue with the service, please try after some time');
                 errFlag = true;
             break;
             case 422:
@@ -434,10 +434,14 @@ Ext.define('CaptivePortal.util.Utility', {
             break;
         }
         var resStr = response.responseText;
-        if(resStr){
-            // var resObj = Ext.decode(response.responseText);
-            var resObj = response.responseText
-            var errs = resObj.message || resObj.error;
+        if(resStr){             
+            try{                 
+            var responseHeaderObj = response.getAllResponseHeaders();
+            console.log(responseHeaderObj);
+           var contentType = responseHeaderObj['content-type'];
+            if(contentType === 'application/json; charset=utf-8'){               
+            var resObj = Ext.decode(response.responseText);
+            var errs = resObj.message || resObj.error;           
             if((resObj.success === false || errFlag) && errs  && errs.length){
                 var errorText = '';
                 if(Ext.Array.each(errs, function(rec, index){
@@ -446,9 +450,19 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.showError('Error', errorText);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false); 
                 Ext.getCmp('viewport').setLoading(false);
-                return;
+                return;             
+            }else{
+                CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+                Ext.getCmp('viewport').setLoading(false);
+            }            
             }             
             resStr && Ext.isFunction(callback) && callback.call(null, response);
+        }
+        catch(err){
+            console.log(err.message);
+            CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+            Ext.getCmp('viewport').setLoading(false);
+        }
         }        
         CaptivePortal.util.Utility.appLoadMask(null, null, false); 
         Ext.getCmp('viewport').setLoading(false);
@@ -513,6 +527,8 @@ Ext.define('CaptivePortal.util.Utility', {
         var jsn = json;//Ext.decode(json);
         var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0];
         // editor_canvas.removeAll();
+        console.log(".......akshay...........");
+        console.log(jsn);
         if(jsn.style){
             editor_canvas.body.dom.style.background = jsn.style.background;
         }

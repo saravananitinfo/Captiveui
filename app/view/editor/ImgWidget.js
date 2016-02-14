@@ -1,6 +1,6 @@
-Ext.define("CaptivePortal.view.editor.ImgWidget",{
-	extend: 'Ext.panel.Panel',
-	alias: 'widget.img_widget',
+Ext.define("CaptivePortal.view.editor.ImgWidget", {
+    extend: 'Ext.panel.Panel',
+    alias: 'widget.img_widget',
     requires: [
         'CaptivePortal.view.editor.ImgWidgetSetting',
         'CaptivePortal.view.editor.ImageWidgetController'
@@ -11,7 +11,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     },
     ddGroup: "galleryImage",
     img_json: '{src: "#", width: 0, height: 0, top: 0, left: 0,align: "center",valign: "middle"}',
-	width: '100%',
+    width: '100%',
     height: '100%',
     cls: 'img_widget',
     // style: 'background: url("http://vignette4.wikia.nocookie.net/fable/images/5/53/Image_Upload.png/revision/latest?cb=20101002231116") no-repeat center;background-size: 70px 70px;',
@@ -23,8 +23,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         //     xtype:'button',
         //     text: 'Upload Img',
         //     handler: function(){
-                
-                       
+
+
         //     }
         // },{
         //     xtype:'button',
@@ -45,8 +45,8 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     },
     tools: [
         {
-            type:'gear',
-            handler: function(){
+            type: 'gear',
+            handler: function () {
                 var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
                 var editor_setting_panel = Ext.ComponentQuery.query('#editor_setting_panel')[0];
                 editor_setting_panel.removeAll();
@@ -56,23 +56,23 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                 });
                 editor_settings.setActiveItem(1);
             }
-        },{
-            type:'close',
-            handler: function(){
+        }, {
+            type: 'close',
+            handler: function () {
                 var setting = Ext.ComponentQuery.query('#editor_settings')[0];
                 console.log(setting.getLayout().activeItem);
 
-                if(setting.getLayout().getActiveItem().itemId === 'editor_setting_panel'){
+                if (setting.getLayout().getActiveItem().itemId === 'editor_setting_panel') {
                     var button_setting = setting.getLayout().getActiveItem().down('img_widget_setting')
-                    if(button_setting){
-                        if(setting.getLayout().getActiveItem().down('img_widget_setting').img_widget_id == this.up('.img_widget').id){
+                    if (button_setting) {
+                        if (setting.getLayout().getActiveItem().down('img_widget_setting').img_widget_id == this.up('.img_widget').id) {
                             setting.setActiveItem(0);
                         }
                     }
                 }
 
 
-                
+
                 // var theme = this.up().up().up();
                 // var indx = theme.items.indexOf(this.up().up());
                 // theme.remove(this.up().up());
@@ -82,47 +82,47 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
                 //     height: '100%',
                 //     margin: 5
                 // });
-                
+
                 window.ths = this;
-                var theme = Ext.ComponentQuery.query('#'+this.el.up('.dpanel').id)[0];
+                var theme = Ext.ComponentQuery.query('#' + this.el.up('.dpanel').id)[0];
                 var indx = theme.items.indexOf(this.up('img_widget'));
                 theme.remove(this.up('img_widget'));
-                theme.insert(indx,{
+                theme.insert(indx, {
                     xtype: "dropPanel",
                     cls: "dropPanel"
                 });
-                
+
             }
         }
     ],
     border: true,
-    layout:{
-        type : 'table',
-        columns : 1, 
-        tableAttrs : {
-            style : {
-                width : '100%',
-                height : '100%'                                 
+    layout: {
+        type: 'table',
+        columns: 1,
+        tableAttrs: {
+            style: {
+                width: '100%',
+                height: '100%'
             }
         },
-        tdAttrs : {
-            align : 'center',
-            valign : 'middle',
+        tdAttrs: {
+            align: 'center',
+            valign: 'middle',
         }
     },
-    initComponent: function(){
+    initComponent: function () {
         // var stl = 'background: url("/resources/images/img_before.png") no-repeat center;background-size: 61px 44px;';
         var stl = '';
         var img_json = Ext.decode(this.img_json);
-        if(img_json.src === "#"){
+        if (img_json.src === "#") {
             stl = 'display:none';
             this.cls = 'default_img';
-        }else{
+        } else {
 
         }
         console.log("..................................test............................")
         console.log(img_json);
-        var me= this;
+        var me = this;
         // this.items = [{
         //     xtype: 'component',
 
@@ -148,7 +148,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         //         }
         //     },
 
-            
+
         //     itemId: "img_panel",
         //     html: '<img class="img" style="'+stl+'" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
         // }]
@@ -156,16 +156,36 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
         this.layout.tdAttrs.valign = img_json.valign
         console.log("...........test1............");
         this.items = [{
-            xtype: 'component',
-            autoEl: {
-                tag: "div",
-                style: {
-                    display: 'inline-block',
-                }
-            },
-            itemId: "img_panel",
-            html: '<img class="img" style="'+stl+'" src="'+img_json.src+'" width="'+img_json.width+'" height="'+img_json.height+'"></img>'
-        }];
+                xtype: 'component',
+                resizable: true,
+                draggable: false,               
+                listeners: {
+                    resize: function (cmp, width, height, oldWidth, oldHeight, eOpts) {
+                        var m = this.up('panel');
+                        var p = m.up('panel');
+                        p.setMinHeight(height+36);                       
+                        if (Ext.ComponentQuery.query('#img_widget_setting').length > 0) {
+                            var image_widget_id = Ext.ComponentQuery.query('#img_widget_setting')[0].img_widget_id;
+                            var img_panel = Ext.ComponentQuery.query('#' + image_widget_id)[0];
+                            var img_json = Ext.decode(img_panel.img_json);
+                            img_json.width = width;
+                            img_json.height = height;
+                            img_panel.img_json = JSON.stringify(img_json);
+                            img_panel.down('#img_panel').el.query('.img')[0].width = width;
+                            img_panel.down('#img_panel').el.query('.img')[0].height = height;
+                        }
+                    }
+                },
+                autoEl: {
+                    tag: "div",
+                    style: {
+                        display: 'inline-block',
+                        border:'solid 1px important;'
+                    }
+                },
+                itemId: "img_panel",
+                html: '<img class="img" style="' + stl + '" src="' + img_json.src + '" width="' + img_json.width + '" height="' + img_json.height + '"></img>'
+            }];
         console.log(".............test2................");
         this.callParent();
         console.log("...............test3...............");
@@ -184,7 +204,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidget",{
     //         // constrainTo: me.el,
     //         listeners: {
     //             'dragend': function( ths, e, eOpts ){
-                    
+
     //             }
     //         }
     //     },

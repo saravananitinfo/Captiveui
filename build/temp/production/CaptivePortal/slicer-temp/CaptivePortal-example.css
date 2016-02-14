@@ -103,6 +103,7 @@
 /* including package ext-theme-neutral */
 /* including package ext-theme-neptune */
 /* including package ext-theme-crisp */
+/* including package ext-ux */
 /* including package ext-theme-crisp */
 /** @class Ext.resizer.Resizer */
 /* including package ext-theme-neptune */
@@ -7534,6 +7535,7 @@
  * @private
  * Flag to ensure GridField rules only get set once
  */
+/* including package ext-ux */
 /* including package ext-theme-base */
 /* line 1, ../../../../../ext/packages/ext-theme-base/sass/src/scroll/TouchScroller.scss */
 .x-scroll-container {
@@ -29971,6 +29973,199 @@ tr.x-grid-subtable-row {
 /* line 56, ../../../../../ext/packages/ext-theme-neptune/sass/src/resizer/Resizer.scss */
 .x-resizable-pinned .x-resizable-handle-southwest {
   background-position: 2px -2px; }
+
+/* including package ext-ux */
+/* The actual pop window with the color picker components */
+/* line 2, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker {
+  overflow: visible; }
+  /* line 8, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+  .x-colorpicker > .x-box-inner {
+    overflow: visible; }
+  /* line 13, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+  .x-colorpicker .x-form-item-label {
+    text-align: center; }
+
+/* line 18, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colopicker-escape-overflow {
+  overflow: visible; }
+  /* line 21, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+  .x-colopicker-escape-overflow > .x-box-inner {
+    overflow: visible; }
+
+/* line 28, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap {
+  background-image: url(ext-ux/images/colorpick/map_gradient.png); }
+
+/* line 35, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap-draghandle-container {
+  overflow: visible;
+  z-index: 1; }
+
+/* line 41, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap-blender {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+/* line 49, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap-draghandle {
+  width: 15px;
+  height: 15px;
+  position: relative;
+  left: -7px;
+  top: -7px;
+  background-image: url(ext-ux/images/colorpick/drag_circle.png); }
+
+/* line 60, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-draghandle-container {
+  width: 20px; }
+
+/* line 64, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-draghandle {
+  width: 32px;
+  height: 9px;
+  position: relative;
+  left: -6px;
+  top: -4px;
+  background-image: url(ext-ux/images/colorpick/pickerslider.png);
+  background-repeat: no-repeat;
+  z-index: 1; }
+
+/* line 75, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-hue {
+  background-image: url(ext-ux/images/colorpick/huegradient.png); }
+
+/* line 82, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-hue-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+/* line 91, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-saturation > .x-colorpicker-draghandle-container {
+  background: -mox-linear-gradient(top, white 0%, black 100%);
+  /* FF3.6+ */
+  background: -webkit-linear-gradient(top, white 0%, black 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, white 0%, black 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, white 0%, black 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #ffffff 0%, #000000 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000',GradientType=0 );
+  /* IE6-9 */ }
+
+/* line 102, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-value > .x-colorpicker-draghandle-container {
+  background: -mox-linear-gradient(top, red 0%, black 100%);
+  /* FF3.6+ */
+  background: -webkit-linear-gradient(top, red 0%, black 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, red 0%, black 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, red 0%, black 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #ff0000 0%, #000000 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#000000',GradientType=0 );
+  /* IE6-9 */ }
+
+/* line 113, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-alpha > .x-colorpicker-draghandle-container {
+  background-image: url(ext-ux/images/colorpick/checkerboard.png); }
+
+/* line 119, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-preview {
+  background-image: url(ext-ux/images/colorpick/checkerboard.png); }
+
+/* line 2, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Button.scss */
+.x-colorpicker-button {
+  position: relative;
+  border: 1px solid gray;
+  background-image: url(ext-ux/images/colorpick/checkerboard.png); }
+
+/* line 3, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field .x-form-item-body {
+  position: relative; }
+/* line 7, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field input {
+  padding-left: 26px; }
+
+/* line 12, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field-swatch {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 4px;
+  background-image: url(ext-ux/images/colorpick/checkerboard.png);
+  top: 0px;
+  bottom: 0px;
+  margin: auto; }
+
+/* line 25, ../../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field-swatch-inner {
+  position: absolute;
+  height: 100%;
+  width: 100%; }
+
+/* line 1, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker {
+  overflow: hidden;
+  color: #cccccc;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 1; }
+
+/* line 15, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-inner {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+  white-space: nowrap; }
+
+/* line 28, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-over.ux-rating-picker-track-over {
+  color: #cccccc; }
+  /* line 31, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+  .ux-rating-picker-over.ux-rating-picker-track-over > * > .ux-rating-picker-value {
+    display: none;
+    width: 0; }
+  /* line 36, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+  .ux-rating-picker-over.ux-rating-picker-track-over > * > .ux-rating-picker-value:hover {
+    color: inherit; }
+  /* line 40, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+  .ux-rating-picker-over.ux-rating-picker-track-over > * > .ux-rating-picker-tracker {
+    display: inline-block; }
+
+/* line 46, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-value,
+.ux-rating-picker-tracker {
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  top: 0;
+  width: 0;
+  height: 100%;
+  color: #ffe850; }
+
+/* line 58, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-tracker {
+  display: none; }
+
+/* line 62, ../../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-over {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1; }
 
 /* including package CaptivePortal */
 /* line 1, ../../../../../sass/src/view/home/Home.scss */

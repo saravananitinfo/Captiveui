@@ -48,8 +48,7 @@ Ext.define("CaptivePortal.view.editor.DropPanelViewController",{
             }else{
                 p.dataView.add({
                     xtype: n.dragData
-                });
-                  p.dataView.updateLayout()
+                })
             }
         }else{
             if(l === "widgetGroup"){

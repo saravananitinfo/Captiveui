@@ -59,26 +59,15 @@ Ext.define('CaptivePortal.view.editor.Main', {
                 margin: '15 0 0 0',
         		reference: 'editor_canvas',
         		width: '77%',
-        		height: '100%',                     
+        		height: '100%',
         		layout: "vbox",
         		itemId: "editor_canvas",
                 page_data: '{background: "ffffff"}',
-                constrain :true,
-        		scrollable: true,
+        		scrollable: 'y',
         		defaults: {
-        			//reorderable: true
+        			reorderable: true
         		},
 	            plugins : Ext.create('Ext.ux.BoxReorderer', {
-                        animate :10,
-                        listeners:{
-                            Drag:function(cmp, container, dragCmp, idx, eOpts ){
-                                console.log(cmp, container, dragCmp, idx, eOpts );
-                                //var cmp1 = dragCmp.nextNode('container')
-                                //console.log(cmp1)
-                                
-                               //container.scrollTo( dragCmp.getX(), dragCmp.getY()-20, true )
-                            }
-                        }
         	    	// itemSelector: '.sort_item'
             	})
 

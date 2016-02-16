@@ -70,6 +70,11 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
         	var index = store.findExact('id', form.getValues().splash_template_id);
         	CaptivePortal.util.Utility.buildHtml(store.getAt(index).data.splash_content);
         }
+
+        if(form.getValues().if_admin_template != ''){
+            var index = store.findExact('id', form.getValues().if_admin_template);
+            CaptivePortal.util.Utility.buildHtml(store.getAt(index).data.splash_content);
+        }
     },
     cancelSplashTemplate: function(){
     	this.fireEvent('setSplashPageActiveItem',0);

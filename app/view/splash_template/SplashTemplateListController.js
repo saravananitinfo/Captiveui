@@ -42,6 +42,14 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     duplicateTemplate: function(view, record, item, index, e, eOpts) {
         var me = this;
+        var json = {}
+        var indx = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates').findExact('id', record.data.id)
+        var template = Ext.StoreManager.lookup("CaptivePortal.store.splash_template.SplashTemplates").getAt(indx);
+        if(template.data.admin_template === false){
+            json['save'] = 'yes'
+        }
+        console.log("............................... JSON,.............  "+record.data.id);
+        console.log(json);
         Ext.Msg.show({
             title: 'Duplicate Template',
             message: 'Do you want to create copy?',
@@ -50,13 +58,22 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
             fn: function (btn) {
                 if (btn === 'yes') {
                     var url = CaptivePortal.Config.SERVICE_URLS.DUPLICATE_SPLASH_TEMPLATE + record.data.id + '/duplicate_template.json';
-                    CaptivePortal.util.Utility.doAjax(url, {save: "yes"}, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
+                    CaptivePortal.util.Utility.doAjax(url, json, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
                         var resObj = Ext.decode(response.responseText);                        
                         if (resObj.success) {
-                            console.log("..................akshy");
                             console.log(resObj);
-                            me.getSplashTemplateList();
-                            me.fireEvent('setSplashPageActiveItem',0);
+                            if(template.data.admin_template === true){
+                                console.log("............................... IN 11,.............  ");
+                                me.fireEvent('setSplashPageActiveItem',1);
+                                resObj.data.splash_template.if_admin_template = record.data.id
+                                me.fireEvent('initiateSplashTemplateForm', resObj.data);
+                                me.fireEvent('loadDataToSplashTemplateForm', resObj.data);
+                                Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
+                            }else{
+                                console.log("............................... IN 12,.............  ");
+                                me.getSplashTemplateList();
+                                me.fireEvent('setSplashPageActiveItem',0);
+                            }
                         }
                     }.bind(this), function (response) {
                        

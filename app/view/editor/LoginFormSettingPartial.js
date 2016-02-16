@@ -376,7 +376,7 @@ Ext.define("CaptivePortal.view.editor.LoginFormSettingPartial",{
 								items: [{
 									xtype: 'label',
 									margin: '0 0 0 5',
-									text: 'Mobile Nunber'
+									text: 'Mobile Number'
 								}]
 							},
 							{

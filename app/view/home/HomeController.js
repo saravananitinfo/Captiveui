@@ -100,7 +100,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.fireEvent('setRuleGroupActiveItem', 0);
                 break;
             case "templates":
-                this.getView().lookupReference(',').setActiveItem('card_splash_template_main');
+                this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_splash_template_main');
                 this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
                 this.fireEvent('setSplashPageActiveItem', 0);
                 break;

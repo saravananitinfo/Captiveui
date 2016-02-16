@@ -17,6 +17,21 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         //         return el.access_for == 'templates';
         //     })[0].write;
         // }
+
+dockeditems.push({
+                xtype: 'button',
+                text: 'Gallery',
+                cls: 'btn-add-module',
+                handler:'loadAdminTemplates'
+            });
+        dockeditems.push({
+                xtype: 'button',
+                text: 'Saved',
+                cls: 'btn-add-module',
+                handler:'loadMyTemplates'
+            });
+
+
         if (write) {
             dockeditems.push({
                 xtype: 'button',

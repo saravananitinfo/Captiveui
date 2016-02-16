@@ -16,6 +16,33 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
             }
         }
     },
+
+    loadMyTemplates: function(btn){
+        var grid = btn.up('panel').down('grid'), store = grid.store, 
+        filterFunc = function(rec, id){
+            if(rec.data.admin_template === true){
+                return false;
+            } else {
+                return true;
+            }
+        };
+        store.clearFilter();
+        store.filterBy(filterFunc);
+
+    },
+    loadAdminTemplates: function(btn){
+        var grid = btn.up('panel').down('grid'), store = grid.store, 
+        filterFunc = function(rec, id){
+            if(rec.data.admin_template === true){
+                return true;
+            } else {
+                return false;
+            }
+        };
+        store.clearFilter();
+        store.filterBy(filterFunc);
+
+    },
     deleteSplashJorney: function (view, record, item, index, e, eOpts) {
         var me = this;
         Ext.Msg.show({

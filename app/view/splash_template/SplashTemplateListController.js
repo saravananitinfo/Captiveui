@@ -116,8 +116,21 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
         this.fireEvent('showSplashTemplateForm',1)
     },
     getSplashTemplateList: function(){
+        
         var store = this.getView().lookupReference('grd_splash_template_list').getStore();
-        store.load();
+        store.load(function(recs){
+            var isAdmin = CaptivePortal.app.getUserRole().toLowerCase() === 'admin' ? true :  false;
+            var filterFunc = function(rec, id){
+            if(rec.data.admin_template === true){
+                return isAdmin;
+            } else {
+                return !isAdmin;
+            }
+        };
+          //      store.clearFilter();
+        //store.filterBy(filterFunc);    
+        }.bind(this));
+    
     },
     preview1: function(view, record, item, index, e, eOpts){
         var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');

@@ -84,7 +84,74 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
     saveTimePolicy: function(btn){
         this.saveData(btn);
     },
-
+    timeRecordsValid: function(grid){
+        var store = grid.getStore(), recs = store.data.items, valid = true;
+        Ext.Array.each(recs,function(r){
+            var from =  r.get('from'), to = r.get('to');
+            valid = this.areTimevalid(from, to);
+            if(!valid){
+                return false;
+            }
+        }.bind(this));
+        return valid;
+    },
+    areTimevalid: function(from, to){
+        var fromDate, toDate;
+        if(from && to){
+            fromDate = new Date(from);
+            toDate =  new Date(to);
+            if(fromDate.getTime() > toDate.getTime()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;
+    },
+     areValid: function(){
+        var valid = true;
+        valid = this.timeRecordsValid(this.getView().down('#time_policy_day_grid'));
+        if(valid){
+            valid = this.timeRecordsValid(this.getView().down('#time_policy_date_range_grid'));
+        }
+        if(valid){
+            valid = this.timeRecordsValid(this.getView().down('#time_policy_specific_day_grid'));
+        }
+        if(!valid){
+            CaptivePortal.util.Utility.showError('Error', 'From time should be less than to time');
+        }
+        return valid;
+   },
+    removeUnnecessaryRecsForSpecificDateGrid : function(grid){
+        var store = grid.getStore(), emptyRecs = [];
+        store.each(function(r){
+            var from =  r.get('from'), to = r.get('to'), date = r.get('date');
+            if(!from && !to && !date){
+                emptyRecs.push(r);    
+            }
+        }.bind(this));
+        store.remove(emptyRecs);
+    },
+    removeUnnecessaryRecsDateRangeGrid : function(grid){
+        var store = grid.getStore(), emptyRecs = [];
+        store.each(function(r){
+            var from =  r.get('from'), to = r.get('to'), start_date = r.get('start_date'), end_date = r.get('end_date');
+            if(!from && !to && !start_date && !end_date){
+                emptyRecs.push(r);    
+            }
+        }.bind(this));
+        store.remove(emptyRecs);
+    },
+    removeUnnecessaryRecsForDayGrid : function(grid){
+        var store = grid.getStore(), emptyRecs = [];
+        store.each(function(r){
+            var from =  r.get('from'), to = r.get('to'), days = r.get('days');
+            if(!from && !to && !days){
+                emptyRecs.push(r);    
+            }
+        }.bind(this));
+        store.remove(emptyRecs);
+    },
     getDataForSpecificDayRangeGrid:function(grid, isEdit){
         var store = grid.getStore(), rec = [];
         store.each(function(r){
@@ -187,10 +254,14 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         return recs;
     },
    
+
     saveData:function(btn){
         var me = this;
         var form = btn.up('form'), data = {};
-        if(form.isValid()){
+        this.removeUnnecessaryRecsForDayGrid(this.getView().down('#time_policy_day_grid'));
+        this.removeUnnecessaryRecsDateRangeGrid(this.getView().down('#time_policy_date_range_grid'));
+        this.removeUnnecessaryRecsForSpecificDateGrid(this.getView().down('#time_policy_specific_day_grid'));
+        if(form.isValid() && this.areValid()){
             data = form.getValues(), isEdit = data.id ? true : false;
             data['close_message'] = "sorry!!";
             data['default_policies_attributes'] = this.getDataForDayGrid(this.getView().down('#time_policy_day_grid'), isEdit);

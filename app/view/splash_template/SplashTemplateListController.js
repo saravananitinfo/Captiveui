@@ -42,14 +42,12 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     duplicateTemplate: function(view, record, item, index, e, eOpts) {
         var me = this;
-        var json = {}
+        var json = {save: 'yes'}
         var indx = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates').findExact('id', record.data.id)
         var template = Ext.StoreManager.lookup("CaptivePortal.store.splash_template.SplashTemplates").getAt(indx);
-        if(template.data.admin_template === false){
-            json['save'] = 'yes'
+        if(CaptivePortal.app.getUserRole() != 'super_admin' && template.data.admin_template === true){
+            delete json.save
         }
-        console.log("............................... JSON,.............  "+record.data.id);
-        console.log(json);
         Ext.Msg.show({
             title: 'Duplicate Template',
             message: 'Do you want to create copy?',
@@ -62,15 +60,13 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
                         var resObj = Ext.decode(response.responseText);                        
                         if (resObj.success) {
                             console.log(resObj);
-                            if(template.data.admin_template === true){
-                                console.log("............................... IN 11,.............  ");
+                            if(CaptivePortal.app.getUserRole() != 'super_admin' && template.data.admin_template === true){
                                 me.fireEvent('setSplashPageActiveItem',1);
                                 resObj.data.splash_template.if_admin_template = record.data.id
                                 me.fireEvent('initiateSplashTemplateForm', resObj.data);
                                 me.fireEvent('loadDataToSplashTemplateForm', resObj.data);
                                 Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
                             }else{
-                                console.log("............................... IN 12,.............  ");
                                 me.getSplashTemplateList();
                                 me.fireEvent('setSplashPageActiveItem',0);
                             }

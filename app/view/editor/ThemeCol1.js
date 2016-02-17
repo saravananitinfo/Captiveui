@@ -62,13 +62,13 @@ Ext.define("CaptivePortal.view.editor.ThemeCol1",{
     defaults: {
         ddGroup: "widgetGroup",
         width: "100%",
-        flex: 1
+        flex: 1,
+        margin: 5
     },
     cls: 'dpanel',
     items: [{
         xtype: "dropPanel",
         cls: "dropPanel",
-        margin: 5,
         reference: "theme_col_1_0"
         // listeners: {
         //    'render': function(panel) {

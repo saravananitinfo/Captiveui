@@ -70,6 +70,11 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
         	var index = store.findExact('id', form.getValues().splash_template_id);
         	CaptivePortal.util.Utility.buildHtml(store.getAt(index).data.splash_content);
         }
+
+        if(form.getValues().if_admin_template != ''){
+            var index = store.findExact('id', form.getValues().if_admin_template);
+            CaptivePortal.util.Utility.buildHtml(store.getAt(index).data.splash_content);
+        }
     },
     cancelSplashTemplate: function(){
     	this.fireEvent('setSplashPageActiveItem',0);
@@ -91,6 +96,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
         splash_template.splash_template_id = splash_template.id
         var model = Ext.create('CaptivePortal.model.splash_template.SplashTemplate', splash_template);
         form.loadRecord(model);
+        console.log(model);
         // if(data.splash_journey.site_info && data.splash_journey.site_info.id){
         //     form.down('#site_combo').setValue(data.splash_journey.site_info.id);
         // }

@@ -20,7 +20,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
         if (write) {
             dockeditems.push({
                 xtype: 'button',
-                text: 'Add Template',
+                text: 'Add Pages',
                 cls: 'btn-add-module',
                 itemId: 'btn_addtemplate',
                 handler:'addSplashTemplate'

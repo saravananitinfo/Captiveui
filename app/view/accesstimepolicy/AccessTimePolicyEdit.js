@@ -103,7 +103,8 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                			//height:78,
 						                			padding:0,
 						                			margin:0,
-						                			width:50,
+						                			width:300,
+						                			delimiter : null,
 						                            multiSelect: true,
 						                            valueField: 'id',
 	                                				forceSelection:true,
@@ -154,14 +155,14 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                plugins: {
 									        ptype: 'cellediting',
 									        clicksToEdit: 1,
-									        listeners: {
-									            beforeedit: function(d, c) {
-									            	var arg = arguments;
-									            	if(arg[0] && arg[0].view && arg[0].view.el && arg[0].view.el.dom){
-									            		//arg[0].view.el.dom.style.overflow = "hidden";	
-									            	}
-									            }
-									        }
+									        // listeners: {
+									        //     beforeedit: function(d, c) {
+									        //     	var arg = arguments;
+									        //     	if(arg[0] && arg[0].view && arg[0].view.el && arg[0].view.el.dom){
+									        //     		//arg[0].view.el.dom.style.overflow = "hidden";	
+									        //     	}
+									        //     }
+									        // }
 									    },
 									    selType: "checkboxmodel",
 									    selModel: {

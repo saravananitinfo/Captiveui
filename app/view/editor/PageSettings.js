@@ -10,7 +10,16 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 	  'close': function() {
 	      var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0]
 	      editor_settings.setActiveItem(0)
-	  }
+	  },
+	  'afterrender': function(panel){
+			panel.down('colorfield').addListener('change', function(picker){
+            	var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+            	var page_data = Ext.decode(editor_canvas.page_data);
+            	page_data.background = picker.getValue()
+            	editor_canvas.page_data = JSON.stringify(page_data);
+		    	editor_canvas.body.dom.style.background = '#'+picker.getValue();
+            });
+		}
 	},
 	initComponent: function () {
 		var canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
@@ -28,16 +37,16 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 						        labelWidth: 75,
 						        value: page_data.background,
 						        width: '92%',
-						        margin: '10 10 10 10',
-						        listeners: {
-						            change: function(picker){
-						            	var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
-						            	var page_data = Ext.decode(editor_canvas.page_data);
-						            	page_data.background = picker.getValue()
-						            	editor_canvas.page_data = JSON.stringify(page_data);
-								    	editor_canvas.body.dom.style.background = '#'+picker.getValue();
-						            }
-						        }
+						        margin: '10 10 10 10'
+						       //  listeners: {
+						       //      change: function(picker){
+						       //      	var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+						       //      	var page_data = Ext.decode(editor_canvas.page_data);
+						       //      	page_data.background = picker.getValue()
+						       //      	editor_canvas.page_data = JSON.stringify(page_data);
+								    	// editor_canvas.body.dom.style.background = '#'+picker.getValue();
+						       //      }
+						       //  }
 						    }
 					  	]
 					}
@@ -78,7 +87,12 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 					      		var reader = new FileReader();
 					      		reader.onload = function(e) {
 					      			var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
-					      			editor_canvas.body.dom.style.background = 'url('+e.target.result+') no-repeat center';
+					      			editor_canvas.body.dom.style.background = 'url('+e.target.result+') repeat';
+
+					      			var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+					            	var page_data = Ext.decode(editor_canvas.page_data);
+					            	page_data.background = 'url('+e.target.result+') repeat';
+					            	editor_canvas.page_data = JSON.stringify(page_data);
 					      			// editor_canvas.body.dom.style.backgroundSize = '100% 100%';
 					      		}
 					      		reader.readAsDataURL(file);

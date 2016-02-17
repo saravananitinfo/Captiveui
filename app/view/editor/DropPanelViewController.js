@@ -42,14 +42,19 @@ Ext.define("CaptivePortal.view.editor.DropPanelViewController",{
             window.abc = m;
             if(Ext.ComponentQuery.query('#'+m.id)[0].img_prop){
                 var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
-                editor_canvas.body.dom.style.background = 'url('+n.sourceEl.dataset.imgurl+') no-repeat center';
+                editor_canvas.body.dom.style.background = 'url('+n.sourceEl.dataset.imgurl+') repeat';
+                
+                var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+                var page_data = Ext.decode(editor_canvas.page_data);
+                page_data.background = 'url('+n.sourceEl.dataset.imgurl+') repeat';
+                editor_canvas.page_data = JSON.stringify(page_data);
+
             }else if(Ext.ComponentQuery.query('#'+m.id)[0].pre_filled_sec){
-                CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[n.dragData])
+                CaptivePortal.util.Utility.buildHtml(CaptivePortal.Config.TEMPLATES[n.dragData], 'pre_filled_sec')
             }else{
                 p.dataView.add({
                     xtype: n.dragData
-                });
-                  p.dataView.updateLayout()
+                })
             }
         }else{
             if(l === "widgetGroup"){

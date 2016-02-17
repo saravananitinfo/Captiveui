@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.report.SessionHistory',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.report.SessionHistory'],
+	model:'CaptivePortal.model.report.SessionHistory',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_SESSION_HISTORY_REPORT,
+		type:'ajax',
+		reader:{
+			type:'json',
+			rootProperty:'data.session_histories'
+		}
+	}
+});

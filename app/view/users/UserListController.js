@@ -116,6 +116,6 @@ Ext.define('CaptivePortal.view.users.UserListController', {
     getUsers: function () {
         var store = this.getView().lookupReference('grd_userlist').getStore();
         store.load();
-    },
+    }
 })
 //# sourceURL=http://localhost:8383/CP/app/view/users/UserListController.js

@@ -6,4 +6,5 @@
  * in the development directory to load properly (i.e., "dev mode").
  */
 @import 'build/production/CaptivePortal/resources/CaptivePortal-all.css';
+@import 'build/production/Slider/resources/Slider-all.css';
 

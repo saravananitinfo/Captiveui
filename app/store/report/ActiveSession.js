@@ -1,0 +1,14 @@
+Ext.define('CaptivePortal.store.report.ActiveSession',{
+	extend:'Ext.data.Store',
+	autoLoad:false,
+	requires:['CaptivePortal.model.report.ActiveSession'],
+	model:'CaptivePortal.model.report.ActiveSession',
+	proxy:{
+		url:CaptivePortal.Config.SERVICE_URLS.GET_ACTIVE_SESSION_REPORT,
+		type:'ajax',
+		reader:{
+			type:'json',
+			rootProperty:'data.sessions'
+		}
+	}
+});

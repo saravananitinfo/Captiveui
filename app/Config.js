@@ -37,6 +37,7 @@ Ext.define('CaptivePortal.Config', {
         LOAD_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites.json',
         SAVE_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites.json',
         EDIT_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/',
+        NEW_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/new.json',
         UPDATE_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/',
         DELETE_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/',
         GET_SITES_FOR_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',

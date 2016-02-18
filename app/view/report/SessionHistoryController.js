@@ -2,7 +2,7 @@ Ext.define('CaptivePortal.view.report.SessionHistoryController',{
     extend:'Ext.app.ViewController', 
     alias:'controller.report_sessionhistory',
     histroySearch: function(btn){
-    	var grid=btn.up('grid'), start = grid.down('#histroy-start').getRawValue(),
+    	var grid = tn.up('grid'), start = grid.down('#histroy-start').getRawValue(),
     	end = grid.down('#histroy-end').getRawValue(), site = grid.down('#histroy-site').getValue();
 		grid.store.proxy.extraParams.resource = site;
 		grid.store.proxy.extraParams.start_date = start;
@@ -13,8 +13,8 @@ Ext.define('CaptivePortal.view.report.SessionHistoryController',{
     },
     getReport:function(){
         var store = this.getView().lookupReference('grd_sessionhistory').getStore();
-        store.load(function(res){
-        	var res = arguments[1];
+        store.load(function(res, operation){
+        	var res = operation;
         	var responseObj = res._response.responseText;
         	if(responseObj){
         		var resData = Ext.decode(responseObj);

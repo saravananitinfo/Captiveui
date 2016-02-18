@@ -138,7 +138,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATE_SMS_GATEWAY + resId + '.json' , {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
             var resObj = Ext.decode(response.responseText);          
             if (resObj.success) {                           
-               sms_mgmt_id = resObj.data.sms_gateways[0].id;
+                sms_mgmt_id = null;
+                if(resObj.data.sms_gateways[0]){
+                    sms_mgmt_id = resObj.data.sms_gateways[0].id;
+                }
                 divs = this.generateSplashPageContent(resObj.data);
                 dom.innerHTML = "";
                 if(divs.length){

@@ -54,7 +54,7 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
     	          		console.log(file);
     	          		var reader = new FileReader();
     	          		reader.onload = function(e) {
-                            var json = {gallery: {name: 'name123'}}
+                            var json = {gallery: {name: file.name.split('.')[0]}};
                             json['gallery']['attachment'] = e.target.result;
                             // json['gallery']['img_content'] = e.target.result;
                             var url = CaptivePortal.Config.SERVICE_URLS.UPLOAD_IMAGE, method = 'POST';

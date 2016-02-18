@@ -41,7 +41,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         this.getTenants();
         this.getCountryStore();
         this.getStateStore();
-        this.getUsers(user);
+        //this.getUsers(user);
         if (data) {
             this.getView().lookupReference('btn_save').setText('Update');
         } else {

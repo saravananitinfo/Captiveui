@@ -26,7 +26,7 @@ Ext.define("CaptivePortal.view.editor.ImageWidgetController",{
             // p.dataView.add({
             //     xtype: n.dragData
             // })
-
+            console.log("....................................akshay......................");
     	    var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
             var editor_setting_panel = Ext.ComponentQuery.query('#editor_setting_panel')[0];
             editor_setting_panel.removeAll();
@@ -47,14 +47,31 @@ Ext.define("CaptivePortal.view.editor.ImageWidgetController",{
             window.abcd = p.dataView 
             var img = p.dataView.down('#img_panel').el.query('.img')[0]
             img.removeAttribute('width');img.removeAttribute('height');
-            img.src = n.sourceEl.dataset.imgurl;
+            // img.src = n.sourceEl.dataset.imgurl;
             img.style.display = 'block';
 
-            var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
-            // var img_panel = Ext.ComponentQuery.query('#'+img_widget_setting.img_widget_id)[0];
-            // var current_setting_img = img_panel.down('#img_panel').el.query('.img')[0]
-            img_widget_setting.down('#img_height_field').setValue(img.height);
-            img_widget_setting.down('#img_width_field').setValue(img.width);
+            var newImg = new Image;
+            newImg.onload = function() {
+                img.src = this.src;
+                var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
+                // img_widget_setting.down('#img_height_field').setValue(img.height);
+                // img_widget_setting.down('#img_width_field').setValue(img.width);
+
+                img_widget_setting.down('#img_height_field').setValue(0);
+                img_widget_setting.down('#img_width_field').setValue(0);
+                img_widget_setting.down('#img_height_field').setValue(p.dataView.body.dom.style.height);
+                img_widget_setting.down('#img_width_field').setValue(p.dataView.body.dom.style.width);
+            }
+            newImg.src = n.sourceEl.dataset.imgurl
+
+            // var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
+
+            // // img_widget_setting.down('#img_height_field').setValue(img.height); 
+            // // img_widget_setting.down('#img_width_field').setValue(img.width);
+            // img_widget_setting.down('#img_height_field').setValue(p.dataView.body.dom.style.height); 
+            // img_widget_setting.down('#img_width_field').setValue(p.dataView.body.dom.style.width);
+
+            
         }
     },
     notifyEnter: function() {

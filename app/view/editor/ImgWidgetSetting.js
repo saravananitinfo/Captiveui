@@ -65,10 +65,12 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                                 if(resObj.success){
                                     Ext.getCmp('viewport').setLoading(false);
                                     console.log("save.........save..........save...guest_user");
-                                    console.log(resObj);
                                     img_setting.el.down('input[type=text]').dom.value = "";
                                     Ext.StoreManager.lookup('CaptivePortal.store.editor.ImageGallery').reload();
                                     var img_panel = Ext.ComponentQuery.query('#'+image_widget_id)[0];
+
+                                    window.akshay = img_panel;
+
                                     img_panel.el.dom.style.background = 'none';
                                     var img = img_panel.down('#img_panel').el.query('.img')[0]
                                     img.removeAttribute('width');img.removeAttribute('height');
@@ -76,8 +78,13 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                                     newImg.onload = function() {
                                         img.src = this.src;
                                         var img_widget_setting = Ext.ComponentQuery.query('#img_widget_setting')[0]
-                                        img_widget_setting.down('#img_height_field').setValue(img.height);
-                                        img_widget_setting.down('#img_width_field').setValue(img.width);
+                                        // img_widget_setting.down('#img_height_field').setValue(img.height);
+                                        // img_widget_setting.down('#img_width_field').setValue(img.width);
+
+                                        img_widget_setting.down('#img_height_field').setValue(0);
+                                        img_widget_setting.down('#img_width_field').setValue(0);
+                                        img_widget_setting.down('#img_height_field').setValue(img_panel.body.dom.style.height);
+                                        img_widget_setting.down('#img_width_field').setValue(img_panel.body.dom.style.width);
                                     }
                                     newImg.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.original_image_url;
                                     img.src = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.original_image_url;

@@ -85,7 +85,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'report_activesession',
                     itemId: 'card_activesessionreport'
                 });
-            }
+                panel.add({
+                    xtype: 'report_sessionhistory',
+                    itemId: 'card_sessionhistoryreport'
+                });
+            } 
         });
         panel.add({
             xtype: 'change_password_view',

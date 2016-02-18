@@ -1,23 +1,85 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-Ext.define('CaptivePortal.view.report.ActiveSession', {
+
+Ext.define('CaptivePortal.view.report.SessionHistory', {
     extend: 'Ext.Panel',
-    alias: 'widget.report_activesession',
-    controller:'report_activesession',
-    requires:['CaptivePortal.view.report.ActiveSessionController'],
+    alias: 'widget.report_sessionhistory',
+    controller:'report_sessionhistory',
+    requires:['CaptivePortal.view.report.SessionHistoryController'],
     height: '100%',
     width: '100%',
     layout: {
-        type: 'fit'
+        type: 'vbox'
     },
     initComponent: function () {
+        var store = Ext.StoreManager.lookup('CaptivePortal.store.site.Site');
         this.items = [{
+            xtype:'container',
+            padding:'10',
+            width:'100%',
+                height:20,
+            layout:{
+                type:'column'
+            },
+            items:[{
+                xtype:'label',
+                itemId:'report-new',
+                columnWidth:.3,
+                text:''
+            }, {
+                xtype:'label',
+                itemId:'report-re',
+                margin:'0 0 0 20',
+                columnWidth:.3,
+                text:''
+            }, {
+                xtype:'label',
+                margin:'0 0 0 20',
+                itemId:'report-total',
+                columnWidth:.3,
+                text:''
+            }]
+        },{
                 xtype: 'gridpanel',
-                reference: 'grd_activesession',
-                store: 'CaptivePortal.store.report.ActiveSession',
+                style:'margin:10px;',
+                dockedItems: [{
+                xtype: 'toolbar',
+                dock: 'top',
+                items: [{
+                    xtype:'datefield',
+                    itemId:'histroy-start',
+                    emptyText:'Start Date',
+                    format:'d/m/Y',
+                    editable:false
+                },{
+                    xtype:'datefield',
+                    itemId:'histroy-end',
+                    format:'d/m/Y',
+                    emptyText:'End Date',
+                    editable:false                    
+                },{
+                    xtype:'combo',
+                    emptyText:'Site / Tag',
+                    //store: store,
+                    store: CaptivePortal.util.Utility.getEmptySiteStore(),
+                    editable:false,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    itemId:'histroy-site',
+                    valueField: 'id',
+                    listConfig:{
+                                        getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                    }
+                },{
+                    xtype:'button',
+                    text: 'Search',                    
+                    cls: 'btn-add-module',
+                    itemId:'histroy-search',
+                    handler:'histroySearch'
+                }]
+            }],
+                width:'100%',
+                //:300,
+                reference: 'grd_sessionhistory',
+                store: 'CaptivePortal.store.report.SessionHistory',
                 columns: [{
                         text: 'Site',
                         dataIndex: 'site_name',

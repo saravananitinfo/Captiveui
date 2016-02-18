@@ -23,7 +23,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupListController', {
     deleteRuleGroup: function (view, record, item, index, e, eOpts) {
         var me = this;
         Ext.Msg.show({
-            title: 'Delete Rule Group',
+            title: 'Delete Splash Rule',
             message: 'Do you want to delete?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,

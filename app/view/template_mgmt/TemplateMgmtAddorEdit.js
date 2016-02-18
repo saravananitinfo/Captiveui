@@ -341,7 +341,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 forceSelection:true,
                                                                 valueField: 'id',
                                                                 displayField: 'name',
-                                                                emptyText: 'Select SMS Gateway',
+                                                                emptyText: 'Select SMS Gateway'
                                                             }]
                                                     }
                                                 ]

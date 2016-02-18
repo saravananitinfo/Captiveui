@@ -64,13 +64,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 valueField: 'id',
                                                 displayField: 'name',
                                                 emptyText: 'Select Category',
-                                            }, {
-                                                xtype:'checkboxfield',
-                                                name:'default',
-                                                inputValue: true,
-                                                boxLabel:'Set as Default Template',
-                                                itemId:this.itemIdPrefix + 'default'
-                                            }, {
+                                            },{
                                                 xtype: 'label',
                                                 text: 'Site / Group',
                                                 cls: 'header_label_content',
@@ -95,6 +89,13 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 },margin:'0 0 0 0'
                                             },
                                             CaptivePortal.util.Utility.generateSiteTagRefLabel(),
+                                            {
+                                                xtype:'checkboxfield',
+                                                name:'default',
+                                                inputValue: true,
+                                                boxLabel:'Set as Default Template',
+                                                itemId:this.itemIdPrefix + 'default'
+                                            },
                                             {
                                                 xtype: 'label',
                                                 text: 'Status',
@@ -129,7 +130,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 // border:5,
                                                 items: [
                                                     {
-                                                        title:'Splash Page',
+                                                        title:'Splash Templates',
                                                         margin:'0 30 0 0',
                                                         // padding:15,
                                                         width: '100%',

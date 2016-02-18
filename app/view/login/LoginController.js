@@ -22,8 +22,9 @@ Ext.define('CaptivePortal.view.login.LoginController', {
     onShowForgotPassword: function (id) {
         if (Ext.getCmp('viewport')) {
             Ext.getCmp('viewport').removeAll();
-            var view = Ext.create('CaptivePortal.view.forget.CreateNewPassword');
-            view.id = id;
+            var view = Ext.create('CaptivePortal.view.forget.CreateNewPassword',{
+                token:id
+            });            
             Ext.getCmp('viewport').add(view);
         }
     },

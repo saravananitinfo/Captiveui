@@ -12,6 +12,7 @@ Ext.define('CaptivePortal.view.forget.CreateNewPassword', {
         type: 'hbox',
         pack: 'center'
     },
+    
     initComponent: function () {
         this.items = [{
                 xtype: 'panel',
@@ -38,7 +39,7 @@ Ext.define('CaptivePortal.view.forget.CreateNewPassword', {
                             }, {
                                 xtype: 'form',
                                 width: '100%',
-                                controller: 'forget_createnewpassword',
+                                //controller: 'forget_createnewpassword',
                                 margin: '40 0 0 20',
                                 height: '85%',
                                 dockedItems: [{

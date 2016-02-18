@@ -46,20 +46,23 @@ Ext.define('CaptivePortal.view.forget.ForgetPassword', {
                                 },
                                 items: [{
                                         xtype: 'container',
+                                        height:60,
                                         // width: 900,
                                         layout: 'hbox',
                                         items: [{
                                                 xtype: 'label',
                                                 text: CaptivePortal.Config.MESSAGES.FORGET_PASSWORD_SUCCESS_INFO,
-                                                hidden: true,
+                                                hidden: true,                                                
                                                 itemId: 'forget_password_info'
                                             }, {
                                                 xtype: 'label',
                                                 text: '',
                                                 width: '100%',
+                                                height:'100%',         
+                                                padding:10,
                                                 hidden: true,
                                                 itemId: 'sign_in_nav',
-                                                cls: '',
+                                              cls: '',
                                                 listeners: {
                                                     render: 'navigate_to_sign_in'
                                                 }

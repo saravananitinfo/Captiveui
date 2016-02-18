@@ -13,7 +13,7 @@ Ext.application({
     // customize this file, doing so below this section reduces the likelihood
     // of merge conflicts when upgrading to new versions of Sencha Cmd.
     //-------------------------------------------------------------------------
-    requires: ['CaptivePortal.view.change_password.ChangePassword','CaptivePortal.view.accesstimepolicy.Main','CaptivePortal.view.login.Login', 'CaptivePortal.view.sites.Main', 'CaptivePortal.view.Viewport', 'CaptivePortal.util.Utility', 'CaptivePortal.Config', 'CaptivePortal.view.users.TenantList', 'CaptivePortal.view.sms_gateway.Main','Ext.window.Toast','CaptivePortal.view.template_mgmt.Main', 'CaptivePortal.view.radius_vsa.Main', 'CaptivePortal.view.rule_group.Main', 'CaptivePortal.Constant'],
+    requires: ['CaptivePortal.view.change_password.ChangePassword','CaptivePortal.view.accesstimepolicy.Main','CaptivePortal.view.login.Login', 'CaptivePortal.view.sites.Main', 'CaptivePortal.view.Viewport', 'CaptivePortal.util.Utility', 'CaptivePortal.Config', 'CaptivePortal.view.users.TenantList', 'CaptivePortal.view.sms_gateway.Main','Ext.window.Toast','CaptivePortal.view.template_mgmt.Main', 'CaptivePortal.view.radius_vsa.Main', 'CaptivePortal.view.rule_group.Main', 'CaptivePortal.Constant', 'CaptivePortal.view.report.SessionHistory'],
     config: {
         userRole: '',
         accessPermissionList: [],

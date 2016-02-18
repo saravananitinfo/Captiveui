@@ -37,7 +37,8 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.splash_template.SplashTemplates',
         'CaptivePortal.store.common.TimezoneStore',
         'CaptivePortal.store.tenant.Assume',
-        'CaptivePortal.store.report.ActiveSession'
+        'CaptivePortal.store.report.ActiveSession',
+        'CaptivePortal.store.report.SessionHistory'
     ],
     launch: function () {
         // TODO - Launch the application

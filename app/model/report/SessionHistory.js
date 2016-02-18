@@ -18,9 +18,19 @@ Ext.define('CaptivePortal.model.report.SessionHistory',{
         }, {
             name: 'ap_mac_id'
         }, {
-            name: 'site_info'
+            name: 'site_name'
         },{
             name:'status'
+        }, {
+            name:'visitor_name'
+        }, {
+            name:'visitor_email'
+        },{
+            name:'visitor_gender'
+        }, {
+            name:'visitor_bday'
+        }, {
+            name:'ap_mac_id'
         }
     ]
 });

@@ -242,6 +242,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 items: [
                                     {
                                         xtype: 'container',
+                                        hidden: true,
                                         margin:'0 10 0 10',
                                         items: [
                                             {
@@ -262,7 +263,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                     },
                                     {
                                         xtype: 'container',
-                                        margin: '0 0 0 50',
+                                        // margin: '0 0 0 50',
                                         items: [
                                             {
                                                 xtype: 'label',
@@ -272,6 +273,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                             {
                                                 xtype: 'datefield',
                                                 name: 'expiry_date',
+                                                minValue: new Date(),
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_expiry_date',

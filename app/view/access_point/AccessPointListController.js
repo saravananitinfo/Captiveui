@@ -93,7 +93,8 @@ Ext.define('CaptivePortal.view.access_point.AccessPointListController', {
             name: obj.data.access_point.name,
             mac_id: obj.data.access_point.mac_id,
             uid: obj.data.access_point.uid,
-            site_id: obj.data.access_point.site_id
+            site_id: obj.data.access_point.site_id,
+            vendor_type: obj.data.access_point.vendor_type
         };
         return model = Ext.create('CaptivePortal.model.access_point.AccessPoint', model_obj);
     },

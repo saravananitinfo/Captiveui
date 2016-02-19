@@ -132,6 +132,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         }
         return dynDivs;
     },
+    site_change_callback: function(combo, sms_mgmt_id){
+        this.site_change(combo, sms_mgmt_id)
+        this.getView().down('form').down('#splash_template_id').setValue(null);
+    },
     site_change: function(combo, sms_mgmt_id){       
         var resId = combo.getValue(),
             view  = this.getView(), divs = [], dom = view.down('#splash-page-details').el.dom;

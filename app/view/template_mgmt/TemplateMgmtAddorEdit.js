@@ -85,7 +85,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 },
                                                 listeners:{
                                                     //select:CaptivePortal.util.Utility.getSiteAndTagDetails
-                                                    select:'site_change'
+                                                    select:'site_change_callback'
                                                 },margin:'0 0 0 0'
                                             },
                                             CaptivePortal.util.Utility.generateSiteTagRefLabel(),

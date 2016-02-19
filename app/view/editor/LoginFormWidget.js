@@ -63,4 +63,9 @@ Ext.define("CaptivePortal.view.editor.LoginFormWidget",{
         ]
         this.callParent();
     },
+    listeners:{
+        'afterrender': function(panel){
+            panel.up().setHeight(254);
+        }
+    }
 });

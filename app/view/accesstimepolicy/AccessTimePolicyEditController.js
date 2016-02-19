@@ -84,23 +84,24 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
     saveTimePolicy: function(btn){
         this.saveData(btn);
     },
-    timeRecordsValid: function(grid){
+    timeRecordsValid: function(grid, isDateRange){
         var store = grid.getStore(), recs = store.data.items, valid = true;
         Ext.Array.each(recs,function(r){
-            var from =  r.get('from'), to = r.get('to');
-            valid = this.areTimevalid(from, to);
+            var from =  isDateRange ? r.get('start_date') : r.get('from'), to = isDateRange ? r.get('end_date') : r.get('to');
+            valid = this.areTimevalid(from, to, isDateRange);
             if(!valid){
                 return false;
             }
         }.bind(this));
         return valid;
     },
-    areTimevalid: function(from, to){
-        var fromDate, toDate;
+    areTimevalid: function(from, to, isDateRange){
+        var fromDate, toDate, expr = false;
         if(from && to){
             fromDate = new Date(from);
             toDate =  new Date(to);
-            if(fromDate.getTime() > toDate.getTime()) {
+            expr = isDateRange ? (fromDate.getTime() > toDate.getTime()) : (fromDate.getTime() >= toDate.getTime());
+            if(expr) {
                 return false;
             } else {
                 return true;
@@ -108,9 +109,42 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         }
         return true;
     },
+    isGriDValid: function(grid, fields){
+        var store = grid.getStore(), recs = store.data.items, valid = true;
+        Ext.Array.each(recs,function(r){
+            Ext.Array.each(fields, function(fName){
+                if(!r.get(fName)){
+                    valid = false;
+                    return false;
+                }
+            }.bind(this))
+            if(!valid){
+                return false;
+            }
+        }.bind(this));
+        return valid;
+    },
+    areAllFieldsFilled: function(){
+        var valid = true;
+        valid = this.isGriDValid(this.getView().down('#time_policy_day_grid'),['days', 'from', 'to']);
+        if(valid){
+            valid = this.isGriDValid(this.getView().down('#time_policy_date_range_grid'), ['start_date', 'end_date', 'from', 'to', 'available']);
+        }
+        if(valid){
+            valid = this.isGriDValid(this.getView().down('#time_policy_specific_day_grid'), ['date', 'from', 'to', 'available']);
+        }
+        return valid;
+    },
      areValid: function(){
         var valid = true;
-        valid = this.timeRecordsValid(this.getView().down('#time_policy_day_grid'));
+        valid = this.areAllFieldsFilled();
+        if(!valid){
+            CaptivePortal.util.Utility.showError('Error', 'Please fill all fields in policies');
+            return valid;
+        }
+        if(valid){
+            valid = this.timeRecordsValid(this.getView().down('#time_policy_day_grid'));
+        }
         if(valid){
             valid = this.timeRecordsValid(this.getView().down('#time_policy_date_range_grid'));
         }
@@ -119,6 +153,13 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         }
         if(!valid){
             CaptivePortal.util.Utility.showError('Error', 'From time should be less than to time');
+            return valid;
+        }
+        if(valid){
+            valid = this.timeRecordsValid(this.getView().down('#time_policy_date_range_grid'), true);
+            if(!valid){
+                CaptivePortal.util.Utility.showError('Error', 'From date should be less than to date');
+            }
         }
         return valid;
    },
@@ -254,13 +295,15 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         return recs;
     },
    
-
-    saveData:function(btn){
-        var me = this;
-        var form = btn.up('form'), data = {};
+    removeUnnecessary: function(){
         this.removeUnnecessaryRecsForDayGrid(this.getView().down('#time_policy_day_grid'));
         this.removeUnnecessaryRecsDateRangeGrid(this.getView().down('#time_policy_date_range_grid'));
         this.removeUnnecessaryRecsForSpecificDateGrid(this.getView().down('#time_policy_specific_day_grid'));
+    },
+    saveData:function(btn){
+        var me = this;
+        var form = btn.up('form'), data = {};      
+        this.removeUnnecessary();  
         if(form.isValid() && this.areValid()){
             data = form.getValues(), isEdit = data.id ? true : false;
             data['close_message'] = "sorry!!";

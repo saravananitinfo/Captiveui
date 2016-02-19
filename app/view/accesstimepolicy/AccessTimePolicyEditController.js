@@ -128,10 +128,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEditController',
         var valid = true;
         valid = this.isGriDValid(this.getView().down('#time_policy_day_grid'),['days', 'from', 'to']);
         if(valid){
-            valid = this.isGriDValid(this.getView().down('#time_policy_date_range_grid'), ['start_date', 'end_date', 'from', 'to', 'available']);
+            valid = this.isGriDValid(this.getView().down('#time_policy_date_range_grid'), ['start_date', 'end_date', 'from', 'to' ]);
         }
         if(valid){
-            valid = this.isGriDValid(this.getView().down('#time_policy_specific_day_grid'), ['date', 'from', 'to', 'available']);
+            valid = this.isGriDValid(this.getView().down('#time_policy_specific_day_grid'), ['date', 'from', 'to']);
         }
         return valid;
     },

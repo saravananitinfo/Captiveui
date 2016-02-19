@@ -145,9 +145,44 @@ Ext.define("CaptivePortal.view.editor.PageSettings",{
 						width: '100%',
 						items: [
 							{
+								xtype: 'button',
+								margin: '10 10 10 10',
+								text: 'Repeat',
+								handler: function(){
+						      		var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+	                                editor_canvas.body.dom.style.background = editor_canvas.body.dom.style.background.replace('no-repeat', 'repeat');
+						      	}
+							},
+							{
+								xtype: 'button',
+								margin: '10 10 10 0',
+								text: 'No-Repeat',
+								handler: function(){
+						      		var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+	                                editor_canvas.body.dom.style.background = editor_canvas.body.dom.style.background.replace('repeat', 'no-repeat');
+						      	}
+							}
+							// {
+							// 	xtype: 'button',
+							// 	margin: '10 10 10 0',
+							// 	text: 'Center',
+							// 	handler: function(){
+						 //      		var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0]
+	      //                           editor_canvas.body.dom.style.background = editor_canvas.body.dom.style.background.replace('repeat', 'no-repeat');
+						 //      	}
+							// }
+						]
+					},
+					{
+						xtype: 'panel',
+						width: '100%',
+						items: [
+							{
 								items: [
 							      {
 							      	xtype: 'button',
+							      	width: '93%',
+							      	cls: "btn btn-cancel",
 							      	margin: '10 10 10 10',
 							      	text: 'Remove Background',
 							      	handler: function(){

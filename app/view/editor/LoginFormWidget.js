@@ -12,19 +12,20 @@ Ext.define("CaptivePortal.view.editor.LoginFormWidget",{
         title: 'Login Form'
     },
     tools: [
+        // {
+        //     type:'gear',
+        //     handler: function(){
+        //         var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
+        //         var editor_setting_panel = Ext.ComponentQuery.query('#editor_setting_panel')[0];
+        //         editor_setting_panel.removeAll();
+        //         editor_setting_panel.add({
+        //             xtype: 'login_form_widget_setting',
+        //             login_form_widget_id: this.up(".login_form_widget").id
+        //         });
+        //         editor_settings.setActiveItem(1);
+        //     }
+        // },
         {
-            type:'gear',
-            handler: function(){
-                var editor_settings = Ext.ComponentQuery.query('#editor_settings')[0];
-                var editor_setting_panel = Ext.ComponentQuery.query('#editor_setting_panel')[0];
-                editor_setting_panel.removeAll();
-                editor_setting_panel.add({
-                    xtype: 'login_form_widget_setting',
-                    login_form_widget_id: this.up(".login_form_widget").id
-                });
-                editor_settings.setActiveItem(1);
-            }
-        },{
             type:'close',
             handler: function(){
                 var setting = Ext.ComponentQuery.query('#editor_settings')[0];

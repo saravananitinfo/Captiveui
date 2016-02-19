@@ -6,7 +6,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_SMSGATEWAY, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                    me.loadSitesToFrom(formId, obj);
+                    me.loadSitesToFrom(formId, resObj);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);

@@ -38,7 +38,7 @@ Ext.define('CaptivePortal.view.forget.CreateNewPassword', {
                             }, {
                                 xtype: 'form',
                                 width: '100%',
-                                controller: 'forget_createnewpassword',
+                                //controller: 'forget_createnewpassword',
                                 margin: '40 0 0 20',
                                 height: '85%',
                                 dockedItems: [{
@@ -75,7 +75,7 @@ Ext.define('CaptivePortal.view.forget.CreateNewPassword', {
                                 items: [{
                                         xtype: 'label',
                                         height: 10,
-                                        text: 'Either user name or password is incorrect. Please try again',
+                                        text: '',
                                         hidden: true,
                                         itemId: 'lab_err',
                                         reference: 'lab_err',

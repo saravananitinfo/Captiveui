@@ -231,21 +231,21 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     preview: function(view, record, item, index, e, eOpts){
         var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
-        var index = store.findExact('id', record.data.id);
-        var splash_content = store.getAt(index).data.splash_content;
+        // var index = store.findExact('id', record.data.id);
+        // var splash_content = store.getAt(index).data.splash_content;
 
-        console.log(splash_content);
-        var json = {"splash_content": splash_content};
-        if(!json.splash_content.hasOwnProperty('rows')){
-            return Ext.MessageBox.alert('', 'Please add Content..');
-        }
-        if(json.splash_content.rows.length === 0){
-            return Ext.MessageBox.alert('', 'Please add Content..');
-        }
-        Ext.getCmp('viewport').setLoading(true);
-        console.log(json);
-        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW, method = 'POST';
-        CaptivePortal.util.Utility.doAjaxJSON(url,json,"Loading...", this.getView(),function(response){
+        // console.log(splash_content);
+        // var json = {"splash_content": splash_content};
+        // if(!json.splash_content.hasOwnProperty('rows')){
+        //     return Ext.MessageBox.alert('', 'Please add Content..');
+        // }
+        // if(json.splash_content.rows.length === 0){
+        //     return Ext.MessageBox.alert('', 'Please add Content..');
+        // }
+        // Ext.getCmp('viewport').setLoading(true);
+        // console.log(json);
+        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW + '?id=' + record.data.id, method = 'GET';
+        CaptivePortal.util.Utility.doAjaxJSON(url,{},"Loading...", this.getView(),function(response){
             var resObj = response.responseText;
             CaptivePortal.util.Utility.createPreviewPage(resObj);
         }.bind(this),function(response){

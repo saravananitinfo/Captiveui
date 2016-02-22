@@ -17,19 +17,6 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
         }
     },
 
-    loadMyTemplates: function(btn){
-        var grid = btn.up('panel').down('grid'), store = grid.store, 
-        filterFunc = function(rec, id){
-            if(rec.data.admin_template === true){
-                return false;
-            } else {
-                return true;
-            }
-        };
-        store.clearFilter();
-        store.filterBy(filterFunc);
-
-    },
     loadAdminTemplates: function(btn){
         var grid = btn.up('panel').down('grid'), store = grid.store, 
         filterFunc = function(rec, id){
@@ -41,7 +28,6 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
         };
         store.clearFilter();
         store.filterBy(filterFunc);
-
     },
     deleteSplashJorney: function (view, record, item, index, e, eOpts) {
         var me = this;
@@ -111,21 +97,39 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
         // this.fireEvent('setSplashPageActiveItem',1);
         this.fireEvent('showSplashTemplateForm',1)
     },
-    getSplashTemplateList: function(){
-        
-        var store = this.getView().lookupReference('grd_splash_template_list').getStore();
-        store.load(function(recs){
-            var isAdmin = CaptivePortal.app.getUserRole().toLowerCase() === 'admin' ? true :  false;
-            var filterFunc = function(rec, id){
-            if(rec.data.admin_template === true){
-                return isAdmin;
+    selectType: function(combo){
+        var grid = combo.up('splash_template_list').down('grid');
+        var store = grid.store, val = combo.getValue(), isAdmin, returnRes;
+        if(val === 1){
+            grid.getColumnManager().columns[1].show();
+        } else {
+            grid.getColumnManager().columns[1].hide();
+        }
+        var filterFunc = function(rec, id){
+            isAdmin = rec.data.admin_template;
+            returnRes = (val === 1) ? false : true;
+            if(isAdmin === true){
+                return returnRes;
             } else {
-                return !isAdmin;
+                return !returnRes;
             }
         };
-          //      store.clearFilter();
-        //store.filterBy(filterFunc);    
+        
+        store.clearFilter();
+        store.filterBy(filterFunc);    
+        
+    },
+    getSplashTemplateList: function(){
+        var grid = this.getView().lookupReference('grd_splash_template_list');
+        var store = grid.getStore(), combo = grid.up('splash_template_list').down('combo');
+        store.load(function(){
+            if(CaptivePortal.app.getUserRole() !== 'super_admin'){
+                setTimeout(function(){
+                    this.selectType(combo);
+                }.bind(this),5)        
+            }
         }.bind(this));
+        
     
     },
     preview1: function(view, record, item, index, e, eOpts){

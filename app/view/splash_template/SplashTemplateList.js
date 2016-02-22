@@ -17,19 +17,22 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         //         return el.access_for == 'templates';
         //     })[0].write;
         // }
-
-dockeditems.push({
-                xtype: 'button',
-                text: 'Gallery',
-                cls: 'btn-add-module',
-                handler:'loadAdminTemplates'
-            });
-        dockeditems.push({
-                xtype: 'button',
-                text: 'Saved',
-                cls: 'btn-add-module',
-                handler:'loadMyTemplates'
-            });
+        var filterCombo = Ext.create('Ext.data.Store',{
+            fields:['id', 'name'],
+            data:[{id:1, name:'Saved'}, {id:2, name:'Gallery'}]
+        });
+        var filterCombo = {
+            xtype:'combo',
+            store: filterCombo,
+            editable:false,
+            valueField:'id',
+            displayField:'name',
+            hidden:CaptivePortal.app.getUserRole() == 'super_admin',
+            value:1,
+            listeners:{
+                select:'selectType'
+            }
+        }
 
 
         if (write) {
@@ -41,6 +44,7 @@ dockeditems.push({
                 handler:'addSplashTemplate'
             })
         }
+        dockeditems.push(filterCombo);
         this.dockedItems = [{
                 xtype: 'toolbar',
                 padding: '30 23 0 30',

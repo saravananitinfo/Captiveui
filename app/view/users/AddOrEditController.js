@@ -299,6 +299,9 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
             if (formValues.associated_resources === "") {
                 formValues.associated_resources = []
             }
+            if (CaptivePortal.app.getUserRole() != "super_admin") {
+                delete formValues.tenant_id
+            }
 
             var permissionGrid = form.down('grid');
             var permissions = [];

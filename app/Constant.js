@@ -6,7 +6,7 @@ Ext.define('CaptivePortal.Constant', {
 		SPLASH_RULES: "Splash Rules"
 	},
 	CONFIGURATION:{
-		SITES: "sites",
+		SITES: "Sites",
 		ADMINS: "Admin"
 	},
 	MANAGEMENT:{

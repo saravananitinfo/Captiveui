@@ -76,7 +76,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
             //     }
             // },
             {
-                header: 'Site/Tag',
+                header: 'Site/Group',
 		dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',

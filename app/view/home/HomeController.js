@@ -115,6 +115,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 break;
 
         }
+        
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         Ext.getCmp('viewport').setLoading(true);

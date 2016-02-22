@@ -57,7 +57,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     editable:false                    
                 },{
                     xtype:'combo',
-                    emptyText:'Site / Tag',
+                    emptyText:'Site / Group',
                     //store: store,
                     store: CaptivePortal.util.Utility.getEmptySiteStore(),
                     editable:false,

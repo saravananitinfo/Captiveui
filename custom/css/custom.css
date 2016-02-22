@@ -407,6 +407,12 @@ position: relative;
     height: 92px;
     border: 0px solid black;
 }
+.icon_login_form{
+	background: url(../../resources/images/login_form_icon.png) no-repeat;
+    width: 92px;
+    height: 92px;
+    border: 0px solid black;
+}
 
 .galleryImage{
 	border: solid 1px #cecece!important;

@@ -73,7 +73,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         }
                     },
                     {
-                        header: 'Tag',
+                        header: 'Group',
                         dataIndex: 'tag',
                         width: '14.9%',
                          cls: 'table-row',

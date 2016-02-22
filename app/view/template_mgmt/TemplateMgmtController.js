@@ -156,7 +156,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
                     dom.style['border-width'] = '2px'; 
                 } else {
                     view.down('#site-tag-err-lab').show();
-                    view.down('#site-tag-err-lab').setText('No splash template for this site/tag');
+                    view.down('#site-tag-err-lab').setText('No splash template for this site/Group');
                     
                     dom.style['border-width'] = '0px';
                 }

@@ -42,6 +42,14 @@ Ext.define('CaptivePortal.view.splash_template.AddOrEditSplashTemplate',{
             				},
                             {
                                 xtype: 'hiddenfield', 
+                                name: 'splash_content',
+                                itemId: 'splash_content',
+                                reference:'hf_splash_content',
+                                value: this.splash_content ? this.splash_content : ''
+               
+                            },
+                            {
+                                xtype: 'hiddenfield', 
                                 name: 'if_admin_template',
                                 itemId: 'if_admin_template',
                                 reference:'if_admin_template',

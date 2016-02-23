@@ -75,7 +75,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                         store: 'CaptivePortal.store.editor.LoginButtonTypes',
                         listeners: {
                             'select': function(combo, record, eOpts ){
-                                var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter', 'form': 'Form'}
+                                var local = {'fb': 'facebook', 'g': 'google-plus', 'tw': 'twitter', 'form': 'Form'}
                                 var tabpanel = this.up('.login_button_setting').down('tabpanel')
 
                                 console.log("..........select ............");
@@ -557,7 +557,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonSetting",{
                 // ],
                 listeners: {
                     'tabchange': function(tabPanel, newCard, oldCard, eOpts){
-                        var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
+                        var local = {'fb': 'facebook', 'g': 'google-plus', 'tw': 'twitter'}
                         console.log(newCard);
                         connect_type = Ext.ComponentQuery.query('#login_connect_type')[0]
                         console.log(connect_type);

@@ -113,7 +113,7 @@ Ext.define("CaptivePortal.view.editor.LoginButtonWidget",{
         // }
 
 
-        var local = {'fb': 'facebook', 'g': 'google', 'tw': 'twitter'}
+        var local = {'fb': 'facebook', 'g': 'google-plus', 'tw': 'twitter'}
         if(trigger_type === 'Button'){
             var btn_stl = "";
             if(button_json.connect == "form"){

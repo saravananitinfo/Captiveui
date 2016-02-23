@@ -527,7 +527,7 @@ Ext.define('CaptivePortal.util.Utility', {
         var jsn = json;//Ext.decode(json);
         var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0];
         // editor_canvas.removeAll();
-        if(jsn.style){
+        if(jsn && jsn.style){
             if(action != 'pre_filled_sec'){ 
                 editor_canvas.body.dom.style.background = jsn.style.background;
             }
@@ -636,8 +636,6 @@ Ext.define('CaptivePortal.util.Utility', {
                     }else{
                         obj['button_json'] = JSON.stringify(widget.attributes)
                     }
-                    console.log(".............................................1");
-                    console.log(obj);
                     items.push(obj);
                     break;
                 case 'text_widget':

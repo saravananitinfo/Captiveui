@@ -624,17 +624,18 @@ Ext.define('CaptivePortal.util.Utility', {
                     }
                     if(widget.attributes.connect === 'form'){
                         var form_fields = JSON.stringify(widget.attributes.form_fields);
-                        obj['form_json'] = form_fields
-                        obj['trigger_type'] = widget.attributes.type
+                        obj['form_json'] = form_fields;
+                        obj['trigger_type'] = widget.attributes.type;
                         if(widget.attributes.type === 'Button'){
-                            obj['button_json'] = JSON.stringify(widget.attributes)
-                            obj['link_json'] = '{"type":"Link","connect":"form","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50,align:"center",valign:"middle"}'
+                            obj['button_json'] = JSON.stringify(widget.attributes);
+                            obj['link_json'] = '{"type":"Link","connect":"form","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50,align:"center",valign:"middle"}';
+                            
                         }else{
-                            obj['link_json'] = JSON.stringify(widget.attributes)
-                            obj['button_json'] = '{"type":"Button","connect":"form","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}'
+                            obj['link_json'] = JSON.stringify(widget.attributes);
+                            obj['button_json'] = '{"type":"Button","connect":"form","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"000000",bg_color:"DDDDDD",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}';
                         }
                     }else{
-                        obj['button_json'] = JSON.stringify(widget.attributes)
+                        obj['button_json'] = JSON.stringify(widget.attributes);
                     }
                     items.push(obj);
                     break;

@@ -147,7 +147,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddController', {
             }
         }.bind(this));
         if(!valid){
-            CaptivePortal.util.Utility.showError('','Please add splash journey for all rules');
+            CaptivePortal.util.Utility.showError('','Please add splash page for all rules');
         }
         return valid;
     },

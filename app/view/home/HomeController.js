@@ -31,6 +31,17 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         Ext.getCmp('viewport').setLoading(true);
         CaptivePortal.util.Utility.doProfileLogin(item.profileid);
     },
+    adminMenuClick: function(a){
+        this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
+        this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.CONFIGURATION.ADMINS);
+        this.fireEvent('setActiveUserCard', 0);
+        window.akhsay = a;
+        Ext.query('.select_menu').forEach(function(item){
+            var cmp = Ext.getCmp(item.getAttribute('componentid'));
+            cmp.removeCls('select_menu');
+        })
+        a.addCls('select_menu')
+    },
     onMenuClick: function (menu) {
         switch (menu.itemname) {
             case "users":
@@ -113,9 +124,22 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                     this.getView().lookupReference('lab_heading').setText('Session History');
                 }                
                 break;
-
         }
-        
+        this.highlightMenu(menu);
+    },
+    highlightMenu: function(menu){
+        var cmp = null
+        Ext.query('.select_menu').forEach(function(item){
+            var cmp = Ext.getCmp(item.getAttribute('componentid'));
+            cmp.removeCls('select_menu');
+        })
+        Ext.query('.select_menu_item').forEach(function(item){
+            var cmp = Ext.getCmp(item.getAttribute('id'));
+            cmp.removeCls('select_menu_item');
+        })
+
+        menu.up('button').addCls('select_menu')
+        menu.addCls('select_menu_item')
     },
     getProfileFromUser: function (cell, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         Ext.getCmp('viewport').setLoading(true);

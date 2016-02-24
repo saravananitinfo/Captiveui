@@ -310,38 +310,43 @@ Ext.define('CaptivePortal.util.Utility', {
                     }
                 });
             });
-            if (rec.data.id === 1)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
-            else if (rec.data.id === 2)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
-            else if (rec.data.id === 3)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
-            else if (rec.data.id === 4)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
+            if(menu && menu.items.length != 0){
+                if (rec.data.id === 1)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        menu: menu
+                    });
+                else if (rec.data.id === 2)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        menu: menu
+                    });
+                else if (rec.data.id === 3)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        listeners: {
+                            click: 'adminMenuClick'
+                        }
+                        // menu: menu
+                    });
+                else if (rec.data.id === 4)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        menu: menu
+                    });
+            }
         });
     },
     showInfo: function (title, msg) {

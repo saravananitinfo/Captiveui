@@ -9,6 +9,6 @@ Ext.define('CaptivePortal.store.editor.LoginButtonTypes',{
     	{id: 'fb', name: 'Facebook'},
     	{id: 'tw', name: 'Twitter'},
     	{id: 'g', name: 'Google'},
-    	{id: 'form', name: 'Form'},
+    	{id: 'form', name: 'Registration Form'},
 	]
 });

@@ -180,6 +180,7 @@ h3.splash-block-wrap-lab{
 	background-color:white !important;
 	text-align: center !important;
 	font-weight: 500;
+	max-width: 145px;
 }
 .splash-block-wrap-lab-prev{
 	height: 20px !important;
@@ -570,6 +571,12 @@ span.rollover:hover {
  .l_preview_img{
  	border: 1px solid rgba(0, 1, 1, 0.09);
     padding: 2px 0px;
+ }
+ .select_menu{
+ 	background: #e7e7e7 !important;
+ }
+ .select_menu_item{
+ 	background: #e7e7e7 !important;
  }
 
 

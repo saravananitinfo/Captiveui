@@ -95,9 +95,9 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     if(value){
-                        return '<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                        return '<div action="duplicate" class="duplicate-icon" title="Duplicate"></div><div action="preview" class="preview-icon" title="Preview"></div>';
                     }else{
-                        return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                        return '<div action="edit" class="edit-icon" title="Edit"></div><div action="delete" class="del-icon" title="Delete"></div><div action="duplicate" class="duplicate-icon" title="Duplicate"></div><div action="preview" class="preview-icon" title="Preview"></div>';
                     }
                 }
             })

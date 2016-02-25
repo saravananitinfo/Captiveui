@@ -110,7 +110,7 @@ Ext.define('CaptivePortal.view.user.ListUser', {
                                                 header: 'Action',
                                                 width: '14%',
                                                 renderer: function (value, metaData, rec, view) {
-                                                    return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
+                                                    return '<div action="edit" class="edit-icon"></div><div action="delete" class="del-icon"></div>';
                                                 }
                                             }
 

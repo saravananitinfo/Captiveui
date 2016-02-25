@@ -15,16 +15,18 @@ Ext.define('CaptivePortal.view.report.SessionHistoryController',{
         var store = this.getView().lookupReference('grd_sessionhistory').getStore();
         store.load(function(res, operation){
         	var res = operation;
-        	var responseObj = res._response.responseText;
-        	if(responseObj){
-        		var resData = Ext.decode(responseObj);
-        		var new_vis = resData.data.new_visitors;
-        		var re_vis = resData.data.re_visitors;
-        		this.getView().down('#report-new').setText('New Visitor : ' + new_vis);
-        		this.getView().down('#report-re').setText(' Return Visitor : ' + re_vis);
-        		this.getView().down('#report-total').setText(' All Visitors : ' + (new_vis + re_vis));
-        		this.getView().down('#histroy-site').store.loadRawData(CaptivePortal.util.Utility.createSitesAndTags(resData.data));
-        	}
+            if (res !=null && res._response !=null){
+            	var responseObj = res._response.responseText;
+            	if(responseObj){
+            		var resData = Ext.decode(responseObj);
+            		var new_vis = resData.data.new_visitors;
+            		var re_vis = resData.data.re_visitors;
+            		this.getView().down('#report-new').setText('New Visitor : ' + new_vis);
+            		this.getView().down('#report-re').setText(' Return Visitor : ' + re_vis);
+            		this.getView().down('#report-total').setText(' All Visitors : ' + (new_vis + re_vis));
+            		this.getView().down('#histroy-site').store.loadRawData(CaptivePortal.util.Utility.createSitesAndTags(resData.data));
+            	}
+            }
         }.bind(this));
     }
 })

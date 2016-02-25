@@ -103,7 +103,7 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserList',{
                 cls: 'table-row',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
+                    return '<div action="edit" class="edit-icon"></div><div action="delete" class="del-icon"></div>';
                 },
                 width: 100
             });

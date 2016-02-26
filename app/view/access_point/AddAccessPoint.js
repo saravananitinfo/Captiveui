@@ -88,18 +88,20 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
             			cls: 'table-row',
                         tdCls: 'table-cell',
             			editor: {
-                			xtype:"textfield",
-		                        //vtype:'mac',
-                			emptyText: "MAC Address",
-            				hasFocus:true,
-            				enableKeyEvents:true,
-                			allowBlank: false,
-                            listeners:{
-                                change:function(tf,val){   
-                                    var mac = val.split(":").join(""); 
+                			xtype: "textfield",
+                            vtype: 'mac',
+                            enforceMaxLength: true,
+                            emptyText: "MAC Address",
+                            hasFocus: true,
+                            maxLength: 17,
+                            enableKeyEvents: true,
+                            allowBlank: false,
+                            listeners: {
+                                change: function (tf, val) {
+                                    var mac = val.split(":").join("");
                                     if (mac.length > 0) {
-                                     mac = mac.match(new RegExp('.{1,2}', 'g')).join(":");
-                                       }
+                                        mac = mac.match(new RegExp('.{1,2}', 'g')).join(":");
+                                    }
                                     tf.setValue(mac);
                                 }
                             }

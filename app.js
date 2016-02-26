@@ -48,7 +48,14 @@ Ext.application({
             return view;
         };
         vp.add(validateSignIn());
-
+        var macTest = /^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/;
+        Ext.apply(Ext.form.field.VTypes, {          
+            mac: function (val, field) {
+                return macTest.test(val);
+            },           
+            macText: 'Not a valid MAC id',            
+            macMask:  /([0-9A-Fa-f!#$%&(-])/
+        });
         // vp.add(Ext.create('CaptivePortal.view.editor.Main'));
     }
 });

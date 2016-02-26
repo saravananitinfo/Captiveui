@@ -17,10 +17,12 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
         this.items = [{
                 xtype: 'gridpanel',
                 reference: 'grd_activesession',
+                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 store: 'CaptivePortal.store.report.ActiveSession',
                 columns: [{
                         text: 'Site',
                         dataIndex: 'site_name',
+                         cls: 'table-row',
                         width:'15%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -30,6 +32,7 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
                     },{
                         text: 'Name',
                         dataIndex: 'visitor_name',
+                         cls: 'table-row',
                         width:'15%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -39,6 +42,7 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
                     },{
                         text: 'Email',
                         dataIndex: 'visitor_email',
+                         cls: 'table-row',
                         width:'15%',                        
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -48,6 +52,7 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
                     },{
                         text: 'Gender',
                         dataIndex: 'visitor_gender',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -57,6 +62,7 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
                     }, {
                         text: 'Birthday',
                         dataIndex: 'visitor_bday',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -66,6 +72,7 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
                     }, {
                         text: 'Dwell time(in mins)',
                         dataIndex: 'start_time',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -81,6 +88,7 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
                     }, {
                         text: 'Total bytes',
                         dataIndex: 'bytes_tx',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var trfBytes = value || '0';
@@ -92,6 +100,7 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
                     }, {
                         text: 'AP MAC',
                         dataIndex: 'ap_mac_id',
+                         cls: 'table-row',
                         width:'14.5%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';

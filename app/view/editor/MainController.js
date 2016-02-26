@@ -23,6 +23,8 @@ Ext.define("CaptivePortal.view.editor.MainController",{
         html["rows"] = [];
         html["style"] = {};
         html["style"]["background"] = canvas.body.dom.style.background;
+        html["verify_email"] = false
+        html["verify_mobile_number"] = false
 
         canvas.items.each(function(theme){
             console.log(theme.xtype);
@@ -41,15 +43,20 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                         var widgetJSON = me.getWidgetJSON(blc);
                         var col = widgetJSON.col;
                         row['widgets'].push(col);
-                        html["verify_email"] = widgetJSON.verify_email
-                        html["verify_mobile_number"] = widgetJSON.verify_mobile_number
+                        if(widgetJSON.verify_email)
+                            html["verify_email"] = widgetJSON.verify_email
+                        if(widgetJSON.verify_mobile_number)
+                            html["verify_mobile_number"] = widgetJSON.verify_mobile_number
                     });
                 }else{
                     var widgetJSON = me.getWidgetJSON(block);
                     var col = widgetJSON.col;
                     row['widgets'].push(col);
-                    html["verify_email"] = widgetJSON.verify_email
-                    html["verify_mobile_number"] = widgetJSON.verify_mobile_number
+                    
+                    if(widgetJSON.verify_email)
+                        html["verify_email"] = widgetJSON.verify_email
+                    if(widgetJSON.verify_mobile_number)
+                        html["verify_mobile_number"] = widgetJSON.verify_mobile_number
                 }
                 
             });
@@ -107,10 +114,10 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                 if(json.connect === 'form'){
                     var form_json  = Ext.decode(block.form_json)
                     col["attributes"]["form_fields"] = form_json
-                    if(form_json.verify_email.enable){
+                    if(form_json.verify_email.enable === true){
                         verify_email = true
                     }
-                    if(form_json.verify_mobile_number.enable){
+                    if(form_json.verify_mobile_number.enable === true){
                         verify_mobile_number = true
                     }
                 }
@@ -127,11 +134,17 @@ Ext.define("CaptivePortal.view.editor.MainController",{
                 // row['widgets'].push(col);
                 break;
         }
-        return {
-                 col: col,
-                 verify_email: verify_email,
-                 verify_mobile_number: verify_mobile_number
-                }
+        var ret  = {col: col}
+        if(verify_email === true)
+            ret['verify_email'] = verify_email
+        if(verify_mobile_number === true)
+            ret['verify_mobile_number'] = verify_mobile_number
+        return ret
+        // return {
+        //          col: col,
+        //          verify_email: verify_email,
+        //          verify_mobile_number: verify_mobile_number
+        //         }
     },
     closeEditor: function(){
         var home_panel = Ext.ComponentQuery.query('#pan_apphome')[0];

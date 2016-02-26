@@ -54,21 +54,21 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 reference: 'cmb_tenant',
                                 valueField: 'id',
                                 displayField: 'name',
-                                forceSelection:true,
+                                forceSelection: true,
                                 queryMode: 'local',
                                 width: 500,
                                 emptyText: 'Tenant',
                                 name: 'tenant_id',
                                 itemId: 'tenant_id',
-                                listeners:{
-                                    change:'changeTenant'
+                                listeners: {
+                                    change: 'changeTenant'
                                 }
 
                             }, {
                                 xtype: 'label',
                                 text: 'Users',
                                 padding: '15 0 10 0',
-                                hidden:true,
+                                hidden: true,
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'tagfield',
@@ -76,13 +76,13 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 queryMode: 'local',
                                 width: 500,
                                 multiSelect: true,
-                                forceSelection:true,
+                                forceSelection: true,
                                 name: 'user_profile_ids',
                                 itemId: 'user_profile_ids',
                                 emptyText: 'Select Users',
                                 valueField: 'id',
                                 displayField: 'name',
-                                hidden:true,
+                                hidden: true,
                                 filterPickList: true
                             }, {
                                 xtype: 'label',
@@ -92,7 +92,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                             }, {
                                 xtype: 'combo',
                                 allowBlank: false,
-                                forceSelection:true,
+                                forceSelection: true,
                                 reference: 'cmb_timezone',
                                 valueField: 'id',
                                 displayField: 'name',
@@ -117,8 +117,8 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 valueField: 'id',
                                 displayField: 'name',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),
-                                listConfig:{
-                                    getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                listConfig: {
+                                    getInnerTpl: CaptivePortal.util.Utility.getSiteTemplateIcon
                                 }
                             },
                             {
@@ -221,7 +221,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                         items: [{
                                                 xtype: 'label',
                                                 width: 250,
-                                                text: 'City',
+                                                text: 'Country',
                                                 padding: '20 0 0 0',
                                                 cls: 'header_label_content'
                                             }, {
@@ -236,21 +236,27 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                     {
                                         xtype: 'container',
                                         layout: 'hbox',
-                                        items: [{
-                                                xtype: 'textfield',
+                                        items: [
+                                            {
+                                                xtype: 'combo',
                                                 allowBlank: true,
-                                                maxLength: 50,
-                                                width: 250,
-                                                emptyText: 'City',
                                                 padding: '20 0 0 0',
-                                                name: 'city',
-                                                itemId: 'city'
-                                            }, {
+                                                valueField: 'id',
+                                                displayField: 'name',
+                                                queryMode: 'local',
+                                                width: 250,
+                                                emptyText: 'Country',
+                                                name: 'country',
+                                                itemId: 'country',
+                                                store: 'CaptivePortal.store.site.Countries',
+                                                reference: 'cmb_country'
+                                            }
+                                            , {
                                                 xtype: 'combo',
                                                 allowBlank: true,
                                                 reference: 'cmb_state',
                                                 padding: '20 0 0 20',
-                                                valueField: 'name',
+                                                valueField: 'id',
                                                 displayField: 'name',
                                                 queryMode: 'local',
                                                 width: 250,
@@ -267,7 +273,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 xtype: 'label',
                                                 width: 250,
                                                 padding: '20 0 0 0',
-                                                text: 'Country',
+                                                text: 'City',
                                                 cls: 'header_label_content'
                                             }, {
                                                 xtype: 'label',
@@ -281,17 +287,16 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                     {
                                         xtype: 'container',
                                         layout: 'hbox',
-                                        items: [{xtype: 'combo',
+                                        items: [
+                                            {
+                                                xtype: 'textfield',
                                                 allowBlank: true,
-                                                padding: '20 0 0 0',
-                                                valueField: 'name',
-                                                displayField: 'name',
-                                                queryMode: 'local',
+                                                maxLength: 50,
                                                 width: 250,
-                                                emptyText: 'Country',
-                                                name: 'country',
-                                                itemId: 'country',
-                                                reference: 'cmb_country',
+                                                emptyText: 'City',
+                                                padding: '20 0 0 0',
+                                                name: 'city',
+                                                itemId: 'city'
                                             }, {
                                                 xtype: 'textfield',
                                                 allowBlank: true,

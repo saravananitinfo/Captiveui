@@ -12,6 +12,7 @@ Ext.define('CaptivePortal.view.forget.CreateNewPassword', {
         type: 'hbox',
         pack: 'center'
     },
+    
     initComponent: function () {
         this.items = [{
                 xtype: 'panel',

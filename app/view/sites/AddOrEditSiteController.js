@@ -7,19 +7,38 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
             '#vc_sitelistcontroller': {
                 loadStore: 'setStoreEvent'
             }
+        },
+        component: {
+            'combobox#country': {
+                change: 'onConutryChange'
+            }
         }
     },
-    changeTenant: function(field, newValue, oldValue){
-        if(newValue){
+    onConutryChange: function (cmb, newValue) {
+        var combo = this.getView().lookupReference('cmb_state');
+        combo.clearValue();
+        combo.getStore().setProxy({
+            url: CaptivePortal.Config.SERVICE_URLS.GET_STATES + newValue + '.json',
+            type: 'ajax',
+            reader: {
+                type: 'json',
+                rootProperty: 'data.states'
+            }
+        });
+        var store = combo.getStore();
+        store.load();
+    },
+    changeTenant: function (field, newValue, oldValue) {
+        if (newValue) {
             CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_TAGS_FOR_TENANT + newValue + '/get_tags.json', {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                   var store = Ext.create('Ext.data.Store', {
+                    var store = Ext.create('Ext.data.Store', {
                         fields: ['id', 'name'],
                         data: resObj.data.site_tags
                     });
-                   this.getView().lookupReference('tf_tag').reset();
-                   this.getView().lookupReference('tf_tag').bindStore(store);
+                    this.getView().lookupReference('tf_tag').reset();
+                    this.getView().lookupReference('tf_tag').bindStore(store);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);
@@ -51,7 +70,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
     cancelSite: function () {
         this.fireEvent('setActiveSiteCard', 0);
     },
-    saveSiteDetails: function(url, method, site_id, formValues, me){
+    saveSiteDetails: function (url, method, site_id, formValues, me) {
         var json = {site: formValues};
         if (site_id) {
             url = CaptivePortal.Config.SERVICE_URLS.UPDATE_SITE + site_id + '.json';
@@ -88,105 +107,105 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
             var msg = '';
 
             /*
-                c         == create
-                u         == update
-                nt        == no tag selected
-                ne_ta     == new tag selected
-                t         == tag selected
-                se_ta     == existing tag selected
-
-
-            case 1 === c->nt, u->ne_ta
-            case 2 === c->nt, u->se_ta
-            case 3 === c->t, u->ne_ta
-            case 4 === c->t, u->se_ta
-            case 5 === c->t, u->same tag
-            case 4 === c->nt, u->nt
-            case 7 === new site create
-            case 8 === c->t, u->nt*/
+             c         == create
+             u         == update
+             nt        == no tag selected
+             ne_ta     == new tag selected
+             t         == tag selected
+             se_ta     == existing tag selected
+             
+             
+             case 1 === c->nt, u->ne_ta
+             case 2 === c->nt, u->se_ta
+             case 3 === c->t, u->ne_ta
+             case 4 === c->t, u->se_ta
+             case 5 === c->t, u->same tag
+             case 4 === c->nt, u->nt
+             case 7 === new site create
+             case 8 === c->t, u->nt*/
 
 
 
             var backupRec = this.getView().down('form')._backupRec;
-            if(picker){
-                selection = picker.getSelection();                
-                if(selection.length == 0){
+            if (picker) {
+                selection = picker.getSelection();
+                if (selection.length == 0) {
                     tagName = this.getView().lookupReference('tf_tag').getValue();
-                    if(tagName){
-                        formValues['site_tag_attributes'] = {name : tagName};
+                    if (tagName) {
+                        formValues['site_tag_attributes'] = {name: tagName};
                     }
                     //formValues['site_tag_id'] = "";
                 } else {
                     tagName = this.getView().lookupReference('tf_tag').getRawValue();
                     formValues['site_tag_id'] = selection[0].data.id;
                 }
-                
+
             } else {
                 tagName = this.getView().lookupReference('tf_tag').getValue();
-                if(tagName){
-                    formValues['site_tag_attributes'] = {name : tagName};    
+                if (tagName) {
+                    formValues['site_tag_attributes'] = {name: tagName};
                 }
                 //formValues['site_tag_id'] = "";
             }
 
-            if(!formValues['site_tag_id']){
+            if (!formValues['site_tag_id']) {
                 formValues['site_tag_id'] = "";
             }
             // leave for new site crate
-            if(site_id){
-                if(backupRec){
-                    if(backupRec.tag && !backupRec.tag.id && tagName) {
+            if (site_id) {
+                if (backupRec) {
+                    if (backupRec.tag && !backupRec.tag.id && tagName) {
                         caseNo = 1;
-                    } else if(backupRec.tag && !backupRec.tag.id && formValues['site_tag_id']) {
+                    } else if (backupRec.tag && !backupRec.tag.id && formValues['site_tag_id']) {
                         caseNo = 2;
-                    } else if(backupRec.tag && backupRec.tag.id && tagName && selection.length===0) {
+                    } else if (backupRec.tag && backupRec.tag.id && tagName && selection.length === 0) {
                         caseNo = 3;
-                    } else if(backupRec.tag && backupRec.tag.id && formValues['site_tag_id'] && formValues['site_tag_id'] !== backupRec.tag.id) {
+                    } else if (backupRec.tag && backupRec.tag.id && formValues['site_tag_id'] && formValues['site_tag_id'] !== backupRec.tag.id) {
                         caseNo = 4;
-                    } else if(backupRec.tag && backupRec.tag.id && formValues['site_tag_id'] && formValues['site_tag_id'] === backupRec.tag.id) {
+                    } else if (backupRec.tag && backupRec.tag.id && formValues['site_tag_id'] && formValues['site_tag_id'] === backupRec.tag.id) {
                         caseNo = 5;
-                    } else if(backupRec.tag && !backupRec.tag.id && !tagName && !formValues['site_tag_id']) {
+                    } else if (backupRec.tag && !backupRec.tag.id && !tagName && !formValues['site_tag_id']) {
                         caseNo = 6;
-                    } else if(backupRec.tag && backupRec.tag.id && !tagName && !formValues['site_tag_id']) {
+                    } else if (backupRec.tag && backupRec.tag.id && !tagName && !formValues['site_tag_id']) {
                         caseNo = 8;
-                    } 
+                    }
                 }
             } else {
                 caseNo = 7;
             }
 
-            switch(caseNo){
+            switch (caseNo) {
                 case 1:
                     this.saveSiteDetails(url, method, site_id, formValues, me);
-                break;                    
+                    break;
                 case 2:
                     msg = 'Config from ' + tagName + ' will be copied to current site ?';
-                break;
+                    break;
                 case 3:
                     //this.saveSiteDetails(url, method, site_id, formValues, me);
                     msg = 'Current site details will be copied to new tag ? ';
-                break;
+                    break;
                 case 4:
                     msg = 'Move tag config from ' + backupRec.tag.name + ' to ' + tagName;
-                break;
+                    break;
                 case 5:
                     this.saveSiteDetails(url, method, site_id, formValues, me);
-                break;
+                    break;
                 case 6:
                     this.saveSiteDetails(url, method, site_id, formValues, me);
-                break;
+                    break;
                 case 7:
                     this.saveSiteDetails(url, method, site_id, formValues, me);
-                break;
+                    break;
                 case 8:
-                    
+
                     msg = 'We see you removes tags from site. Do you want to copy tag configuration for the site ? ';
-                break;
+                    break;
             }
 
 
 
-            if(caseNo === 2 || caseNo === 3 || caseNo === 4 || caseNo === 8){
+            if (caseNo === 2 || caseNo === 3 || caseNo === 4 || caseNo === 8) {
                 Ext.Msg.show({
                     title: 'Confirm',
                     message: msg,
@@ -194,19 +213,19 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
                     icon: Ext.Msg.QUESTION,
                     fn: function (btn) {
                         if (btn === 'yes') {
-                             switch(caseNo){
+                            switch (caseNo) {
                                 case 2:
                                 case 3:
                                 case 4:
                                     this.saveSiteDetails(url, method, site_id, formValues, me);
-                                break;
+                                    break;
                                     formValues['copy_config'] = true;
                                     this.saveSiteDetails(url, method, site_id, formValues, me);
-                                break;
-                             }
-                        } 
+                                    break;
+                            }
+                        }
                         else if (btn === 'no') {
-                            if(caseNo === 8){
+                            if (caseNo === 8) {
                                 this.saveSiteDetails(url, method, site_id, formValues, me);
                             }
                         }
@@ -217,31 +236,31 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
     },
     getTageStore: function (serverData) {
         var data = [], tagCombo = this.getView().lookupReference('tf_tag');
-        if(serverData && serverData.site_tags){
+        if (serverData && serverData.site_tags) {
             data = serverData.site_tags;
         }
-        if(data.length){
-            Ext.Array.each(data,function(d){
-                d['iconCss']  = 'tag-icon';
+        if (data.length) {
+            Ext.Array.each(data, function (d) {
+                d['iconCss'] = 'tag-icon';
             }.bind(this));
         }
         var store = Ext.create('Ext.data.Store', {
-                fields: ['id', 'name'],
-                data: data
-            });
+            fields: ['id', 'name'],
+            data: data
+        });
         tagCombo.setStore(store);
         this.getView().down('#tenant_id').reset();
-        if(serverData){
+        if (serverData) {
             this.getView().down('form')._backupRec = serverData.site;
         }
-        if(serverData && serverData.site && serverData.site.tag && serverData.site.tag.id){
+        if (serverData && serverData.site && serverData.site.tag && serverData.site.tag.id) {
             tagCombo.setValue(serverData.site.tag.id);
         }
 
 
     },
     getTimezoneStore: function () {
-	var store = Ext.create('CaptivePortal.store.common.TimezoneStore')
+        var store = Ext.create('CaptivePortal.store.common.TimezoneStore')
         this.getView().lookupReference('cmb_timezone').setStore(store);
     },
     getUsers: function (data) {
@@ -295,13 +314,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         }, 'GET');
     },
     getCountryStore: function () {
-        var store = Ext.create('Ext.data.Store', {
-            fields: ['id', 'name'],
-            data: [{id: '1', name: 'India'},
-                {id: '2', name: 'Engaland'},
-                {id: '3', name: 'United States Of America'}]
-        });
-        this.getView().lookupReference('cmb_country').setStore(store);
+        this.getView().lookupReference('cmb_country').getStore().load();
     },
     getStateStore: function () {
         var store = Ext.create('Ext.data.Store', {

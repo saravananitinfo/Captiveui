@@ -15,12 +15,11 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                     name: CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE,
                     itemname: 'templates'
                 }, {
-                    name: CaptivePortal.Constant.TEMPLATE.SPLASH_RULES,
-                    itemname: 'rule_group'
-                },
-		{
                     name: CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES,
                     itemname: 'journeys'
+                },{
+                    name: CaptivePortal.Constant.TEMPLATE.SPLASH_RULES,
+                    itemname: 'rule_group'
                 }
 	
 		]

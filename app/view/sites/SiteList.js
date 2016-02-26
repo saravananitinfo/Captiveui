@@ -90,7 +90,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         }
                     },
                     {
-                        header: 'City',
+                        header: 'City Name',
                         dataIndex: 'city',
                         width: '14.9%',
                          cls: 'table-row',

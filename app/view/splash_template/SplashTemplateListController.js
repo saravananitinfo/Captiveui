@@ -99,12 +99,16 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     selectType: function(combo){
         var grid = combo.up('splash_template_list').down('grid');
-        var store = grid.store, val = combo.getValue(), isAdmin, returnRes;
-        if(val === 1){
-            grid.getColumnManager().columns[1].show();
-        } else {
-            grid.getColumnManager().columns[1].hide();
+        var store = grid.store, val = combo.getValue(), isAdmin, returnRes, 
+        cols = grid.getColumnManager().columns;
+        if(cols){
+            if(val === 1){
+                grid.getColumnManager().columns[1].show();
+            } else {
+                grid.getColumnManager().columns[1].hide();
+            }    
         }
+        
         var filterFunc = function(rec, id){
             isAdmin = rec.data.admin_template;
             returnRes = (val === 1) ? false : true;

@@ -80,6 +80,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
 		dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',
+                hidden:CaptivePortal.app.getUserRole() == 'super_admin',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
                     metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';

@@ -43,7 +43,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                 dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'top',
-                items: [{
+                items: ['->',{
                     xtype:'datefield',
                     itemId:'histroy-start',
                     emptyText:'Start Date',
@@ -77,12 +77,15 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                 }]
             }],
                 width:'100%',
+                margin:10,
                 //:300,
                 reference: 'grd_sessionhistory',
                 store: 'CaptivePortal.store.report.SessionHistory',
+                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 columns: [{
                         text: 'Site',
                         dataIndex: 'site_name',
+                         cls: 'table-row',
                         width:'15%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -92,6 +95,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     },{
                         text: 'Name',
                         dataIndex: 'visitor_name',
+                         cls: 'table-row',
                         width:'15%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -101,6 +105,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     },{
                         text: 'Email',
                         dataIndex: 'visitor_email',
+                         cls: 'table-row',
                         width:'15%',                        
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -110,6 +115,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     },{
                         text: 'Gender',
                         dataIndex: 'visitor_gender',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -119,6 +125,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     }, {
                         text: 'Birthday',
                         dataIndex: 'visitor_bday',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -128,6 +135,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     }, {
                         text: 'Dwell time(in mins)',
                         dataIndex: 'start_time',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';
@@ -143,6 +151,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     }, {
                         text: 'Total bytes',
                         dataIndex: 'bytes_tx',
+                         cls: 'table-row',
                         width:'10%',
                         renderer: function (value, metaData, rec, view) {
                             var trfBytes = value || '0';
@@ -154,6 +163,7 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     }, {
                         text: 'AP MAC',
                         dataIndex: 'ap_mac_id',
+                         cls: 'table-row',
                         width:'14.5%',
                         renderer: function (value, metaData, rec, view) {
                             var resValue = value ? value : '';

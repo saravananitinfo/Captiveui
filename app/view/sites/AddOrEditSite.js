@@ -6,15 +6,15 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
     ],
     xtype: 'sites_addedit',
     alias: 'widget.sites_addedit',
-    controller: 'sitecontroller',
+    controller: 'sitecontroller',    
     initComponent: function () {
         var btnText = this.site_name ? 'Update' : 'Create';
         var title = this.site_name ? 'Edit Site' : 'New Site';
         this.items = [{
                 xtype: 'panel',
-                width: '100%',
-                scrollable: true,
+                width: '100%',                
                 bodyCls: 'form_panel',
+                scrollable:'y',
                 cls: 'form_trigger',
                 items: [{
                         xtype: 'form',
@@ -226,7 +226,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                                 cls: 'header_label_content'
                                             }, {
                                                 xtype: 'label',
-                                                text: 'State',
+                                                text: 'State',                                                
                                                 padding: '20 0 0 20',
                                                 width: 250,
                                                 cls: 'header_label_content'

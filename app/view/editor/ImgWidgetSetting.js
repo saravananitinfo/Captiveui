@@ -93,6 +93,10 @@ Ext.define("CaptivePortal.view.editor.ImgWidgetSetting",{
                                     img_widget_setting.down('#img_height_field').setValue(img.height);
                                     img_widget_setting.down('#img_width_field').setValue(img.width);
 
+                                    var img_json = Ext.decode(img_panel.img_json, true);
+                                    img_json['src'] = CaptivePortal.util.Utility.BASE_URL+resObj.data.gallery.original_image_url;
+                                    img_panel.img_json = JSON.stringify(img_json);
+
                                 }
                             }.bind(this),function(response){
                                 var resObj = Ext.decode(response.responseText);

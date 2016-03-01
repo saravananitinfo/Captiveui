@@ -34,6 +34,7 @@ Ext.define('CaptivePortal.Config', {
         LOAD_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites.json',
         SAVE_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites.json',
         EDIT_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/',
+        NEW_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/new.json',
         UPDATE_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/',
         DELETE_SITE: CaptivePortal.util.Utility.BASE_URL + 'sites/',
         GET_SITES_FOR_TENANT: CaptivePortal.util.Utility.BASE_URL + 'tenants/',
@@ -104,21 +105,23 @@ Ext.define('CaptivePortal.Config', {
         // GET_SPLASH_TEMPLATES:CaptivePortal.util.Utility.BASE_URL+ 'splash_templates.json',
         // SAVE_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL+ 'splash_templates.json',
 
-        GET_SPLASH_TEMPLATES: CaptivePortal.util.Utility.BASE_URL + 'splash_templates.json',
-        SAVE_SPLASH_TEMPLATE: CaptivePortal.util.Utility.BASE_URL + 'splash_templates.json',
-        DELETE_SPLASH_TEMPLATES: CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
-        NEW_SPLASH_TEMPLATE: CaptivePortal.util.Utility.BASE_URL + 'splash_templates/new.json',
-        EDIT_SPLASH_TEMPLATE: CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
-        UPDATE_SPLASH_TEMPLATE: CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
-        DUPLICATE_SPLASH_TEMPLATE: CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
-        CHANGE_PASSWORD: CaptivePortal.util.Utility.BASE_URL + 'change_password.json',
+        GET_SPLASH_TEMPLATES:CaptivePortal.util.Utility.BASE_URL + 'splash_templates.json',
+        SAVE_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates.json',
+        DELETE_SPLASH_TEMPLATES:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
+        NEW_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/new.json',
+        EDIT_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
+        UPDATE_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
+        DUPLICATE_SPLASH_TEMPLATE:CaptivePortal.util.Utility.BASE_URL + 'splash_templates/',
+
+        CHANGE_PASSWORD : CaptivePortal.util.Utility.BASE_URL + 'change_password.json',
+        
+                //Reports
+        GET_ACTIVE_SESSION_REPORT: CaptivePortal.util.Utility.BASE_URL + 'current_visitor_sessions.json',
+        GET_SESSION_HISTORY_REPORT: CaptivePortal.util.Utility.BASE_URL + 'visitor_session_histories.json',
         //Editor
         // PREVIEW: 'http://192.168.0.220:3001/' + 'preview/',
-        PREVIEW: CaptivePortal.util.Utility.BASE_URL + 'preview/',
-        // Get Countries
-        GET_COUNTRIES: CaptivePortal.util.Utility.BASE_URL + 'countries.json',
-        GET_STATES: CaptivePortal.util.Utility.BASE_URL + 'states/'
-    },
+        PREVIEW: CaptivePortal.util.Utility.BASE_URL + 'preview/'
+	},
     TEMPLATES: {
         template1: {"rows": [{"col_type": "theme_col_2", "background": "rgb(252, 250, 243)", "height": 204, "widgets": [{"widget_type": "text_widget", "attributes": {"html_str": "<font color=\"#339966\"><font size=\"3\">​Contributions are most welcome. Premailer was rotting away in a private SVN repository for too long and could use some.</font><span style=\"font-size: medium;\">Contributions are most welcome. Premailer was rotting away in a private SVN repository for too long and could use some.</span></font>"}}, {"widget_type": "img_widget", "attributes": {"src": "http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/56794b0d736d735e0c000000/medium.jpg?1450789644", "height": 161, "width": 222, "top": 0, "left": 106}}]}]},
         template2: {"rows": [{"col_type": "theme_col_4", "background": "rgb(202, 255, 211)", "height": 224, "widgets": [{"widget_type": "img_widget", "attributes": {"src": "http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/567aa83e736d73741a070000/medium.jpg?1450879036", "width": 244, "height": 188, "top": 0, "left": 0}}, {"widget_type": "img_widget", "attributes": {"src": "http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/567aa73a736d73741a060000/medium.jpg?1450878776", "width": 244, "height": 188, "top": 0, "left": 0}}, {"widget_type": "img_widget", "attributes": {"src": "http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/567aa6eb736d73741a050000/medium.jpg?1450878697", "width": 244, "height": 187, "top": 0, "left": 0}}, {"widget_type": "img_widget", "attributes": {"src": "http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/567aab22736d73741a0a0000/medium.jpg?1450879776", "width": 274, "height": 187, "top": 0, "left": 0}}]}]},

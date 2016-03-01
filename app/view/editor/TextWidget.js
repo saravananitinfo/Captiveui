@@ -175,7 +175,6 @@ Ext.define("CaptivePortal.view.editor.TextWidget",{
             {
                 xtype: 'component',
                 itemId: "text_panel",
-                padding: 10,
                 html: htm
             }
         ]

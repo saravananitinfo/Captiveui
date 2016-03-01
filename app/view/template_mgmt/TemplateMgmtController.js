@@ -132,12 +132,20 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
         }
         return dynDivs;
     },
-    site_change: function(combo, sms_mgmt_id){
+    site_change_callback: function(combo, sms_mgmt_id){
+        this.site_change(combo, sms_mgmt_id)
+        this.getView().down('form').down('#splash_template_id').setValue(null);
+    },
+    site_change: function(combo, sms_mgmt_id){       
         var resId = combo.getValue(),
             view  = this.getView(), divs = [], dom = view.down('#splash-page-details').el.dom;
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_SPLASH_TEMPLATE_SMS_GATEWAY + resId + '.json' , {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
-            var resObj = Ext.decode(response.responseText);
-            if (resObj.success) {
+            var resObj = Ext.decode(response.responseText);          
+            if (resObj.success) {                           
+                // sms_mgmt_id = null;
+                // if(!sms_mgmt_id){
+                //     sms_mgmt_id = resObj.data.sms_gateways[0].id;
+                // }
                 divs = this.generateSplashPageContent(resObj.data);
                 dom.innerHTML = "";
                 if(divs.length){
@@ -145,11 +153,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
                     Ext.Array.each(divs,function(div, index){
                         dom.appendChild(div);
                     }.bind(this));
-                    dom.style['border-width'] = '2px';                   
-                    
+                    dom.style['border-width'] = '2px'; 
                 } else {
                     view.down('#site-tag-err-lab').show();
-                    view.down('#site-tag-err-lab').setText('No splash template for this site/tag');
+                    view.down('#site-tag-err-lab').setText('No splash template for this site/Group');
                     
                     dom.style['border-width'] = '0px';
                 }
@@ -255,74 +262,89 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
     	form.reset();
     },
     saveTemplate: function (btn) {
-    	var form = btn.up('form'),  data = {}, param = {};
-        var textreaaFields = form.query('textareafield');
-        var valid = true;
-        Ext.Array.each(textreaaFields, function(f){
-            if(f.isValid()){
-                if(f.getValue().trim().length == 0){
+        var flag = true;
+        var form = btn.up('form'),  data = {}, param = {};
+        var con1 = this.getView().down('#sms-gateway-tab').tab.isVisible() && form.getValues().sms_gateway_management_id === '' && form.getValues().status === 'published'
+        if(con1){
+            CaptivePortal.util.Utility.showError('Error', "SMS Gateway not configured for this template, You can't publish this");
+        }
+        else{ 
+            if(this.getView().lookupReference('sms_gateway_management_id').getValue() != ''){
+                flag = true; 
+            }else{
+                flag = false;
+                CaptivePortal.util.Utility.showError('Error', 'Please Select SMS Gateway');        
+            }
+            if(flag){
+            // var form = btn.up('form'),  data = {}, param = {};        
+            var textreaaFields = form.query('textareafield');
+            var valid = true;
+            Ext.Array.each(textreaaFields, function(f){
+                if(f.isValid()){
+                    if(f.getValue().trim().length == 0){
+                        valid = false;
+                        f.setValue('')
+                    }
+                } else {
                     valid = false;
                     f.setValue('')
                 }
-            } else {
-                valid = false;
-                f.setValue('')
+                if(!valid) {
+                    return false;
+                }
+            }.bind(this));
+            var isSuperAdmin = CaptivePortal.app.getUserRole() == 'super_admin', allow = true;
+            if(!isSuperAdmin && !form.down('#site_combo').getValue()){
+                allow = false;
             }
-            if(!valid) {
-                return false;
-            }
-        }.bind(this));
+            if(form.isValid() && allow){
+                data = form.getValues(), isEdit = data.id ? (data.id.indexOf('model') == -1 ? true : false) : false; 
+                var tenantId = CaptivePortal.app.getUserTenantID();;
+                if(tenantId){
+                    data['tenant_id'] = tenantId;    
+                }           
+                data['default'] = form.down('#template_mgmt_form-default').getValue();
+                data['custom_tnc'] = form.down('#template_mgmt_form-custom_tnc').getValue();
+                data['custom_privacy_policies'] = form.down('#template_mgmt_form-custom_privacy_policies').getValue();
 
-        var isSuperAdmin = CaptivePortal.app.getUserRole() == 'super_admin', allow = true;
-        if(!isSuperAdmin && !form.down('#site_combo').getValue()){
-            allow = false;
+                data['splash_template_attributes'] = {
+                    splash_content : {
+                        content_string : 'feawaaaa',
+                        content_array : ["3","1",3,13,132,23131]
+                    }
+                };
+                param = { splash_journey : data};
+                if(isEdit){
+                    CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.UPDATE_SPLASH_JOURNEY + param.splash_journey.id + '.json' , param, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+                        var resObj = Ext.decode(response.responseText);
+                        if (resObj.success) {
+                            this.fireEvent('setTemplateMgmtActiveItem', 0);
+                            this.fireEvent('loadTemplateMgmtGrid', 0);  
+                        }
+                    }.bind(this), function (response) {
+                        var resObj = Ext.decode(response.responseText);
+                        if (!resObj.success && resObj.error.length) {
+                            CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                        }
+                    }, 'PUT');
+                } else {
+                    delete data.id;
+                    CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.SAVE_SPLASH_JOURNEY, param, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
+                        var resObj = Ext.decode(response.responseText);
+                        if (resObj.success) {
+                            this.fireEvent('setTemplateMgmtActiveItem', 0);
+                            this.fireEvent('loadTemplateMgmtGrid', 0);                      
+                        }
+                    }.bind(this), function (response) {
+                        var resObj = Ext.decode(response.responseText);
+                        if (!resObj.success && resObj.error.length) {
+                            CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
+                        }
+                    }, 'POST');
+                }
+            }
+            }
         }
-    	if(form.isValid() && allow){
-    		data = form.getValues(), isEdit = data.id ? (data.id.indexOf('model') == -1 ? true : false) : false; 
-            var tenantId = CaptivePortal.app.getUserTenantID();;
-            if(tenantId){
-                data['tenant_id'] = tenantId;    
-            }    		
-    		data['default'] = form.down('#template_mgmt_form-default').getValue();
-            data['custom_tnc'] = form.down('#template_mgmt_form-custom_tnc').getValue();
-            data['custom_privacy_policies'] = form.down('#template_mgmt_form-custom_privacy_policies').getValue();
-
-    		data['splash_template_attributes'] = {
-    			splash_content : {
-    				content_string : 'feawaaaa',
-    				content_array : ["3","1",3,13,132,23131]
-    			}
-    		};
-    		param = { splash_journey : data};
-    		if(isEdit){
-    			CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.UPDATE_SPLASH_JOURNEY + param.splash_journey.id + '.json' , param, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
-                    var resObj = Ext.decode(response.responseText);
-                    if (resObj.success) {
-                        this.fireEvent('setTemplateMgmtActiveItem', 0);
-		                this.fireEvent('loadTemplateMgmtGrid', 0);	
-                    }
-                }.bind(this), function (response) {
-                    var resObj = Ext.decode(response.responseText);
-                    if (!resObj.success && resObj.error.length) {
-                        CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
-                    }
-                }, 'PUT');
-    		} else {
-    			delete data.id;
-    			CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.SAVE_SPLASH_JOURNEY, param, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
-		            var resObj = Ext.decode(response.responseText);
-		            if (resObj.success) {
-		                this.fireEvent('setTemplateMgmtActiveItem', 0);
-		                this.fireEvent('loadTemplateMgmtGrid', 0);		                
-		            }
-		        }.bind(this), function (response) {
-		            var resObj = Ext.decode(response.responseText);
-		            if (!resObj.success && resObj.error.length) {
-		                CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
-		            }
-		        }, 'POST');
-    		}
-    	}
     },
     preview: function(id){
         var json = {"id": id};

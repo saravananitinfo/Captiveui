@@ -74,7 +74,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.PolicyList', {
                 flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
+                    return '<div action="edit" class="edit-icon"></div><div action="delete" class="del-icon"></div>';
                 }
             })
         }

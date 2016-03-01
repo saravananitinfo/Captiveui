@@ -22,7 +22,23 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
     addNewSite: function () {
         this.clearForm();
         this.fireEvent('setActiveSiteCard', 1);
-        this.fireEvent('loadStore');
+
+        // this.fireEvent('loadStore');
+        this.loadNewSites();
+    },
+    loadNewSites: function(){
+        var me = this;
+        var url = CaptivePortal.Config.SERVICE_URLS.NEW_SITE;
+        CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+            var resObj = Ext.decode(response.responseText);
+            if (resObj.success) {
+                me.fireEvent('setActiveSiteCard', 1);
+                var model = Ext.create('CaptivePortal.model.site.Site', resObj.data.site);
+                me.fireEvent('loadStore', model.data.users, resObj.data);
+                
+            }
+        }.bind(this), function (response) {
+        }, 'GET');
     },
     clearForm: function () {
         var form = Ext.ComponentQuery.query('#site_form')[0];

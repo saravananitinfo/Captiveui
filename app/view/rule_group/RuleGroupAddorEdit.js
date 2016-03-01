@@ -76,7 +76,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 										margin:'10 10 10 0',										
 										id:this.itemIdPrefix + 'grid',
 										width:'100%',
-						                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+						                // style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
 						                store: Ext.create('CaptivePortal.store.rule_group.Rule'),
 						                columns: [						                	
 						           			{
@@ -98,7 +98,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupAddorEdit', {
 								                flex:1,
 								                cls: 'table-row',
 								                renderer: function (value, metaData, rec, view) {
-								                    return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;<div action="moveup" class="arrow-up-icon" title="Move Up"></div>&nbsp;&nbsp;<div action="movedown" class="arrow-down-icon" title="Move Down"></div>';
+								                    return '<div action="edit" class="edit-icon" title="Edit"></div><div action="delete" class="del-icon" title="Delete"></div><div action="moveup" class="arrow-up-icon" title="Move Up"></div><div action="movedown" class="arrow-down-icon" title="Move Down"></div>';
 								                }
 								            }       			
 						                ],	

@@ -41,7 +41,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
 			{
 				xtype: 'gridpanel',
                 reference: 'grd_add_access_point',
-                style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
+                style: 'border-radius:2px !important;border:solid #cccccc 1px !important;',
                 store: 'CaptivePortal.store.access_point.AddAccessPoint',
                 columns: [
                 	{
@@ -89,12 +89,22 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
                         tdCls: 'table-cell',
             			editor: {
                 			xtype:"textfield",
+		                        //vtype:'mac',
                 			emptyText: "MAC Address",
             				hasFocus:true,
             				enableKeyEvents:true,
-                			allowBlank: false
+                			allowBlank: false,
+                            listeners:{
+                                change:function(tf,val){   
+                                    var mac = val.split(":").join(""); 
+                                    if (mac.length > 0) {
+                                     mac = mac.match(new RegExp('.{1,2}', 'g')).join(":");
+                                       }
+                                    tf.setValue(mac);
+                                }
+                            }
            				},
-           				emptyCellText: '<span style="color:#aaaaaa;">' + "Mac Id" + "</span>",
+           				emptyCellText: '<span style="color:#aaaaaa;">' + "MAC Address" + "</span>",
            			},
            			{
             			header: 'Site Name',
@@ -153,7 +163,10 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPoint',{
 			            beforeedit: function(d, c) {
 			            	console.log("...........cellediting");
 			                // c.record.set("invalidRec", false);
-			            }
+			            },
+                        edit: function(editor, e) {   
+                            e.record.commit();
+                         }
 			        }
 			    },
 			    selType: "checkboxmodel",

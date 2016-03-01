@@ -20,7 +20,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
         if (write) {
             dockeditems.push({
                 xtype: 'button',
-                text: 'Add Template',
+                text: 'Add Pages',
                 cls: 'btn-add-module',
                 itemId: 'btn_addtemplate',
                 handler:'addSplashTemplate'
@@ -46,7 +46,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                 }
             },
            {
-                header: 'Site/Tag',
+                header: 'Site/Group',
                 dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',
@@ -74,7 +74,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                 flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                    return '<div action="edit" class="edit-icon" title="Edit"></div><div action="delete" class="del-icon" title="Delete"></div><div action="duplicate" class="duplicate-icon" title="Duplicate"></div><div action="preview" class="preview-icon" title="Preview"></div>';
                 }
             })
         }

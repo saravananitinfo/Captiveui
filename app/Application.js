@@ -10,7 +10,7 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.user.User',
         'CaptivePortal.store.tenant.Tenant',
         'CaptivePortal.store.role.Role',
-        'CaptivePortal.store.role.RoleAccess',
+	 'CaptivePortal.store.role.RoleAccess',
         'CaptivePortal.store.user.TenantList',
         'CaptivePortal.store.users.TenantList',
         'CaptivePortal.store.users.Site',
@@ -37,8 +37,8 @@ Ext.define('CaptivePortal.Application', {
         'CaptivePortal.store.splash_template.SplashTemplates',
         'CaptivePortal.store.common.TimezoneStore',
         'CaptivePortal.store.tenant.Assume',
-        'CaptivePortal.store.site.Countries',
-        'CaptivePortal.store.site.State'
+        'CaptivePortal.store.report.ActiveSession',
+        'CaptivePortal.store.report.SessionHistory'
     ],
     launch: function () {
         // TODO - Launch the application

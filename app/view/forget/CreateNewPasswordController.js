@@ -31,7 +31,7 @@ Ext.define('CaptivePortal.view.forget.CreateNewPasswordController', {
         var label = me.getView().lookupReference('lab_err').setVisible(true);
         console.log(params);
         if (password === confirmpassword) {
-            CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.RESET_PASSWORD_LINK, params, 'Please Wait', '', function (response) {
+            CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.RESET_PASSWORD_LINK, params,'Please Wait','', function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
                     label.setText(resObj.message);

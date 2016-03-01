@@ -76,7 +76,7 @@ Ext.define('CaptivePortal.view.forget.CreateNewPassword', {
                                 items: [{
                                         xtype: 'label',
                                         height: 10,
-                                        text: 'Either user name or password is incorrect. Please try again',
+                                        text: '',
                                         hidden: true,
                                         itemId: 'lab_err',
                                         reference: 'lab_err',

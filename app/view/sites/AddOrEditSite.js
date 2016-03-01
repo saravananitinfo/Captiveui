@@ -103,7 +103,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 itemId: 'timezone'
                             }, {
                                 xtype: 'label',
-                                text: 'Tags',
+                                text: 'Group',
                                 padding: '15 0 10 0',
                                 cls: 'header_label_content'
                             }, {
@@ -113,7 +113,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSite', {
                                 width: 500,
                                 name: 'tags',
                                 itemId: 'tags',
-                                emptyText: 'Select Tags',
+                                emptyText: 'Select Group',
                                 valueField: 'id',
                                 displayField: 'name',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),

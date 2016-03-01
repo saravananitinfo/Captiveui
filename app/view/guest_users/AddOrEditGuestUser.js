@@ -134,11 +134,11 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 collapsed: true,
                                 layout: 'vbox',
                                 padding: '0 0 0 0',
-                                //margin:'20 20 0 0',
-                                height:300,
+                                height:320,
                                 width: '100%',
                                 items:[{
                                 xtype: 'container',
+                                margin:'10 0 0 0',
                                 itemId: 'additional_detail',
                                 width: '100%',
                                 height: 100,
@@ -242,6 +242,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                 items: [
                                     {
                                         xtype: 'container',
+                                        hidden: true,
                                         margin:'0 10 0 10',
                                         items: [
                                             {
@@ -262,7 +263,8 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                     },
                                     {
                                         xtype: 'container',
-                                        margin: '0 0 0 50',
+                                        // margin: '0 0 0 50',
+                                        margin:'0 10 0 10',
                                         items: [
                                             {
                                                 xtype: 'label',
@@ -272,6 +274,7 @@ Ext.define('CaptivePortal.view.guest_users.AddOrEditGuestUser',{
                                             {
                                                 xtype: 'datefield',
                                                 name: 'expiry_date',
+                                                minValue: new Date(),
                                                 margin: '10 0 0 0',
                                                 width: 400,
                                                 itemId: 'guest_user_expiry_date',

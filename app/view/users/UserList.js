@@ -41,7 +41,6 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Name',
                 dataIndex: 'name',
-                width: '20%',
                 flex: 1,
                 cls: 'table-row',
                 tdCls: 'table-cell',
@@ -53,7 +52,6 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Email',
                 dataIndex: 'user',
-                width: '15%',
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     metaData.tdAttr = 'data-qtip="' + value.email + '" ';
@@ -63,7 +61,6 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Sites',
                 dataIndex: 'sites',
-                width: '15%',
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     var asso_reso = rec.get('associated_resources'), siteNames = [];
@@ -86,7 +83,6 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Roles',
                 dataIndex: 'site_role',
-                width: '15%',
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     metaData.tdAttr = 'data-qtip="' + value.name + '" ';
@@ -96,7 +92,6 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Status',
                 dataIndex: 'status',
-                width: '8%',
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     if (value.toLowerCase() == 'enable')
@@ -110,7 +105,6 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Tenant',
                 dataIndex: 'tenant',
-                width: '12%',
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     metaData.tdAttr = 'data-qtip="' + value.name + '" ';
@@ -121,10 +115,9 @@ Ext.define('CaptivePortal.view.users.UserList', {
         if (write) {
             grid_colunms.push({
                 header: 'Action',
-                width: '8%',
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon"></div>&nbsp;&nbsp;<div action="delete" class="del-icon"></div>';
+                    return '<div action="edit" class="edit-icon"></div><div action="delete" class="del-icon"></div>';
                 }
             })
         }

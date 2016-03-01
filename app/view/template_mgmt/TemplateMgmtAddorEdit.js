@@ -64,13 +64,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 valueField: 'id',
                                                 displayField: 'name',
                                                 emptyText: 'Select Category',
-                                            }, {
-                                                xtype:'checkboxfield',
-                                                name:'default',
-                                                inputValue: true,
-                                                boxLabel:'Set as Default Template',
-                                                itemId:this.itemIdPrefix + 'default'
-                                            }, {
+                                            },{
                                                 xtype: 'label',
                                                 text: 'Site / Group',
                                                 cls: 'header_label_content',
@@ -91,10 +85,17 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 },
                                                 listeners:{
                                                     //select:CaptivePortal.util.Utility.getSiteAndTagDetails
-                                                    select:'site_change'
+                                                    select:'site_change_callback'
                                                 },margin:'0 0 0 0'
                                             },
                                             CaptivePortal.util.Utility.generateSiteTagRefLabel(),
+                                            {
+                                                xtype:'checkboxfield',
+                                                name:'default',
+                                                inputValue: true,
+                                                boxLabel:'Set as Default Template',
+                                                itemId:this.itemIdPrefix + 'default'
+                                            },
                                             {
                                                 xtype: 'label',
                                                 text: 'Status',
@@ -129,7 +130,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 // border:5,
                                                 items: [
                                                     {
-                                                        title:'Splash Page',
+                                                        title:'Splash Templates',
                                                         margin:'0 30 0 0',
                                                         // padding:15,
                                                         width: '100%',
@@ -173,8 +174,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                         layout:'vbox',
                                                         items:[{
                                                                 xtype:'checkboxfield',
-                                                                name:'custom_tnc',
-                                                                checked:true,
+                                                                name:'custom_tnc',                                                                
                                                                 inputValue: true,
                                                                 boxLabel:'Enable custom terms',
                                                                 itemId:this.itemIdPrefix + 'custom_tnc',
@@ -233,8 +233,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                         layout:'vbox',
                                                         items:[{
                                                                 xtype:'checkboxfield',
-                                                                name:'custom_privacy_policies',
-                                                                checked:true,
+                                                                name:'custom_privacy_policies',                                                               
                                                                 inputValue: true,
                                                                 boxLabel:'Enable privacy policy terms',
                                                                 itemId:this.itemIdPrefix + 'custom_privacy_policies',
@@ -337,12 +336,13 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 allowBlank: true,
                                                                 editable:false,
                                                                 name:'sms_gateway_management_id',
+                                                                reference:'sms_gateway_management_id',
                                                                 itemId:'sms_gateway_management_id',
                                                                 queryMode: 'local',                                             
                                                                 forceSelection:true,
                                                                 valueField: 'id',
                                                                 displayField: 'name',
-                                                                emptyText: 'Select SMS Gateway',
+                                                                emptyText: 'Select SMS Gateway'
                                                             }]
                                                     }
                                                 ]

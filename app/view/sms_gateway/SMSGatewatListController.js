@@ -2,13 +2,11 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.sms_gatewaylistcontroller',
     createSites: function(formId){
+        var me = this;
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_SMSGATEWAY, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
-                    var sitesCombo = Ext.ComponentQuery.query('#' + formId)[0].down('#gateway_sites');
-                    sitesCombo.reset();
-                    sitesCombo.store.loadRawData(sitesAndTags);
+                    me.loadSitesToFrom(formId, resObj);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);
@@ -16,6 +14,12 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
             }, 'GET', false);
+    },
+    loadSitesToFrom: function(formId, resObj){
+        var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+        var sitesCombo = Ext.ComponentQuery.query('#' + formId)[0].down('#gateway_sites');
+        sitesCombo.reset();
+        sitesCombo.store.loadRawData(sitesAndTags);
     },
     newSMSGateway: function(){
     	//Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
@@ -43,12 +47,13 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewatListController', {
         gateway_type_form.add(Ext.create('CaptivePortal.view.sms_gateway.GatewayType'+gateway_type))
         record = this.createSMSGatewayModel(obj);
         var form = Ext.ComponentQuery.query('#smsform')[0];
-        this.createSites('smsform');
+        // this.createSites('smsform');
+        this.loadSitesToFrom('smsform', obj);
         form.loadRecord(record);
         Ext.ComponentQuery.query('#btn_saveSMSGateway')[0].setText('Update');
         Ext.getCmp('viewport').setLoading(false);
     },
-    deleteSMSGateway: function(view, record, item, index, e, eOpts){ 
+    deleteSMSGateway: function(view, record, item, index, e, eOpts){
     	Ext.Msg.show({
             title: 'Delete SMS Gateway',
             message: 'Do you want to delete?',

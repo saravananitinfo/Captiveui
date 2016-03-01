@@ -68,7 +68,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupList', {
                 flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>';
+                    return '<div action="edit" class="edit-icon" title="Edit"></div><div action="delete" class="del-icon" title="Delete"></div>';
                 }
             })
         }

@@ -68,7 +68,14 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
     	var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
         if(form.getValues().splash_template_id){
         	var index = store.findExact('id', form.getValues().splash_template_id);
-        	CaptivePortal.util.Utility.buildHtml(store.getAt(index).data.splash_content);
+        	// CaptivePortal.util.Utility.buildHtml(store.getAt(index).data.splash_content);
+            CaptivePortal.util.Utility.buildHtml(Ext.decode(form.getValues().splash_content));
+        }
+
+        if(form.getValues().if_admin_template != ''){
+            var index = store.findExact('id', form.getValues().if_admin_template);
+            // CaptivePortal.util.Utility.buildHtml(store.getAt(index).data.splash_content);
+            CaptivePortal.util.Utility.buildHtml(Ext.decode(form.getValues().splash_content));
         }
     },
     cancelSplashTemplate: function(){
@@ -89,8 +96,10 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
 
         var splash_template = data.splash_template;
         splash_template.splash_template_id = splash_template.id
+        splash_template.splash_content = JSON.stringify(splash_template.splash_content);
         var model = Ext.create('CaptivePortal.model.splash_template.SplashTemplate', splash_template);
         form.loadRecord(model);
+        console.log(model);
         // if(data.splash_journey.site_info && data.splash_journey.site_info.id){
         //     form.down('#site_combo').setValue(data.splash_journey.site_info.id);
         // }

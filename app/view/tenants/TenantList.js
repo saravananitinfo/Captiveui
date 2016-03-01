@@ -64,7 +64,7 @@ Ext.define('CaptivePortal.view.tenants.TenantList', {
                 cls: 'table-row',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
-                    return '<div action="edit" class="edit-icon" title="edit"></div>&nbsp;&nbsp;<div action="delete" title="delete" class="del-icon"></div>&nbsp;&nbsp;<div action="assume_user" class="user_icon16" title="Assume User"></div>';
+                    return '<div action="edit" class="edit-icon" title="edit"></div><div action="delete" title="delete" class="del-icon"></div><div action="assume_user" class="user_icon16" title="Assume User"></div>';
                 },
                 width: 100
             });

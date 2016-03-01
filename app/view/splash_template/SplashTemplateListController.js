@@ -16,6 +16,19 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
             }
         }
     },
+
+    loadAdminTemplates: function(btn){
+        var grid = btn.up('panel').down('grid'), store = grid.store, 
+        filterFunc = function(rec, id){
+            if(rec.data.admin_template === true){
+                return true;
+            } else {
+                return false;
+            }
+        };
+        store.clearFilter();
+        store.filterBy(filterFunc);
+    },
     deleteSplashJorney: function (view, record, item, index, e, eOpts) {
         var me = this;
         Ext.Msg.show({
@@ -42,6 +55,12 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     duplicateTemplate: function(view, record, item, index, e, eOpts) {
         var me = this;
+        var json = {save: 'yes'}
+        var indx = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates').findExact('id', record.data.id)
+        var template = Ext.StoreManager.lookup("CaptivePortal.store.splash_template.SplashTemplates").getAt(indx);
+        if(CaptivePortal.app.getUserRole() != 'super_admin' && template.data.admin_template === true){
+            delete json.save
+        }
         Ext.Msg.show({
             title: 'Duplicate Template',
             message: 'Do you want to create copy?',
@@ -50,15 +69,23 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
             fn: function (btn) {
                 if (btn === 'yes') {
                     var url = CaptivePortal.Config.SERVICE_URLS.DUPLICATE_SPLASH_TEMPLATE + record.data.id + '/duplicate_template.json';
-                    CaptivePortal.util.Utility.doAjax(url, {save: "yes"}, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
-                        var resObj = Ext.decode(response.responseText);
+                    CaptivePortal.util.Utility.doAjax(url, json, CaptivePortal.app.getWaitMsg(), me.getView(), function (response) {
+                        var resObj = Ext.decode(response.responseText);                        
                         if (resObj.success) {
-                            console.log("..................akshy");
                             console.log(resObj);
-                            me.getSplashTemplateList();
-                            me.fireEvent('setSplashPageActiveItem',0);
+                            if(CaptivePortal.app.getUserRole() != 'super_admin' && template.data.admin_template === true){
+                                me.fireEvent('setSplashPageActiveItem',1);
+                                resObj.data.splash_template.if_admin_template = record.data.id
+                                me.fireEvent('initiateSplashTemplateForm', resObj.data);
+                                me.fireEvent('loadDataToSplashTemplateForm', resObj.data);
+                                Ext.ComponentQuery.query('label#lab_appheading')[0].setText(CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE);
+                            }else{
+                                me.getSplashTemplateList();
+                                me.fireEvent('setSplashPageActiveItem',0);
+                            }
                         }
                     }.bind(this), function (response) {
+                       
                     }, 'GET');
                 } else if (btn === 'no') {
 
@@ -70,9 +97,40 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
         // this.fireEvent('setSplashPageActiveItem',1);
         this.fireEvent('showSplashTemplateForm',1)
     },
+    selectType: function(combo){
+        var grid = combo.up('splash_template_list').down('grid');
+        var store = grid.store, val = combo.getValue(), isAdmin, returnRes;
+        if(val === 1){
+            grid.getColumnManager().columns[1].show();
+        } else {
+            grid.getColumnManager().columns[1].hide();
+        }
+        var filterFunc = function(rec, id){
+            isAdmin = rec.data.admin_template;
+            returnRes = (val === 1) ? false : true;
+            if(isAdmin === true){
+                return returnRes;
+            } else {
+                return !returnRes;
+            }
+        };
+        
+        store.clearFilter();
+        store.filterBy(filterFunc);    
+        
+    },
     getSplashTemplateList: function(){
-        var store = this.getView().lookupReference('grd_splash_template_list').getStore();
-        store.load();
+        var grid = this.getView().lookupReference('grd_splash_template_list');
+        var store = grid.getStore(), combo = grid.up('splash_template_list').down('combo');
+        store.load(function(){
+            if(CaptivePortal.app.getUserRole() !== 'super_admin'){
+                setTimeout(function(){
+                    this.selectType(combo);
+                }.bind(this),5)        
+            }
+        }.bind(this));
+        
+    
     },
     preview1: function(view, record, item, index, e, eOpts){
         var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
@@ -177,21 +235,21 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     preview: function(view, record, item, index, e, eOpts){
         var store = Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates');
-        var index = store.findExact('id', record.data.id);
-        var splash_content = store.getAt(index).data.splash_content;
+        // var index = store.findExact('id', record.data.id);
+        // var splash_content = store.getAt(index).data.splash_content;
 
-        console.log(splash_content);
-        var json = {"splash_content": splash_content};
-        if(!json.splash_content.hasOwnProperty('rows')){
-            return Ext.MessageBox.alert('', 'Please add Content..');
-        }
-        if(json.splash_content.rows.length === 0){
-            return Ext.MessageBox.alert('', 'Please add Content..');
-        }
-        Ext.getCmp('viewport').setLoading(true);
-        console.log(json);
-        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW, method = 'POST';
-        CaptivePortal.util.Utility.doAjaxJSON(url,json,"Loading...", this.getView(),function(response){
+        // console.log(splash_content);
+        // var json = {"splash_content": splash_content};
+        // if(!json.splash_content.hasOwnProperty('rows')){
+        //     return Ext.MessageBox.alert('', 'Please add Content..');
+        // }
+        // if(json.splash_content.rows.length === 0){
+        //     return Ext.MessageBox.alert('', 'Please add Content..');
+        // }
+        // Ext.getCmp('viewport').setLoading(true);
+        // console.log(json);
+        var url = CaptivePortal.Config.SERVICE_URLS.PREVIEW + '?id=' + record.data.id, method = 'GET';
+        CaptivePortal.util.Utility.doAjaxJSON(url,{},"Loading...", this.getView(),function(response){
             var resObj = response.responseText;
             CaptivePortal.util.Utility.createPreviewPage(resObj);
         }.bind(this),function(response){

@@ -87,7 +87,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 }
                             }, {
                                 xtype: 'label',
-                                text: 'Sites / Tags',
+                                text: 'Sites / Groups',
                                 cls: 'header_label_content'
                             }, {
                                 xtype: 'tagfield',
@@ -100,7 +100,7 @@ Ext.define('CaptivePortal.view.users.AddOrEditUser', {
                                 forceSelection: true,
                                 valueField: 'id',
                                 displayField: 'name',
-                                emptyText: 'Select Sites / Tags',
+                                emptyText: 'Select Sites / Groups',
                                 store: CaptivePortal.util.Utility.getEmptySiteStore(),
                                 filterPickList: true,
                                 listConfig: {

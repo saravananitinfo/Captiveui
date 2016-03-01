@@ -22,7 +22,7 @@ Ext.define('CaptivePortal.view.users.UserAccess', {
         }, {
             text: 'Write',
             align: 'center',
-            dataIndex: 'read',
+            dataIndex: 'write',
             renderer: function (value) {
                 var image;
                 value ? image = '<img src="resources/images/tick.png" />' : image = '<img src="resources/images/cross.png"/>';

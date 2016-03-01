@@ -48,6 +48,7 @@ Ext.define('CaptivePortal.view.forget.ForgetPassword', {
                                         xtype: 'container',
                                         height:60,
                                         // width: 900,
+					height:60,
                                         layout: 'hbox',
                                         items: [{
                                                 xtype: 'label',
@@ -58,8 +59,8 @@ Ext.define('CaptivePortal.view.forget.ForgetPassword', {
                                                 xtype: 'label',
                                                 text: '',
                                                 width: '100%',
-                                                height:'100%',         
-                                                padding:10,
+						height:'100%',
+						padding:10,
                                                 hidden: true,
                                                 itemId: 'sign_in_nav',
                                               cls: '',

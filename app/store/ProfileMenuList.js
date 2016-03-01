@@ -66,6 +66,12 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                 },{
                     name: CaptivePortal.Constant.MANAGEMENT.WIFIUSERS,
                     itemname: 'guests'
+                },{
+                    name:'Active Session Report',
+                    itemname:'reports'
+                },{
+                    name:'Session History Report',
+                    itemname:'reports'
                 }]
         }]
 })

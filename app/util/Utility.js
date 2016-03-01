@@ -1,7 +1,7 @@
 Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
-    BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
-    // BASE_URL: 'http://192.168.0.220:3001/',
+   BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
+     // BASE_URL: 'http://192.168.0.220:3001/',
     config: {
         myMask: null
     },
@@ -28,8 +28,7 @@ Ext.define('CaptivePortal.util.Utility', {
         Ext.getCmp('viewport').removeAll();
         CaptivePortal.util.Utility.doLoginForLoggedUser();
     },
-    logout: function (callApi) {
-        
+    logout: function (callApi) {        
         var _clearLocalValues = function(){
             Ext.getCmp('viewport').removeAll();
             Ext.util.Cookies.clear('CAP_SESSION');
@@ -112,7 +111,7 @@ Ext.define('CaptivePortal.util.Utility', {
         }
         return sitesAndTags;
     },
-    showServerError: function(response){
+    showServerError: function(response){       
         var resObj = Ext.decode(response.responseText);
         if (!resObj.success && resObj.error.length) {
             CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
@@ -179,7 +178,7 @@ Ext.define('CaptivePortal.util.Utility', {
         CaptivePortal.app.setUserRole(profile.user_role);
         CaptivePortal.app.setAccessPermissionList(profile.access_permission_list);
         this.addRulegroupForAccess(profile.access_permission_list);
-        CaptivePortal.app.setUserPermittedList(profile.permitted_roles);
+        CaptivePortal.app.setUserPermittedList(profile.permitted_roles);       
         CaptivePortal.app.setUserAuthorisedIPs(profile.authorized_ips);
         CaptivePortal.app.setUserProfileID(profile.id);
         CaptivePortal.app.setUserTenantID(profile.tenant.id);
@@ -292,7 +291,7 @@ Ext.define('CaptivePortal.util.Utility', {
         var store = Ext.StoreManager.lookup('ProfileMenuList');
         var menu;
         Ext.Array.each(store.data.items, function (rec, index) {
-            menu = Ext.widget('menu');
+            menu = Ext.widget('menu');            
             Ext.Array.each(rec.data.menuitem, function (menuitem, index) {
                 Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
                     if (menuitem.itemname === permission.access_for) {
@@ -311,39 +310,44 @@ Ext.define('CaptivePortal.util.Utility', {
                     }
                 });
             });
-            if (rec.data.id === 1)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
-            else if (rec.data.id === 2)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
-            else if (rec.data.id === 3)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
-            else if (rec.data.id === 4)
-                navpanel.add({
-                    text: rec.data.name,
-                    iconCls: rec.data.cls,
-                    cls: 'cp-splitbutton cp-splitbutton-tenantlist',
-                    margin: '0 50 0 0',
-                    menu: menu
-                });
-        })
+            if(menu && menu.items.length != 0){
+                if (rec.data.id === 1)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        menu: menu
+                    });
+                else if (rec.data.id === 2)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        menu: menu
+                    });
+                else if (rec.data.id === 3)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        listeners: {
+                            click: 'adminMenuClick'
+                        }
+                        // menu: menu
+                    });
+                else if (rec.data.id === 4)
+                    navpanel.add({
+                        text: rec.data.name,
+                        iconCls: rec.data.cls,
+                        cls: 'cp-splitbutton cp-splitbutton-tenantlist',
+                        margin: '0 50 0 0',
+                        menu: menu
+                    });
+            }
+        });
     },
     showInfo: function (title, msg) {
 
@@ -414,14 +418,15 @@ Ext.define('CaptivePortal.util.Utility', {
         var status = response.status;
         var errFlag = false;
         switch(status){
-            case 401:
             case 403:
+                break;
+            case 401:
                 CaptivePortal.util.Utility.logoutForSession(false);
                 errFlag = true;
             break;
             case 0:
             case 500:
-                CaptivePortal.util.Utility.showError('Error', 'There is an issue with the service, please try after some time');
+               CaptivePortal.util.Utility.showError('Error', 'There is an issue with the service, please try after some time');
                 errFlag = true;
             break;
             case 422:
@@ -434,10 +439,14 @@ Ext.define('CaptivePortal.util.Utility', {
             break;
         }
         var resStr = response.responseText;
-        if(resStr){
-            // var resObj = Ext.decode(response.responseText);
-            var resObj = response.responseText
-            var errs = resObj.message || resObj.error;
+        if(resStr){             
+            try{                 
+            var responseHeaderObj = response.getAllResponseHeaders();
+            console.log(responseHeaderObj);
+           var contentType = responseHeaderObj['content-type'];
+            if(contentType === 'application/json; charset=utf-8'){               
+            var resObj = Ext.decode(response.responseText);
+            var errs = resObj.message || resObj.error;           
             if((resObj.success === false || errFlag) && errs  && errs.length){
                 var errorText = '';
                 if(Ext.Array.each(errs, function(rec, index){
@@ -446,9 +455,19 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.showError('Error', errorText);
                 CaptivePortal.util.Utility.appLoadMask(null, null, false); 
                 Ext.getCmp('viewport').setLoading(false);
-                return;
+                return;             
+            }else{
+                CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+                Ext.getCmp('viewport').setLoading(false);
+            }            
             }             
             resStr && Ext.isFunction(callback) && callback.call(null, response);
+        }
+        catch(err){
+            console.log(err.message);
+            CaptivePortal.util.Utility.appLoadMask(null, null, false); 
+            Ext.getCmp('viewport').setLoading(false);
+        }
         }        
         CaptivePortal.util.Utility.appLoadMask(null, null, false); 
         Ext.getCmp('viewport').setLoading(false);
@@ -507,14 +526,16 @@ Ext.define('CaptivePortal.util.Utility', {
             }
         }
     },
-    buildHtml: function(json){
+    buildHtml: function(json, action){
         var me = this;
         // var json = {"rows":[{"col_type":"theme_col_1","background":"rgb(253, 251, 248)","height":154,"widgets":[{"widget_type":"img_widget","attributes":{"src":"http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/567aa48b736d735e02490000/medium.jpg?1450878088","height":103,"width":124,"top":10,"left":403}}]},{"col_type":"theme_col_1","background":"rgb(249, 249, 249)","height":108,"widgets":[{"widget_type":"text_widget","attributes":{"html_str":"<div style=\"color: rgb(0, 0, 0); text-align: center;\"><b><font size=\"2\" style=\"color: rgb(51, 153, 102);\">​</font></b></div><div style=\"text-align: center;\"><b><font size=\"6\" color=\"#339966\">Welcome To StarBucks</font></b></div>"}}]},{"col_type":"theme_col_2","background":"rgb(252, 250, 243)","height":204,"widgets":[{"widget_type":"text_widget","attributes":{"html_str":"<font color=\"#339966\"><font size=\"3\">​Contributions are most welcome. Premailer was rotting away in a private SVN repository for too long and could use some.</font><span style=\"font-size: medium;\">Contributions are most welcome. Premailer was rotting away in a private SVN repository for too long and could use some.</span></font>"}},{"widget_type":"img_widget","attributes":{"src":"http://ec2-54-234-147-190.compute-1.amazonaws.com:8080//gallery/56794b0d736d735e0c000000/medium.jpg?1450789644","height":161,"width":222,"top":0,"left":106}}]},{"col_type":"theme_col_1","background":"rgb(45, 125, 98)","height":120,"widgets":[{"widget_type":"login_button_widget","attributes":{"type":"Button","connect":"fb","text":"Login","url":"https://","padding_val":10,"font_size":18,"txt_color":"","bg_color":"","border_radius":6,"top":19,"left":415}}]}],"style":{"background":"rgb(255, 255, 255)"}}
         var jsn = json;//Ext.decode(json);
         var editor_canvas = Ext.ComponentQuery.query('#editor_canvas')[0];
         // editor_canvas.removeAll();
-        if(jsn.style){
-            editor_canvas.body.dom.style.background = jsn.style.background;
+        if(jsn && jsn.style){
+            if(action != 'pre_filled_sec'){ 
+                editor_canvas.body.dom.style.background = jsn.style.background;
+            }
         }
         
         if(jsn.hasOwnProperty('rows')){
@@ -608,20 +629,19 @@ Ext.define('CaptivePortal.util.Utility', {
                     }
                     if(widget.attributes.connect === 'form'){
                         var form_fields = JSON.stringify(widget.attributes.form_fields);
-                        obj['form_json'] = form_fields
-                        obj['trigger_type'] = widget.attributes.type
+                        obj['form_json'] = form_fields;
+                        obj['trigger_type'] = widget.attributes.type;
                         if(widget.attributes.type === 'Button'){
-                            obj['button_json'] = JSON.stringify(widget.attributes)
-                            obj['link_json'] = '{"type":"Link","connect":"form","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50,align:"center",valign:"middle"}'
+                            obj['button_json'] = JSON.stringify(widget.attributes);
+                            obj['link_json'] = '{"type":"Link","connect":"form","text":"Connect With Facebook","url":"https://","font_size":13,txt_color:"000000",top:50,left:50,align:"center",valign:"middle"}';
+                            
                         }else{
-                            obj['link_json'] = JSON.stringify(widget.attributes)
-                            obj['button_json'] = '{"type":"Button","connect":"form","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"",bg_color:"",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}'
+                            obj['link_json'] = JSON.stringify(widget.attributes);
+                            obj['button_json'] = '{"type":"Button","connect":"form","text":"Login","url":"https://","padding_val":5,"font_size":13,txt_color:"000000",bg_color:"DDDDDD",border_radius: 0,top:50,left:50,align:"center",valign:"middle"}';
                         }
                     }else{
-                        obj['button_json'] = JSON.stringify(widget.attributes)
+                        obj['button_json'] = JSON.stringify(widget.attributes);
                     }
-                    console.log(".............................................1");
-                    console.log(obj);
                     items.push(obj);
                     break;
                 case 'text_widget':

@@ -3,10 +3,10 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   alias: 'widget.rule_group_rule_attribute',
   padding: 0,
   height: '100%',
-  autoScroll:true,
+  // autoScroll:true,
   width:'100%',
   itemIdPrefix:'rule_group_rule_attribute_form-',
-  style: 'border-radius:2px !important;border:solid #cccccc 1px !important; ',
+  // style: 'border-radius:2px !important;border:solid #cccccc 1px !important; ',
   layout: {
 	    type: 'vbox',
 	    padding: '0 0 0 0'

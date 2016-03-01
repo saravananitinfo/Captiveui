@@ -40,7 +40,7 @@ Ext.define('CaptivePortal.view.forget.ForgetPasswordController', {
             var userName = formObj.down('#forget_password_user_name').getValue();
             var params = {"user[email]": userName};
             emailValidationInfo.show();
-            CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.SEND_FORGET_PASSWORD, params, 'Please Wait', '', function (response) {
+            CaptivePortal.util.Utility.doAjax(CaptivePortal.Config.SERVICE_URLS.SEND_FORGET_PASSWORD, params,'Please Wait', '', function (response) {
                 var respObj = Ext.decode(response.responseText);
                 var msg = "";
                 console.log(respObj);

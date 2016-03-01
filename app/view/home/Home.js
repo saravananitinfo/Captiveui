@@ -10,7 +10,8 @@ Ext.define('CaptivePortal.view.home.Home', {
         'CaptivePortal.view.guest_users.Main',
         'CaptivePortal.view.access_point.Main',
         'CaptivePortal.view.accesstimepolicy.Main',
-        'CaptivePortal.view.splash_template.Main'
+        'CaptivePortal.view.splash_template.Main',
+        'CaptivePortal.view.report.ActiveSession'
     ],
     xtype: 'widget.home.Home',
     itemId: 'pan_apphome',
@@ -78,8 +79,7 @@ Ext.define('CaptivePortal.view.home.Home', {
                                         setTimeout(function(){
                                             m.setX(newX);
                                             m.setY(newY);
-                                        }.bind(this), 1);
-                                        
+                                        }.bind(this), 1);                                        
                                     }
                                 }
                             },

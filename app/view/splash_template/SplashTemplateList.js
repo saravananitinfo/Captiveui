@@ -17,6 +17,24 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         //         return el.access_for == 'templates';
         //     })[0].write;
         // }
+        var filterCombo = Ext.create('Ext.data.Store',{
+            fields:['id', 'name'],
+            data:[{id:1, name:'Saved'}, {id:2, name:'Gallery'}]
+        });
+        var filterCombo = {
+            xtype:'combo',
+            store: filterCombo,
+            editable:false,
+            valueField:'id',
+            displayField:'name',
+            hidden:CaptivePortal.app.getUserRole() == 'super_admin',
+            value:1,
+            listeners:{
+                select:'selectType'
+            }
+        }
+
+
         if (write) {
             dockeditems.push({
                 xtype: 'button',
@@ -26,6 +44,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                 handler:'addSplashTemplate'
             })
         }
+        dockeditems.push(filterCombo);
         this.dockedItems = [{
                 xtype: 'toolbar',
                 padding: '30 23 0 30',
@@ -57,7 +76,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
             //     }
             // },
             {
-                header: 'Site/Tag',
+                header: 'Site/Group',
 		dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',
@@ -76,9 +95,9 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     if(value){
-                        return '<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                        return '<div action="duplicate" class="duplicate-icon" title="Duplicate"></div><div action="preview" class="preview-icon" title="Preview"></div>';
                     }else{
-                        return '<div action="edit" class="edit-icon" title="Edit"></div>&nbsp;&nbsp;<div action="delete" class="del-icon" title="Delete"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="duplicate" class="duplicate-icon" title="Duplicate"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div action="preview" class="preview-icon" title="Preview"></div>';
+                        return '<div action="edit" class="edit-icon" title="Edit"></div><div action="delete" class="del-icon" title="Delete"></div><div action="duplicate" class="duplicate-icon" title="Duplicate"></div><div action="preview" class="preview-icon" title="Preview"></div>';
                     }
                 }
             })

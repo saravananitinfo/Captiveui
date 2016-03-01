@@ -2,13 +2,11 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.guest_user_listcontroller',
     createSites: function(formId){
+        var me = this;
         CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.NEW_SMSGATEWAY, {}, CaptivePortal.app.getWaitMsg(), this.getView(), function (response) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.success) {
-                    var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
-                    var sitesCombo = Ext.ComponentQuery.query('#' + formId)[0].down('#gateway_sites');
-                    sitesCombo.reset();
-                    sitesCombo.store.loadRawData(sitesAndTags);
+                    me.loadSitesToFrom(formId, resObj);
                 }
             }.bind(this), function (response) {
                 var resObj = Ext.decode(response.responseText);
@@ -16,6 +14,12 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
                     CaptivePortal.util.Utility.showError('Error', resObj.error.join(' '));
                 }
             }, 'GET', false);
+    },
+    loadSitesToFrom: function(formId, resObj){
+        var sitesAndTags = CaptivePortal.util.Utility.createSitesAndTags(resObj.data);
+        var sitesCombo = Ext.ComponentQuery.query('#' + formId)[0].down('#gateway_sites');
+        sitesCombo.reset();
+        sitesCombo.store.loadRawData(sitesAndTags);
     },
     newGuestUser: function(){
         Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
@@ -33,7 +37,8 @@ Ext.define('CaptivePortal.view.guest_users.GuestUserListController', {
         //Ext.StoreManager.lookup('CaptivePortal.store.sms_gateway.Sites').reload();
         this.fireEvent('setGuestUsersMainActiveItem', 1);
 	Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Edit Guest User');
-        this.createSites('guest_user_form');
+        // this.createSites('guest_user_form');
+        this.loadSitesToFrom('guest_user_form', obj)
         var form  = Ext.ComponentQuery.query('#guest_user_form')[0];
         record = this.createGuestUser(obj);
         form.loadRecord(record);

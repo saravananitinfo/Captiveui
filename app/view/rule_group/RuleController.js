@@ -61,7 +61,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleController', {
                 grid.store.insert(grid.store.getCount(), rec);
             }
             this.fireEvent('setRuleGroupActiveItem', 1);
-            Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Rule Group');
+            Ext.ComponentQuery.query('label#lab_appheading')[0].setText('Splash Rule');
             }
         }
     },

@@ -20,7 +20,9 @@ Ext.define('CaptivePortal.model.template_mgmt.TemplateMgmt',{
 		{ name:'custom_tnc', type: 'boolean'},
 		{ name:'custom_privacy_policies', type: 'boolean'},
 		{ name:'sms_gateway_management_id', type: 'string'},
-		{ name:'splash_template_id', type: 'string'}
+		{ name:'splash_template_id', type: 'string'},
+		{ name:'splash_template', type: 'auto'},
+		{ name:'sms_gateway', type: 'auto'}
 
 	]
 });

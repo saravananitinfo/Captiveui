@@ -41,6 +41,22 @@ Ext.define("CaptivePortal.view.editor.ThemeCol1",{
                         }
                     }
                 }
+            },
+            {
+                xtype: 'component',
+                style: 'cursor: pointer;',
+                html: '<i class="fa fa-file-o" style="font-size: 16px;"></i>',
+                listeners: {
+                    afterrender: function(component) {
+                        component.getEl().on('click', function(component) {
+                            var me = this;
+                            if(this.up('panel').body){
+                                this.up('panel').body.el.dom.style.background = "";
+                            }
+                            this.up('panel').down('colorbutton').setValue('FFFFFF');
+                        }, this);
+                    }
+                }
             }
         ]
     },{

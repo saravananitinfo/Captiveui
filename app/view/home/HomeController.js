@@ -45,11 +45,14 @@ Ext.define('CaptivePortal.view.home.HomeController', {
         this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_usermain');
         this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.CONFIGURATION.ADMINS);
         this.fireEvent('setActiveUserCard', 0);
-        window.akhsay = a;
         Ext.query('.select_menu').forEach(function(item){
             var cmp = Ext.getCmp(item.getAttribute('componentid'));
             cmp.removeCls('select_menu');
-        })
+        });
+        Ext.query('.select_menu_item').forEach(function(item){
+            var cmp = Ext.getCmp(item.getAttribute('id'));
+            cmp.removeCls('select_menu_item');
+        });
         a.addCls('select_menu')
     },
     onMenuClick: function (menu) {

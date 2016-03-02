@@ -56,6 +56,28 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                     return value ? value.name : '';
                 }
             },
+            {
+                header: 'Template',
+                dataIndex: 'splash_template',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value.splash_template ? value.splash_template.name : ''  + '" ';
+                    return value ? value.name : '';
+                }
+            },
+            {
+                header: 'SMS Gateway',
+                dataIndex: 'sma_gateway',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value.sms_gateway ? value.sms_gateway.name : ''  + '" ';
+                    return value ? value.name : '';
+                }
+            }
             /*{
                 header: 'Category',
                 dataIndex: 'category',

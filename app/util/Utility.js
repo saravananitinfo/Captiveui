@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
-   BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:5666/',
+   BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
      // BASE_URL: 'http://192.168.0.220:3001/',
     config: {
         myMask: null

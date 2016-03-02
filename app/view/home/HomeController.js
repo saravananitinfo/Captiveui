@@ -12,6 +12,12 @@ Ext.define('CaptivePortal.view.home.HomeController', {
             global: {
                 logout: 'logout'
             }
+
+        },
+        controller: {
+         '#vc_add_access_point_controller': {
+            forceToChangeView: 'changeView'
+          }
         }
     },
     switchToAdmin: function () {
@@ -19,6 +25,10 @@ Ext.define('CaptivePortal.view.home.HomeController', {
             CaptivePortal.util.Utility.doAssumeUserLoginLogout(false);
             return;
         }
+    },
+    changeView: function (name, heading) {
+        this.getView().lookupReference('pan_mainnavigation').setActiveItem(name);
+        this.getView().lookupReference('lab_heading').setText(heading);
     },
     changePassword: function () {
 
@@ -105,7 +115,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText('Radius VSA');
                 this.fireEvent('setRadiusVSAActiveItem', 0);
                 break;
-            case "rule_group":
+            case "rule_groups":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_rule_group_main');
                 this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_RULES);
                 this.fireEvent('setRuleGroupActiveItem', 0);

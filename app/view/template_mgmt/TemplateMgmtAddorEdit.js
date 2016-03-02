@@ -93,7 +93,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                 xtype:'checkboxfield',
                                                 name:'default',
                                                 inputValue: true,
-                                                boxLabel:'Set as Default Template',
+                                                boxLabel:'Set as Default Splash Page',
                                                 itemId:this.itemIdPrefix + 'default'
                                             },
                                             {
@@ -184,6 +184,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                             },{
                                                                 xtype:'container',
                                                                 type:'vbox',
+                                                                hidden:true,
                                                                 itemId:this.itemIdPrefix + 'custom_tnc_container',
                                                                 items:[{
                                                                 xtype:'label',
@@ -219,7 +220,6 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 margin: '10 0 20 0',
                                                                 //llowBlank:false,
                                                                  width: 680,  
-                                                                maxLength:100,
                                                                 name:'tnc'
                                                             }]
                                                             }
@@ -244,6 +244,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 xtype:'container',
                                                                 itemId:this.itemIdPrefix + 'custom_privacy_policies_container',
                                                                 type:'vbox',
+                                                                hidden:true,
                                                                 items:[{
                                                                 xtype:'label',
                                                                 text:'Specify new privacy policy name',
@@ -251,7 +252,6 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 margin: '10 0 0 0'
                                                             },{
                                                                 xtype:'textfield',
-                                                                maxLength:100,                                                              
                                                                 margin: '10 0 20 0',
                                                                 //allowBlank:false,
                                                                  width: 680,  
@@ -263,7 +263,6 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 margin: '0 0 0 0'
                                                             },{
                                                                 xtype:'textfield',
-                                                                maxLength:100,
                                                                 margin: '10 0 20 0',
                                                                 //allowBlank:false,
                                                                  width: 680,  
@@ -275,7 +274,6 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 cls:'header_label_content',
                                                             },{
                                                                 xtype:'textareafield',
-                                                                maxLength:100,
                                                                 margin: '10 0 20 0',
                                                                 //allowBlank:false,
                                                                  width: 680,  
@@ -297,11 +295,11 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                                 margin: '10 0 0 0'
                                                             },{
                                                                 xtype:'textfield',
-                                                                maxLength:300,
                                                                 margin: '10 0 20 0',
                                                                 allowBlank:true,
                                                                  width: 680,  
-                                                                name:'default_success_url'
+                                                                name:'default_success_url',
+								                                emptyText: 'http://'
                                                             },{
                                                                 xtype:'label',
                                                                 text:'Error URL',
@@ -310,10 +308,10 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                                                             },{
                                                                 xtype:'textfield',
                                                                 margin: '10 0 20 0',
-                                                                maxLength:300,
                                                                 allowBlank:true,
                                                                  width: 680,  
-                                                                name:'default_error_url'
+                                                                name:'default_error_url',
+                                                                emptyText: "http://"
                                                             }
                                                         ]
                                                     },

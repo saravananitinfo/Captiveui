@@ -19,7 +19,6 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         }
     }, 
     onConutrySelect:function(cmb,record){
-        debugger
        var me =this;      
          CaptivePortal.util.Utility.appLoadMask('Please Wait', Ext.getCmp('viewport'), true);
         var combo = this.getView().lookupReference('cmb_state');
@@ -62,8 +61,6 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
     },
     setStoreEvent: function (data, serverData,model) {
         var user = [];
-        debugger
-        console.log(data)
         if (data) {
             Ext.Array.each(data, function (record, index) {
                 user.push(record.id)
@@ -363,9 +360,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
     getStateStore: function () {
         var store = Ext.create('Ext.data.Store', {
             fields: ['id', 'name'],
-            data: [{id: '1', name: 'Karnataka'},
-                {id: '2', name: 'Kerala'},
-                {id: '3', name: 'Uthar Pradesh'}]
+            data: []
         });
         this.getView().lookupReference('cmb_state').setStore(store);
     }

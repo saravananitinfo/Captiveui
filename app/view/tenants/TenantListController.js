@@ -26,7 +26,6 @@ Ext.define('CaptivePortal.view.tenants.TenantListController', {
         CaptivePortal.util.Utility.doAjax(url, {},"Loading...",this.getView(), function (response) {
             var resObj = Ext.decode(response.responseText);
             if (resObj.success) {
-                debugger;
             }
         }.bind(this), function (response) {
         }, 'GET');*/

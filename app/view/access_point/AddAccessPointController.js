@@ -1,12 +1,18 @@
 Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.add_access_point_controller',
+    id: 'vc_add_access_point_controller',
     addRowAccessPoint: function(){
-    	console.log(".........hi");
-    	console.log(this);
+        Ext.StoreManager.lookup('CaptivePortal.store.access_point.Sites').reload();
     	var grid = this.getView().lookupReference('grd_add_access_point');
     	grid.getStore().add({name:"",mac_id:"",site_id:""})
     	
+    },
+    onSiteComboSelect: function (l, k, p) {
+        if (l.getRawValue() === 'Create a new site') {
+            this.fireEvent('forceToChangeView', 'card_sitelist', CaptivePortal.Constant.CONFIGURATION.SITES);
+            this.fireEvent('showCreateSite');
+        }
     },
     removeRowAccessPoint: function(){
     	var grid = this.getView().lookupReference('grd_add_access_point');

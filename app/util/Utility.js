@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.util.Utility', {
     singleton: true,
-   BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
+   BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:5666/',
      // BASE_URL: 'http://192.168.0.220:3001/',
     config: {
         myMask: null
@@ -177,7 +177,7 @@ Ext.define('CaptivePortal.util.Utility', {
         CaptivePortal.app.setUserName(profile.name);
         CaptivePortal.app.setUserRole(profile.user_role);
         CaptivePortal.app.setAccessPermissionList(profile.access_permission_list);
-        this.addRulegroupForAccess(profile.access_permission_list);
+	    //this.addRulegroupForAccess(profile.access_permission_list);
         CaptivePortal.app.setUserPermittedList(profile.permitted_roles);       
         CaptivePortal.app.setUserAuthorisedIPs(profile.authorized_ips);
         CaptivePortal.app.setUserProfileID(profile.id);
@@ -188,7 +188,7 @@ Ext.define('CaptivePortal.util.Utility', {
         CaptivePortal.app.setUserName(resObj.email);
         CaptivePortal.app.setUserRole(resObj.user_role);
         CaptivePortal.app.setAccessPermissionList(resObj.access_permission_list);
-        this.addRulegroupForAccess(resObj.access_permission_list);
+        //this.addRulegroupForAccess(resObj.access_permission_list);
 
     },
     doLoginForLoggedUser: function () {
@@ -291,8 +291,8 @@ Ext.define('CaptivePortal.util.Utility', {
         var store = Ext.StoreManager.lookup('ProfileMenuList');
         var menu;
         Ext.Array.each(store.data.items, function (rec, index) {
-            menu = Ext.widget('menu');            
-            Ext.Array.each(rec.data.menuitem, function (menuitem, index) {
+            menu = Ext.widget('menu');           
+	        Ext.Array.each(rec.data.menuitem, function (menuitem, index) {
                 Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
                     if (menuitem.itemname === permission.access_for) {
                         if (permission.read || permission.write) {
@@ -406,10 +406,10 @@ Ext.define('CaptivePortal.util.Utility', {
                 CaptivePortal.util.Utility.appLoadMask(null, null, false);
             },
             success: function (response) {
-                CaptivePortal.util.Utility.postManipulateResponse(response, successCallback);
+		        CaptivePortal.util.Utility.postManipulateResponse(response, successCallback);
             },
             failure: function (response) {
-                CaptivePortal.util.Utility.postManipulateResponse(response, failureCallback);
+		        CaptivePortal.util.Utility.postManipulateResponse(response, failureCallback);
             }
         });
     },
@@ -440,10 +440,9 @@ Ext.define('CaptivePortal.util.Utility', {
         }
         var resStr = response.responseText;
         if(resStr){             
-            try{                 
+          try{                 
             var responseHeaderObj = response.getAllResponseHeaders();
-            console.log(responseHeaderObj);
-           var contentType = responseHeaderObj['content-type'];
+            var contentType = responseHeaderObj['content-type'];
             if(contentType === 'application/json; charset=utf-8'){               
             var resObj = Ext.decode(response.responseText);
             var errs = resObj.message || resObj.error;           
@@ -462,12 +461,12 @@ Ext.define('CaptivePortal.util.Utility', {
             }            
             }             
             resStr && Ext.isFunction(callback) && callback.call(null, response);
-        }
-        catch(err){
+          }
+          catch(err){
             console.log(err.message);
             CaptivePortal.util.Utility.appLoadMask(null, null, false); 
             Ext.getCmp('viewport').setLoading(false);
-        }
+          }
         }        
         CaptivePortal.util.Utility.appLoadMask(null, null, false); 
         Ext.getCmp('viewport').setLoading(false);
@@ -576,7 +575,6 @@ Ext.define('CaptivePortal.util.Utility', {
                         break;
                     case 'theme_col_2_left_vbox':
                         var items = me.getItems(row);
-                        console.log(items[2]);
                         editor_canvas.add({
                             xtype: 'theme_col_2_left_vbox',
                             height: row.height,

@@ -16,8 +16,10 @@ Ext.define('CaptivePortal.view.rule_group.RuleGroupList', {
         var write = false;
         if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
             write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
-                return el.access_for == 'rule_group';
-            })[0].write;
+                return el.access_for == 'rule_groups'; })
+            if (write.length > 0){
+                write = write[0].write;
+            }
         }
         if (write) {
             dockeditems.push({

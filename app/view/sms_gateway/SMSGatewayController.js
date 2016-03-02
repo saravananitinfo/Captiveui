@@ -71,7 +71,6 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewayController', {
             var myForm = new Ext.form.Panel({
                 controller: 'sms_gateway',
                 width: 400,
-                height: 200,
                 title: 'Enter Your Number',
                 floating: true,
                 closable : true,
@@ -95,7 +94,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewayController', {
                                 xtype: 'button',
                                 formBind: true,
                                 itemId: "submit_verity_gateway",
-                                text: "Save",
+                                text: "Verify",
                                 handler: 'submitVerityGateway',
                                 cls: 'btn'
                             }

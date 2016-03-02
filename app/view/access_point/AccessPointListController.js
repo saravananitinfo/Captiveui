@@ -23,6 +23,7 @@ Ext.define('CaptivePortal.view.access_point.AccessPointListController', {
 
     },
     addAccessPoints: function(){
+        Ext.StoreManager.lookup('CaptivePortal.store.access_point.Sites').reload();
     	Ext.StoreManager.lookup('CaptivePortal.store.access_point.AddAccessPoint').loadData([{name: "", mac_id: "", site_id: "", uid: ""}],false);
     	this.fireEvent('setAccessPointMainActiveItem', 1)
     },

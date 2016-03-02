@@ -64,17 +64,6 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                     return value;
                 }
             },
-            // {
-            //     header: 'Category',
-            //     dataIndex: 'category',
-            //     flex: 1,
-            //     cls: 'table-row',
-            //     tdCls: 'table-cell',
-            //     renderer: function (value, metaData, rec, view) {
-            //        metaData.tdAttr = 'data-qtip="' + value + '" ';
-            //         return value;
-            //     }
-            // },
             {
                 header: 'Site/Group',
 		dataIndex: 'associated_resource',
@@ -86,7 +75,19 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                     metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';
                     return value ? value.name : '';
                 }
-            }
+            },
+	    {
+                 header: 'Status',
+                 dataIndex: 'status',
+                 flex: 1,
+                 cls: 'table-row',
+                 tdCls: 'table-cell',
+                 renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value + '" ';
+                     return value;
+                 }
+             }
+		
         ];
         if (write) {
             grid_colunms.push({

@@ -69,7 +69,15 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
                         },
                         {
                             xtype: 'label',
-                            html:'<a href="custom/images/sample_access_point.csv">Click here to download sample Inventory csv file'
+                            listeners: {
+                                 render: function (label) {
+                                        label.el.on('click',function(){
+                                            window.open("custom/images/sample_access_point.csv");
+                                        });
+                                }
+                            },
+                            text:'Click here to download sample Inventory csv file',
+                            style: "color:blue;"
                         },
                         {
                             xtype: 'container',

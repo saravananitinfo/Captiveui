@@ -16,6 +16,9 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         controller: {
             '#vc_sitecontroller': {
                 refreshSitesStore: 'getSite'
+            },
+            '#vc_add_access_point_controller': {
+                     showCreateSite: 'addNewSite'
             }
         }
     },
@@ -130,7 +133,7 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
         {key:'users', store:'CaptivePortal.store.user.User'},
         {key:'templates', store:'CaptivePortal.store.splash_template.SplashTemplates'},
         {key:'journeys', store:'CaptivePortal.store.template_mgmt.TemplateMgmt'},
-        {key:'rule_group', store:'CaptivePortal.store.rule_group.RuleGroup'},
+        {key:'rule_groups', store:'CaptivePortal.store.rule_group.RuleGroup'},
         {key:'access_points', store:'CaptivePortal.store.access_point.AccessPoints'},
         {key:'sms_gateway', store:'CaptivePortal.store.sms_gateway.SMSGateways'}
         ];

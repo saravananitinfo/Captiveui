@@ -59,7 +59,6 @@ Ext.define('CaptivePortal.view.forget.ForgetPasswordController', {
                     }
                     emailValidationInfo.addCls('validEmail');
                 }
-                //debugger;
             }.bind(this), function (response) {
             }, 'POST');
         }

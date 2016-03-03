@@ -53,6 +53,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Tenant',
                         dataIndex: 'tenant',
                          cls: 'table-row',
+                         flex:1,
                         renderer: function (value, metaData, rec, view) {
                             var tenant = rec.get('tenant');
                             value = tenant ? tenant.name : '';
@@ -64,6 +65,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Time Zone',
                         dataIndex: 'timezone',
                          cls: 'table-row',
+                         flex:1,
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
                             var record = timezones.findRecord('id', value);
@@ -74,6 +76,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                         header: 'Group',
                         dataIndex: 'tag',
                          cls: 'table-row',
+                         flex:1,
                         renderer: function (value, metaData, rec, view) {
                             var tag = rec.get('tag');
 			    value = tag ? ((tag.name==null) ? '' : tag.name) : '';

@@ -62,7 +62,7 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
                         {
                         	xtype: 'filefield',
                         	name: 'file_data',
-                        	emptyText: "Guest Users",
+                        	emptyText: "Guest WiFi Users",
                         	width: 400,
         			hideLabel: true,
         			itemId: 'upload_field',
@@ -71,7 +71,15 @@ Ext.define('CaptivePortal.view.guest_users.UploadGuestUsersFrom',{
                         },
                         {
                             xtype: 'label',
-                            html:'<a href="custom/images/sample_guest.csv">Click here to download sample guest csv file'
+                            listeners: {
+                                 render: function (label) {
+                                        label.el.on('click',function(){
+                                            window.open("custom/images/sample_guest.csv");
+                                        });
+                                }
+                            },
+                            text:'Click here to download sample guest wifi users csv file',
+                            style: "color: #0756A5;cursor:pointer"
                         },
                         {
                             xtype: 'container',

@@ -65,6 +65,7 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewayController', {
     testVerifyGatewayDetails: function(){
         var form = Ext.ComponentQuery.query('#smsform')[0]
         var form_values = form.getValues();
+        var gatewayType = form_values.gateway_type;
         if(form_values['gateway_type'].toLowerCase() === 'clickatell'){
             this.verifyGateway(form_values);
         }else{
@@ -81,14 +82,20 @@ Ext.define('CaptivePortal.view.sms_gateway.SMSGatewayController', {
                         emptyText: "Phone Number",
                         allowBlank: false,
                         width: '70%',
-                        margin: '20 20 20 20'
+                        margin: '20 20 0 20'
+                    },
+                    {
+                        xtype: 'label',
+                        hidden: gatewayType === 'Twilio' ? false : true,
+                        html: '<img src="custom/images/informationIcon.png" style="height: 10px;"/><span style="vertical-align: top;margin-left: 3px;">Carrier charges might apply for verification SMS</span>',
+                        style: "margin: 20px 20px 0px 20px;color: #222;font-size: 10px;vertical-align: middle;"
                     },
                     {
                         xtype: 'container',
                         layout: 'hbox',
                         width: '100%',
                         height: 50,
-                        margin: '0 20 0 20',
+                        margin: '20 20 0 20',
                         items: [
                             {
                                 xtype: 'button',

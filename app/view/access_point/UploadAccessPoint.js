@@ -77,7 +77,7 @@ Ext.define('CaptivePortal.view.access_point.UploadAccessPoint',{
                                 }
                             },
                             text:'Click here to download sample Inventory csv file',
-                            style: "color:blue;"
+                            style: "color: #0756A5;cursor:pointer"
                         },
                         {
                             xtype: 'container',

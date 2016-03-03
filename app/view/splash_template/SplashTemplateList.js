@@ -11,12 +11,12 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         var dockeditems = [{
                 xtype: 'tbfill'
             }]
-        var write = true;
-        // if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
-        //     write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
-        //         return el.access_for == 'templates';
-        //     })[0].write;
-        // }
+        var write = false;
+         if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
+             write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
+                 return el.access_for == 'templates';
+             })[0].write;
+         }
         var filterCombo = Ext.create('Ext.data.Store',{
             fields:['id', 'name'],
             data:[{id:1, name:'Saved'}, {id:2, name:'Gallery'}]
@@ -34,7 +34,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
             }
         }
 
-
+	dockeditems.push(filterCombo);
         if (write) {
             dockeditems.push({
                 xtype: 'button',
@@ -44,7 +44,6 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                 handler:'addSplashTemplate'
             })
         }
-        dockeditems.push(filterCombo);
         this.dockedItems = [{
                 xtype: 'toolbar',
                 padding: '30 23 0 30',

@@ -14,7 +14,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
         var write = false;
         if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
             write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
-                return el.access_for == 'templates';
+                return el.access_for == 'journeys';
             })[0].write;
         }
         if (write) {

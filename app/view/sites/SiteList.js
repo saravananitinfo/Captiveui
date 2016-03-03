@@ -41,7 +41,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                     {
                         header: 'Name',
                         dataIndex: 'name',
-                        width: '14.9%',
+			flex:1,
                         cls: 'table-row',
                        tdCls: 'table-cell',
                         renderer: function (value, metaData, rec, view) {
@@ -52,7 +52,6 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                     {
                         header: 'Tenant',
                         dataIndex: 'tenant',
-                        width: '14.9%',
                          cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             var tenant = rec.get('tenant');
@@ -64,7 +63,6 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                     {
                         header: 'Time Zone',
                         dataIndex: 'timezone',
-                        width: '29.9%',
                          cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             metaData.tdAttr = 'data-qtip="' + value + '" ';
@@ -75,7 +73,6 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                     {
                         header: 'Group',
                         dataIndex: 'tag',
-                        width: '14.9%',
                          cls: 'table-row',
                         renderer: function (value, metaData, rec, view) {
                             var tag = rec.get('tag');
@@ -105,8 +102,7 @@ Ext.define('CaptivePortal.view.sites.SiteList', {
                                      cls: 'table-row',
                                     renderer: function (value, metaData, rec, view) {
                                         return '<div action="edit" class="edit-icon"></div><div action="delete" class="del-icon"></div>';
-                                    },
-                                    width: '10%'
+                                    }
                                 })
                     }
                 this.items = [{

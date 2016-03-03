@@ -77,7 +77,7 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                         itemId: 'card_splash_template_main'
                     });
                 }
-            } else if ("radius_configuration" === permission.access_for) {
+            } else if ("radius_vsas" === permission.access_for) {
                   if(me.checkPermission(permission)){
                 panel.add({
                     xtype: 'radius_vsa_main',

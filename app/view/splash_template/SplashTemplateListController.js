@@ -1,6 +1,13 @@
 Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.splash_template_list_controller',
+    listen:{
+        controller:{
+            '#vc_splash_template':{
+                setSplashTemplateFilter : 'setFilterComboValue'
+            }
+        }
+    },
     splashTemplateItemClick: function (view, record, item, index, e, eOpts) {
         var me = this;
         var action = e.target.getAttribute('action');
@@ -95,7 +102,11 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     addSplashTemplate: function(){
         // this.fireEvent('setSplashPageActiveItem',1);
-        this.fireEvent('showSplashTemplateForm',1)
+        this.fireEvent('showSplashTemplateForm',1);
+        this.getReferences().cmb_filter.setValue(1);
+    },
+    setFilterComboValue:function(value){
+        this.getReferences().cmb_filter.setValue(value);
     },
     selectType: function(combo){
         var grid = combo.up('splash_template_list').down('grid');

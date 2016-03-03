@@ -20,16 +20,41 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
     	// console.log(grid.getSelection());
     	store.remove(grid.getSelectionModel().getSelection());
     },
-    saveAddAccessPoints: function(){
-    	Ext.getCmp('viewport').setLoading(true);
+    saveAddAccessPoints: function(){    	
     	console.log('...................call save');
-    	var store = Ext.StoreManager.lookup('CaptivePortal.store.access_point.AddAccessPoint')
-    	data = store.getRange().map(function(ele){ return {name: ele.data.name, mac_id: ele.data.mac_id, site_id: ele.data.site_id, vendor_type: ele.data.vendor_type}});
-    	console.log(data)
+    	//var store = Ext.StoreManager.lookup('CaptivePortal.store.access_point.AddAccessPoint');
 
+        var gridStr = this.getReferences().grd_add_access_point.getStore();
+        var data = [];
+        var flag = 0;
+        Ext.Array.each(gridStr.getData().items,function(record){
+            if(record.data.mac_id !== "" && record.data.site_id === "" ){               
+                CaptivePortal.util.Utility.showError('Error', 'Select a Site');
+            }else if(record.data.mac_id !== "" && record.data.vendor_type === "" ){                
+                CaptivePortal.util.Utility.showError('Error', 'Enter Vendor Details');
+            }else if(record.data.site_id !== "" && record.data.mac_id === "" ){                
+                CaptivePortal.util.Utility.showError('Error', 'Enter Mac Address');
+            }else if(record.data.site_id !== "" && record.data.vendor_type === "" ){               
+                CaptivePortal.util.Utility.showError('Error', 'Enter Vendor Details');
+            }else if(record.data.vendor_type !== "" && record.data.mac_id === "" ){             
+                CaptivePortal.util.Utility.showError('Error', 'Enter Mac Address');
+            }else if(record.data.vendor_type !== "" && record.data.vendor_type === "" ){               
+                CaptivePortal.util.Utility.showError('Error', 'Select Vendor Type');
+            }else if(record.data.mac_id === "" && record.data.site_id === "" && record.data.vendor_type === ""){
+                flag += 1; 
+            }else if(record.data.mac_id !== "" && record.data.site_id !== "" && record.data.vendor_type !== ""){
+               flag += 1; 
+               data.push({
+                    name: record.data.name,
+                    mac_id: record.data.mac_id, 
+                    site_id: record.data.site_id, 
+                    vendor_type: record.data.vendor_type
+                })  
+            }
+        });
+        if(data.length > 0 && flag ===  gridStr.getCount()){
     	var json = {access_point: data}
 
-    	console.log(json)
     	var url = CaptivePortal.Config.SERVICE_URLS.SAVE_ACCESSPOINT, method = 'POST';
     	// CaptivePortal.util.Utility.addHeader();
         CaptivePortal.util.Utility.doAjaxJSON(url, json, "Loading..", this.getView(),function(response){
@@ -53,7 +78,7 @@ Ext.define('CaptivePortal.view.access_point.AddAccessPointController', {
             }          
         },method);
     	
-
+    }
     },
     cancleAddAccessPoints: function(){
     	console.log('...................call cancle');

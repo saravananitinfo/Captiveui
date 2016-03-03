@@ -75,7 +75,7 @@ Ext.define('CaptivePortal.view.access_point.AccessPointList',{
                 }
             },*/
             {
-                header: 'Vendors',
+                header: 'Vendor',
                 dataIndex: 'vendor_type',
                 flex: 1,
                 cls: 'table-row',

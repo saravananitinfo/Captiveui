@@ -24,13 +24,14 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         var filterCombo = {
             xtype:'combo',
             store: filterCombo,
+            reference:'cmb_filter',
             editable:false,
             valueField:'id',
             displayField:'name',
             hidden:CaptivePortal.app.getUserRole() == 'super_admin',
             value:1,
             listeners:{
-                select:'selectType'
+                change:'selectType'
             }
         }
 

@@ -312,8 +312,15 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         }.bind(this), function (response) {
         }, 'GET');
     },
-    getCountryStore: function () {
-        this.getView().lookupReference('cmb_country').getStore().load();
+    getCountryStore: function () {      
+        var me = this;
+        var store =  this.getView().lookupReference('cmb_country').getStore();
+        this.getView().lookupReference('cmb_country').getStore().load({
+            callback:function(records){
+                  debugger
+                me.getView().lookupReference('cmb_country').bindStore(store);
+            }
+        });
     },
     getStateStore: function () {
         var store = Ext.create('Ext.data.Store', {

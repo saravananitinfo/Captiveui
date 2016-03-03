@@ -2877,3 +2877,343 @@
 /* line 56, ../../../../ext/packages/ext-theme-neptune/sass/src/resizer/Resizer.scss */
 .x-resizable-pinned .x-resizable-handle-southwest {
   background-position: 2px -2px; }
+
+/* including package ext-ux */
+/* The actual pop window with the color picker components */
+/* line 2, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker {
+  overflow: visible; }
+  /* line 8, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+  .x-colorpicker > .x-box-inner {
+    overflow: visible; }
+  /* line 13, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+  .x-colorpicker .x-form-item-label {
+    text-align: center; }
+
+/* line 18, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colopicker-escape-overflow {
+  overflow: visible; }
+  /* line 21, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+  .x-colopicker-escape-overflow > .x-box-inner {
+    overflow: visible; }
+
+/* line 28, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap {
+  background-image: url(ext-ux/images/colorpick/map_gradient.png); }
+
+/* line 35, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap-draghandle-container {
+  overflow: visible;
+  z-index: 1; }
+
+/* line 41, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap-blender {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+/* line 49, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-colormap-draghandle {
+  width: 15px;
+  height: 15px;
+  position: relative;
+  left: -7px;
+  top: -7px;
+  background-image: url(ext-ux/images/colorpick/drag_circle.png); }
+
+/* line 60, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-draghandle-container {
+  width: 20px; }
+
+/* line 64, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-draghandle {
+  width: 32px;
+  height: 9px;
+  position: relative;
+  left: -6px;
+  top: -4px;
+  background-image: url(ext-ux/images/colorpick/pickerslider.png);
+  background-repeat: no-repeat;
+  z-index: 1; }
+
+/* line 75, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-hue {
+  background-image: url(ext-ux/images/colorpick/huegradient.png); }
+
+/* line 82, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-hue-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+/* line 91, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-saturation > .x-colorpicker-draghandle-container {
+  background: -mox-linear-gradient(top, white 0%, black 100%);
+  /* FF3.6+ */
+  background: -webkit-linear-gradient(top, white 0%, black 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, white 0%, black 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, white 0%, black 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #ffffff 0%, #000000 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000',GradientType=0 );
+  /* IE6-9 */ }
+
+/* line 102, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-value > .x-colorpicker-draghandle-container {
+  background: -mox-linear-gradient(top, red 0%, black 100%);
+  /* FF3.6+ */
+  background: -webkit-linear-gradient(top, red 0%, black 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, red 0%, black 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, red 0%, black 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #ff0000 0%, #000000 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#000000',GradientType=0 );
+  /* IE6-9 */ }
+
+/* line 113, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-alpha > .x-colorpicker-draghandle-container {
+  background-image: url(ext-ux/images/colorpick/checkerboard.png); }
+
+/* line 119, ../../../../ext/packages/ext-ux/sass/src/colorpick/Selector.scss */
+.x-colorpicker-preview {
+  background-image: url(ext-ux/images/colorpick/checkerboard.png); }
+
+/* line 2, ../../../../ext/packages/ext-ux/sass/src/colorpick/Button.scss */
+.x-colorpicker-button {
+  position: relative;
+  border: 1px solid gray;
+  background-image: url(ext-ux/images/colorpick/checkerboard.png); }
+
+/* line 3, ../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field .x-form-item-body {
+  position: relative; }
+/* line 7, ../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field input {
+  padding-left: 26px; }
+
+/* line 12, ../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field-swatch {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 4px;
+  background-image: url(ext-ux/images/colorpick/checkerboard.png);
+  top: 0px;
+  bottom: 0px;
+  margin: auto; }
+
+/* line 25, ../../../../ext/packages/ext-ux/sass/src/colorpick/Field.scss */
+.x-colorpicker-field-swatch-inner {
+  position: absolute;
+  height: 100%;
+  width: 100%; }
+
+/* line 1, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker {
+  overflow: hidden;
+  color: #cccccc;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 1; }
+
+/* line 15, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-inner {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+  white-space: nowrap; }
+
+/* line 28, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-over.ux-rating-picker-track-over {
+  color: #cccccc; }
+  /* line 31, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+  .ux-rating-picker-over.ux-rating-picker-track-over > * > .ux-rating-picker-value {
+    display: none;
+    width: 0; }
+  /* line 36, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+  .ux-rating-picker-over.ux-rating-picker-track-over > * > .ux-rating-picker-value:hover {
+    color: inherit; }
+  /* line 40, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+  .ux-rating-picker-over.ux-rating-picker-track-over > * > .ux-rating-picker-tracker {
+    display: inline-block; }
+
+/* line 46, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-value,
+.ux-rating-picker-tracker {
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  top: 0;
+  width: 0;
+  height: 100%;
+  color: #ffe850; }
+
+/* line 58, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-tracker {
+  display: none; }
+
+/* line 62, ../../../../ext/packages/ext-ux/sass/src/rating/Picker.scss */
+.ux-rating-picker-over {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1; }
+
+/* including package CaptivePortal */
+/* line 1, ../../../../sass/src/view/home/Home.scss */
+.login_logo {
+  background: url("images/zebra_logo_big.png") no-repeat;
+  border-right: 4px solid #aab300;
+  display: block; }
+
+/* line 6, ../../../../sass/src/view/home/Home.scss */
+.login_logo_small {
+  background-size: cover;
+  height: 45px;
+  width: 50px;
+  border-right: 0px solid #aab300; }
+
+/* line 12, ../../../../sass/src/view/home/Home.scss */
+.flag_icon {
+  background: url("images/flag_icon.png") no-repeat;
+  height: 16px;
+  width: 16px; }
+
+/* line 17, ../../../../sass/src/view/home/Home.scss */
+.user_icon {
+  background: url("images/user_icon_128.png") no-repeat;
+  height: 24px !important;
+  width: 24px !important;
+  border-radius: 10px; }
+
+/* line 24, ../../../../sass/src/view/home/Home.scss */
+.logout_button.x-btn-default-toolbar-small, .logout_button.x-btn-default-toolbar-small.x-btn-over, .logout_button .x-btn-inner-default-toolbar-small {
+  background-color: #595959 !important;
+  border-color: white !important;
+  opacity: 1 !important;
+  color: white !important;
+  background-image: none !important; }
+
+/* line 32, ../../../../sass/src/view/home/Home.scss */
+.menu_item .x-menu-item-text {
+  color: #157fcc !important; }
+
+/* line 36, ../../../../sass/src/view/home/Home.scss */
+.menu_bar .x-btn-wrap-default-toolbar-small.x-btn-split-right:after, .logout_button .x-btn-wrap-default-toolbar-small.x-btn-split-right:after {
+  background-position-x: -2px; }
+
+/* line 40, ../../../../sass/src/view/home/Home.scss */
+.menu_bar.x-btn-default-toolbar-small, .menu_bar.x-btn-default-toolbar-small.x-btn-over, .menu_bar .x-btn-inner-default-toolbar-small {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: white !important;
+  opacity: 1 !important;
+  background-image: none !important;
+  color: #157fcc !important; }
+
+/* line 49, ../../../../sass/src/view/home/Home.scss */
+.button_remove.x-btn-default-toolbar-small, .button_remove.x-btn-default-toolbar-small.x-btn-over, .button_remove .x-btn-inner-default-toolbar-small, .button_remove.x-btn-focus, .button_remove.x-btn-default-toolbar-small-focus {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: white !important;
+  opacity: 1 !important;
+  background-image: none !important;
+  border: 0px !important; }
+
+/* line 56, ../../../../sass/src/view/home/Home.scss */
+.heading_color {
+  background-color: #157fcc;
+  border-radius: 2px; }
+
+/* line 61, ../../../../sass/src/view/home/Home.scss */
+.header_label {
+  padding-top: 5px;
+  padding-bottom: 20px; }
+
+/* line 65, ../../../../sass/src/view/home/Home.scss */
+.header_label_content {
+  font-size: 14px;
+  font-weight: bold; }
+
+/* line 69, ../../../../sass/src/view/home/Home.scss */
+.edit-icon {
+  background-image: url(images/edit-icon.png);
+  height: 16px;
+  width: 16px;
+  float: left;
+  cursor: pointer; }
+
+/* line 77, ../../../../sass/src/view/home/Home.scss */
+.del-icon {
+  margin-left: 10px;
+  background-image: url(images/delete-icon.png);
+  height: 16px;
+  width: 16px;
+  float: left;
+  cursor: pointer; }
+
+/* line 85, ../../../../sass/src/view/home/Home.scss */
+input[placeholder] {
+  font-style: italic; }
+
+/* line 90, ../../../../sass/src/view/home/Home.scss */
+.custom_toolbar, .custom_toolbar.x-toolbar-default {
+  background-color: #ffffff !important;
+  /*#D5D5D5*/
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: white;
+  background-image: none;
+  background-origin: padding-box;
+  background-size: auto;
+  border-bottom-color: #797979;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-style: none;
+  border-bottom-width: 0px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: #797979;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-right-color: #797979;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-top-color: #797979;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-style: none;
+  border-top-width: 0px;
+  box-shadow: #cccccc 0px 0px 10px 0px;
+  box-sizing: border-box;
+  color: #797979;
+  display: block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  height: 80px;
+  line-height: 80px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  min-height: 80px;
+  position: relative; }
+
+/* line 135, ../../../../sass/src/view/home/Home.scss */
+.custom_bg_background {
+  background-color: #ffffff !important;
+  /*#D5D5D5*/
+  box-shadow: 0px !important; }

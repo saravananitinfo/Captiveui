@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\Users\Pronto\Documents\NetBeansProjects\CP\public_html\app.js
+// @require C:\Users\Pronto\Documents\NetBeansProjects\CaptivePortal\public_html\app.js

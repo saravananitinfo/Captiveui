@@ -18,6 +18,17 @@ font-style: normal;
 }
 /*****************/
 
+/* Title */
+
+.customTitle{
+        background: whitesmoke;
+        cursor:'pointer',
+    font-weight: 600;
+    color: #626262;
+    /* margin-top: 17px; */
+    padding: 8px;
+    /* text-align-last: right;
+}
 
 /* tab related changes*/
 
@@ -32,7 +43,7 @@ font-style: normal;
 #template_mgmt_form_custom_tab_panel a.x-tab.x-box-item{
 	height:30px !important;
 	padding-top:7px !important;
-	position: relative; !important;
+	position: relative !important;
 	width: 150px !important;
 	/*border:2px solid #1fa1eb !important;*/
 	/*border-top-left-radius: 10px;*/

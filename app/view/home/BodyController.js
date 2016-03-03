@@ -6,7 +6,7 @@
 Ext.define('CaptivePortal.view.home.BodyController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.appbodycontroller',
-    id: 'vc_appbodycontroller',  
+    id: 'vc_appbodycontroller',
     onRender: function (panel) {
         Ext.Array.each(CaptivePortal.app.getAccessPermissionList(), function (permission, index) {
             if ("users" === permission.access_for) {
@@ -25,7 +25,11 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                 panel.add({
                     xtype: 'sites_main',
                     itemId: 'card_sitelist'
+                }, {
+                    xtype: 'tenantconfig_main',
+                    itemId: 'card_tenantconfig'
                 });
+
             } else if ("site_roles" === permission.access_for) {
                 panel.add({
                     xtype: 'rolemain',
@@ -89,7 +93,7 @@ Ext.define('CaptivePortal.view.home.BodyController', {
                     xtype: 'report_sessionhistory',
                     itemId: 'card_sessionhistoryreport'
                 });
-            } 
+            }
         });
         panel.add({
             xtype: 'change_password_view',

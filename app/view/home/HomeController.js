@@ -113,7 +113,7 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 this.getView().lookupReference('lab_heading').setText(CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES);
                 this.fireEvent('setTemplateMgmtActiveItem', 0);
                 break;
-            case "radius_configuration":
+            case "radius_vsas":
                 this.getView().lookupReference('pan_mainnavigation').setActiveItem('access_radius_vsa_main');
                 this.getView().lookupReference('lab_heading').setText('Radius VSA');
                 this.fireEvent('setRadiusVSAActiveItem', 0);

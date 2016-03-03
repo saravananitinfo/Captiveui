@@ -14,7 +14,7 @@ Ext.define('CaptivePortal.view.radius_vsa.RadiusVSAList', {
         var write = false;
         if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
             write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
-                return el.access_for == 'radius_configuration';
+                return el.access_for == 'radius_vsas';
             })[0].write;
         }
         if (write) {

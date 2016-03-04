@@ -46,7 +46,7 @@ Ext.define("CaptivePortal.view.editor.ThemeCol2RightVbox",{
             {
                 xtype: 'component',
                 style: 'cursor: pointer;',
-                html: '<i class="fa fa-file-o" style="font-size: 16px;"></i>',
+                html: '<i class="fa fa-minus-square-o" style="font-size: 16px;"></i>',
                 listeners: {
                     afterrender: function(component) {
                         component.getEl().on('click', function(component) {

@@ -52,6 +52,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Email',
                 dataIndex: 'user',
+		flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     metaData.tdAttr = 'data-qtip="' + value.email + '" ';
@@ -61,6 +62,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Sites',
                 dataIndex: 'sites',
+		flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     var asso_reso = rec.get('associated_resources'), siteNames = [];
@@ -83,6 +85,7 @@ Ext.define('CaptivePortal.view.users.UserList', {
             {
                 header: 'Roles',
                 dataIndex: 'site_role',
+		flex:1,
                 cls: 'table-row',
                 renderer: function (value, metaData, rec, view) {
                     metaData.tdAttr = 'data-qtip="' + value.name + '" ';

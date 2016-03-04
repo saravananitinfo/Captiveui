@@ -2,6 +2,9 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
     extend: 'Ext.app.ViewController',
     id: 'vc_sitecontroller',
     alias: 'controller.sitecontroller',
+    config:{
+        modelData:null
+    },
     listen: {
         controller: {
             '#vc_sitelistcontroller': {
@@ -10,23 +13,32 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         },
         component: {
             'combobox#country': {
-                change: 'onConutryChange'
+                select: 'onConutrySelect'
             }
+            
         }
-    },
-    onConutryChange: function (cmb, newValue) {
+    }, 
+    onConutrySelect:function(cmb,record){
+       var me =this;      
+         CaptivePortal.util.Utility.appLoadMask('Please Wait', Ext.getCmp('viewport'), true);
         var combo = this.getView().lookupReference('cmb_state');
-        combo.getStore().setProxy({
-            url: CaptivePortal.Config.SERVICE_URLS.GET_STATES + newValue + '.json',
+        combo.clearValue();       
+        var store = Ext.create('CaptivePortal.store.site.State');
+        store.setProxy({
+            url: CaptivePortal.Config.SERVICE_URLS.GET_STATES + record.data.id + '.json',
             type: 'ajax',
             reader: {
                 type: 'json',
                 rootProperty: 'data.states'
             }
+        });       
+        store.load({
+            callback:function(){  
+            combo.bindStore(store)              
+                CaptivePortal.util.Utility.appLoadMask(null, null, false);                
+            }
         });
-        var store = combo.getStore();
-        store.load();
-    },
+    },   
     changeTenant: function (field, newValue, oldValue) {
         if (newValue) {
             CaptivePortal.util.Utility.doAjaxJSON(CaptivePortal.Config.SERVICE_URLS.GET_TAGS_FOR_TENANT + newValue + '/get_tags.json', {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
@@ -47,7 +59,7 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
             }, 'GET', false);
         }
     },
-    setStoreEvent: function (data, serverData) {
+    setStoreEvent: function (data, serverData,model) {
         var user = [];
         if (data) {
             Ext.Array.each(data, function (record, index) {
@@ -57,14 +69,20 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         this.getTageStore(serverData);
         this.getTimezoneStore();
         this.getTenants();
-        this.getCountryStore();
-        this.getStateStore();
+        this.getCountryStore(serverData.site.country,model);     
+        this.setModelData(model);   
+               
+        
+        //this.getStateStore();
         //this.getUsers(user);
         if (data) {
             this.getView().lookupReference('btn_save').setText('Update');
         } else {
             this.getView().lookupReference('btn_save').setText('Create');
         }
+    },
+    setStateStore:function(){
+        this.getView().lookupReference('cmb_state').setValue(this.getModelData().data.state) 
     },
     cancelSite: function () {
         this.fireEvent('setActiveSiteCard', 0);
@@ -312,22 +330,37 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
         }.bind(this), function (response) {
         }, 'GET');
     },
-    getCountryStore: function () {      
+    getCountryStore: function (country,model) {
         var me = this;
-        var store =  this.getView().lookupReference('cmb_country').getStore();
         this.getView().lookupReference('cmb_country').getStore().load({
-            callback:function(records){
-                  debugger
-                me.getView().lookupReference('cmb_country').bindStore(store);
+            callback:function(){
+                me.getView().lookupReference('cmb_country').setValue(country);                
+            }            
+        });
+       CaptivePortal.util.Utility.appLoadMask('Please Wait', Ext.getCmp('viewport'), true);
+       var combo = this.getView().lookupReference('cmb_state');
+        combo.clearValue();       
+        var store = Ext.create('CaptivePortal.store.site.State');
+        store.setProxy({
+            url: CaptivePortal.Config.SERVICE_URLS.GET_STATES + country + '.json',
+            type: 'ajax',
+            reader: {
+                type: 'json',
+                rootProperty: 'data.states'
+            }
+        });       
+        store.load({
+            callback:function(){  
+            combo.bindStore(store);  
+            Ext.ComponentQuery.query('#site_form')[0].getForm().loadRecord(model);            
+            CaptivePortal.util.Utility.appLoadMask(null, null, false);                
             }
         });
     },
     getStateStore: function () {
         var store = Ext.create('Ext.data.Store', {
             fields: ['id', 'name'],
-            data: [{id: '1', name: 'Karnataka'},
-                {id: '2', name: 'Kerala'},
-                {id: '3', name: 'Uthar Pradesh'}]
+            data: []
         });
         this.getView().lookupReference('cmb_state').setStore(store);
     }

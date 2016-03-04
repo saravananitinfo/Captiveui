@@ -15,12 +15,11 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                     name: CaptivePortal.Constant.TEMPLATE.SPLASH_TEMPLATE,
                     itemname: 'templates'
                 }, {
-                    name: CaptivePortal.Constant.TEMPLATE.SPLASH_RULES,
-                    itemname: 'rule_group'
-                },
-		{
                     name: CaptivePortal.Constant.TEMPLATE.SPLASH_PAGES,
                     itemname: 'journeys'
+                },{
+                    name: CaptivePortal.Constant.TEMPLATE.SPLASH_RULES,
+                    itemname: 'rule_groups'
                 }
 	
 		]
@@ -42,7 +41,7 @@ Ext.define('CaptivePortal.store.ProfileMenuList', {
                     itemname: 'tenants'
                 },{
                     name: 'Radius VSA',
-                    itemname: 'radius_configuration'
+                    itemname: 'radius_vsas'
                 }]
         }, {
             id: 3,

@@ -1,6 +1,7 @@
 Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
 	extend: 'Ext.app.ViewController',
     alias: 'controller.splash_template',
+    id:'vc_splash_template',
     listen: {
         controller: {
             '*': {
@@ -13,6 +14,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
     saveSplashTemplate: function(html){
     	console.log(".........  saveSplashTemplate  ..........");
     	console.log(html);
+        var me = this;
     	var form = Ext.ComponentQuery.query('#splashTemplateForm')[0]
     	console.log(form.getValues());
     	var form_val = form.getValues()
@@ -27,7 +29,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
         //     json.splash_template.associated_resource = []
         // }
 
-    	json['splash_template']['status'] = 'published';
+    	json['splash_template']['status'] = form_val.status;
         console.log("................   json ........... ");
         console.log(json);
 
@@ -42,6 +44,7 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateController', {
             	console.log(resObj);
             	Ext.StoreManager.lookup('CaptivePortal.store.splash_template.SplashTemplates').reload();
             	this.fireEvent('setSplashPageActiveItem',0);
+                me.fireEvent('setSplashTemplateFilter',1);
             	var home_panel = Ext.ComponentQuery.query('#pan_apphome')[0];
         		home_panel.show();
         		Ext.getCmp('viewport').remove(Ext.ComponentQuery.query('editor_main')[0]);

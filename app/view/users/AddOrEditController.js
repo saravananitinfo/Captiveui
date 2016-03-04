@@ -268,6 +268,11 @@ Ext.define('CaptivePortal.view.users.AddOrEditController', {
                                 me.getView().lookupReference('lab_permittedroles').setVisible(true);
                                 me.getView().lookupReference('con_permittedroles').setVisible(true);
                                 me.getView().lookupReference('grd_permittedusers').setStore('CaptivePortal.store.users.Role');
+				if (rec.read === true && rec.write === false)
+				   me.getReferences().lab_permittedroles.setText("Can Read Users Associated With Following Roles");	 
+				else
+				  me.getReferences().lab_permittedroles.setText("Can Create Following Users"); 
+				  
                             } else {
                                 me.getView().lookupReference('lab_permittedroles').setVisible(false);
                                 me.getView().lookupReference('con_permittedroles').setVisible(false);

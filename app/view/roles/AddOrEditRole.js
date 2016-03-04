@@ -75,8 +75,8 @@ Ext.define('CaptivePortal.view.roles.AddOrEditRole', {
 														width:'59.9%',
 														cls: 'table-row',
 														renderer: function(value, metaData, rec, view){
-															metaData.tdAttr='data-qtip="' + value + '" ';
-															return value;
+															metaData.tdAttr='data-qtip="' + rec.data.name + '" ';
+															return rec.data.name;
 														}
 													},
 													{

@@ -4,23 +4,23 @@
  * and open the template in the editor.
  */
 Ext.define('CaptivePortal.view.sites.SiteListController', {
-  extend: 'Ext.app.ViewController',
-  id: 'vc_sitelistcontroller',
-  alias: 'controller.sitelistcontroller',
-  listen: {
-    component: {
-      'button#btn_addsite': {
-        click: 'addNewSite'
-      }
-    },
-    controller: {
-      '#vc_sitecontroller': {
-        refreshSitesStore: 'getSite'
-      },
-      '#vc_add_access_point_controller': {
-        showCreateSite: 'addNewSite'
-      }
-    }
+    extend: 'Ext.app.ViewController',
+    id: 'vc_sitelistcontroller',
+    alias: 'controller.sitelistcontroller',
+    listen: {
+        component: {
+            'button#btn_addsite': {
+                click: 'addNewSite'
+            }
+        },
+        controller: {
+            '#vc_sitecontroller': {
+                refreshSitesStore: 'getSite'
+            },
+            '#vc_add_access_point_controller': {
+                     showCreateSite: 'addNewSite'
+            }
+        }
   },
   addNewSite: function () {
     this.clearForm();
@@ -134,19 +134,64 @@ Ext.define('CaptivePortal.view.sites.SiteListController', {
       {key: 'sms_gateway', store: 'CaptivePortal.store.sms_gateway.SMSGateways'}
     ];
 
-    var accessPerList = CaptivePortal.app.getAccessPermissionList();
-    Ext.Array.each(storeList, function (rec) {
-      var itemFound = false;
-      Ext.Array.each(accessPerList, function (per) {
-        if (per.access_for == rec.key && per.read && per.write) {
-          itemFound = true;
-          return false;
+    },
+    deleteSite: function (view, record, item, index, e, eOpts) {
+        var me = this;
+        Ext.Msg.show({
+            title: 'Delete Tenant',
+            message: 'Do you want to delete?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var url = CaptivePortal.Config.SERVICE_URLS.DELETE_SITE + record.data.id + '.json';
+                    CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+                        var resObj = Ext.decode(response.responseText);
+                        if (resObj.success) {
+                            me.getSite();
+                        }
+                    }.bind(this), function (response) {
+                    }, 'DELETE');
+                } else if (btn === 'no') {
+                }
+            }.bind(this)
+        });
+    },
+    editSiteItemClick: function (view, record, item, index, e, eOpts) {
+        var me = this;
+        var action = e.target.getAttribute('action');
+        if (action) {
+            if (action == "edit") {
+                var url = CaptivePortal.Config.SERVICE_URLS.EDIT_SITE + record.data.id + '/edit.json';
+                CaptivePortal.util.Utility.doAjax(url, {}, CaptivePortal.app.getWaitMsg(), '', function (response) {
+                    var resObj = Ext.decode(response.responseText);
+                    if (resObj.success) {
+                        me.fireEvent('setActiveSiteCard', 1);
+                        var model = Ext.create('CaptivePortal.model.site.Site', resObj.data.site);
+                        me.fireEvent('loadStore', model.data.user_profiles, resObj.data,model);
+                        
+                        var tagId = (resObj.data && resObj.data.site && resObj.data.site.tag && resObj.data.site.tag.id) ? resObj.data.site.tag.id : null;
+                        Ext.ComponentQuery.query('#tags')[0].setValue(tagId);
+                        
+                    }
+                }.bind(this), function (response) {
+                }, 'GET');
+            } else {
+                this.deleteSite(view, record, item, index, e, eOpts);
+            }
         }
-      }, this);
-      if (itemFound) {
-        Ext.StoreManager.lookup(rec.store).reload();
-      }
-    }, this);
+    },
+    getSite: function () {
+        var store = this.getView().lookupReference('grd_sitelist').getStore();
+        store.load();
+        var storeList = [
+        {key:'users', store:'CaptivePortal.store.user.User'},
+        {key:'templates', store:'CaptivePortal.store.splash_template.SplashTemplates'},
+        {key:'journeys', store:'CaptivePortal.store.template_mgmt.TemplateMgmt'},
+        {key:'rule_groups', store:'CaptivePortal.store.rule_group.RuleGroup'},
+        {key:'access_points', store:'CaptivePortal.store.access_point.AccessPoints'},
+        {key:'sms_gateway', store:'CaptivePortal.store.sms_gateway.SMSGateways'}
+        ];
 
 
   }

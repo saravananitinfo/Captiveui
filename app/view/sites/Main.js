@@ -14,7 +14,7 @@ Ext.define('CaptivePortal.view.sites.Main', {
                 itemId: 'card_adduser'
             }, {
                 xtype: 'sites_addedit',
-                layout:'fit',
+                layout:'fit',                
                 itemId:'card_addeditmaster',
             }]
         this.callParent(arguments);

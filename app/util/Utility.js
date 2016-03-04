@@ -1,6 +1,6 @@
 Ext.define('CaptivePortal.util.Utility', {
   singleton: true,
-  //BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:5666/',
+  //BASE_URL: 'http://ec2-54-234-147-190.compute-1.amazonaws.com:8080/',
   BASE_URL: 'http://192.168.0.220:3001/',
   config: {
     myMask: null
@@ -177,7 +177,7 @@ Ext.define('CaptivePortal.util.Utility', {
     CaptivePortal.app.setUserName(profile.name);
     CaptivePortal.app.setUserRole(profile.user_role);
     CaptivePortal.app.setAccessPermissionList(profile.access_permission_list);
-    this.addRulegroupForAccess(profile.access_permission_list);
+    // this.addRulegroupForAccess(profile.access_permission_list);
     CaptivePortal.app.setUserPermittedList(profile.permitted_roles);
     CaptivePortal.app.setUserAuthorisedIPs(profile.authorized_ips);
     CaptivePortal.app.setUserProfileID(profile.id);
@@ -188,7 +188,7 @@ Ext.define('CaptivePortal.util.Utility', {
     CaptivePortal.app.setUserName(resObj.email);
     CaptivePortal.app.setUserRole(resObj.user_role);
     CaptivePortal.app.setAccessPermissionList(resObj.access_permission_list);
-    this.addRulegroupForAccess(resObj.access_permission_list);
+    // this.addRulegroupForAccess(resObj.access_permission_list);
 
   },
   doLoginForLoggedUser: function () {
@@ -418,10 +418,6 @@ Ext.define('CaptivePortal.util.Utility', {
       },
       failure: function (response) {
         CaptivePortal.util.Utility.postManipulateResponse(response, failureCallback);
-      },
-      requestexception: function (conn, response, options, eOpts) {
-        debugger
-        console.log(conn, response, options, eOpts);
       }
     });
   },

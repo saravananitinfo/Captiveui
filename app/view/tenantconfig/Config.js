@@ -33,9 +33,13 @@ Ext.define('CaptivePortal.view.tenantconfig.Config', {
           },
           items: [{
               xtype: 'panel',
+              listeners: {
+                expand: 'onExpand'
+              },
               title: 'Policy',
               items: [{
                   xtype: 'segmentedbutton',
+                  reference: 'sb_policy',
                   padding: 10,
                   height: 30,
                   width: '100%',
@@ -52,9 +56,13 @@ Ext.define('CaptivePortal.view.tenantconfig.Config', {
                 }]
             }, {
               xtype: 'panel',
+              listeners: {
+                expand: 'onExpand'
+              },
               title: 'Social Apps',
               items: [{
                   xtype: 'segmentedbutton',
+                  reference: 'sb_socialapps',
                   padding: 10,
                   height: 30,
                   width: '100%',
@@ -71,10 +79,14 @@ Ext.define('CaptivePortal.view.tenantconfig.Config', {
                     }]
                 }]
             }, {
-              xtype: 'panel',
+              xtype: 'panel',            
+              listeners: {
+                expand: 'onExpand'
+              },
               title: 'Guest Access Default',
               items: [{
                   xtype: 'segmentedbutton',
+                  reference: 'sb_guest',
                   padding: 10,
                   height: 30,
                   width: '100%',
@@ -89,53 +101,57 @@ Ext.define('CaptivePortal.view.tenantconfig.Config', {
             }]
         }]
     }, {
-      xtype: 'container',
+      xtype: 'panel',
       region: 'center',
-      layout: 'card',
+      reference: 'con_wrapper',
+      dockedItems: [{
+          xtype: 'toolbar',
+          dock: 'bottom',
+          layout: 'hbox',
+          width: '95%',
+          height: 40,
+          items: [{
+              xtype: 'tbfill'
+            },
+            {
+              xtype: 'button',
+              reference: 'btn_save',
+              formBind: true,
+              text: 'Save',
+              handler: 'save',
+              cls: 'btn'
+            },
+            {
+              xtype: 'button',
+              margin: '0 10 0 0',
+              text: 'Cancel',
+              handler: 'cancelSite',
+              cls: 'btn btn-cancel'
+            }
+          ]
+        }],
+      height: '100%',
+      layout: {
+        type: 'vbox',
+        pack: 'center',
+        align: 'middle'
+      },
       items: [{
-          xtype: 'panel',
-          dockedItems: [{
-              xtype: 'toolbar',
-              dock: 'bottom',
-              layout: 'hbox',
-              width: '95%',
-              height: 40,
-              items: [{
-                  xtype: 'tbfill'
-                },
-                {
-                  xtype: 'button',
-                  reference: 'btn_save',
-                  formBind: true,
-                  text: 'Save',
-                  handler: 'saveSite',
-                  cls: 'btn'
-                },
-                {
-                  xtype: 'button',
-                  margin: '0 10 0 0',
-                  text: 'Cancel',
-                  handler: 'cancelSite',
-                  cls: 'btn btn-cancel'
-                }
-              ]
-            }],
-          height: '100%',
-          layout: {
-            type: 'vbox',
-            pack: 'center',
-            align: 'middle'
-          },
+          xtype: 'container',
+          reference: 'con_pp',
           items: [{
               xtype: 'radiogroup',
               reference: 'rg_privacypolicyoption',
               listeners: {
                 change: 'onPrivacyPolicyOptionChange'
               },
+              bind: {
+                value: '{tenantconfig.privacy_policies_type}'
+              },
               columns: 2,
               items: [
-                {boxLabel: 'Custom', name: 'rb', inputValue: 'ppcustom'},
-                {boxLabel: 'External Link', name: 'rb', inputValue: 'ppexternal'}
+                {boxLabel: 'Custom', name: 'pp', inputValue: 'custom'},
+                {boxLabel: 'External Link', name: 'pp', inputValue: 'external'}
               ]
             }, {
               xtype: 'textarea',
@@ -155,23 +171,30 @@ Ext.define('CaptivePortal.view.tenantconfig.Config', {
               bind: {
                 value: '{tenantconfig.privacy_policies_link}'
               }
-            }, {
+            }]
+        }, {
+          xtype: 'container',
+          hidden: true,
+          reference: 'con_tc',
+          items: [{
               xtype: 'radiogroup',
-              hidden: true,
               reference: 'rg_tcoption',
               listeners: {
                 change: 'onTcOptionChange'
               },
+              bind: {
+                value: '{tenantconfig.tnc_type}'
+              },
               columns: 2,
               items: [
-                {boxLabel: 'Custom', name: 'rb', inputValue: 'tccustom'},
-                {boxLabel: 'External Link', name: 'rb', inputValue: 'tcexternal'}
+                {boxLabel: 'Custom', name: 'tc', inputValue: 'custom'},
+                {boxLabel: 'External Link', name: 'tc', inputValue: 'link'}
               ]
             }, {
               xtype: 'textarea',
               hidden: true,
               padding: 10,
-              reference: 'txt_tcdesc',
+              reference: 'txt_tncdesc',
               fieldLabel: 'Description',
               bind: {
                 value: '{tenantconfig.tnc}'
@@ -185,90 +208,104 @@ Ext.define('CaptivePortal.view.tenantconfig.Config', {
               bind: {
                 value: '{tenantconfig.tnc_link}'
               }
-            }, {
+            }]
+        }, {
+          xtype: 'container',
+          hidden: true,
+          reference: 'con_fb',
+          items: [{
               xtype: 'textfield',
-              hidden: true,
               reference: 'txt_fbapikey',
               padding: 10,
               fieldLabel: 'API Key',
               bind: {
-                value: 'tenantconfig.fbapikey'
+                value: '{tenantconfig.fbapikey}'
               }
             }, {
               xtype: 'textfield',
-              hidden: true,
               reference: 'txt_fbsecretkey',
               padding: 10,
               fieldLabel: 'Secret Key',
               bind: {
-                value: 'tenantconfig.fbsecretkey'
+                value: '{tenantconfig.fbsecretkey}'
               }
-            }, {
+            }]
+        }, {
+          xtype: 'container',
+          hidden: true,
+          reference: 'con_tw',
+          items: [{
               xtype: 'textfield',
-              hidden: true,
               reference: 'txt_twitterapikey',
               padding: 10,
               fieldLabel: 'API Key',
               bind: {
-                value: 'tenantconfig.twitterapikey'
+                value: '{tenantconfig.twitterapikey}'
               }
             }, {
               xtype: 'textfield',
-              hidden: true,
               reference: 'txt_twittersecretkey',
               padding: 10,
               fieldLabel: 'Secret Key',
               bind: {
-                value: 'tenantconfig.twittersecretkey'
+                value: '{tenantconfig.twittersecretkey}'
               }
-            }, {
+            }]
+        }, {
+          xtype: 'container',
+          hidden: true,
+          reference: 'con_go',
+          items: [{
               xtype: 'textfield',
-              hidden: true,
               reference: 'txt_googleapikey',
               padding: 10,
               fieldLabel: 'API Key',
               bind: {
-                value: 'tenantconfig.googleapikey'
+                value: '{tenantconfig.googleapikey}'
               }
             }, {
               xtype: 'textfield',
-              hidden: true,
               reference: 'txt_googlesecretkey',
               padding: 10,
               fieldLabel: 'Secret Key',
               bind: {
-                value: 'tenantconfig.googlesecretkey'
+                value: '{tenantconfig.googlesecretkey}'
               }
-            }, {
+            }]
+        }, {
+          xtype: 'container',
+          hidden: true,
+          reference: 'con_setting',
+          items: [{
               xtype: 'checkboxgroup',
-              hidden: true,
               width: 500,
               padding: 10,
               reference: 'cg_socialauto',
               fieldLabel: 'Social Auto',
               columns: 3,
+              bind: {
+                value: '{tenantconfig.automac}'
+              },
               items: [
-                {boxLabel: 'Facebook', name: 'rb', inputValue: '1'},
-                {boxLabel: 'Twitter', name: 'rb', inputValue: '2', checked: true},
-                {boxLabel: 'Google', name: 'rb', inputValue: '3'}
+                {boxLabel: 'Facebook', id: 'fb', name: 'automac', inputValue: 'fb'},
+                {boxLabel: 'Twitter', id: 'tw', name: 'automac', inputValue: 'tw'},
+                {boxLabel: 'Google', id: 'gp', name: 'automac', inputValue: 'gp'}
               ]
             }, {
               xtype: 'numberfield',
-              hidden: true,
               padding: 10,
               fieldLabel: 'Session Timeout',
               reference: 'nf_sessiontimeout',
               bind: {
-                value: 'tenantconfig.sessiontimeout'
+                value: '{tenantconfig.session_time}'
               }
             }, {
               xtype: 'numberfield',
-              hidden: true,
               padding: 10,
               fieldLabel: 'Idle Timeout',
               reference: 'nf_idletimeout',
               bind: {
-                value: 'tenantconfig.idletimeout'
+                value: '{tenantconfig.idle_time}'
               }
             }]
         }]

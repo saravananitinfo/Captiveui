@@ -11,12 +11,12 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         var dockeditems = [{
                 xtype: 'tbfill'
             }]
-        var write = true;
-        // if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
-        //     write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
-        //         return el.access_for == 'templates';
-        //     })[0].write;
-        // }
+        var write = false;
+         if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
+             write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
+                 return el.access_for == 'templates';
+             })[0].write;
+         }
         var filterCombo = Ext.create('Ext.data.Store',{
             fields:['id', 'name'],
             data:[{id:1, name:'Saved'}, {id:2, name:'Gallery'}]
@@ -24,17 +24,18 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
         var filterCombo = {
             xtype:'combo',
             store: filterCombo,
+            reference:'cmb_filter',
             editable:false,
             valueField:'id',
             displayField:'name',
             hidden:CaptivePortal.app.getUserRole() == 'super_admin',
             value:1,
             listeners:{
-                select:'selectType'
+                change:'selectType'
             }
         }
 
-
+	dockeditems.push(filterCombo);
         if (write) {
             dockeditems.push({
                 xtype: 'button',
@@ -44,7 +45,6 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                 handler:'addSplashTemplate'
             })
         }
-        dockeditems.push(filterCombo);
         this.dockedItems = [{
                 xtype: 'toolbar',
                 padding: '30 23 0 30',
@@ -64,28 +64,30 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateList', {
                     return value;
                 }
             },
-            // {
-            //     header: 'Category',
-            //     dataIndex: 'category',
-            //     flex: 1,
-            //     cls: 'table-row',
-            //     tdCls: 'table-cell',
-            //     renderer: function (value, metaData, rec, view) {
-            //        metaData.tdAttr = 'data-qtip="' + value + '" ';
-            //         return value;
-            //     }
-            // },
             {
                 header: 'Site/Group',
 		dataIndex: 'associated_resource',
                 flex: 1,
                 cls: 'table-row',
+                hidden:CaptivePortal.app.getUserRole() == 'super_admin',
                 tdCls: 'table-cell',
                 renderer: function (value, metaData, rec, view) {
                     metaData.tdAttr = 'data-qtip="' + value ? value.name : ''  + '" ';
                     return value ? value.name : '';
                 }
-            }
+            },
+	    {
+                 header: 'Status',
+                 dataIndex: 'status',
+                 flex: 1,
+                 cls: 'table-row',
+                 tdCls: 'table-cell',
+                 renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + value + '" ';
+                     return value;
+                 }
+             }
+		
         ];
         if (write) {
             grid_colunms.push({

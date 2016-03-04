@@ -14,7 +14,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
         var write = false;
         if (CaptivePortal.app.getAccessPermissionList() != undefined) {            
             write = CaptivePortal.app.getAccessPermissionList().filter(function (el) {
-                return el.access_for == 'templates';
+                return el.access_for == 'journeys';
             })[0].write;
         }
         if (write) {
@@ -56,6 +56,29 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtList', {
                     return value ? value.name : '';
                 }
             },
+            {
+                header: 'Template',
+                dataIndex: 'splash_template',
+                flex: 1,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + (value ? ((value.name == null) ? '' : value.name)  : '')  + '" ';
+                    return value ? value.name : '';
+                }
+            },
+            {
+                header: 'SMS Gateway',
+                dataIndex: 'sms_gateway',
+                flex: 1,
+		hidden:true,
+                cls: 'table-row',
+                tdCls: 'table-cell',
+                renderer: function (value, metaData, rec, view) {
+                    metaData.tdAttr = 'data-qtip="' + (value ? ((value.name == null) ? '' : value.name) : '')  + '" ';
+                    return (value ? ((value.name == null) ? '' : value.name) : '');
+                }
+            }
             /*{
                 header: 'Category',
                 dataIndex: 'category',

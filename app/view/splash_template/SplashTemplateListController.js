@@ -1,6 +1,13 @@
 Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.splash_template_list_controller',
+    listen:{
+        controller:{
+            '#vc_splash_template':{
+                setSplashTemplateFilter : 'setFilterComboValue'
+            }
+        }
+    },
     splashTemplateItemClick: function (view, record, item, index, e, eOpts) {
         var me = this;
         var action = e.target.getAttribute('action');
@@ -95,16 +102,24 @@ Ext.define('CaptivePortal.view.splash_template.SplashTemplateListController', {
     },
     addSplashTemplate: function(){
         // this.fireEvent('setSplashPageActiveItem',1);
-        this.fireEvent('showSplashTemplateForm',1)
+        this.fireEvent('showSplashTemplateForm',1);
+        this.getReferences().cmb_filter.setValue(1);
+    },
+    setFilterComboValue:function(value){
+        this.getReferences().cmb_filter.setValue(value);
     },
     selectType: function(combo){
         var grid = combo.up('splash_template_list').down('grid');
-        var store = grid.store, val = combo.getValue(), isAdmin, returnRes;
-        if(val === 1){
-            grid.getColumnManager().columns[1].show();
-        } else {
-            grid.getColumnManager().columns[1].hide();
+        var store = grid.store, val = combo.getValue(), isAdmin, returnRes, 
+        cols = grid.getColumnManager().columns;
+        if(cols){
+            if(val === 1){
+                grid.getColumnManager().columns[1].show();
+            } else {
+                grid.getColumnManager().columns[1].hide();
+            }    
         }
+        
         var filterFunc = function(rec, id){
             isAdmin = rec.data.admin_template;
             returnRes = (val === 1) ? false : true;

@@ -8,7 +8,7 @@ Ext.define('CaptivePortal.view.users.UserAccess', {
     alias: 'widget.users_useraccess',
     columns: [{
             text: 'Access',
-            dataIndex: 'access_for',
+            dataIndex: 'name',
             flex: 1
         }, {
             text: 'Read',

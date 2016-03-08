@@ -5,110 +5,116 @@ Ext.define('CaptivePortal.view.rule_group.Rule', {
   controller: 'rule_group_rule_controller',
   padding: 0,
   height: 100,
-  autoScroll:true,
-  itemIdPrefix:'rule_group_rule_form-',
-	layout: {
-	    type: 'vbox',
-	    padding: '10 0 0 30'
-	},
-  initComponent: function () { 
-  var store = Ext.create('Ext.data.Store', {
-        	fields:['id', 'name'], 
-        	data : []
-        });   
-        this.items = [{
-                xtype: 'panel',
-                width: '100%',
-                padding: '20 0 0 0',
-                cls: 'form_trigger',
+  autoScroll: true,
+  itemIdPrefix: 'rule_group_rule_form-',
+  layout: {
+    type: 'vbox',
+    padding: '10 0 0 30'
+  },
+  initComponent: function () {
+    var store = Ext.create('Ext.data.Store', {
+      fields: ['id', 'name'],
+      data: []
+    });
+    this.items = [{
+        xtype: 'panel',
+        width: '100%',
+        padding: '20 0 0 0',
+        cls: 'form_trigger',
+        items: [{
+            xtype: 'form',
+            defaults: {
+              width: 400,
+              //height: 30,
+              padding: '10 0 15 0',
+              maxLength: 50
+            },
+            items: [{
+                xtype: 'hiddenfield',
+                name: 'id',
+                itemId: 'id'
+              }, {
+                xtype: 'label',
+                text: 'Name',
+                cls: 'header_label_content'
+              }, {
+                xtype: 'textfield',
+                allowBlank: false,
+                maxLength: 50,
+                width: 300,
+                name: 'name',
+                itemId: this.itemIdPrefix + 'name'
+              }, {
+                xtype: 'label',
+                text: 'Splash Page',
+                cls: 'header_label_content'
+              }, {
+                xtype: 'container',
+                layout: 'hbox',
                 items: [{
-                        xtype: 'form',
-                        defaults: {
-                            width: 400,
-                            //height: 30,
-                            padding: '10 0 15 0',
-                            maxLength: 50
-                        },
-                        items: [{
-	                              xtype: 'hiddenfield',
-								  name: 'id',
-								  itemId:'id'
-			                     },{
-									xtype:'label',
-									text:'Name',							
-									cls:'header_label_content'
-								},{
-									xtype:'textfield',
-									allowBlank:false,
-									maxLength:50,
-									width:300,
-									name:'name',
-									itemId:this.itemIdPrefix + 'name'
-								},{
-	                                xtype: 'label',
-	                                text: 'Splash Page',
-	                                cls: 'header_label_content'
-		                        },{
-									xtype:'container',
-									layout:'hbox',
-									items:[{
-		                                xtype: 'combo',
-		                                queryMode: 'local',
-		                                allowBlank: false,
-		                                name: 'splash_journey_id',
-		                                forceSelection:true,
-		                                editable:false,
-		                                width:300,
-		                                valueField: 'id',
-		                                displayField: 'name',
-		                                emptyText: 'Select Splash Page',
-		                                store: store,
-		                                filterPickList: true,
-		                                itemId:this.itemIdPrefix + 'splash'
-	                            	},{
-	                                    xtype: 'button',
-	                                    // style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
-	                                    // style: 'margin-top: 2px;',
-	                                    margin:'3 0 0 20',
-	                                    // padding:'10 0 0 0',
-	                                    text: 'Preview',
-	                                    handler: 'preview'
-	                                }]
-								},{
-									xtype:'label',
-									text:'Rule Attributes',							
-									cls:'header_label_content'
-								},{
-                            		xtype:'rule_group_rule_attribute',
-                            		width:'100%', 
-                            		padding:0,
-                            		margin:'20 20 0 0'
-                            	},
-								{
-	                                xtype: 'container',
-	                                layout: 'hbox',
-	                                width: '100%',
-	                                height: 50,
-	                                items: [
-	                                    {
-	                                        xtype: 'button',
-	                                        //formBind: true,
-	                                        text: 'Create',
-	                                        cls: 'btn',
-	                                        itemId:this.itemIdPrefix + 'btn_save',
-	                                        handler:'saveRuleRow'
-	                                    },
-	                                    {
-	                                        xtype: 'button',
-	                                        margin: '0 0 0 20',
-	                                        text: 'Cancel',
-	                                        cls: 'btn btn-cancel',
-	                                        handler:'cancelRuleForm'
-	                                    }
-	                                ]
-		                              }]
-            					}]
-            	}];
-        this.callParent();
+                    xtype: 'combo',
+                    queryMode: 'local',
+                    allowBlank: false,
+                    name: 'splash_journey_id',
+                    referencde: 'cmb_splash_journey_id',
+                    forceSelection: true,
+                    editable: false,
+                    width: 300,
+                    valueField: 'id',
+                    displayField: 'name',
+                    emptyText: 'Select Splash Page',
+                    store: store,
+                    filterPickList: true,
+                    itemId: this.itemIdPrefix + 'splash',
+                    listeners: {
+                      change: 'onSplashJournyChange'
+                    }
+                  }, {
+                    xtype: 'button',
+                    // style: 'text-decoration:none;color:#157fcc;cursor:pointer;',
+                    // style: 'margin-top: 2px;',
+                    margin: '3 0 0 20',
+                    // padding:'10 0 0 0',
+                    text: 'Preview',
+                    reference: 'btn_preview',
+                    hidden: true,
+                    handler: 'preview'
+                  }]
+              }, {
+                xtype: 'label',
+                text: 'Rule Attributes',
+                cls: 'header_label_content'
+              }, {
+                xtype: 'rule_group_rule_attribute',
+                width: '100%',
+                padding: 0,
+                margin: '20 20 0 0'
+              },
+              {
+                xtype: 'container',
+                layout: 'hbox',
+                width: '100%',
+                height: 50,
+                items: [
+                  {
+                    xtype: 'button',
+                    //formBind: true,
+                    text: 'Create',
+                    cls: 'btn',
+                    itemId: this.itemIdPrefix + 'btn_save',
+                    handler: 'saveRuleRow'
+                  },
+                  {
+                    xtype: 'button',
+                    margin: '0 0 0 20',
+                    text: 'Cancel',
+                    cls: 'btn btn-cancel',
+                    handler: 'cancelRuleForm'
+                  }
+                ]
+              }]
+          }]
+      }];
+    this.callParent();
   }
 });

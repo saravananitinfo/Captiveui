@@ -5,6 +5,5 @@
  * to the most recently built CSS file for the application to allow index.html
  * in the development directory to load properly (i.e., "dev mode").
  */
-@import 'build/production/CaptivePortal/resources/CaptivePortal-all.css';
-@import 'build/production/Slider/resources/Slider-all.css';
+@import 'build/development/CaptivePortal/resources/CaptivePortal-all.css';
 

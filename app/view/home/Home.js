@@ -11,7 +11,8 @@ Ext.define('CaptivePortal.view.home.Home', {
         'CaptivePortal.view.access_point.Main',
         'CaptivePortal.view.accesstimepolicy.Main',
         'CaptivePortal.view.splash_template.Main',
-        'CaptivePortal.view.report.ActiveSession'
+        'CaptivePortal.view.report.ActiveSession',
+        'CaptivePortal.view.tenantconfig.Main'
     ],
     xtype: 'widget.home.Home',
     itemId: 'pan_apphome',

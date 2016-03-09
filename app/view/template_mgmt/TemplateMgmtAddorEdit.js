@@ -172,21 +172,24 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                     componentCls: 'customTab',
                     // border:5,
                     layout: 'vbox',
-                    items: [{
-                        xtype: 'checkboxfield',
-                        name: 'custom_tnc',
-                        inputValue: true,
-                        reference: 'cb_ct',
-                        boxLabel: 'Enable custom terms',
-                        itemId: this.itemIdPrefix + 'custom_tnc',
-                        listeners: {
-                          change: 'customChange'
-                        }
-                      },
+                    items: [
+//                      {
+//                        xtype: 'checkboxfield',
+//                        name: 'custom_tnc',
+//                        inputValue: true,
+//                        reference: 'cb_ct',
+//                        boxLabel: 'Enable custom terms',
+//                        itemId: this.itemIdPrefix + 'custom_tnc',
+//                        listeners: {
+//                          change: 'customChange'
+//                        }
+//                      },
                       {
                         xtype: 'container',
-                        type: 'vbox',
-                        hidden: true,
+                        type: {
+                          type: 'vbox'
+                        },
+                        hidden: false,
                         itemId: this.itemIdPrefix + 'custom_tnc_container',
                         items: [
 //                          {
@@ -204,6 +207,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
 //                          }, 
                           {
                             xtype: 'radiogroup',
+                            padding: '20 0 20 20',
                             fieldLabel: 'Choose',
                             width: 500,
                             reference: 'rb_ct',
@@ -222,11 +226,11 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                             reference: 'lab_tclink',
                             text: 'Specify your terms link text',
                             cls: 'header_label_content',
-                            margin: '0 0 0 0'
+                            padding: '20 0 0 20',
                           }, {
                             xtype: 'textfield',
                             reference: 'txt_tclink',
-                            margin: '10 0 20 0',
+                            padding: '10 0 0 20',
                             //allowBlank:false,
                             width: 680,
                             maxLength: 100,
@@ -234,13 +238,13 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                           }, {
                             xtype: 'label',
                             reference: 'lab_tctext',
-                            margin: '0 0 0 0',
+                            padding: '20 0 0 20',
                             cls: 'header_label_content',
                             text: 'Copy & Paste your terms text here'
                           }, {
                             xtype: 'textareafield',
                             reference: 'txt_tctext',
-                            margin: '10 0 20 0',
+                            padding: '10 0 0 20',
                             //llowBlank:false,
                             width: 680,
                             name: 'tnc'
@@ -254,21 +258,23 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                     componentCls: 'customTab',
                     // border:5,
                     layout: 'vbox',
-                    items: [{
-                        xtype: 'checkboxfield',
-                        name: 'custom_privacy_policies',
-                        inputValue: true,
-                        reference: 'cb_pp',
-                        boxLabel: 'Enable privacy policy terms',
-                        itemId: this.itemIdPrefix + 'custom_privacy_policies',
-                        listeners: {
-                          change: 'privacyChange'
-                        }
-                      }, {
+                    items: [
+//                      {
+//                        xtype: 'checkboxfield',
+//                        name: 'custom_privacy_policies',
+//                        inputValue: true,
+//                        reference: 'cb_pp',
+//                        boxLabel: 'Enable privacy policy terms',
+//                        itemId: this.itemIdPrefix + 'custom_privacy_policies',
+//                        listeners: {
+//                          change: 'privacyChange'
+//                        }
+//                      },
+                      {
                         xtype: 'container',
                         itemId: this.itemIdPrefix + 'custom_privacy_policies_container',
                         type: 'vbox',
-                        hidden: true,
+                        hidden: false,
                         items: [
 //                          {
 //                            xtype: 'label',
@@ -285,6 +291,7 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                           {
                             xtype: 'radiogroup',
                             fieldLabel: 'Choose',
+                            padding: '20 0 20 20',
                             width: 500,
                             reference: 'rb_pp',
                             listeners: {
@@ -299,27 +306,27 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtAddorEdit', {
                           },
                           {
                             xtype: 'label',
-                            reference:'lab_pplink',
+                            reference: 'lab_pplink',
+                            padding: '20 0 0 20',
                             text: 'Specify your privacy policy link text',
-                            cls: 'header_label_content',
-                            margin: '0 0 0 0'
+                            cls: 'header_label_content'
                           }, {
                             xtype: 'textfield',
-                            reference:'txt_pplink',
-                            margin: '10 0 20 0',
+                            reference: 'txt_pplink',
+                            padding: '10 0 0 20',
                             //allowBlank:false,
                             width: 680,
                             name: 'privacy_policies_link'
                           }, {
                             xtype: 'label',
-                            reference:'lab_pptext',
+                            reference: 'lab_pptext',
                             text: 'Copy & Paste your privacy policy text here',
-                            margin: '0 0 0 0',
+                            padding: '20 0 0 20',
                             cls: 'header_label_content',
                           }, {
                             xtype: 'textareafield',
-                            reference:'txt_pptext',
-                            margin: '10 0 20 0',
+                            reference: 'txt_pptext',
+                            padding: '10 0 0 20',
                             //allowBlank:false,
                             width: 680,
                             name: 'privacy_policies'

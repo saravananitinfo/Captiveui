@@ -218,20 +218,20 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
       }
     }, 'GET', false);
   },
-  privacyChange: function (checkbox, newValue) {
-    if (newValue) {
-      checkbox.up('tabpanel').down('#template_mgmt_form-custom_privacy_policies_container').show();
-    } else {
-      checkbox.up('tabpanel').down('#template_mgmt_form-custom_privacy_policies_container').hide();
-    }
-  },
-  customChange: function (checkbox, newValue) {
-    if (newValue) {
-      checkbox.up('tabpanel').down('#template_mgmt_form-custom_tnc_container').show();
-    } else {
-      checkbox.up('tabpanel').down('#template_mgmt_form-custom_tnc_container').hide();
-    }
-  },
+//  privacyChange: function (checkbox, newValue) {
+//    if (newValue) {
+//      checkbox.up('tabpanel').down('#template_mgmt_form-custom_privacy_policies_container').show();
+//    } else {
+//      checkbox.up('tabpanel').down('#template_mgmt_form-custom_privacy_policies_container').hide();
+//    }
+//  },
+//  customChange: function (checkbox, newValue) {
+//    if (newValue) {
+//      checkbox.up('tabpanel').down('#template_mgmt_form-custom_tnc_container').show();
+//    } else {
+//      checkbox.up('tabpanel').down('#template_mgmt_form-custom_tnc_container').hide();
+//    }
+//  },
   createCategoryStore: function (data) {
     var categoryData = [];
     if (data.categories && data.categories.length) {
@@ -249,13 +249,13 @@ Ext.define('CaptivePortal.view.template_mgmt.TemplateMgmtController', {
     var model = Ext.create('CaptivePortal.model.template_mgmt.TemplateMgmt', data.splash_journey);
     form.loadRecord(model);
     if (data.splash_journey.tnc_type) {
-      this.getReferences().cb_ct.setValue(true);
+     // this.getReferences().cb_ct.setValue(true);
       this.getReferences().rb_ct.setValue({
         ct: data.splash_journey.tnc_type
       });
     }
     if (data.splash_journey.privacy_policies_type) {
-      this.getReferences().cb_pp.setValue(true);
+      //this.getReferences().cb_pp.setValue(true);
       this.getReferences().rb_pp.setValue({
         pp: data.splash_journey.privacy_policies_type
       });

@@ -13,9 +13,40 @@ Ext.define('CaptivePortal.view.report.ActiveSession', {
     layout: {
         type: 'fit'
     },
+    idPrefix:'session-',
     initComponent: function () {
         this.items = [{
                 xtype: 'gridpanel',
+                dockedItems: [{
+                xtype: 'toolbar',
+                dock: 'top',
+                items: ['->',{
+                    xtype:'combo',
+                    emptyText:'Site / Group',
+                    //store: store,
+                    store: CaptivePortal.util.Utility.getEmptySiteStore(),
+                    editable:false,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    itemId: this.idPrefix + 'site',
+                    valueField: 'id',
+                    listConfig:{
+                                        getInnerTpl:CaptivePortal.util.Utility.getSiteTemplateIcon
+                                    }
+                },{
+                    xtype:'button',
+                    text: 'Search',                    
+                    cls: 'btn-add-module',
+                    itemId:this.idPrefix + 'search',
+                    handler:'activerSessionSearch'
+                }, {
+                    xtype:'button',
+                    text: 'Refresh',                    
+                    cls: 'btn-add-module',
+                    itemId: this.idPrefix + 'refresh',
+                    handler:'refresh'
+                }]
+            }],
                 reference: 'grd_activesession',
                 style: 'border-radius:2px !important;border:solid #cccccc 1px !important; box-shadow: 0px 0px 10px 0px #cccccc;',
                 store: 'CaptivePortal.store.report.ActiveSession',

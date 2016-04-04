@@ -96,7 +96,8 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						            			cls: 'table-row',
 						                        tdCls: 'table-cell',
 						            			editor: {
-						            				xtype:"tagfield",
+						            				//xtype:"tagfield",
+						            				xtype:"combo",
 						            				store:Ext.create('CaptivePortal.store.accesstimepolicy.Weekdays'),
 						            				emptyText: "Days",
 						                			queryMode: 'local',
@@ -104,12 +105,12 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                			padding:0,
 						                			margin:0,
 						                			width:300,
-						                			delimiter : null,
+						                			delimiter : ',',
 						                            multiSelect: true,
 						                            valueField: 'id',
 	                                				forceSelection:true,
 						                            displayField: 'name',
-						                            filterPickList: true
+						                           // filterPickList: true
 						           				},
 						           				emptyCellText: '<span style="color:#aaaaaa;">' + "Days" + "</span>"
 						           			},
@@ -125,7 +126,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                			forceSelection:true,
                     								increment: 30,
                     								enableKeyEvents:true,
-                    								allowBlank: false            								
+                    								allowBlank: false,
+                    								listeners:{
+                    									expand: CaptivePortal.util.Utility.updateTimeFieldFirstEntry
+                    								}         								
 						           				},
 						           				emptyCellText: '<span style="color:#aaaaaa;">' + "From Time" + "</span>",
 						           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -144,7 +148,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                			forceSelection:true,
 						            				increment: 30,
                     								enableKeyEvents:true,
-                    								allowBlank: false
+                    								allowBlank: false,
+                    								listeners:{
+                    									expand:CaptivePortal.util.Utility.addTimeFieldLastEntry
+                    								}
 						           				},
 						           				emptyCellText: '<span style="color:#aaaaaa;">' + "To Time" + "</span>",
 						           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -155,14 +162,15 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                plugins: {
 									        ptype: 'cellediting',
 									        clicksToEdit: 1,
-									        // listeners: {
-									        //     beforeedit: function(d, c) {
-									        //     	var arg = arguments;
-									        //     	if(arg[0] && arg[0].view && arg[0].view.el && arg[0].view.el.dom){
-									        //     		//arg[0].view.el.dom.style.overflow = "hidden";	
-									        //     	}
-									        //     }
-									        // }
+									        /*listeners: {
+									            beforeedit: function(d, c) {
+									            	debugger;
+									            	var arg = arguments;
+									            	if(arg[0] && arg[0].view && arg[0].view.el && arg[0].view.el.dom){
+									            		//arg[0].view.el.dom.style.overflow = "hidden";	
+									            	}
+									            }
+									        }*/
 									    },
 									    selType: "checkboxmodel",
 									    selModel: {
@@ -226,7 +234,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										            				forceSelection:true,
 										                			allowBlank: false,
 										                			format:'d/m/Y',
-										                			minValue: new Date()
+										                			//minValue: new Date()
 									           					},
 									           					emptyCellText: '<span style="color:#aaaaaa;">' + "From Date" + "</span>",
 									           					renderer:function(value, metaData, record, row, col, store, gridView){
@@ -246,7 +254,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 										            				forceSelection:true,
 										                			allowBlank: false,
 										                			format:'d/m/Y',
-										                			minValue: new Date()
+										                			//minValue: new Date()
 									           					},
 									           					emptyCellText: '<span style="color:#aaaaaa;">' + "To Date" + "</span>",
 									           					renderer:function(value, metaData, record, row, col, store, gridView){
@@ -268,7 +276,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						            				increment: 30,
 						            				enableKeyEvents:true,
 						            				forceSelection:true,
-						                			allowBlank: false
+						                			allowBlank: false,
+						                			listeners:{
+                    									expand: CaptivePortal.util.Utility.updateTimeFieldFirstEntry
+                    								}
 						           				},
 						           				emptyCellText: '<span style="color:#aaaaaa;">' + "From Time" + "</span>",
 						           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -288,7 +299,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						            				increment: 30,
 						            				enableKeyEvents:true,
 						            				forceSelection:true,
-						                			allowBlank: false
+						                			allowBlank: false,
+                    								listeners:{
+                    									expand:CaptivePortal.util.Utility.addTimeFieldLastEntry
+                    								}
 						           				},
 						           				emptyCellText: '<span style="color:#aaaaaa;">' + "To Time" + "</span>",
 						           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -380,7 +394,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 					            				enableKeyEvents:true,
 					                			allowBlank: false,
 					                			format:'d/m/Y',
-										        minValue: new Date()
+										        //minValue: new Date()
 
 					           				},
 					           				emptyCellText: '<span style="color:#aaaaaa;">' + "Specific Day" + "</span>",
@@ -401,7 +415,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 					            				increment: 30, 
 					            				forceSelection:true,
 					            				enableKeyEvents:true,
-					                			allowBlank: false
+					                			allowBlank: false,
+					                			listeners:{
+                    									expand: CaptivePortal.util.Utility.updateTimeFieldFirstEntry
+                    								}
 					           				},
 					           				emptyCellText: '<span style="color:#aaaaaa;">' + "From Time" + "</span>",
 					           				renderer:function(value, metaData, record, row, col, store, gridView){
@@ -421,7 +438,10 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 					            				forceSelection:true,
 					            				increment: 30, 
 					            				enableKeyEvents:true,
-					                			allowBlank: false
+					                			allowBlank: false,
+                    								listeners:{
+                    									expand:CaptivePortal.util.Utility.addTimeFieldLastEntry
+                    								}
 					           				},
 					           				emptyCellText: '<span style="color:#aaaaaa;">' + "To Time" + "</span>",
 					           				renderer:function(value, metaData, record, row, col, store, gridView){

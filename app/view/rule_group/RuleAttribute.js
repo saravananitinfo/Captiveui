@@ -139,6 +139,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   					valid = false;
   				}
   			}.bind(this));
+
   		} else {
   			valid = false;
   		}
@@ -299,7 +300,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
                 multiSelect:true,
 		            allowBlank: false,
 		            forceSelection:true,
-		            editable:false,
+		            //editable:false,
 		            emptyText: 'User Agent',
 		            value:obj.userAgent.value,
 		            hidden:obj.userAgent.value ? false : true,
@@ -314,11 +315,14 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 		  			padding:'0 10 0 0',
     				increment: 30,
     				forceSelection:true,
-    				editable:false,
+    				//editable:false,
     				emptyText: 'From Time',
         			allowBlank: false,
         			value:obj.fromTime.value,
-		            hidden:obj.fromTime.value ? false : true
+		            hidden:obj.fromTime.value ? false : true,
+                listeners:{
+                      //expand: CaptivePortal.util.Utility.updateTimeFieldFirstEntry
+                    }
 				},{
 		        	xtype:"timefield",
               width:'25%',
@@ -330,7 +334,10 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
         			allowBlank: false,
         			emptyText: 'To Time',
         			value:obj.toTime.value,
-		            hidden:obj.toTime.value ? false : true
+		            hidden:obj.toTime.value ? false : true,
+              listeners:{
+                //expand:CaptivePortal.util.Utility.addTimeFieldLastEntry
+              }
 				}
 
   				]

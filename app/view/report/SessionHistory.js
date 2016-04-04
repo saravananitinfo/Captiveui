@@ -48,13 +48,15 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     itemId:'histroy-start',
                     emptyText:'Start Date',
                     format:'d/m/Y',
-                    editable:false
+                    editable:false,
+                    maxValue:new Date()
                 },{
                     xtype:'datefield',
                     itemId:'histroy-end',
                     format:'d/m/Y',
                     emptyText:'End Date',
-                    editable:false                    
+                    editable:false,                  
+                    maxValue:new Date()
                 },{
                     xtype:'combo',
                     emptyText:'Site / Group',
@@ -74,6 +76,12 @@ Ext.define('CaptivePortal.view.report.SessionHistory', {
                     cls: 'btn-add-module',
                     itemId:'histroy-search',
                     handler:'histroySearch'
+                }, {
+                    xtype:'button',
+                    text: 'Refresh',                    
+                    cls: 'btn-add-module',
+                    itemId:'histroy-refresh',
+                    handler:'refresh'
                 }]
             }],
                 width:'100%',

@@ -6,6 +6,21 @@ Ext.define('CaptivePortal.util.Utility', {
     config: {
         myMask: null
     },
+    addTimeFieldLastEntry: function(comp){
+        if(!comp.store.__newRecAdd){
+            comp.store.add({
+                disp:'End of day', 
+                date: new Date(2008,0,1,23,59,0)
+            });
+            comp.store.__newRecAdd = true; 
+        }
+    },
+    updateTimeFieldFirstEntry: function(comp){
+        var firstRecord = comp.store.getAt(0);
+        if(firstRecord){
+            firstRecord.set('disp', 'Start of day');
+        }
+    },
     updateAssumeFlag: function(cObj){
         if(cObj.assumeUserFlag === true){
             CaptivePortal.app.setAssumeUserFlag(true);

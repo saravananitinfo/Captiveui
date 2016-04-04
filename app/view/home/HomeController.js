@@ -132,9 +132,11 @@ Ext.define('CaptivePortal.view.home.HomeController', {
                 if (menu.text === 'Active Session Report') {
                     this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_activesessionreport');
                     this.getView().lookupReference('lab_heading').setText('Active Session');
+                    this.fireEvent('refreshActiveSession');
                 } else {
                     this.getView().lookupReference('pan_mainnavigation').setActiveItem('card_sessionhistoryreport');
                     this.getView().lookupReference('lab_heading').setText('Session History');
+                    this.fireEvent('refreshSessionHistroy');
                 }                
                 break;
         }

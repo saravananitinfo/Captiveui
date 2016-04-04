@@ -1,6 +1,23 @@
 Ext.define('CaptivePortal.view.report.SessionHistoryController',{
     extend:'Ext.app.ViewController', 
     alias:'controller.report_sessionhistory',
+    listen: {
+        controller: {
+            "*":{
+                refreshSessionHistroy: "refresh"
+            }
+        }
+    },
+    refresh: function(){
+        var grid = this.getView().down('grid');
+        grid.down('#histroy-start').reset();
+        grid.down('#histroy-end').reset();
+        grid.down('#histroy-site').reset();
+        grid.store.proxy.extraParams.resource = undefined;
+        grid.store.proxy.extraParams.start_date = undefined;
+        grid.store.proxy.extraParams.end_date = undefined;
+        grid.store.load();
+    },
     histroySearch: function(btn){
     	var grid = btn.up('grid'), start = grid.down('#histroy-start').getRawValue(),
     	end = grid.down('#histroy-end').getRawValue(), site = grid.down('#histroy-site').getValue();

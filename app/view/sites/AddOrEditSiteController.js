@@ -236,16 +236,13 @@ Ext.define('CaptivePortal.view.sites.AddOrEditSiteController', {
                                 case 4:
                                     this.saveSiteDetails(url, method, site_id, formValues, me);
                                     break;
+                                case 8:
                                     formValues['copy_config'] = true;
                                     this.saveSiteDetails(url, method, site_id, formValues, me);
                                     break;
                             }
                         }
-                        else if (btn === 'no') {
-                            if (caseNo === 8) {
-                                this.saveSiteDetails(url, method, site_id, formValues, me);
-                            }
-                        }
+                        
                     }.bind(this)
                 });
             }

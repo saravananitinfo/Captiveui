@@ -146,6 +146,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						                			xtype:"timefield",
 						                			emptyText: "To Time",
 						                			forceSelection:true,
+						                			minValue:new Date(2008, 0 ,1, 0, 30 ,0),
 						            				increment: 30,
                     								enableKeyEvents:true,
                     								allowBlank: false,
@@ -298,6 +299,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 						            				hasFocus:true,
 						            				increment: 30,
 						            				enableKeyEvents:true,
+						            				minValue:new Date(2008, 0 ,1, 0, 30 ,0),
 						            				forceSelection:true,
 						                			allowBlank: false,
                     								listeners:{
@@ -437,6 +439,7 @@ Ext.define('CaptivePortal.view.accesstimepolicy.AccessTimePolicyEdit', {
 					            				hasFocus:true,
 					            				forceSelection:true,
 					            				increment: 30, 
+					            				minValue:new Date(2008, 0 ,1, 0, 30 ,0),
 					            				enableKeyEvents:true,
 					                			allowBlank: false,
                     								listeners:{

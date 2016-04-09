@@ -127,24 +127,41 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 	}.bind(this));
 	return value;
   },
+  areTimeFieldsValid : function(container, fields){
+    var typeValue = container.getValue(), 
+        valid = true;
+      if(typeValue == "7" && fields[0].getValue() >= fields[1].getValue()){
+        valid = false;
+      }
+      if(!valid){
+        CaptivePortal.util.Utility.showError('','From time should be less than to time');
+      }
+      return valid;
+  },
   areContainersValid:function(){
-  	var valid = true;
+  	var valid = true, isTimeValid = true;
   	var dynRows = this.down('#rule_group_rule_attribute_form-dynRowContainer').query('container');
   	Ext.Array.each(dynRows, function(c, index){
   		var typeCombo = c.query('[customType=' + this.ATTR_ENUM.TYPE_COMBO + ']')[0];
   		if(typeCombo.isValid()){
   			var dataFields = this.getFieldsForType(typeCombo.getValue(), c);
-  			Ext.Array.each(dataFields, function(f, ind){
+  			Ext.Array.each(dataFields, function(f, ind){          
   				if(!f.isValid()){
   					valid = false;
+            return false;
   				}
+          if(!this.areTimeFieldsValid(typeCombo, dataFields)){
+            isTimeValid = false;  
+            valid = false;
+            return false;
+          }
   			}.bind(this));
 
   		} else {
   			valid = false;
   		}
   	}.bind(this));
-  	if(!valid){
+  	if(isTimeValid && !valid){
   		CaptivePortal.util.Utility.showError('','Please fill mandatroy fields for rule attributes');
   	}
   	return valid;
@@ -202,6 +219,7 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
   	}.bind(this));
   },
   generateNewAttribute: function(obj){
+    var objRef = obj;
   	return {
   		xtype:'container',
   		padding:10,
@@ -315,13 +333,17 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
 		  			padding:'0 10 0 0',
     				increment: 30,
     				forceSelection:true,
-    				//editable:false,
+    				editable:false,
     				emptyText: 'From Time',
+            __ref:obj,
         			allowBlank: false,
         			value:obj.fromTime.value,
 		            hidden:obj.fromTime.value ? false : true,
                 listeners:{
-                      //expand: CaptivePortal.util.Utility.updateTimeFieldFirstEntry
+                    render: function(comp){               
+                        CaptivePortal.util.Utility.updateTimeFieldFirstEntry(comp);
+                        comp.__ref.fromTime.value && comp.setValue(comp.__ref.fromTime.value);
+                      }.bind(this)
                     }
 				},{
 		        	xtype:"timefield",
@@ -332,11 +354,16 @@ Ext.define('CaptivePortal.view.rule_group.RuleAttribute', {
     				forceSelection:true,
     				editable:false,
         			allowBlank: false,
+              minValue:new Date(2008, 0 ,1, 0, 30 ,0),
         			emptyText: 'To Time',
         			value:obj.toTime.value,
+              __ref:obj,
 		            hidden:obj.toTime.value ? false : true,
               listeners:{
-                //expand:CaptivePortal.util.Utility.addTimeFieldLastEntry
+                render: function(comp){               
+                  CaptivePortal.util.Utility.addTimeFieldLastEntry(comp);
+                  comp.__ref.toTime.value && comp.setValue(comp.__ref.toTime.value);
+               }.bind(this)
               }
 				}
 
